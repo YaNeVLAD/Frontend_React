@@ -5,8 +5,8 @@ import style from './Presentation.module.css'
 
 type PresentationProps = {
     title: string,
-    slides: Array<SlideType>
-    selection: GlobalSelectionType
+    slides: Array<SlideType>,
+    selection: GlobalSelectionType,
 }
 
 function Presentation(presentationProps: PresentationProps) {

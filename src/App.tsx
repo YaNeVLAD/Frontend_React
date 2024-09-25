@@ -20,7 +20,7 @@ const Image: ImageType = {
   type: 'imageObj',
   pos: { x: 500, y: 200 },
   size: { width: 200, height: 200 },
-  turnAngle: 45,
+  turnAngle: 188,
   src: { value: '/aboba.png', type: 'image' },
 }
 
@@ -73,22 +73,25 @@ const Slide5: SlideType = {
   }
 }
 
-const Slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
+const slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const selection: GlobalSelectionType = {
-  SelectedSlide: Slides[0],
+  SelectedSlide: slides[0],
   SelectedObject: undefined
 }
 
 const TestPresentation: PresentationType = {
   title: 'My Presentation',
-  slides: Slides,
+  slides: slides,
   selection: selection
 }
 
 function App() {
   return (
-    <Presentation title={TestPresentation.title} slides={TestPresentation.slides} selection={selection} />
+    <Presentation
+      title={TestPresentation.title}
+      slides={TestPresentation.slides}
+      selection={selection} />
   )
 }
 
