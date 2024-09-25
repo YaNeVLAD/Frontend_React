@@ -14,8 +14,8 @@ function Presentation(presentationProps: PresentationProps) {
         <>
             <h1 className={style.presentationTitle}>{presentationProps.title}</h1>
             <div className={style.presentation}>
-                    <SlideCollection slides={presentationProps.slides} />
-                    <WorkArea slide={presentationProps.selection.SelectedSlide} />
+                <SlideCollection slides={presentationProps.slides} />
+                <WorkArea slide={presentationProps.selection.SelectedSlide} />
             </div>
         </>
     )

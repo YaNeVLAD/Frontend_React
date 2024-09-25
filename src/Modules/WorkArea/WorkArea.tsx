@@ -8,7 +8,7 @@ type WorkAreaProps = {
 
 function WorkArea(workAreaProps: WorkAreaProps) {
     return (
-        <div className={style.workingArea}>
+        <div className={style.workArea}>
             <Slide
                 id={workAreaProps.slide.id}
                 background={workAreaProps.slide.background}
