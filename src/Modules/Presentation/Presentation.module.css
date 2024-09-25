@@ -9,21 +9,3 @@
 .presentationTitle {
     font-size: 50px;
 }
-
-.slideCollection {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    min-width: 200px;
-    border-right: #000000 1px solid;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.slideCollectionItemDiv {
-    margin: 10px 5px;
-}
-
-.workingArea {
-    width: 100%;
-}
