@@ -1,0 +1,21 @@
+.slideCollection {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    min-width: 200px;
+    border-right: #000000 1px solid;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.slideCollectionItemTitle {
+    font-size: 15px;
+}
+
+.slideCollectionItemDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: 10px 5px;
+}

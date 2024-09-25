@@ -1,7 +1,8 @@
 .slide_preview {
     height: 100px;
-    background-color: #FFFFFF;
-    border: #000000 1px solid;
+    width: 100%;
+    border: #BABABA 2px solid;
+    border-radius: 10px;
     background-repeat: no-repeat;
     background-size: cover;
 }
