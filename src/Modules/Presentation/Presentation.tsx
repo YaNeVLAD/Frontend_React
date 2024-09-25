@@ -1,11 +1,11 @@
-import { GlobalSelectionType } from "../../Model/types"
+import { GlobalSelectionType, SlideType } from "../../Model/types"
 import { Slide } from "../Slide/Slide"
 import { SlidePreview } from "../SlidePreview/SlidePreview"
 import style from './Presentation.module.css'
 
 type PresentationProps = {
     title: string,
-    slidesIds: Array<string>
+    slides: Array<SlideType>
     selection: GlobalSelectionType
 }
 
@@ -16,9 +16,9 @@ function Presentation(presentationProps: PresentationProps) {
             <div className={style.presentation}>
                 <div className={style.slideCollection}>
                     {
-                        presentationProps.slidesIds.map(slide =>
-                            <div className={style.slideCollectionItemDiv} key={slide} >
-                                <h3>{presentationProps.slidesIds.indexOf(slide) + 1}</h3>
+                        presentationProps.slides.map(slide =>
+                            <div className={style.slideCollectionItemDiv} key={slide.id} >
+                                <h3>{presentationProps.slides.indexOf(slide) + 1}</h3>
                                 <SlidePreview />
                             </div>
                         )

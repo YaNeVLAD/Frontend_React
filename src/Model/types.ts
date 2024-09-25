@@ -1,11 +1,12 @@
 type PresentationType = {
     title: string,
-    slidesIds: Array<string>
+    slides: Array<SlideType>
+    selection: GlobalSelectionType
 }
-//Решить можно ли будет выделять объекты на слайде, когда выделено несколько слайдов
+
 type GlobalSelectionType = {
     SelectedSlide: SlideType,
-    SelectedObject: SlideObjectType,
+    SelectedObject: SlideObjectType | undefined,
 }
 
 type SlideType = {
@@ -20,7 +21,10 @@ type SolidColor = {
 }
 
 type GradientColor = {
-    value: string,
+    value: {
+        firstColor: string,
+        secondColor: string
+    },
     type: 'gradient',
 }
 

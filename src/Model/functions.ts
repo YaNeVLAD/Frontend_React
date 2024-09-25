@@ -1,28 +1,28 @@
-import { type ImageSrc, type Presentation, type Slide, type TextArea, type SolidColor, type GradientColor, type GlobalSelection, Image } from "./types"
+import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType } from "./types"
 
-function changePresentationTitle(title: string, presentation: Presentation): Presentation {
+function changePresentationTitle(title: string, presentation: PresentationType): PresentationType {
     return {
         ...presentation,
         title: title
     }
 }
 
-function addSlide(slide: Slide, presentation: Presentation): Presentation {
-    const slides: Array<Slide> = presentation.slides
+function addSlide(slide: SlideType, presentation: PresentationType): PresentationType {
+    const slides = presentation.slides
     slides.push(slide)
 
     return {
         ...presentation,
         selection: {
-            SelectedSlidesIds: [slide.id],
-            SelectedObjectsIds: [],
+            SelectedSlide: slide,
+            SelectedObject: undefined,
         },
         slides: slides
     }
 }
 
-function deleteSlide(slide: Slide, presentation: Presentation): Presentation {
-    if (presentation.selection.SelectedSlidesIds.indexOf(slide.id) == -1) {
+function deleteSlide(slide: SlideType, presentation: PresentationType): PresentationType {
+    if (presentation.selection.SelectedSlide != slide) {
         throw new Error('Can\'t delete slide that isn\'t selected')
     }
 
@@ -35,25 +35,25 @@ function deleteSlide(slide: Slide, presentation: Presentation): Presentation {
         throw new Error('Can\'t delete slide that isn\'t in presentation')
     }
 
-    const modifiedSlides: Array<Slide> = presentation.slides
+    const modifiedSlides = presentation.slides
     modifiedSlides.splice(index, 1)
 
     return {
         ...presentation,
         slides: modifiedSlides,
         selection: {
-            SelectedSlidesIds: [modifiedSlides[0].id],
-            SelectedObjectsIds: []
+            SelectedSlide: modifiedSlides[0],
+            SelectedObject: undefined
         }
     }
 }
 
-function moveSlide(slideFrom: Slide, slideTo: Slide, presentation: Presentation): Presentation {
-    if (presentation.selection.SelectedSlidesIds.indexOf(slideFrom.id) == -1) {
+function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: PresentationType): PresentationType {
+    if (presentation.selection.SelectedSlide != slideFrom) {
         throw new Error('Can\'t move slide that isn\'t selected')
     }
 
-    const slides: Array<Slide> = presentation.slides
+    const slides = presentation.slides
     
     const tmp = slideTo
     slideTo = slideFrom
@@ -65,8 +65,8 @@ function moveSlide(slideFrom: Slide, slideTo: Slide, presentation: Presentation)
     }
 }
 
-function changeSlideBackground(slide: Slide, newBackground: SolidColor | GradientColor | ImageSrc, selection: GlobalSelection): Slide {
-    if (selection.SelectedSlidesIds.indexOf(slide.id) == -1) {
+function changeSlideBackground(slide: SlideType, newBackground: SolidColor | GradientColor | ImageSrc, selection: GlobalSelectionType): SlideType {
+    if (selection.SelectedSlide != slide) {
         throw new Error('Can\'t change background of slide that isn\'t selected')
     }
 
@@ -76,8 +76,8 @@ function changeSlideBackground(slide: Slide, newBackground: SolidColor | Gradien
     }
 }
 
-function addObject(slide: Slide, object: Image | TextArea, selection: GlobalSelection): Slide {
-    if (selection.SelectedSlidesIds.indexOf(slide.id) == -1) {
+function addObject(slide: SlideType, object: ImageType | TextAreaType, selection: GlobalSelectionType): SlideType {
+    if (selection.SelectedSlide != slide) {
         throw new Error('Can\'t change add objects on slide that isn\'t selected')
     }
 
@@ -90,12 +90,12 @@ function addObject(slide: Slide, object: Image | TextArea, selection: GlobalSele
     }
 }
 
-function deleteObject(slide: Slide, object: Image | TextArea, selection: GlobalSelection): Slide {
-    if (selection.SelectedSlidesIds.indexOf(slide.id) == -1) {
+function deleteObject(slide: SlideType, object: ImageType | TextAreaType, selection: GlobalSelectionType): SlideType {
+    if (selection.SelectedSlide != slide) {
         throw new Error('Can\'t delete object on slide that isn\'t selected')
     }
 
-    if (selection.SelectedObjectsIds.indexOf(object.id) == -1) {
+    if (selection.SelectedObject != object) {
         throw new Error('Can\'t delete object that isn\'t selected')
     }
 
@@ -114,8 +114,8 @@ function deleteObject(slide: Slide, object: Image | TextArea, selection: GlobalS
     }
 }
 
-function moveObject(slide: Slide, objectToMove: Image | TextArea, newX: number, newY: number, selection: GlobalSelection): Slide {
-    if (selection.SelectedSlidesIds.indexOf(slide.id) == -1) {
+function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, newX: number, newY: number, selection: GlobalSelectionType): SlideType {
+    if (selection.SelectedObject != objectToMove) {
         throw new Error('Can\'t move slide that isn\'t selected')
     }
 
@@ -139,8 +139,8 @@ function moveObject(slide: Slide, objectToMove: Image | TextArea, newX: number, 
     }
 }
 
-function changeTextValue(textArea: TextArea, newValue: string, selection: GlobalSelection): TextArea {
-    if (selection.SelectedObjectsIds.indexOf(textArea.id) == -1) {
+function changeTextValue(textArea: TextAreaType, newValue: string, selection: GlobalSelectionType): TextAreaType {
+    if (selection.SelectedObject != textArea) {
         throw new Error('Can\'t change text value of area that isn\'t selected')
     }
 
@@ -150,8 +150,8 @@ function changeTextValue(textArea: TextArea, newValue: string, selection: Global
     }
 }
 
-function changeTextFont(textArea: TextArea, newFont: string, selection: GlobalSelection): TextArea {
-    if (selection.SelectedObjectsIds.indexOf(textArea.id) == -1) {
+function changeTextFont(textArea: TextAreaType, newFont: string, selection: GlobalSelectionType): TextAreaType {
+    if (selection.SelectedObject != textArea) {
         throw new Error('Can\'t change text font of area that isn\'t selected')
     }
 
@@ -161,8 +161,8 @@ function changeTextFont(textArea: TextArea, newFont: string, selection: GlobalSe
     }
 }
 
-function changeTextColor(textArea: TextArea, newColor: string, selection: GlobalSelection): TextArea {
-    if (selection.SelectedObjectsIds.indexOf(textArea.id) == -1) {
+function changeTextColor(textArea: TextAreaType, newColor: string, selection: GlobalSelectionType): TextAreaType {
+    if (selection.SelectedObject != textArea) {
         throw new Error('Can\'t change text color of area that isn\'t selected')
     }
 
@@ -172,8 +172,8 @@ function changeTextColor(textArea: TextArea, newColor: string, selection: Global
     }
 }
 
-function changeTextScale(textArea: TextArea, newSize: number, selection: GlobalSelection): TextArea {
-    if (selection.SelectedObjectsIds.indexOf(textArea.id) == -1) {
+function changeTextScale(textArea: TextAreaType, newSize: number, selection: GlobalSelectionType): TextAreaType {
+    if (selection.SelectedObject != textArea) {
         throw new Error('Can\'t change text size of area that isn\'t selected')
     }
 
@@ -183,19 +183,19 @@ function changeTextScale(textArea: TextArea, newSize: number, selection: GlobalS
     }
 }
 
-function selectObject(selection: GlobalSelection, slideId: string, objectId: string): GlobalSelection {
+function selectObject(selection: GlobalSelectionType, slide: SlideType, object: ImageType | TextAreaType): GlobalSelectionType {
     return {
         ...selection,
-        SelectedSlidesIds: [slideId],
-        SelectedObjectsIds: [objectId]
+        SelectedSlide: slide,
+        SelectedObject: object
     }
 }
 
-function selectSlide(selection: GlobalSelection, slideId: string): GlobalSelection {
+function selectSlide(selection: GlobalSelectionType, slide: SlideType): GlobalSelectionType {
     return {
         ...selection,
-        SelectedSlidesIds: [slideId],
-        SelectedObjectsIds: []
+        SelectedSlide: slide,
+        SelectedObject: undefined
     }
 }
 

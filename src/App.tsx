@@ -46,8 +46,12 @@ const Slide3: SlideType = {
   id: uuid(),
   objects: [],
   background: {
-    value: "#FF00FF",
-    type: 'solid'
+    value:
+    {
+      firstColor: '#00FFAA',
+      secondColor: '#AAFF00'
+    },
+    type: 'gradient'
   }
 }
 
@@ -69,19 +73,22 @@ const Slide5: SlideType = {
   }
 }
 
-const TestPresentation: PresentationType = {
-  title: 'My Presentation',
-  slidesIds: [Slide1.id, Slide2.id, Slide3.id, Slide4.id, Slide5.id],
-}
+const Slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const selection: GlobalSelectionType = {
-  SelectedSlide: Slide1,
-  SelectedObject: Slide1.objects[0]
+  SelectedSlide: Slides[0],
+  SelectedObject: undefined
+}
+
+const TestPresentation: PresentationType = {
+  title: 'My Presentation',
+  slides: Slides,
+  selection: selection
 }
 
 function App() {
   return (
-    <Presentation title={TestPresentation.title} slidesIds={TestPresentation.slidesIds} selection={selection} />
+    <Presentation title={TestPresentation.title} slides={TestPresentation.slides} selection={selection} />
   )
 }
 
