@@ -1,6 +1,7 @@
 import { GlobalSelectionType, SlideType } from "../../Model/types"
 import { Slide } from "../Slide/Slide"
 import { SlidePreview } from "../SlidePreview/SlidePreview"
+// import { SlidePreview } from "../SlidePreview/SlidePreview"
 import style from './Presentation.module.css'
 
 type PresentationProps = {
@@ -19,7 +20,8 @@ function Presentation(presentationProps: PresentationProps) {
                         presentationProps.slides.map(slide =>
                             <div className={style.slideCollectionItemDiv} key={slide.id} >
                                 <h3>{presentationProps.slides.indexOf(slide) + 1}</h3>
-                                <SlidePreview />
+                                <SlidePreview
+                                    background={slide.background} />
                             </div>
                         )
                     }
@@ -28,7 +30,7 @@ function Presentation(presentationProps: PresentationProps) {
                     <Slide
                         id={presentationProps.selection.SelectedSlide.id}
                         background={presentationProps.selection.SelectedSlide.background}
-                        objects={presentationProps.selection.SelectedSlide.objects}></Slide>
+                        objects={presentationProps.selection.SelectedSlide.objects} />
                 </div>
             </div>
         </>
