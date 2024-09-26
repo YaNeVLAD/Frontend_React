@@ -76,7 +76,7 @@ const Slide5: SlideType = {
 const slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const selection: GlobalSelectionType = {
-  SelectedSlide: slides[0],
+  SelectedSlide: slides[2],
   SelectedObject: undefined
 }
 

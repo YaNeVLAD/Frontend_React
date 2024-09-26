@@ -1,8 +1,8 @@
 import { GlobalSelectionType, SlideType } from "../../Model/types"
 import { SlideCollection } from "../SlideCollection/SlideCollection"
 import { SelectedSlide } from "../SelectedSlide/SelectedSlide"
-import style from './Presentation.module.css'
 import { ToolsArea } from "../ToolsArea/ToolsArea"
+import style from './Presentation.module.css'
 
 type PresentationProps = {
     title: string,
