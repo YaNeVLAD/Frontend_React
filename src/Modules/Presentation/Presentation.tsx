@@ -12,7 +12,7 @@ type PresentationProps = {
 
 function Presentation(presentationProps: PresentationProps) {
     return (
-        <>
+        <div>
             <h1 className={style.presentationTitle}>{presentationProps.title}</h1>
             <ToolsArea />
             <div className={style.presentation}>
@@ -22,7 +22,7 @@ function Presentation(presentationProps: PresentationProps) {
                     objects={presentationProps.selection.SelectedSlide.objects}
                     background={presentationProps.selection.SelectedSlide.background} />
             </div>
-        </>
+        </div>
     )
 }
 
