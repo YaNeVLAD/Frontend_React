@@ -34,7 +34,9 @@ function SlidePreview(slidePreviewProps: SlidePreviewProps) {
     }
 
     return (
-        <div className={style.slide_preview} style={slidePreviewStyle}>
+        <div
+            className={style.slide_preview}
+            style={slidePreviewStyle}>
         </div>
     )
 }

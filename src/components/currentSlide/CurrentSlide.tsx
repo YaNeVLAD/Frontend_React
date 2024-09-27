@@ -3,7 +3,7 @@ import { Slide } from "../slide/Slide"
 import style from './CurrentSlide.module.css'
 
 type CurrentSlideProps = SlideType
-//Лишняя вложенность
+//Лишняя вложенность. Удалить компонент
 function CurrentSlide(selectedSlideProps: CurrentSlideProps) {
     return (
         <div className={style.selectedSlide}>

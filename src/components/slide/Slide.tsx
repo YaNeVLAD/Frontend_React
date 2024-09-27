@@ -18,7 +18,7 @@ function Slide(slideProps: SlideProps) {
     switch (slideProps.background.type) {
         case 'solid':
             {
-                slideStyle.backgroundColor = slideProps.background.value 
+                slideStyle.backgroundColor = slideProps.background.value
                 break
             }
         case 'image':

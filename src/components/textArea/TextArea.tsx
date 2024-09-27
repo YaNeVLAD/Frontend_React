@@ -18,9 +18,11 @@ function TextArea(textAreaProps: TextAreaProps) {
     }
 
     return (
-        <div>
-            <p style={textAreaStyle} className={style.textArea}>{textAreaProps.object.value}</p>
-        </div>
+        <p
+            style={textAreaStyle}
+            className={style.textArea}>
+            {textAreaProps.object.value}
+        </p>
     )
 }
 

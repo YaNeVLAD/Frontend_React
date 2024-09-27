@@ -15,11 +15,9 @@ function Image(imageProps: ImageProps) {
     }
 
     return (
-        <div>
-            <img style={imageStyle} 
-            className={style.image} 
+        <img style={imageStyle}
+            className={style.image}
             src={imageProps.object.src.value} />
-        </div>
     )
 }
 
