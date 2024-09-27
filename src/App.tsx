@@ -2,6 +2,7 @@ import './App.css'
 import { uuid } from './Model/functions'
 import { GlobalSelectionType, ImageType, PresentationType, SlideType, TextAreaType } from './Model/types'
 import { Presentation } from './components/presentation/Presentation'
+import { ToolsArea } from './components/toolsArea/ToolsArea'
 
 const TextArea1: TextAreaType = {
   id: uuid(),
@@ -108,10 +109,14 @@ const TestPresentation: PresentationType = {
 
 function App() {
   return (
+    <>
+    <ToolsArea/>
     <Presentation
       title={TestPresentation.title}
       slides={TestPresentation.slides}
       selection={selection} />
+    </>
+    
   )
 }
 

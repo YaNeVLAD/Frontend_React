@@ -5,9 +5,10 @@ type SlidePreviewProps = {
     id: string,
     background: ImageSrc | SolidColor | GradientColor
 }
-
+//Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale
 function SlidePreview(slidePreviewProps: SlidePreviewProps) {
     let slidePreviewStyle
+
     switch (slidePreviewProps.background.type) {
         case 'solid':
             {

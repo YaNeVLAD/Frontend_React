@@ -1,37 +1,25 @@
+import { TextAreaType } from '../../Model/types'
 import style from './TextArea.module.css'
 
 type TextAreaProps = {
-    pos: {
-        x: number,
-        y: number,
-    },
-    size: {
-        width: number,
-        height: number,
-    },
-    turnAngle: number,
-
-    value: string,
-    font: string,
-    color: string
-    textSize: number,
+    object: TextAreaType
 }
 
 function TextArea(textAreaProps: TextAreaProps) {
     const textAreaStyle = {
-        left: textAreaProps.pos.x,
-        top: textAreaProps.pos.y,
-        height: textAreaProps.size.height,
-        width: textAreaProps.size.width,
-        font: textAreaProps.font,
-        fontSize: textAreaProps.textSize,
-        color: textAreaProps.color,
-        transform: 'rotate(' + textAreaProps.turnAngle + 'deg)'
+        left: textAreaProps.object.pos.x,
+        top: textAreaProps.object.pos.y,
+        height: textAreaProps.object.size.height,
+        width: textAreaProps.object.size.width,
+        font: textAreaProps.object.font,
+        fontSize: textAreaProps.object.textSize,
+        color: textAreaProps.object.color,
+        transform: 'rotate(' + textAreaProps.object.turnAngle + 'deg)'
     }
 
     return (
         <div>
-            <p style={textAreaStyle} className={style.textArea}>{textAreaProps.value}</p>
+            <p style={textAreaStyle} className={style.textArea}>{textAreaProps.object.value}</p>
         </div>
     )
 }

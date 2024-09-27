@@ -1,31 +1,24 @@
-import { ImageSrc } from "../../Model/types"
+import { ImageType } from "../../Model/types"
 import style from './Image.module.css'
 
 type ImageProps = {
-    pos: {
-        x: number,
-        y: number,
-    },
-    size: {
-        width: number,
-        height: number,
-    },
-    turnAngle: number,
-    src: ImageSrc
+    object: ImageType
 }
 
-function Image(ImageProps: ImageProps) {
+function Image(imageProps: ImageProps) {
     const imageStyle = {
-        left: ImageProps.pos.x,
-        top: ImageProps.pos.y,
-        height: ImageProps.size.height,
-        width: ImageProps.size.width,
-        transform: 'rotate(' + ImageProps.turnAngle + 'deg)'
+        left: imageProps.object.pos.x,
+        top: imageProps.object.pos.y,
+        height: imageProps.object.size.height,
+        width: imageProps.object.size.width,
+        transform: 'rotate(' + imageProps.object.turnAngle + 'deg)'
     }
 
     return (
         <div>
-            <img style={imageStyle} className={style.image} src={ImageProps.src.value} />
+            <img style={imageStyle} 
+            className={style.image} 
+            src={imageProps.object.src.value} />
         </div>
     )
 }

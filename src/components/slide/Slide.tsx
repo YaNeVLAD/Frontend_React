@@ -8,15 +8,17 @@ type SlideProps = {
     background: SolidColor | GradientColor | ImageSrc,
 }
 
+//Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale
 function Slide(slideProps: SlideProps) {
     const slideStyle = {
         backgroundColor: '',
         backgroundImage: '',
     }
+
     switch (slideProps.background.type) {
         case 'solid':
             {
-                slideStyle.backgroundColor = slideProps.background.value
+                slideStyle.backgroundColor = slideProps.background.value 
                 break
             }
         case 'image':

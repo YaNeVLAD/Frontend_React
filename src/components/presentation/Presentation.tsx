@@ -1,8 +1,7 @@
 import { GlobalSelectionType, SlideType } from "../../Model/types"
 import { CurrentSlide } from "../currentSlide/CurrentSlide"
-import { SlideCollection } from "../slideCollection/SlideCollection"
-import { ToolsArea } from "../toolsArea/ToolsArea"
 import style from './Presentation.module.css'
+import { SlideCollection } from "../slideCollection/SlideCollection"
 
 type PresentationProps = {
     title: string,
@@ -10,11 +9,13 @@ type PresentationProps = {
     selection: GlobalSelectionType,
 }
 
+//Разделить презентацию
 function Presentation(presentationProps: PresentationProps) {
     return (
         <div>
-            <h1 className={style.presentationTitle}>{presentationProps.title}</h1>
-            <ToolsArea />
+            <h1 className={style.presentationTitle}>
+                {presentationProps.title}
+            </h1>
             <div className={style.presentation}>
                 <SlideCollection slides={presentationProps.slides} />
                 <CurrentSlide

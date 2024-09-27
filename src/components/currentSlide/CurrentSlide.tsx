@@ -3,7 +3,7 @@ import { Slide } from "../slide/Slide"
 import style from './CurrentSlide.module.css'
 
 type CurrentSlideProps = SlideType
-
+//Лишняя вложенность
 function CurrentSlide(selectedSlideProps: CurrentSlideProps) {
     return (
         <div className={style.selectedSlide}>
