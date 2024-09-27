@@ -6,7 +6,7 @@ function changePresentationTitle(title: string, presentation: PresentationType):
         title: title
     }
 }
-
+//Нужно деструкторизировать презентацию и слайды во всех функциях
 function addSlide(slide: SlideType, presentation: PresentationType): PresentationType {
     const slides = presentation.slides
     slides.push(slide)
@@ -14,15 +14,15 @@ function addSlide(slide: SlideType, presentation: PresentationType): Presentatio
     return {
         ...presentation,
         selection: {
-            SelectedSlide: slide,
-            SelectedObject: undefined,
+            selectedSlide: slide,
+            selectedObject: undefined,
         },
         slides: slides
     }
 }
 
 function deleteSlide(slide: SlideType, presentation: PresentationType): PresentationType {
-    if (presentation.selection.SelectedSlide != slide) {
+    if (presentation.selection.selectedSlide != slide) {
         throw new Error('Can\'t delete slide that isn\'t selected')
     }
 
@@ -42,19 +42,19 @@ function deleteSlide(slide: SlideType, presentation: PresentationType): Presenta
         ...presentation,
         slides: modifiedSlides,
         selection: {
-            SelectedSlide: modifiedSlides[0],
-            SelectedObject: undefined
+            selectedSlide: modifiedSlides[0],
+            selectedObject: undefined
         }
     }
 }
 
 function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: PresentationType): PresentationType {
-    if (presentation.selection.SelectedSlide != slideFrom) {
+    if (presentation.selection.selectedSlide != slideFrom) {
         throw new Error('Can\'t move slide that isn\'t selected')
     }
 
     const slides = presentation.slides
-    
+
     const tmp = slideTo
     slideTo = slideFrom
     slideFrom = tmp
@@ -66,7 +66,7 @@ function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: Prese
 }
 
 function changeSlideBackground(slide: SlideType, newBackground: SolidColor | GradientColor | ImageSrc, selection: GlobalSelectionType): SlideType {
-    if (selection.SelectedSlide != slide) {
+    if (selection.selectedSlide != slide) {
         throw new Error('Can\'t change background of slide that isn\'t selected')
     }
 
@@ -77,7 +77,7 @@ function changeSlideBackground(slide: SlideType, newBackground: SolidColor | Gra
 }
 
 function addObject(slide: SlideType, object: ImageType | TextAreaType, selection: GlobalSelectionType): SlideType {
-    if (selection.SelectedSlide != slide) {
+    if (selection.selectedSlide != slide) {
         throw new Error('Can\'t change add objects on slide that isn\'t selected')
     }
 
@@ -91,11 +91,11 @@ function addObject(slide: SlideType, object: ImageType | TextAreaType, selection
 }
 
 function deleteObject(slide: SlideType, object: ImageType | TextAreaType, selection: GlobalSelectionType): SlideType {
-    if (selection.SelectedSlide != slide) {
+    if (selection.selectedSlide != slide) {
         throw new Error('Can\'t delete object on slide that isn\'t selected')
     }
 
-    if (selection.SelectedObject != object) {
+    if (selection.selectedObject != object) {
         throw new Error('Can\'t delete object that isn\'t selected')
     }
 
@@ -115,7 +115,7 @@ function deleteObject(slide: SlideType, object: ImageType | TextAreaType, select
 }
 
 function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, newX: number, newY: number, selection: GlobalSelectionType): SlideType {
-    if (selection.SelectedObject != objectToMove) {
+    if (selection.selectedObject != objectToMove) {
         throw new Error('Can\'t move slide that isn\'t selected')
     }
 
@@ -140,7 +140,7 @@ function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, ne
 }
 
 function changeTextValue(textArea: TextAreaType, newValue: string, selection: GlobalSelectionType): TextAreaType {
-    if (selection.SelectedObject != textArea) {
+    if (selection.selectedObject != textArea) {
         throw new Error('Can\'t change text value of area that isn\'t selected')
     }
 
@@ -151,7 +151,7 @@ function changeTextValue(textArea: TextAreaType, newValue: string, selection: Gl
 }
 
 function changeTextFont(textArea: TextAreaType, newFont: string, selection: GlobalSelectionType): TextAreaType {
-    if (selection.SelectedObject != textArea) {
+    if (selection.selectedObject != textArea) {
         throw new Error('Can\'t change text font of area that isn\'t selected')
     }
 
@@ -162,7 +162,7 @@ function changeTextFont(textArea: TextAreaType, newFont: string, selection: Glob
 }
 
 function changeTextColor(textArea: TextAreaType, newColor: string, selection: GlobalSelectionType): TextAreaType {
-    if (selection.SelectedObject != textArea) {
+    if (selection.selectedObject != textArea) {
         throw new Error('Can\'t change text color of area that isn\'t selected')
     }
 
@@ -173,7 +173,7 @@ function changeTextColor(textArea: TextAreaType, newColor: string, selection: Gl
 }
 
 function changeTextScale(textArea: TextAreaType, newSize: number, selection: GlobalSelectionType): TextAreaType {
-    if (selection.SelectedObject != textArea) {
+    if (selection.selectedObject != textArea) {
         throw new Error('Can\'t change text size of area that isn\'t selected')
     }
 
@@ -186,16 +186,16 @@ function changeTextScale(textArea: TextAreaType, newSize: number, selection: Glo
 function selectObject(selection: GlobalSelectionType, slide: SlideType, object: ImageType | TextAreaType): GlobalSelectionType {
     return {
         ...selection,
-        SelectedSlide: slide,
-        SelectedObject: object
+        selectedSlide: slide,
+        selectedObject: object
     }
 }
 
 function selectSlide(selection: GlobalSelectionType, slide: SlideType): GlobalSelectionType {
     return {
         ...selection,
-        SelectedSlide: slide,
-        SelectedObject: undefined
+        selectedSlide: slide,
+        selectedObject: undefined
     }
 }
 
@@ -208,9 +208,19 @@ function uuid(): string {
 }
 
 export {
-    changePresentationTitle, addSlide, deleteSlide, moveSlide,
-    addObject, deleteObject, moveObject, changeSlideBackground,
-    changeTextValue, changeTextFont, changeTextScale, changeTextColor,
-    selectObject, selectSlide,
+    changePresentationTitle,
+    addSlide,
+    deleteSlide,
+    moveSlide,
+    addObject,
+    deleteObject,
+    moveObject,
+    changeSlideBackground,
+    changeTextValue,
+    changeTextFont,
+    changeTextScale,
+    changeTextColor,
+    selectObject,
+    selectSlide,
     uuid
 }

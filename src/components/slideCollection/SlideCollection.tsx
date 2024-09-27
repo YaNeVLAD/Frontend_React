@@ -1,5 +1,5 @@
 import { SlideType } from "../../Model/types"
-import { SlidePreview } from "../SlidePreview/SlidePreview"
+import { SlidePreview } from "../slidePreview/SlidePreview"
 import style from './SlideCollection.module.css'
 
 type SlideCollectionProps = {

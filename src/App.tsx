@@ -1,7 +1,7 @@
 import './App.css'
 import { uuid } from './Model/functions'
 import { GlobalSelectionType, ImageType, PresentationType, SlideType, TextAreaType } from './Model/types'
-import { Presentation } from './Modules/Presentation/Presentation'
+import { Presentation } from './components/presentation/Presentation'
 
 const TextArea1: TextAreaType = {
   id: uuid(),
@@ -70,11 +70,7 @@ const Slide3: SlideType = {
   id: uuid(),
   objects: [TextArea2, TextArea1],
   background: {
-    value:
-    {
-      firstColor: '#00FFAA',
-      secondColor: '#AAFF00'
-    },
+    values: ['#00FFAA', '#AAFF00'],
     type: 'gradient'
   }
 }
@@ -100,8 +96,8 @@ const Slide5: SlideType = {
 const slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const selection: GlobalSelectionType = {
-  SelectedSlide: slides[0],
-  SelectedObject: undefined
+  selectedSlide: slides[0],
+  selectedObject: undefined
 }
 
 const TestPresentation: PresentationType = {

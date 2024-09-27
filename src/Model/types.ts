@@ -5,8 +5,8 @@ type PresentationType = {
 }
 
 type GlobalSelectionType = {
-    SelectedSlide: SlideType,
-    SelectedObject: SlideObjectType | undefined,
+    selectedSlide: SlideType,
+    selectedObject: SlideObjectType | undefined,
 }
 
 type SlideType = {
@@ -20,11 +20,9 @@ type SolidColor = {
     type: 'solid',
 }
 
+//Сделать массив строк вместо множества полей
 type GradientColor = {
-    value: {
-        firstColor: string,
-        secondColor: string
-    },
+    values: Array<string>,
     type: 'gradient',
 }
 
@@ -61,4 +59,14 @@ type TextAreaType = SlideObjectType & {
     textSize: number,
 }
 
-export type { PresentationType, SlideType, GlobalSelectionType, SlideObjectType, TextAreaType, ImageType, ImageSrc, SolidColor, GradientColor }
+export type {
+    PresentationType,
+    SlideType,
+    GlobalSelectionType,
+    SlideObjectType,
+    TextAreaType,
+    ImageType,
+    ImageSrc,
+    SolidColor,
+    GradientColor
+}

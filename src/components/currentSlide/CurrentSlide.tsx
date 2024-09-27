@@ -1,10 +1,10 @@
 import { SlideType } from "../../Model/types"
-import { Slide } from "../Slide/Slide"
-import style from './SelectedSlide.module.css'
+import { Slide } from "../slide/Slide"
+import style from './CurrentSlide.module.css'
 
-type SelectedSlideProps = SlideType
+type CurrentSlideProps = SlideType
 
-function SelectedSlide(selectedSlideProps: SelectedSlideProps) {
+function CurrentSlide(selectedSlideProps: CurrentSlideProps) {
     return (
         <div className={style.selectedSlide}>
             <Slide
@@ -15,4 +15,4 @@ function SelectedSlide(selectedSlideProps: SelectedSlideProps) {
     )
 }
 
-export { SelectedSlide }
+export { CurrentSlide }

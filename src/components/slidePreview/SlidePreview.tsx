@@ -26,7 +26,7 @@ function SlidePreview(slidePreviewProps: SlidePreviewProps) {
         case 'gradient':
             {
                 slidePreviewStyle = {
-                    backgroundImage: 'linear-gradient(to left, ' + slidePreviewProps.background.value.firstColor + ', ' + slidePreviewProps.background.value.secondColor + ')'
+                    backgroundImage: 'linear-gradient(to left, ' + slidePreviewProps.background.values[0] + ', ' + slidePreviewProps.background.values[1] + ')'
                 }
                 break
             }

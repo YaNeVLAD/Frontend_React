@@ -1,7 +1,7 @@
 import { GlobalSelectionType, SlideType } from "../../Model/types"
-import { SlideCollection } from "../SlideCollection/SlideCollection"
-import { SelectedSlide } from "../SelectedSlide/SelectedSlide"
-import { ToolsArea } from "../ToolsArea/ToolsArea"
+import { CurrentSlide } from "../currentSlide/CurrentSlide"
+import { SlideCollection } from "../slideCollection/SlideCollection"
+import { ToolsArea } from "../toolsArea/ToolsArea"
 import style from './Presentation.module.css'
 
 type PresentationProps = {
@@ -17,10 +17,10 @@ function Presentation(presentationProps: PresentationProps) {
             <ToolsArea />
             <div className={style.presentation}>
                 <SlideCollection slides={presentationProps.slides} />
-                <SelectedSlide
-                    id={presentationProps.selection.SelectedSlide.id}
-                    objects={presentationProps.selection.SelectedSlide.objects}
-                    background={presentationProps.selection.SelectedSlide.background} />
+                <CurrentSlide
+                    id={presentationProps.selection.selectedSlide.id}
+                    objects={presentationProps.selection.selectedSlide.objects}
+                    background={presentationProps.selection.selectedSlide.background} />
             </div>
         </div>
     )
