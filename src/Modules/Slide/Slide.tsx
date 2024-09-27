@@ -35,9 +35,7 @@ function Slide(slideProps: SlideProps) {
         <div style={slideStyle} className={style.slide}>
             {
                 slideProps.objects.map(
-                    object => {
-                        return <SlideObject object={object} />
-                    }
+                    object => <SlideObject object={object} />
                 )
             }
         </div>

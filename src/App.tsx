@@ -27,6 +27,18 @@ const TextArea2: TextAreaType = {
   textSize: 33,
 }
 
+const TextArea3: TextAreaType = {
+  id: uuid(),
+  type: 'textObj',
+  pos: { x: 755, y: 333 },
+  size: { width: 100, height: 50 },
+  turnAngle: 1,
+  value: '',
+  font: 'Arial',
+  color: '#FAFAFA',
+  textSize: 33,
+}
+
 const Image: ImageType = {
   id: uuid(),
   type: 'imageObj',
@@ -38,7 +50,7 @@ const Image: ImageType = {
 
 const Slide1: SlideType = {
   id: uuid(),
-  objects: [TextArea1, TextArea2, Image],
+  objects: [TextArea1, TextArea2, TextArea3, Image],
   background: {
     value: "#FFFAAA",
     type: 'solid'
@@ -47,7 +59,7 @@ const Slide1: SlideType = {
 
 const Slide2: SlideType = {
   id: uuid(),
-  objects: [Image, TextArea2],
+  objects: [Image, TextArea2, TextArea3],
   background: {
     value: "/brawl-stars.gif",
     type: 'image'
@@ -88,7 +100,7 @@ const Slide5: SlideType = {
 const slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const selection: GlobalSelectionType = {
-  SelectedSlide: slides[2],
+  SelectedSlide: slides[0],
   SelectedObject: undefined
 }
 
