@@ -26,7 +26,7 @@ function Slide(slideProps: SlideProps) {
             }
         case 'gradient':
             {
-                slideStyle.backgroundImage = 'linear-gradient(to left, ' + slideProps.background.value.firstColor + ', ' + slideProps.background.value.secondColor + ')'
+                slideStyle.backgroundImage = 'linear-gradient(to left, ' + slideProps.background.values[0] + ', ' + slideProps.background.values[1] + ')'
                 break
             }
     }

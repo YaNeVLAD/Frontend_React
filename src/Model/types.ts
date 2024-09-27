@@ -20,7 +20,6 @@ type SolidColor = {
     type: 'solid',
 }
 
-//Сделать массив строк вместо множества полей
 type GradientColor = {
     values: Array<string>,
     type: 'gradient',
