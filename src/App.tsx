@@ -3,16 +3,28 @@ import { uuid } from './Model/functions'
 import { GlobalSelectionType, ImageType, PresentationType, SlideType, TextAreaType } from './Model/types'
 import { Presentation } from './Modules/Presentation/Presentation'
 
-const TextArea: TextAreaType = {
+const TextArea1: TextAreaType = {
   id: uuid(),
   type: 'textObj',
-  pos: { x: 100, y: 150 },
+  pos: { x: 160, y: 222 },
   size: { width: 300, height: 100 },
-  turnAngle: 15,
+  turnAngle: 111,
   value: 'Hello World!',
   font: 'Arial',
   color: '#808080',
-  textSize: 27,
+  textSize: 17,
+}
+
+const TextArea2: TextAreaType = {
+  id: uuid(),
+  type: 'textObj',
+  pos: { x: 333, y: 333 },
+  size: { width: 100, height: 50 },
+  turnAngle: 1,
+  value: 'I love Frontend!',
+  font: 'Arial',
+  color: '#FAFAFA',
+  textSize: 33,
 }
 
 const Image: ImageType = {
@@ -26,7 +38,7 @@ const Image: ImageType = {
 
 const Slide1: SlideType = {
   id: uuid(),
-  objects: [TextArea, Image],
+  objects: [TextArea1, TextArea2, Image],
   background: {
     value: "#FFFAAA",
     type: 'solid'
@@ -35,7 +47,7 @@ const Slide1: SlideType = {
 
 const Slide2: SlideType = {
   id: uuid(),
-  objects: [],
+  objects: [Image, TextArea2],
   background: {
     value: "/brawl-stars.gif",
     type: 'image'
@@ -44,7 +56,7 @@ const Slide2: SlideType = {
 
 const Slide3: SlideType = {
   id: uuid(),
-  objects: [],
+  objects: [TextArea2, TextArea1],
   background: {
     value:
     {
@@ -76,7 +88,7 @@ const Slide5: SlideType = {
 const slides: Array<SlideType> = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const selection: GlobalSelectionType = {
-  SelectedSlide: slides[2],
+  SelectedSlide: slides[0],
   SelectedObject: undefined
 }
 

@@ -9,8 +9,8 @@ function SelectedSlide(selectedSlideProps: SelectedSlideProps) {
         <div className={style.selectedSlide}>
             <Slide
                 id={selectedSlideProps.id}
-                background={selectedSlideProps.background}
-                objects={selectedSlideProps.objects} />
+                objects={selectedSlideProps.objects}
+                background={selectedSlideProps.background} />
         </div>
     )
 }

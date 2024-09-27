@@ -2,6 +2,7 @@ import { GradientColor, ImageSrc, SolidColor } from '../../Model/types'
 import style from './SlidePreview.module.css'
 
 type SlidePreviewProps = {
+    id: string,
     background: ImageSrc | SolidColor | GradientColor
 }
 

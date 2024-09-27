@@ -15,6 +15,7 @@ function SlideCollection(slideCollectionProps: SlideCollectionProps) {
                         <h3 className={style.slideCollectionItemTitle}>{slideCollectionProps.slides.indexOf(slide) + 1}</h3>
                         <SlidePreview
                             key={slide.id}
+                            id={slide.id}
                             background={slide.background} />
                     </div>
                 )
