@@ -1,4 +1,4 @@
-import { TextAreaType } from '../../Model/types'
+import { TextAreaType } from '../../storage/types'
 import style from './TextArea.module.css'
 
 type TextAreaProps = {

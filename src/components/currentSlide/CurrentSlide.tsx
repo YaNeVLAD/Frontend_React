@@ -1,4 +1,4 @@
-import { SlideType } from "../../Model/types"
+import { SlideType } from "../../storage/types"
 import { Slide } from "../slide/Slide"
 import style from './CurrentSlide.module.css'
 

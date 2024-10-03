@@ -1,4 +1,4 @@
-import { GradientColor, ImageSrc, SolidColor } from '../../Model/types'
+import { GradientColor, ImageSrc, SolidColor } from '../../storage/types'
 import style from './SlidePreview.module.css'
 
 type SlidePreviewProps = {

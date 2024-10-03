@@ -1,5 +1,5 @@
-import { uuid } from './Model/functions'
-import { GlobalSelectionType, ImageType, PresentationType, SlideType, TextAreaType } from './Model/types'
+import { uuid } from './storage/functions'
+import { GlobalSelectionType, ImageType, PresentationType, SlideType, TextAreaType } from './storage/types'
 import { CurrentSlide } from './components/currentSlide/CurrentSlide'
 import { SlideCollection } from './components/slideCollection/SlideCollection'
 import { ToolsArea } from './components/toolsArea/ToolsArea'

@@ -1,4 +1,4 @@
-import { GradientColor, ImageSrc, ImageType, SolidColor, TextAreaType } from "../../Model/types"
+import { GradientColor, ImageSrc, ImageType, SolidColor, TextAreaType } from "../../storage/types"
 import { SlideObject } from "../slideObject/SlideObject"
 import style from './Slide.module.css'
 

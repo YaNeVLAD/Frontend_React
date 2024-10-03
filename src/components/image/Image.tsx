@@ -1,4 +1,4 @@
-import { ImageType } from "../../Model/types"
+import { ImageType } from "../../storage/types"
 import style from './Image.module.css'
 
 type ImageProps = {

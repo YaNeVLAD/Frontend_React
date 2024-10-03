@@ -1,4 +1,4 @@
-import { ImageType, TextAreaType } from "../../Model/types"
+import { ImageType, TextAreaType } from "../../storage/types"
 import { TextArea } from "../textArea/TextArea"
 import { Image } from "../image/Image"
 
