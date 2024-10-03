@@ -1,8 +1,8 @@
 import { uuid } from './storage/functions'
 import { GlobalSelectionType, ImageType, PresentationType, SlideType, TextAreaType } from './storage/types'
-import { CurrentSlide } from './components/currentSlide/CurrentSlide'
-import { SlideCollection } from './components/slideCollection/SlideCollection'
-import { ToolsArea } from './components/toolsArea/ToolsArea'
+import { CurrentSlide } from './views/currentSlide/CurrentSlide'
+import { SlideCollection } from './views/slideCollection/SlideCollection'
+import { ToolsArea } from './views/toolsArea/ToolsArea'
 import style from './App.module.css'
 
 const TextArea1: TextAreaType = {

@@ -1,5 +1,5 @@
 import { SlideType } from "../../storage/types"
-import { Slide } from "../slide/Slide"
+import { Slide } from "../../components/slide/Slide"
 import style from './CurrentSlide.module.css'
 
 type CurrentSlideProps = SlideType

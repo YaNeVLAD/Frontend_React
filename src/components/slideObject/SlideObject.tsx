@@ -1,6 +1,6 @@
 import { ImageType, TextAreaType } from "../../storage/types"
-import { TextArea } from "../textArea/TextArea"
-import { Image } from "../image/Image"
+import { TextArea } from "../../views/textArea/TextArea"
+import { Image } from "../../views/image/Image"
 
 type SlideObjectProps = {
     object: TextAreaType | ImageType

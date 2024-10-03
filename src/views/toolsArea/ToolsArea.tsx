@@ -4,7 +4,6 @@ type ToolsAreaProps = {
     title: string
 }
 
-
 function ToolsArea(toolsAreaProps: ToolsAreaProps) {
     return (
         <div className={style.toolsArea}>
