@@ -1,10 +1,16 @@
 import style from './ToolsArea.module.css'
 
+type ToolsAreaProps = {
+    title: string
+}
 
-function ToolsArea() {
+
+function ToolsArea(toolsAreaProps: ToolsAreaProps) {
     return (
         <div className={style.toolsArea}>
-            <h2>Hello, I am tools area</h2>
+            <h2 className={style.presentationTitle}>
+                {toolsAreaProps.title}
+            </h2>
         </div>
     )
 }
