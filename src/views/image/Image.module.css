@@ -1,3 +1,4 @@
 .image {
-    position: absolute;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
 }

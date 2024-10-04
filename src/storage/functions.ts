@@ -1,4 +1,5 @@
-import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType } from "./types"
+import { EMPTY_SLIDE } from "../common/EmptySlide"
+import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType, SlideObjectType } from "./types"
 
 function changePresentationTitle(title: string, presentation: PresentationType): PresentationType {
     return {
@@ -7,42 +8,44 @@ function changePresentationTitle(title: string, presentation: PresentationType):
     }
 }
 //Нужно деструкторизировать презентацию и слайды во всех функциях
-function addSlide(slide: SlideType, presentation: PresentationType): PresentationType {
-    const slides = presentation.slides
-    slides.push(slide)
+function addSlide(presentation: PresentationType): PresentationType {
+    const presentationCopy = { ...presentation }
+    const slides = presentationCopy.slides
+    const newSlide = {
+        ...EMPTY_SLIDE,
+        id: uuid()
+    }
+    slides.push(newSlide)
 
     return {
-        ...presentation,
+        ...presentationCopy,
+        slides: slides,
         selection: {
-            selectedSlide: slide,
+            selectedSlide: newSlide,
             selectedObject: undefined,
-        },
-        slides: slides
+        }
     }
 }
 
-function deleteSlide(slide: SlideType, presentation: PresentationType): PresentationType {
-    if (presentation.selection.selectedSlide != slide) {
-        throw new Error('Can\'t delete slide that isn\'t selected')
-    }
-
+function deleteSlide(presentation: PresentationType): PresentationType {
     if (presentation.slides.length == 1) {
-        throw new Error('Can\'t delete last slide of the presentation')
+        return presentation
     }
 
-    const index: number = presentation.slides.indexOf(slide)
+    const index = presentation.slides.indexOf(presentation.selection.selectedSlide)
     if (index == -1) {
-        throw new Error('Can\'t delete slide that isn\'t in presentation')
+        return presentation
     }
 
-    const modifiedSlides = presentation.slides
-    modifiedSlides.splice(index, 1)
+    const presentationCopy = { ...presentation }
+    const slides = presentationCopy.slides
+    slides.splice(index, 1)
 
     return {
-        ...presentation,
-        slides: modifiedSlides,
+        ...presentationCopy,
+        slides: slides,
         selection: {
-            selectedSlide: modifiedSlides[0],
+            selectedSlide: slides[slides.length - 1],
             selectedObject: undefined
         }
     }
@@ -183,19 +186,32 @@ function changeTextScale(textArea: TextAreaType, newSize: number, selection: Glo
     }
 }
 
-function selectObject(selection: GlobalSelectionType, slide: SlideType, object: ImageType | TextAreaType): GlobalSelectionType {
+function selectObject(presentation: PresentationType, { id }): PresentationType {
+    const object = presentation.selection.selectedSlide.objects.find((object: SlideObjectType): boolean => { return object.id == id })
+    if (object == undefined) {
+        return presentation
+    }
     return {
-        ...selection,
-        selectedSlide: slide,
-        selectedObject: object
+        ...presentation,
+        selection: {
+            selectedSlide: presentation.selection.selectedSlide,
+            selectedObject: object
+        }
     }
 }
 
-function selectSlide(selection: GlobalSelectionType, slide: SlideType): GlobalSelectionType {
+function selectSlide(presentation: PresentationType, { id }): PresentationType {
+    const slide = presentation.slides.find((slide: SlideType): boolean => { return slide.id == id })
+    if (slide == undefined) {
+        return presentation
+    }
+
     return {
-        ...selection,
-        selectedSlide: slide,
-        selectedObject: undefined
+        ...presentation,
+        selection: {
+            selectedSlide: slide,
+            selectedObject: undefined
+        }
     }
 }
 

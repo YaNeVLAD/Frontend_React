@@ -4,6 +4,7 @@ import style from './Slide.module.css'
 
 type SlideProps = {
     id: string,
+    selectedObjectId: string | undefined,
     objects: Array<TextAreaType | ImageType>
     background: SolidColor | GradientColor | ImageSrc,
 }
@@ -37,7 +38,10 @@ function Slide(slideProps: SlideProps) {
         <div style={slideStyle} className={style.slide}>
             {
                 slideProps.objects.map(
-                    object => <SlideObject object={object} />
+                    object => <SlideObject
+                        key={object.id}
+                        object={object}
+                        selectedObjectId={slideProps.selectedObjectId} />
                 )
             }
         </div>
