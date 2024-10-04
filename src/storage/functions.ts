@@ -186,7 +186,7 @@ function changeTextScale(textArea: TextAreaType, newSize: number, selection: Glo
     }
 }
 
-function selectObject(presentation: PresentationType, { id }): PresentationType {
+function selectObject(presentation: PresentationType, { id }: { id: string }): PresentationType {
     const object = presentation.selection.selectedSlide.objects.find((object: SlideObjectType): boolean => { return object.id == id })
     if (object == undefined) {
         return presentation
@@ -200,7 +200,7 @@ function selectObject(presentation: PresentationType, { id }): PresentationType 
     }
 }
 
-function selectSlide(presentation: PresentationType, { id }): PresentationType {
+function selectSlide(presentation: PresentationType, { id }: { id: string }): PresentationType {
     const slide = presentation.slides.find((slide: SlideType): boolean => { return slide.id == id })
     if (slide == undefined) {
         return presentation
