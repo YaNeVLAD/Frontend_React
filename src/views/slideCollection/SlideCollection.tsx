@@ -9,7 +9,7 @@ type SlideCollectionProps = {
 
 function SlideCollection(slideCollectionProps: SlideCollectionProps) {
     const selectedSlideStyle = {
-        borderColor: '#6565FF',
+        border: 'solid 5px #6565FF',
     }
 
     return (
@@ -19,7 +19,7 @@ function SlideCollection(slideCollectionProps: SlideCollectionProps) {
                     <div
                         key={slide.id}
                         className={style.slideCollectionItemDiv}
-                        style={selectedSlideStyle}>
+                        style={slideCollectionProps.selectedSlideId == slide.id ? selectedSlideStyle : {}}>
 
                         <h3 className={style.slideCollectionItemTitle}>
                             {slideCollectionProps.slides.indexOf(slide) + 1}
@@ -28,7 +28,6 @@ function SlideCollection(slideCollectionProps: SlideCollectionProps) {
                         <SlidePreview
                             key={slide.id}
                             id={slide.id}
-                            selectedSlideId={slideCollectionProps.selectedSlideId}
                             background={slide.background} />
 
                     </div>

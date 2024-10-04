@@ -39,13 +39,19 @@ function deleteSlide(presentation: PresentationType): PresentationType {
 
     const presentationCopy = { ...presentation }
     const slides = presentationCopy.slides
-    slides.splice(index, 1)
+    const modSlides = slides.slice(0, slides.length)
+    const deletedSlides = modSlides.splice(index, 1)
+    let deletedIndex = slides.indexOf(deletedSlides[0])
+
+    if (deletedIndex == modSlides.length) {
+        deletedIndex--
+    }
 
     return {
         ...presentationCopy,
-        slides: slides,
+        slides: modSlides,
         selection: {
-            selectedSlide: slides[slides.length - 1],
+            selectedSlide: modSlides[deletedIndex],
             selectedObject: undefined
         }
     }

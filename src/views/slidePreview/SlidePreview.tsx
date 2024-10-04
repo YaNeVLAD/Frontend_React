@@ -5,7 +5,6 @@ import style from './SlidePreview.module.css'
 
 type SlidePreviewProps = {
     id: string,
-    selectedSlideId: string,
     background: ImageSrc | SolidColor | GradientColor
 }
 
@@ -17,7 +16,6 @@ function SlidePreview(slidePreviewProps: SlidePreviewProps) {
     const slidePreviewStyle = {
         backgroundColor: '',
         backgroundImage: '',
-        borderColor: '',
     }
 
     switch (slidePreviewProps.background.type) {
@@ -36,10 +34,6 @@ function SlidePreview(slidePreviewProps: SlidePreviewProps) {
                 slidePreviewStyle.backgroundImage = 'linear-gradient(to left, ' + slidePreviewProps.background.values[0] + ', ' + slidePreviewProps.background.values[1] + ')'
                 break
             }
-    }
-
-    if (slidePreviewProps.id == slidePreviewProps.selectedSlideId) {
-        slidePreviewStyle.borderColor = '#6565FF'
     }
 
     return (

@@ -21,7 +21,8 @@ function App(appProps: AppProps) {
           id={presentation.selection.selectedSlide.id}
           selectedObjectId={presentation.selection.selectedObject?.id}
           objects={presentation.selection.selectedSlide.objects}
-          background={presentation.selection.selectedSlide.background} />
+          background={presentation.selection.selectedSlide.background}
+          scale={1} />
       </div>
     </>
   )
