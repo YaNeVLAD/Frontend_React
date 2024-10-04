@@ -7,7 +7,6 @@ type SlideProps = {
     selectedObjectId: string | undefined,
     objects: Array<TextAreaType | ImageType>
     background: SolidColor | GradientColor | ImageSrc,
-    scale: number,
 }
 
 //Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale

@@ -4,9 +4,17 @@ import { PresentationType } from "./types"
 
 let presentation: PresentationType = {
     title: "My Presentation",
-    slides: [EMPTY_SLIDE],
+    slides: [{
+        ...EMPTY_SLIDE,
+        objects: [...EMPTY_SLIDE.objects],
+        background: { ...EMPTY_SLIDE.background }
+    }],
     selection: {
-        selectedSlide: EMPTY_SLIDE,
+        selectedSlide: {
+            ...EMPTY_SLIDE,
+            objects: [...EMPTY_SLIDE.objects],
+            background: { ...EMPTY_SLIDE.background }
+        },
         selectedObject: undefined
     }
 }

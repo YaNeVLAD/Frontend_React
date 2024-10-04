@@ -1,3 +1,5 @@
+import { BASE_IMAGE } from "../common/BaseImage"
+import { BASE_TEXT_AREA } from "../common/BaseTextArea"
 import { EMPTY_SLIDE } from "../common/EmptySlide"
 import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType, SlideObjectType } from "./types"
 
@@ -9,11 +11,23 @@ function changePresentationTitle(title: string, presentation: PresentationType):
 }
 //Нужно деструкторизировать презентацию и слайды во всех функциях
 function addSlide(presentation: PresentationType): PresentationType {
-    const presentationCopy = { ...presentation }
+    const presentationCopy: PresentationType = {
+        ...presentation,
+        slides: [...presentation.slides],
+        selection: {
+            ...presentation.selection,
+            selectedSlide: { ...presentation.selection.selectedSlide },
+            selectedObject: presentation.selection.selectedObject
+                ? { ...presentation.selection.selectedObject }
+                : undefined
+        }
+    }
     const slides = presentationCopy.slides
     const newSlide = {
         ...EMPTY_SLIDE,
-        id: uuid()
+        id: uuid(),
+        objects: [...EMPTY_SLIDE.objects],
+        background: { ...EMPTY_SLIDE.background }
     }
     slides.push(newSlide)
 
@@ -37,11 +51,14 @@ function deleteSlide(presentation: PresentationType): PresentationType {
         return presentation
     }
 
-    const presentationCopy = { ...presentation }
-    const slides = presentationCopy.slides
-    const modSlides = slides.slice(0, slides.length)
+    const presentationCopy = {
+        ...presentation,
+        slides: [...presentation.slides],
+        selection: { ...presentation.selection }
+    }
+    const modSlides = presentationCopy.slides.slice(0, presentationCopy.slides.length)
     const deletedSlides = modSlides.splice(index, 1)
-    let deletedIndex = slides.indexOf(deletedSlides[0])
+    let deletedIndex = presentationCopy.slides.indexOf(deletedSlides[0])
 
     if (deletedIndex == modSlides.length) {
         deletedIndex--
@@ -85,41 +102,66 @@ function changeSlideBackground(slide: SlideType, newBackground: SolidColor | Gra
     }
 }
 
-function addObject(slide: SlideType, object: ImageType | TextAreaType, selection: GlobalSelectionType): SlideType {
-    if (selection.selectedSlide != slide) {
-        throw new Error('Can\'t change add objects on slide that isn\'t selected')
+function addObject(presentation: PresentationType, { type }: { type: 'imageObj' | 'textObj' }): PresentationType {
+    const presentationCopy = {
+        ...presentation,
+        slides: [...presentation.slides],
+        selection: { ...presentation.selection }
     }
 
-    const modifiedObjects = slide.objects
-    modifiedObjects.push(object)
+    if (type == 'imageObj') {
+        const image = {
+            ...BASE_IMAGE,
+            id: uuid(),
+        }
+        presentationCopy.selection.selectedSlide.objects.push(image)
+    } else {
+        const textArea = {
+            ...BASE_TEXT_AREA,
+            id: uuid(),
+        }
+        presentationCopy.selection.selectedSlide.objects.push(textArea)
+    }
 
     return {
-        ...slide,
-        objects: modifiedObjects
+        ...presentationCopy
     }
 }
 
-function deleteObject(slide: SlideType, object: ImageType | TextAreaType, selection: GlobalSelectionType): SlideType {
-    if (selection.selectedSlide != slide) {
-        throw new Error('Can\'t delete object on slide that isn\'t selected')
+function deleteObject(presentation: PresentationType): PresentationType {
+    const selectionCopy: GlobalSelectionType = {
+        ...presentation.selection,
+        selectedSlide: {
+            ...presentation.selection.selectedSlide,
+            objects: [...presentation.selection.selectedSlide.objects],
+            background: { ...presentation.selection.selectedSlide.background }
+        },
+        selectedObject: presentation.selection.selectedObject
+            ? { ...presentation.selection.selectedObject }
+            : undefined
     }
 
-    if (selection.selectedObject != object) {
-        throw new Error('Can\'t delete object that isn\'t selected')
+    if (selectionCopy.selectedObject == undefined) {
+        console.log('Объект не существует на слайде')
+        return presentation
     }
 
-    const modifiedObjects = slide.objects
-    const index: number = modifiedObjects.indexOf(object)
+    let index: number = -1
+    index = selectionCopy.selectedSlide.objects.findIndex((obj: SlideObjectType): boolean => {
+        return obj.id == selectionCopy.selectedObject?.id
+
+    })
 
     if (index == -1) {
-        throw new Error('Object doen\'t exist on this slide')
+        console.log('Объект не существует на слайде')
+        return presentation
     }
 
-    modifiedObjects.splice(index, 1)
+    selectionCopy.selectedSlide.objects.splice(index, 1)
 
     return {
-        ...slide,
-        objects: modifiedObjects
+        ...presentation,
+        selection: selectionCopy
     }
 }
 

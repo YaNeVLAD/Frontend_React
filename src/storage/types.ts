@@ -6,7 +6,7 @@ type PresentationType = {
 
 type GlobalSelectionType = {
     selectedSlide: SlideType,
-    selectedObject: SlideObjectType | undefined,
+    selectedObject?: SlideObjectType,
 }
 
 type SlideType = {

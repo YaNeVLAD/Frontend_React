@@ -4,7 +4,8 @@ import { createRoot } from 'react-dom/client'
 import { addPresentationChangeHandler, getPresentation } from './storage/presentation.ts'
 
 function render() {
-  createRoot(document.getElementById('root')!).render(
+  const root = createRoot(document.getElementById('root')!)
+  root.render(
     <StrictMode>
       <App presentation={getPresentation()}/>
     </StrictMode>,
