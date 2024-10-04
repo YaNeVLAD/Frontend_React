@@ -2,7 +2,7 @@ import { PresentationType } from './storage/types'
 import { SlideCollection } from './views/slideCollection/SlideCollection'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import style from './App.module.css'
-import { Slide } from './components/slide/Slide'
+import { Slide } from './views/slide/Slide'
 
 type AppProps = {
   presentation: PresentationType

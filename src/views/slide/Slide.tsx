@@ -1,5 +1,5 @@
 import { GradientColor, ImageSrc, ImageType, SolidColor, TextAreaType } from "../../storage/types"
-import { SlideObject } from "../slideObject/SlideObject"
+import { SlideObject } from "../../components/slideObject/SlideObject"
 import style from './Slide.module.css'
 
 type SlideProps = {

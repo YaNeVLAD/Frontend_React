@@ -9,7 +9,7 @@ type SlideObjectProps = {
     selectedObjectId: string | undefined,
     object: TextAreaType | ImageType,
 }
-//Прокинуть объект дальше
+
 function SlideObject(slideObjectProps: SlideObjectProps) {
     function onClick() {
         dispatch(selectObject, { id: slideObjectProps.object.id })
