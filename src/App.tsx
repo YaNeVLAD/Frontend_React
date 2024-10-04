@@ -1,8 +1,8 @@
 import { PresentationType } from './storage/types'
-import { CurrentSlide } from './views/currentSlide/CurrentSlide'
 import { SlideCollection } from './views/slideCollection/SlideCollection'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import style from './App.module.css'
+import { Slide } from './components/slide/Slide'
 
 type AppProps = {
   presentation: PresentationType
@@ -17,7 +17,7 @@ function App(appProps: AppProps) {
         <SlideCollection
           slides={presentation.slides}
           selectedSlideId={presentation.selection.selectedSlide.id} />
-        <CurrentSlide
+        <Slide
           id={presentation.selection.selectedSlide.id}
           selectedObjectId={presentation.selection.selectedObject?.id}
           objects={presentation.selection.selectedSlide.objects}
