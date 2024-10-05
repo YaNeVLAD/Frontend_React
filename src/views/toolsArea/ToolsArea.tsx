@@ -10,9 +10,14 @@ function onAddSlideClick() {
     dispatch(addSlide, {})
 }
 
-function onAddObjectClick() {
-    dispatch(addObject, {type: 'imageObj'})
+function onAddImageClick() {
+    dispatch(addObject, { type: 'imageObj' })
 }
+
+function onAddTextClick() {
+    dispatch(addObject, { type: 'textObj' })
+}
+
 
 function onDeleteSlideClick() {
     dispatch(deleteSlide, {})
@@ -21,17 +26,19 @@ function onDeleteSlideClick() {
 function onDeletObjectClick() {
     dispatch(deleteObject, {})
 }
-
+//При удалении объекта, он удаляется только в текущем слайде.
+//Сам слайд в списке не изменяется
 function ToolsArea(toolsAreaProps: ToolsAreaProps) {
     return (
         <div className={style.toolsArea}>
             <h2 className={style.presentationTitle}>
                 {toolsAreaProps.title}
             </h2>
-            <button className={style.addSlide} onClick={onAddSlideClick}>+</button>
-            <button className={style.addObject} onClick={onAddObjectClick}>+</button>
-            <button className={style.deleteSlide} onClick={onDeleteSlideClick}>-</button>
-            <button className={style.deleteObject} onClick={onDeletObjectClick}>-</button>
+            <button className={style.addSlide} onClick={onAddSlideClick}>+slide</button>
+            <button className={style.addObject} onClick={onAddImageClick}>+image</button>
+            <button className={style.addObject} onClick={onAddTextClick}>+text</button>
+            <button className={style.deleteSlide} onClick={onDeleteSlideClick}>-slide</button>
+            <button className={style.deleteObject} onClick={onDeletObjectClick}>-object</button>
         </div>
     )
 }
