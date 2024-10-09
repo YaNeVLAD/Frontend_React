@@ -26,7 +26,7 @@ function App({ editor }: AppProps) {
       <ToolsArea
         title={editor.presentation.title}
         background={editor.selection.selectedSlide.background} />
-      <div className={style.presentation}>
+      <div className={style.container}>
         <SlideCollection
           slides={editor.presentation.slides}
           selectedSlideId={editor.selection.selectedSlide.id}
@@ -37,8 +37,10 @@ function App({ editor }: AppProps) {
           objects={editor.selection.selectedSlide.objects}
           background={editor.selection.selectedSlide.background}
           isSelected={false}
-          className={''}
+          className={style.selectedSlide}
           scale={SELECTED_SLIDE_SCALE} />
+        <div>
+        </div>
       </div>
     </>
   )

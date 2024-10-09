@@ -1,8 +1,4 @@
 .slide {
-    min-height: 90px;
-    min-width: 200px;
-    height: 100%;
-    width: 100%;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;

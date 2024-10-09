@@ -3,8 +3,11 @@
   padding: 0px;
 }
 
-#root {
-  text-align: center;
+:root {
+  height: calc(100vh - var(--toolsBarHeight));
+  width: 100vw;
+  background-color: #EFEFEF;
+  --toolsBarHeight: 100px;
 }
 
 .presentation {
@@ -12,5 +15,22 @@
   flex-direction: row;
   flex-wrap: nowrap;
   border: #000000 1px solid;
-  height: 500px;
+  height: calc(100vh - var(--toolsBarHeight));
+  width: 100vw;
+}
+
+.selectedSlide {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 1024px;
+  height: calc(100vh - (var(--toolsBarHeight)));
+  border: 1px solid #808080;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
