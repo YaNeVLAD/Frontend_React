@@ -1,67 +1,43 @@
 import { addObject, addSlide, changePresentationTitle, changeSlideBackground, deleteObject, deleteSlide } from '../../storage/functions'
-import { useState } from 'react'
-import { dispatch } from '../../storage/presentation'
+import { dispatch } from '../../storage/editor'
 import { Background } from '../../storage/types'
 import style from './ToolsArea.module.css'
 
 type ToolsAreaProps = {
     title: string,
-    slideBackground: Background
+    background: Background
 }
 
-function onAddSlideClick() { dispatch(addSlide, {}) }
+function onAddSlideClick() { dispatch(addSlide) }
 
 function onAddImageClick() { dispatch(addObject, { type: 'imageObj' }) }
 
 function onAddTextClick() { dispatch(addObject, { type: 'textObj' }) }
 
-function onDeleteSlideClick() { dispatch(deleteSlide, {}) }
+function onDeleteSlideClick() { dispatch(deleteSlide) }
 
-function onDeletObjectClick() { dispatch(deleteObject, {}) }
+function onDeletObjectClick() { dispatch(deleteObject) }
 
-function ToolsArea(toolsAreaProps: ToolsAreaProps) {
-    const [title, setTitle] = useState(toolsAreaProps.title)
-    const [background, setBackground] = useState<Background>(toolsAreaProps.slideBackground)
+function ToolsArea(props: ToolsAreaProps) {
+    const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(changePresentationTitle, { title: (event.target as HTMLInputElement).value })
+    }
 
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBackground({ value: event.target.value, type: 'solid' })
-    }
-
-    const onColorBlur = () => {
-        dispatch(changeSlideBackground, { background })
-    }
-
-    const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.target.value)
-    }
-
-    const onTitleBlur = () => {
-        onPresentationTitleChange(title)
-    }
-
-    const onTitleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            onPresentationTitleChange(title)
-        }
-    }
-
-    function onPresentationTitleChange(newTitle: string) {
-        dispatch(changePresentationTitle, { title: newTitle })
+        const background: Background = { value: (event.target as HTMLInputElement).value, type: 'solid' }
+        dispatch(changeSlideBackground, { background: background })
     }
 
     return (
         <div className={style.toolsArea}>
             <input
                 type="text"
-                value={title}
-                onChange={onTitleChange}
-                onBlur={onTitleBlur}
-                onKeyDown={onTitleKeyDown} />
+                defaultValue={props.title}
+                onChange={onTitleChange} />
             <input
                 type='color'
-                value={background.value}
-                onChange={onColorChange}
-                onBlur={onColorBlur} />
+                value={props.background.value}
+                onChange={onColorChange} />
             <button
                 className={style.addSlide}
                 onClick={onAddSlideClick}>

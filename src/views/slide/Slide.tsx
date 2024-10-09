@@ -1,6 +1,7 @@
 import { Background, ImageType, TextAreaType } from "../../storage/types"
 import { SlideObject } from "../../components/slideObject/SlideObject"
 import style from './Slide.module.css'
+import { CSSProperties } from "react"
 
 type SlideProps = {
     id: string,
@@ -10,27 +11,30 @@ type SlideProps = {
 }
 
 //Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale
-function Slide(slideProps: SlideProps) {
+// Добавить в пропсы isSelected для изменения стилей
+// И поле selection, чтобы устанавливать его через slide
 
-    const slideStyle = {
-        backgroundColor: '',
-        backgroundImage: '',
-    }
+// ширина и высота делается через `${SLIDE_HEIGHT/SLIDE_WIDTH * scale}px`
+// Scale прокидывается и в объекты. С текстом могут быть проблемы
+// передавать функции с параметрами в on-что-то () => func(param)
+function Slide(props: SlideProps) {
 
-    switch (slideProps.background.type) {
+    const slideStyle: CSSProperties = {}
+
+    switch (props.background.type) {
         case 'solid':
             {
-                slideStyle.backgroundColor = slideProps.background.value
+                slideStyle.backgroundColor = props.background.value
                 break
             }
         case 'image':
             {
-                slideStyle.backgroundImage = 'url(\'' + slideProps.background.value + '\')'
+                slideStyle.backgroundImage = 'url(\'' + props.background.value + '\')'
                 break
             }
         case 'gradient':
             {
-                slideStyle.backgroundImage = 'linear-gradient(to left, ' + slideProps.background.value[0] + ', ' + slideProps.background.value[1] + ')'
+                slideStyle.backgroundImage = 'linear-gradient(to left, ' + props.background.value[0] + ', ' + props.background.value[1] + ')'
                 break
             }
     }
@@ -38,11 +42,11 @@ function Slide(slideProps: SlideProps) {
     return (
         <div style={slideStyle} className={style.slide}>
             {
-                slideProps.objects.map(
+                props.objects.map(
                     object => <SlideObject
                         key={object.id}
                         object={object}
-                        selectedObjectId={slideProps.selectedObjectId} />
+                        isSelected={object.id == props.selectedObjectId} />
                 )
             }
         </div>

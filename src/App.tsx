@@ -1,30 +1,38 @@
-import { PresentationType } from './storage/types'
+import { EditorType } from './storage/types'
 import { SlideCollection } from './views/slideCollection/SlideCollection'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import { Slide } from './views/slide/Slide'
 import style from './App.module.css'
 
 type AppProps = {
-  presentation: PresentationType
+  editor: EditorType
 }
 //Клавиатурное управление. Хоткеи
 //Если делать --- просчитать все хоткеи
-function App(appProps: AppProps) {
-  const presentation = appProps.presentation
+
+//css - переменная
+//Объявляется 1 раз, используется где угодно.
+//--variableName: 70px
+//var(--variableName)
+//background-color: transparent --- прозрачный фон элемента
+// У стрелочных функций контекст тот, в котором их объявили
+// Они нужны для обработчиков событий 
+
+function App({ editor }: AppProps) {
   return (
     <>
       <ToolsArea
-        title={presentation.title}
-        slideBackground={presentation.selection.selectedSlide.background} />
+        title={editor.presentation.title}
+        background={editor.selection.selectedSlide.background} />
       <div className={style.presentation}>
         <SlideCollection
-          slides={presentation.slides}
-          selectedSlideId={presentation.selection.selectedSlide.id} />
+          slides={editor.presentation.slides}
+          selectedSlideId={editor.selection.selectedSlide.id} />
         <Slide
-          id={presentation.selection.selectedSlide.id}
-          selectedObjectId={presentation.selection.selectedObject?.id}
-          objects={presentation.selection.selectedSlide.objects}
-          background={presentation.selection.selectedSlide.background} />
+          id={editor.selection.selectedSlide.id}
+          selectedObjectId={editor.selection.selectedObject?.id}
+          objects={editor.selection.selectedSlide.objects}
+          background={editor.selection.selectedSlide.background} />
       </div>
     </>
   )

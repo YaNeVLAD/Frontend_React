@@ -1,8 +1,9 @@
-import { type PresentationType, type SlideType, type TextAreaType, type GlobalSelectionType, ImageType, Background } from "./types"
+import { type PresentationType, type SlideType, type TextAreaType, type GlobalSelectionType, ImageType, Background, EditorType } from "./types"
 import { BASE_IMAGE } from "../common/BaseImage"
 import { BASE_TEXT_AREA } from "../common/BaseTextArea"
 import { EMPTY_SLIDE } from "../common/EmptySlide"
 import { deepCopy } from "./deepCopy"
+//Разнести функции на файлы
 
 function changePresentationTitle(
     presentation: PresentationType,
@@ -61,20 +62,21 @@ function deleteSlide(presentation: PresentationType): PresentationType {
 }
 
 function changeSlideBackground(
-    presentation: PresentationType,
+    editor: EditorType,
     { background }: { background: Background }
-): PresentationType {
-    const presentationCopy: PresentationType = deepCopy(presentation)
+): EditorType {
+    const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
     const selectedSlide = presentationCopy.slides.find(slide =>
-        slide.id == presentationCopy.selection.selectedSlide.id
+        slide.id == editor.selection.selectedSlide.id
     )
-    if (selectedSlide == undefined) return presentation
+    if (selectedSlide == undefined) return editor
 
     selectedSlide.background = background
 
     return {
-        ...presentationCopy,
+        ...editor,
+        presentation: presentationCopy,
         selection: {
             selectedSlide: selectedSlide,
             selectedObject: undefined
@@ -137,7 +139,7 @@ function deleteObject(presentation: PresentationType): PresentationType {
 }
 
 function selectObject(presentation: PresentationType, { id }: { id: string }): PresentationType {
-    const object = presentation.selection.selectedSlide.objects.find((object) => { return object.id == id })
+    const object = presentation.selection.selectedSlide.objects.find(object => object.id == id)
     if (object == undefined) return presentation
 
     return {
@@ -150,7 +152,7 @@ function selectObject(presentation: PresentationType, { id }: { id: string }): P
 }
 
 function selectSlide(presentation: PresentationType, { id }: { id: string }): PresentationType {
-    const slide = presentation.slides.find((slide: SlideType): boolean => { return slide.id == id })
+    const slide = presentation.slides.find(slide => slide.id == id)
     if (slide == undefined) return presentation
 
     return {

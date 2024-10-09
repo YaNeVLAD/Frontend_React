@@ -1,10 +1,16 @@
+// Фигануть editor над презенацией и выделением
+
+type EditorType = {
+    presentation: PresentationType,
+    selection: SelectionType
+}
+
 type PresentationType = {
     title: string,
     slides: Array<SlideType>
-    selection: GlobalSelectionType
 }
 
-type GlobalSelectionType = {
+type SelectionType = {
     selectedSlide: SlideType,
     selectedObject?: ImageType | TextAreaType,
 }
@@ -32,7 +38,7 @@ type ImageSrc = {
     type: 'image',
 }
 
-type SlideObjectType = {
+type BaseSlideObjectType = {
     id: string,
     type: 'imageObj' | 'textObj'
 
@@ -47,12 +53,12 @@ type SlideObjectType = {
     turnAngle: number,
 }
 
-type ImageType = SlideObjectType & {
+type ImageType = BaseSlideObjectType & {
     type: 'imageObj',
     src: ImageSrc,
 }
 
-type TextAreaType = SlideObjectType & {
+type TextAreaType = BaseSlideObjectType & {
     type: 'textObj',
     value: string,
     font: string,
@@ -60,15 +66,19 @@ type TextAreaType = SlideObjectType & {
     textSize: number,
 }
 
+type SlideObjectType = ImageType | TextAreaType
+
 export type {
+    EditorType,
     PresentationType,
     SlideType,
-    GlobalSelectionType,
-    SlideObjectType,
+    SelectionType,
+    BaseSlideObjectType,
     TextAreaType,
     ImageType,
     ImageSrc,
     SolidColor,
     GradientColor,
-    Background
+    Background,
+    SlideObjectType
 }

@@ -1,5 +1,5 @@
 import { selectSlide } from '../../storage/functions'
-import { dispatch } from '../../storage/presentation'
+import { dispatch } from '../../storage/editor'
 import { Background } from '../../storage/types'
 import style from './SlidePreview.module.css'
 
