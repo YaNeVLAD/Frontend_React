@@ -1,7 +1,7 @@
+import { selectSlide } from "../../storage/actions/slide/select"
 import { SlideType } from "../../storage/types"
 import { Slide } from "../slide/Slide"
 import { dispatch } from "../../storage/editor"
-import { selectSlide } from "../../storage/functions"
 import style from './SlideCollection.module.css'
 
 type SlideCollectionProps = {

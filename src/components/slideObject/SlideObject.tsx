@@ -1,8 +1,8 @@
+import { selectObject } from "../../storage/actions/object/select"
 import { SlideObjectType } from "../../storage/types"
 import { TextArea } from "../../views/slide/textArea/TextArea"
 import { Image } from "../../views/slide/image/Image"
 import { dispatch } from "../../storage/editor"
-import { selectObject } from "../../storage/functions"
 import { CSSProperties } from "react"
 import style from './SlideObject.module.css'
 
