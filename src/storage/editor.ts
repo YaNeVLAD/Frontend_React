@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { BASE_PRESENTATION } from "../common/BasePresentation"
+import { BASE_PRESENTATION } from "../common/basePresentation"
 import { EMPTY_SLIDE } from "./../common/EmptySlide"
 import { EditorType } from "./types"
 

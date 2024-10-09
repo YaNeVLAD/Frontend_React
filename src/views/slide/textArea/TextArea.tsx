@@ -1,4 +1,4 @@
-import { TextAreaType } from '../../storage/types'
+import { TextAreaType } from '../../../storage/types'
 import style from './TextArea.module.css'
 const MINIMUM_TEXT_SIZE = 1.5
 
