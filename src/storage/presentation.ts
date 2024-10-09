@@ -2,19 +2,17 @@
 import { EMPTY_SLIDE } from "../common/EmptySlide"
 import { PresentationType } from "./types"
 
+const baseSlide = {
+    ...EMPTY_SLIDE,
+    objects: [...EMPTY_SLIDE.objects],
+    background: { ...EMPTY_SLIDE.background }
+}
+
 let presentation: PresentationType = {
     title: "My Presentation",
-    slides: [{
-        ...EMPTY_SLIDE,
-        objects: [...EMPTY_SLIDE.objects],
-        background: { ...EMPTY_SLIDE.background }
-    }],
+    slides: [baseSlide],
     selection: {
-        selectedSlide: {
-            ...EMPTY_SLIDE,
-            objects: [...EMPTY_SLIDE.objects],
-            background: { ...EMPTY_SLIDE.background }
-        },
+        selectedSlide: baseSlide,
         selectedObject: undefined
     }
 }

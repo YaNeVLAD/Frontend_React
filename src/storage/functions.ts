@@ -3,7 +3,7 @@ import { BASE_TEXT_AREA } from "../common/BaseTextArea"
 import { EMPTY_SLIDE } from "../common/EmptySlide"
 import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType, SlideObjectType } from "./types"
 
-function changePresentationTitle(title: string, presentation: PresentationType): PresentationType {
+function changePresentationTitle(presentation: PresentationType, { title }: { title: string }): PresentationType {
     return {
         ...presentation,
         title: title
@@ -129,39 +129,39 @@ function addObject(presentation: PresentationType, { type }: { type: 'imageObj' 
 }
 
 function deleteObject(presentation: PresentationType): PresentationType {
-    const selectionCopy: GlobalSelectionType = {
-        ...presentation.selection,
-        selectedSlide: {
-            ...presentation.selection.selectedSlide,
-            objects: [...presentation.selection.selectedSlide.objects],
-            background: { ...presentation.selection.selectedSlide.background }
-        },
-        selectedObject: presentation.selection.selectedObject
-            ? { ...presentation.selection.selectedObject }
-            : undefined
+    if (presentation.selection.selectedObject == undefined) return presentation
+
+    const presentationCopy: PresentationType = {
+        ...presentation,
+        slides: [...presentation.slides],
+        selection: {
+            selectedSlide: { ...presentation.selection.selectedSlide },
+            selectedObject: presentation.selection.selectedObject
+                ? { ...presentation.selection.selectedObject }
+                : undefined
+        }
     }
 
-    if (selectionCopy.selectedObject == undefined) {
-        console.log('Объект не существует на слайде')
-        return presentation
-    }
-
-    let index: number = -1
-    index = selectionCopy.selectedSlide.objects.findIndex((obj: SlideObjectType): boolean => {
-        return obj.id == selectionCopy.selectedObject?.id
-
+    const selectedSlide = presentationCopy.slides.find((slide) => {
+        return slide == presentation.selection.selectedSlide
     })
 
-    if (index == -1) {
-        console.log('Объект не существует на слайде')
-        return presentation
-    }
+    if (selectedSlide == undefined) return presentation
 
-    selectionCopy.selectedSlide.objects.splice(index, 1)
+    const selectedObjectIndex = selectedSlide.objects.findIndex((obj) => {
+        return obj == presentation.selection.selectedObject
+    })
+
+    if (selectedObjectIndex == -1) return presentation
+
+    selectedSlide.objects.splice(selectedObjectIndex, 1)
 
     return {
-        ...presentation,
-        selection: selectionCopy
+        ...presentationCopy,
+        selection: {
+            selectedSlide: selectedSlide,
+            selectedObject: undefined
+        }
     }
 }
 
