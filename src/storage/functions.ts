@@ -133,37 +133,44 @@ function deleteObject(presentation: PresentationType): PresentationType {
 
     const presentationCopy: PresentationType = {
         ...presentation,
-        slides: [...presentation.slides],
+        slides: presentation.slides.map((slide) => ({
+            ...slide,
+            objects: slide.objects.map((obj) => ({ ...obj }))
+        }
+        )),
         selection: {
+            ...presentation.selection,
             selectedSlide: { ...presentation.selection.selectedSlide },
             selectedObject: presentation.selection.selectedObject
                 ? { ...presentation.selection.selectedObject }
-                : undefined
-        }
+                : undefined,
+        },
     }
 
     const selectedSlide = presentationCopy.slides.find((slide) => {
-        return slide == presentation.selection.selectedSlide
+        if (slide.id == presentationCopy.selection.selectedSlide.id) return slide
     })
 
     if (selectedSlide == undefined) return presentation
 
     const selectedObjectIndex = selectedSlide.objects.findIndex((obj) => {
-        return obj == presentation.selection.selectedObject
+        return obj.id == presentation.selection.selectedObject?.id
     })
 
-    if (selectedObjectIndex == -1) return presentation
+    if (selectedObjectIndex === -1) return presentation
 
     selectedSlide.objects.splice(selectedObjectIndex, 1)
 
     return {
         ...presentationCopy,
         selection: {
+            ...presentationCopy.selection,
             selectedSlide: selectedSlide,
-            selectedObject: undefined
-        }
+            selectedObject: undefined,
+        },
     }
 }
+
 
 function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, newX: number, newY: number, selection: GlobalSelectionType): SlideType {
     if (selection.selectedObject != objectToMove) {
