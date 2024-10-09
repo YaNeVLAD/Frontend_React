@@ -16,20 +16,19 @@ function SlideCollection(slideCollectionProps: SlideCollectionProps) {
         <div className={style.slideCollection}>
             {
                 slideCollectionProps.slides.map(slide =>
-                    <div
-                        key={slide.id}
-                        className={style.slideCollectionItemDiv}
-                        style={slideCollectionProps.selectedSlideId == slide.id ? selectedSlideStyle : {}}>
-
+                    <div>
                         <h3 className={style.slideCollectionItemTitle}>
                             {slideCollectionProps.slides.indexOf(slide) + 1}
                         </h3>
-
-                        <SlidePreview
+                        <div
                             key={slide.id}
-                            id={slide.id}
-                            background={slide.background} />
-
+                            className={style.slideCollectionItemDiv}
+                            style={slideCollectionProps.selectedSlideId == slide.id ? selectedSlideStyle : {}}>
+                            <SlidePreview
+                                key={slide.id}
+                                id={slide.id}
+                                background={slide.background} />
+                        </div>
                     </div>
                 )
             }

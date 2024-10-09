@@ -1,6 +1,7 @@
 import { BASE_IMAGE } from "../common/BaseImage"
 import { BASE_TEXT_AREA } from "../common/BaseTextArea"
 import { EMPTY_SLIDE } from "../common/EmptySlide"
+import { deepCopy } from "./deepCopy"
 import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType, SlideObjectType } from "./types"
 
 function changePresentationTitle(presentation: PresentationType, { title }: { title: string }): PresentationType {
@@ -91,61 +92,45 @@ function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: Prese
     }
 }
 
-function changeSlideBackground(slide: SlideType, newBackground: SolidColor | GradientColor | ImageSrc, selection: GlobalSelectionType): SlideType {
-    if (selection.selectedSlide != slide) {
-        throw new Error('Can\'t change background of slide that isn\'t selected')
-    }
+function changeSlideBackground(presentation: PresentationType, { background }: { background: ImageSrc | SolidColor | GradientColor }): PresentationType {
+    const presentationCopy: PresentationType = deepCopy(presentation)
+    
 
+    
     return {
-        ...slide,
-        background: newBackground
+        ...presentation
     }
 }
 
 function addObject(presentation: PresentationType, { type }: { type: 'imageObj' | 'textObj' }): PresentationType {
-    const presentationCopy = {
-        ...presentation,
-        slides: [...presentation.slides],
-        selection: { ...presentation.selection }
-    }
+    const presentationCopy: PresentationType = deepCopy(presentation)
 
-    if (type == 'imageObj') {
-        const image = {
-            ...BASE_IMAGE,
-            id: uuid(),
-        }
-        presentationCopy.selection.selectedSlide.objects.push(image)
+    const selectedSlide = presentationCopy.slides.find(slide => slide.id === presentationCopy.selection.selectedSlide.id)
+
+    if (selectedSlide == undefined) return presentation
+
+    let newObject
+    if (type === 'imageObj') {
+        newObject = deepCopy(BASE_IMAGE)
     } else {
-        const textArea = {
-            ...BASE_TEXT_AREA,
-            id: uuid(),
-        }
-        presentationCopy.selection.selectedSlide.objects.push(textArea)
+        newObject = deepCopy(BASE_TEXT_AREA)
     }
+    newObject.id = uuid()
+
+    selectedSlide.objects.push(newObject)
 
     return {
-        ...presentationCopy
+        ...presentationCopy,
+        selection: {
+            selectedSlide: selectedSlide
+        },
     }
 }
 
 function deleteObject(presentation: PresentationType): PresentationType {
     if (presentation.selection.selectedObject == undefined) return presentation
 
-    const presentationCopy: PresentationType = {
-        ...presentation,
-        slides: presentation.slides.map((slide) => ({
-            ...slide,
-            objects: slide.objects.map((obj) => ({ ...obj }))
-        }
-        )),
-        selection: {
-            ...presentation.selection,
-            selectedSlide: { ...presentation.selection.selectedSlide },
-            selectedObject: presentation.selection.selectedObject
-                ? { ...presentation.selection.selectedObject }
-                : undefined,
-        },
-    }
+    const presentationCopy: PresentationType = deepCopy(presentation)
 
     const selectedSlide = presentationCopy.slides.find((slide) => {
         if (slide.id == presentationCopy.selection.selectedSlide.id) return slide
