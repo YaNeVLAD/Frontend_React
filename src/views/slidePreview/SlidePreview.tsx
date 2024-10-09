@@ -29,7 +29,7 @@ function SlidePreview(slidePreviewProps: SlidePreviewProps) {
             }
         case 'gradient':
             {
-                slidePreviewStyle.backgroundImage = 'linear-gradient(to left, ' + slidePreviewProps.background.values[0] + ', ' + slidePreviewProps.background.values[1] + ')'
+                slidePreviewStyle.backgroundImage = 'linear-gradient(to left, ' + slidePreviewProps.background.value[0] + ', ' + slidePreviewProps.background.value[1] + ')'
                 break
             }
     }

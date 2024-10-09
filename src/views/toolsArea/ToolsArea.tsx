@@ -59,6 +59,7 @@ function ToolsArea(toolsAreaProps: ToolsAreaProps) {
                 onKeyDown={onTitleKeyDown} />
             <input
                 type='color'
+                value={background.value}
                 onChange={onColorChange}
                 onBlur={onColorBlur} />
             <button

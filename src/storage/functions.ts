@@ -4,7 +4,10 @@ import { BASE_TEXT_AREA } from "../common/BaseTextArea"
 import { EMPTY_SLIDE } from "../common/EmptySlide"
 import { deepCopy } from "./deepCopy"
 
-function changePresentationTitle(presentation: PresentationType, { title }: { title: string }): PresentationType {
+function changePresentationTitle(
+    presentation: PresentationType,
+    { title }: { title: string }
+): PresentationType {
     return {
         ...presentation,
         title: title
@@ -57,7 +60,10 @@ function deleteSlide(presentation: PresentationType): PresentationType {
     }
 }
 
-function changeSlideBackground(presentation: PresentationType, { background }: { background: ImageSrc | SolidColor | GradientColor }): PresentationType {
+function changeSlideBackground(
+    presentation: PresentationType,
+    { background }: { background: ImageSrc | SolidColor | GradientColor }
+): PresentationType {
     const presentationCopy: PresentationType = deepCopy(presentation)
 
     const selectedSlide = presentationCopy.slides.find(slide =>
@@ -76,7 +82,10 @@ function changeSlideBackground(presentation: PresentationType, { background }: {
     }
 }
 
-function addObject(presentation: PresentationType, { type }: { type: 'imageObj' | 'textObj' }): PresentationType {
+function addObject(
+    presentation: PresentationType,
+    { type }: { type: 'imageObj' | 'textObj' }
+): PresentationType {
     const presentationCopy: PresentationType = deepCopy(presentation)
 
     const selectedSlide = presentationCopy.slides.find(slide => slide.id == presentationCopy.selection.selectedSlide.id)
