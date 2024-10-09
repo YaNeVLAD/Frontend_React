@@ -132,6 +132,35 @@ function deleteObject(presentation: PresentationType): PresentationType {
     }
 }
 
+function selectObject(presentation: PresentationType, { id }: { id: string }): PresentationType {
+    const object = presentation.selection.selectedSlide.objects.find((object: SlideObjectType): boolean => { return object.id == id })
+    if (object == undefined) {
+        return presentation
+    }
+    return {
+        ...presentation,
+        selection: {
+            selectedSlide: presentation.selection.selectedSlide,
+            selectedObject: object
+        }
+    }
+}
+
+function selectSlide(presentation: PresentationType, { id }: { id: string }): PresentationType {
+    const slide = presentation.slides.find((slide: SlideType): boolean => { return slide.id == id })
+    if (slide == undefined) {
+        return presentation
+    }
+
+    return {
+        ...presentation,
+        selection: {
+            selectedSlide: slide,
+            selectedObject: undefined
+        }
+    }
+}
+
 function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: PresentationType): PresentationType {
     if (presentation.selection.selectedSlide != slideFrom) {
         throw new Error('Can\'t move slide that isn\'t selected')
@@ -215,35 +244,6 @@ function changeTextScale(textArea: TextAreaType, newSize: number, selection: Glo
     return {
         ...textArea,
         textSize: newSize
-    }
-}
-
-function selectObject(presentation: PresentationType, { id }: { id: string }): PresentationType {
-    const object = presentation.selection.selectedSlide.objects.find((object: SlideObjectType): boolean => { return object.id == id })
-    if (object == undefined) {
-        return presentation
-    }
-    return {
-        ...presentation,
-        selection: {
-            selectedSlide: presentation.selection.selectedSlide,
-            selectedObject: object
-        }
-    }
-}
-
-function selectSlide(presentation: PresentationType, { id }: { id: string }): PresentationType {
-    const slide = presentation.slides.find((slide: SlideType): boolean => { return slide.id == id })
-    if (slide == undefined) {
-        return presentation
-    }
-
-    return {
-        ...presentation,
-        selection: {
-            selectedSlide: slide,
-            selectedObject: undefined
-        }
     }
 }
 
