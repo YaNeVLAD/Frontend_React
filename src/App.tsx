@@ -13,7 +13,9 @@ function App(appProps: AppProps) {
   const presentation = appProps.presentation
   return (
     <>
-      <ToolsArea title={presentation.title} />
+      <ToolsArea
+        title={presentation.title}
+        slideBackground={presentation.selection.selectedSlide.background} />
       <div className={style.presentation}>
         <SlideCollection
           slides={presentation.slides}

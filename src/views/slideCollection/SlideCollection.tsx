@@ -16,17 +16,16 @@ function SlideCollection(slideCollectionProps: SlideCollectionProps) {
         <div className={style.slideCollection}>
             {
                 slideCollectionProps.slides.map(slide =>
-                    <div>
+                    <div key={slide.id}>
                         <h3 className={style.slideCollectionItemTitle}>
                             {slideCollectionProps.slides.indexOf(slide) + 1}
                         </h3>
                         <div
-                            key={slide.id}
                             className={style.slideCollectionItemDiv}
                             style={slideCollectionProps.selectedSlideId == slide.id ? selectedSlideStyle : {}}>
                             <SlidePreview
-                                key={slide.id}
                                 id={slide.id}
+                                key={slide.id}
                                 background={slide.background} />
                         </div>
                     </div>

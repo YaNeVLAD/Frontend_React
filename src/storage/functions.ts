@@ -10,95 +10,71 @@ function changePresentationTitle(presentation: PresentationType, { title }: { ti
         title: title
     }
 }
-//Нужно деструкторизировать презентацию и слайды во всех функциях
+
 function addSlide(presentation: PresentationType): PresentationType {
-    const presentationCopy: PresentationType = {
-        ...presentation,
-        slides: [...presentation.slides],
-        selection: {
-            ...presentation.selection,
-            selectedSlide: { ...presentation.selection.selectedSlide },
-            selectedObject: presentation.selection.selectedObject
-                ? { ...presentation.selection.selectedObject }
-                : undefined
-        }
-    }
-    const slides = presentationCopy.slides
-    const newSlide = {
-        ...EMPTY_SLIDE,
-        id: uuid(),
-        objects: [...EMPTY_SLIDE.objects],
-        background: { ...EMPTY_SLIDE.background }
-    }
-    slides.push(newSlide)
+    const presentationCopy: PresentationType = deepCopy(presentation)
+
+    const newSlide = deepCopy(EMPTY_SLIDE)
+    newSlide.id = uuid()
+
+    const updatedSlides = [
+        ...presentationCopy.slides,
+        newSlide,
+    ]
 
     return {
         ...presentationCopy,
-        slides: slides,
+        slides: updatedSlides,
         selection: {
             selectedSlide: newSlide,
             selectedObject: undefined,
-        }
+        },
     }
 }
 
 function deleteSlide(presentation: PresentationType): PresentationType {
-    if (presentation.slides.length == 1) {
-        return presentation
-    }
+    if (presentation.slides.length === 1) return presentation
 
-    const index = presentation.slides.indexOf(presentation.selection.selectedSlide)
-    if (index == -1) {
-        return presentation
-    }
+    const presentationCopy = deepCopy(presentation)
 
-    const presentationCopy = {
-        ...presentation,
-        slides: [...presentation.slides],
-        selection: { ...presentation.selection }
-    }
-    const modSlides = presentationCopy.slides.slice(0, presentationCopy.slides.length)
-    const deletedSlides = modSlides.splice(index, 1)
-    let deletedIndex = presentationCopy.slides.indexOf(deletedSlides[0])
+    const index = presentationCopy.slides.findIndex(slide => slide.id === presentationCopy.selection.selectedSlide.id)
 
-    if (deletedIndex == modSlides.length) {
-        deletedIndex--
+    if (index === -1) return presentation
+
+    const updatedSlides = presentationCopy.slides.filter((_, i) => i !== index)
+
+    let newSelectedSlide = updatedSlides[updatedSlides.length - 1]
+    if (index < updatedSlides.length) {
+        newSelectedSlide = updatedSlides[index]
     }
 
     return {
         ...presentationCopy,
-        slides: modSlides,
+        slides: updatedSlides,
         selection: {
-            selectedSlide: modSlides[deletedIndex],
-            selectedObject: undefined
-        }
-    }
-}
-
-function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: PresentationType): PresentationType {
-    if (presentation.selection.selectedSlide != slideFrom) {
-        throw new Error('Can\'t move slide that isn\'t selected')
-    }
-
-    const slides = presentation.slides
-
-    const tmp = slideTo
-    slideTo = slideFrom
-    slideFrom = tmp
-
-    return {
-        ...presentation,
-        slides: slides
+            selectedSlide: newSelectedSlide,
+            selectedObject: undefined,
+        },
     }
 }
 
 function changeSlideBackground(presentation: PresentationType, { background }: { background: ImageSrc | SolidColor | GradientColor }): PresentationType {
     const presentationCopy: PresentationType = deepCopy(presentation)
-    
 
-    
+    const selectedSlide = presentationCopy.slides.find((slide) => {
+        if (slide.id == presentationCopy.selection.selectedSlide.id) return slide
+    })
+
+    if (selectedSlide == undefined) return presentation
+
+    selectedSlide.background = background
+
     return {
-        ...presentation
+        ...presentationCopy,
+        selection: {
+            selectedSlide: selectedSlide,
+            selectedObject: undefined
+        }
     }
 }
 
@@ -156,6 +132,22 @@ function deleteObject(presentation: PresentationType): PresentationType {
     }
 }
 
+function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: PresentationType): PresentationType {
+    if (presentation.selection.selectedSlide != slideFrom) {
+        throw new Error('Can\'t move slide that isn\'t selected')
+    }
+
+    const slides = presentation.slides
+
+    const tmp = slideTo
+    slideTo = slideFrom
+    slideFrom = tmp
+
+    return {
+        ...presentation,
+        slides: slides
+    }
+}
 
 function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, newX: number, newY: number, selection: GlobalSelectionType): SlideType {
     if (selection.selectedObject != objectToMove) {
