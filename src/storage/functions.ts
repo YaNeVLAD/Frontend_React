@@ -1,5 +1,5 @@
 import { type PresentationType, type SlideType, type TextAreaType, ImageType, Background, EditorType } from "./types"
-import { EMPTY_SLIDE } from "./../common/EmptySlide"
+import { EMPTY_SLIDE } from "./../common/emptySlide"
 import { deepCopy } from "./deepCopy"
 import { BASE_IMAGE } from "../common/baseImage"
 import { BASE_TEXT_AREA } from "../common/baseTextArea"
