@@ -1,4 +1,4 @@
-import { type ImageSrc, type PresentationType, type SlideType, type TextAreaType, type SolidColor, type GradientColor, type GlobalSelectionType, ImageType } from "./types"
+import { type PresentationType, type SlideType, type TextAreaType, type GlobalSelectionType, ImageType, Background } from "./types"
 import { BASE_IMAGE } from "../common/BaseImage"
 import { BASE_TEXT_AREA } from "../common/BaseTextArea"
 import { EMPTY_SLIDE } from "../common/EmptySlide"
@@ -62,7 +62,7 @@ function deleteSlide(presentation: PresentationType): PresentationType {
 
 function changeSlideBackground(
     presentation: PresentationType,
-    { background }: { background: ImageSrc | SolidColor | GradientColor }
+    { background }: { background: Background }
 ): PresentationType {
     const presentationCopy: PresentationType = deepCopy(presentation)
 

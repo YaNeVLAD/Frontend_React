@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { addObject, addSlide, changePresentationTitle, changeSlideBackground, deleteObject, deleteSlide } from '../../storage/functions'
 import { dispatch } from '../../storage/presentation'
 import style from './ToolsArea.module.css'
-import { GradientColor, ImageSrc, SolidColor } from '../../storage/types'
+import { Background } from '../../storage/types'
 
 type ToolsAreaProps = {
     title: string,
-    slideBackground: ImageSrc | SolidColor | GradientColor
+    slideBackground: Background
 }
 
 function onAddSlideClick() { dispatch(addSlide, {}) }
@@ -21,7 +21,7 @@ function onDeletObjectClick() { dispatch(deleteObject, {}) }
 
 function ToolsArea(toolsAreaProps: ToolsAreaProps) {
     const [title, setTitle] = useState(toolsAreaProps.title)
-    const [background, setBackground] = useState<ImageSrc | SolidColor | GradientColor>(toolsAreaProps.slideBackground)
+    const [background, setBackground] = useState<Background>(toolsAreaProps.slideBackground)
 
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setBackground({ value: event.target.value, type: 'solid' })

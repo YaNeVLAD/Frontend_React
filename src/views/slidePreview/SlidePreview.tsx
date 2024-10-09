@@ -1,11 +1,11 @@
 import { selectSlide } from '../../storage/functions'
 import { dispatch } from '../../storage/presentation'
-import { GradientColor, ImageSrc, SolidColor } from '../../storage/types'
+import { Background } from '../../storage/types'
 import style from './SlidePreview.module.css'
 
 type SlidePreviewProps = {
     id: string,
-    background: ImageSrc | SolidColor | GradientColor
+    background: Background
 }
 
 function SlidePreview(slidePreviewProps: SlidePreviewProps) {

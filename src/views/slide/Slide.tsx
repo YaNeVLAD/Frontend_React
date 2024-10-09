@@ -1,4 +1,4 @@
-import { GradientColor, ImageSrc, ImageType, SolidColor, TextAreaType } from "../../storage/types"
+import { Background, ImageType, TextAreaType } from "../../storage/types"
 import { SlideObject } from "../../components/slideObject/SlideObject"
 import style from './Slide.module.css'
 
@@ -6,7 +6,7 @@ type SlideProps = {
     id: string,
     selectedObjectId: string | undefined,
     objects: Array<TextAreaType | ImageType>
-    background: SolidColor | GradientColor | ImageSrc,
+    background: Background,
 }
 
 //Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale

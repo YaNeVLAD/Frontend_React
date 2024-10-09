@@ -12,8 +12,10 @@ type GlobalSelectionType = {
 type SlideType = {
     id: string,
     objects: Array<ImageType | TextAreaType>,
-    background: SolidColor | GradientColor | ImageSrc,
+    background: Background
 }
+
+type Background = SolidColor | ImageSrc | GradientColor
 
 type SolidColor = {
     value: string,
@@ -67,5 +69,6 @@ export type {
     ImageType,
     ImageSrc,
     SolidColor,
-    GradientColor
+    GradientColor,
+    Background
 }
