@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { EMPTY_SLIDE } from "../common/EmptySlide"
-import { BASE_PRESENTATION } from "./data"
+import { BASE_PRESENTATION } from "../common/BasePresentation"
+import { EMPTY_SLIDE } from "./../common/EmptySlide"
 import { EditorType } from "./types"
 
 let _editor: EditorType = {

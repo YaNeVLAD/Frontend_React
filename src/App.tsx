@@ -3,6 +3,8 @@ import { SlideCollection } from './views/slideCollection/SlideCollection'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import { Slide } from './views/slide/Slide'
 import style from './App.module.css'
+const COLLECTION_SLIDE_SCALE = 0.2
+const SELECTED_SLIDE_SCALE = 1
 
 type AppProps = {
   editor: EditorType
@@ -27,12 +29,16 @@ function App({ editor }: AppProps) {
       <div className={style.presentation}>
         <SlideCollection
           slides={editor.presentation.slides}
-          selectedSlideId={editor.selection.selectedSlide.id} />
+          selectedSlideId={editor.selection.selectedSlide.id}
+          scale={COLLECTION_SLIDE_SCALE} />
         <Slide
           id={editor.selection.selectedSlide.id}
           selectedObjectId={editor.selection.selectedObject?.id}
           objects={editor.selection.selectedSlide.objects}
-          background={editor.selection.selectedSlide.background} />
+          background={editor.selection.selectedSlide.background}
+          isSelected={false}
+          className={''}
+          scale={SELECTED_SLIDE_SCALE} />
       </div>
     </>
   )

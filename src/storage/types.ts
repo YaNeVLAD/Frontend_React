@@ -1,5 +1,3 @@
-// Фигануть editor над презенацией и выделением
-
 type EditorType = {
     presentation: PresentationType,
     selection: SelectionType
@@ -12,12 +10,12 @@ type PresentationType = {
 
 type SelectionType = {
     selectedSlide: SlideType,
-    selectedObject?: ImageType | TextAreaType,
+    selectedObject?: SlideObjectType,
 }
 
 type SlideType = {
     id: string,
-    objects: Array<ImageType | TextAreaType>,
+    objects: Array<SlideObjectType>,
     background: Background
 }
 

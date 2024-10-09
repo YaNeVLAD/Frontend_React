@@ -1,34 +1,38 @@
-import { type PresentationType, type SlideType, type TextAreaType, type GlobalSelectionType, ImageType, Background, EditorType } from "./types"
+import { type PresentationType, type SlideType, type TextAreaType, ImageType, Background, EditorType } from "./types"
+import { EMPTY_SLIDE } from "./../common/EmptySlide"
+import { deepCopy } from "./deepCopy"
 import { BASE_IMAGE } from "../common/BaseImage"
 import { BASE_TEXT_AREA } from "../common/BaseTextArea"
-import { EMPTY_SLIDE } from "../common/EmptySlide"
-import { deepCopy } from "./deepCopy"
 //Разнести функции на файлы
 
 function changePresentationTitle(
-    presentation: PresentationType,
+    editor: EditorType,
     { title }: { title: string }
-): PresentationType {
+): EditorType {
     return {
-        ...presentation,
-        title: title
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            title: title
+        }
     }
 }
 
-function addSlide(presentation: PresentationType): PresentationType {
-    const presentationCopy: PresentationType = deepCopy(presentation)
-
+function addSlide(editor: EditorType): EditorType {
     const newSlide = deepCopy(EMPTY_SLIDE)
     newSlide.id = uuid()
 
     const updatedSlides = [
-        ...presentationCopy.slides,
+        ...editor.presentation.slides,
         newSlide,
     ]
 
     return {
-        ...presentationCopy,
-        slides: updatedSlides,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: updatedSlides,
+        },
         selection: {
             selectedSlide: newSlide,
             selectedObject: undefined,
@@ -36,13 +40,13 @@ function addSlide(presentation: PresentationType): PresentationType {
     }
 }
 
-function deleteSlide(presentation: PresentationType): PresentationType {
-    if (presentation.slides.length === 1) return presentation
+function deleteSlide(editor: EditorType): EditorType {
+    if (editor.presentation.slides.length === 1) return editor
 
-    const presentationCopy = deepCopy(presentation)
+    const presentationCopy = deepCopy(editor.presentation)
 
-    const index = presentationCopy.slides.findIndex(slide => slide.id === presentationCopy.selection.selectedSlide.id)
-    if (index === -1) return presentation
+    const index = presentationCopy.slides.findIndex(slide => slide.id == editor.selection.selectedSlide.id)
+    if (index === -1) return editor
 
     const updatedSlides = presentationCopy.slides.filter((_, i) => i !== index)
 
@@ -52,8 +56,11 @@ function deleteSlide(presentation: PresentationType): PresentationType {
     }
 
     return {
-        ...presentationCopy,
-        slides: updatedSlides,
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: updatedSlides,
+        },
         selection: {
             selectedSlide: newSelectedSlide,
             selectedObject: undefined,
@@ -85,13 +92,13 @@ function changeSlideBackground(
 }
 
 function addObject(
-    presentation: PresentationType,
+    editor: EditorType,
     { type }: { type: 'imageObj' | 'textObj' }
-): PresentationType {
-    const presentationCopy: PresentationType = deepCopy(presentation)
+): EditorType {
+    const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
-    const selectedSlide = presentationCopy.slides.find(slide => slide.id == presentationCopy.selection.selectedSlide.id)
-    if (selectedSlide == undefined) return presentation
+    const selectedSlide = presentationCopy.slides.find(slide => slide.id == editor.selection.selectedSlide.id)
+    if (selectedSlide == undefined) return editor
 
     let newObject
     if (type === 'imageObj') {
@@ -104,59 +111,64 @@ function addObject(
     selectedSlide.objects.push(newObject)
 
     return {
-        ...presentationCopy,
+        ...editor,
+        presentation: {
+            ...presentationCopy,
+        },
         selection: {
             selectedSlide: selectedSlide
         },
     }
 }
 
-function deleteObject(presentation: PresentationType): PresentationType {
-    if (presentation.selection.selectedObject == undefined) return presentation
+function deleteObject(editor: EditorType): EditorType {
+    if (editor.selection.selectedObject == undefined) return editor
 
-    const presentationCopy: PresentationType = deepCopy(presentation)
+    const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
     const selectedSlide = presentationCopy.slides.find(slide =>
-        slide.id == presentationCopy.selection.selectedSlide.id
+        slide.id == editor.selection.selectedSlide.id
     )
-    if (selectedSlide == undefined) return presentation
+    if (selectedSlide == undefined) return editor
 
     const selectedObjectIndex = selectedSlide.objects.findIndex(obj =>
-        obj.id == presentation.selection.selectedObject?.id
+        obj.id == editor.selection.selectedObject?.id
     )
-    if (selectedObjectIndex === -1) return presentation
+    if (selectedObjectIndex === -1) return editor
 
     selectedSlide.objects.splice(selectedObjectIndex, 1)
 
     return {
-        ...presentationCopy,
+        ...editor,
+        presentation: {
+            ...presentationCopy,
+        },
         selection: {
-            ...presentationCopy.selection,
             selectedSlide: selectedSlide,
             selectedObject: undefined,
         },
     }
 }
 
-function selectObject(presentation: PresentationType, { id }: { id: string }): PresentationType {
-    const object = presentation.selection.selectedSlide.objects.find(object => object.id == id)
-    if (object == undefined) return presentation
+function selectObject(editor: EditorType, { id }: { id: string }): EditorType {
+    const object = editor.selection.selectedSlide.objects.find(object => object.id == id)
+    if (object == undefined) return editor
 
     return {
-        ...presentation,
+        ...editor,
         selection: {
-            selectedSlide: presentation.selection.selectedSlide,
+            selectedSlide: editor.selection.selectedSlide,
             selectedObject: object
         }
     }
 }
 
-function selectSlide(presentation: PresentationType, { id }: { id: string }): PresentationType {
-    const slide = presentation.slides.find(slide => slide.id == id)
-    if (slide == undefined) return presentation
+function selectSlide(editor: EditorType, { id }: { id: string }): EditorType {
+    const slide = editor.presentation.slides.find(slide => slide.id == id)
+    if (slide == undefined) return editor
 
     return {
-        ...presentation,
+        ...editor,
         selection: {
             selectedSlide: slide,
             selectedObject: undefined

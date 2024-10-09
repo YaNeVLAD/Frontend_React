@@ -1,5 +1,5 @@
-import { EMPTY_SLIDE } from "../common/EmptySlide"
-import { PresentationType } from "./types"
+import { EMPTY_SLIDE } from "./EmptySlide"
+import { PresentationType } from "../storage/types"
 
 const BASE_PRESENTATION: PresentationType = {
     title: "My Presentation",

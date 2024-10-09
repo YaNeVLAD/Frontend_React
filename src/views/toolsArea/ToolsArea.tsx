@@ -18,13 +18,15 @@ function onDeleteSlideClick() { dispatch(deleteSlide) }
 
 function onDeletObjectClick() { dispatch(deleteObject) }
 
-function ToolsArea(props: ToolsAreaProps) {
+function ToolsArea({ title, background }: ToolsAreaProps) {
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(changePresentationTitle, { title: (event.target as HTMLInputElement).value })
+        const value = (event.target as HTMLInputElement).value
+        dispatch(changePresentationTitle, { title: value })
     }
 
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const background: Background = { value: (event.target as HTMLInputElement).value, type: 'solid' }
+        const value = (event.target as HTMLInputElement).value
+        const background: Background = { value: value, type: 'solid' }
         dispatch(changeSlideBackground, { background: background })
     }
 
@@ -32,11 +34,11 @@ function ToolsArea(props: ToolsAreaProps) {
         <div className={style.toolsArea}>
             <input
                 type="text"
-                defaultValue={props.title}
+                defaultValue={title}
                 onChange={onTitleChange} />
             <input
                 type='color'
-                value={props.background.value}
+                value={background.value}
                 onChange={onColorChange} />
             <button
                 className={style.addSlide}

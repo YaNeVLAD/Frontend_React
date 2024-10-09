@@ -1,13 +1,16 @@
-import { Background, ImageType, TextAreaType } from "../../storage/types"
+import { Background, SlideObjectType } from "../../storage/types"
 import { SlideObject } from "../../components/slideObject/SlideObject"
-import style from './Slide.module.css'
 import { CSSProperties } from "react"
+import style from './Slide.module.css'
 
 type SlideProps = {
     id: string,
     selectedObjectId: string | undefined,
-    objects: Array<TextAreaType | ImageType>
+    objects: Array<SlideObjectType>
     background: Background,
+    isSelected: boolean,
+    className: string,
+    scale: number,
 }
 
 //Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale
@@ -20,6 +23,7 @@ type SlideProps = {
 function Slide(props: SlideProps) {
 
     const slideStyle: CSSProperties = {}
+    if (props.isSelected) slideStyle.border = 'solid 5px #6565FF'
 
     switch (props.background.type) {
         case 'solid':
@@ -40,13 +44,14 @@ function Slide(props: SlideProps) {
     }
 
     return (
-        <div style={slideStyle} className={style.slide}>
+        <div style={slideStyle} className={`${style.slide} ${props.className}`}>
             {
                 props.objects.map(
                     object => <SlideObject
                         key={object.id}
                         object={object}
-                        isSelected={object.id == props.selectedObjectId} />
+                        isSelected={object.id == props.selectedObjectId}
+                        scale={props.scale} />
                 )
             }
         </div>

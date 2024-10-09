@@ -3,15 +3,16 @@ import style from './Image.module.css'
 
 type ImageProps = {
     object: ImageType,
+    scale: number
     onClick: () => void,
 }
 
-function Image(imageProps: ImageProps) {
+function Image({ object, onClick }: ImageProps) {
     return (
         <img
             className={style.image}
-            src={imageProps.object.src.value}
-            onClick={imageProps.onClick} />
+            src={object.src.value}
+            onClick={onClick} />
     )
 }
 
