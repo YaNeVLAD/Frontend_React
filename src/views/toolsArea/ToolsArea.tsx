@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { addObject, addSlide, changePresentationTitle, changeSlideBackground, deleteObject, deleteSlide } from '../../storage/functions'
+import { useState } from 'react'
 import { dispatch } from '../../storage/presentation'
-import style from './ToolsArea.module.css'
 import { Background } from '../../storage/types'
+import style from './ToolsArea.module.css'
 
 type ToolsAreaProps = {
     title: string,
