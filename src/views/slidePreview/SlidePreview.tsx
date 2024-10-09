@@ -9,9 +9,7 @@ type SlidePreviewProps = {
 }
 
 function SlidePreview(slidePreviewProps: SlidePreviewProps) {
-    function onClick() {
-        dispatch(selectSlide, { id: slidePreviewProps.id })
-    }
+    function onClick() { dispatch(selectSlide, { id: slidePreviewProps.id }) }
 
     const slidePreviewStyle = {
         backgroundColor: '',

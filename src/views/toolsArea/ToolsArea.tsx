@@ -9,25 +9,15 @@ type ToolsAreaProps = {
     slideBackground: ImageSrc | SolidColor | GradientColor
 }
 
-function onAddSlideClick() {
-    dispatch(addSlide, {})
-}
+function onAddSlideClick() { dispatch(addSlide, {}) }
 
-function onAddImageClick() {
-    dispatch(addObject, { type: 'imageObj' })
-}
+function onAddImageClick() { dispatch(addObject, { type: 'imageObj' }) }
 
-function onAddTextClick() {
-    dispatch(addObject, { type: 'textObj' })
-}
+function onAddTextClick() { dispatch(addObject, { type: 'textObj' }) }
 
-function onDeleteSlideClick() {
-    dispatch(deleteSlide, {})
-}
+function onDeleteSlideClick() { dispatch(deleteSlide, {}) }
 
-function onDeletObjectClick() {
-    dispatch(deleteObject, {})
-}
+function onDeletObjectClick() { dispatch(deleteObject, {}) }
 
 function ToolsArea(toolsAreaProps: ToolsAreaProps) {
     const [title, setTitle] = useState(toolsAreaProps.title)
