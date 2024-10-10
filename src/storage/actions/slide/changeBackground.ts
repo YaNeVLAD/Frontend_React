@@ -19,7 +19,7 @@ function changeSlideBackground(
         presentation: presentationCopy,
         selection: {
             selectedSlide: selectedSlide,
-            selectedObject: undefined
+            selectedObject: editor.selection.selectedObject
         }
     }
 }
