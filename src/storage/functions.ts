@@ -43,17 +43,6 @@ function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, ne
     }
 }
 
-function changeTextValue(textArea: TextAreaType, newValue: string, selection: GlobalSelectionType): TextAreaType {
-    if (selection.selectedObject != textArea) {
-        throw new Error('Can\'t change text value of area that isn\'t selected')
-    }
-
-    return {
-        ...textArea,
-        value: newValue
-    }
-}
-
 function changeTextFont(textArea: TextAreaType, newFont: string, selection: GlobalSelectionType): TextAreaType {
     if (selection.selectedObject != textArea) {
         throw new Error('Can\'t change text font of area that isn\'t selected')
@@ -98,7 +87,6 @@ function uuid(): string {
 export {
     moveSlide,
     moveObject,
-    changeTextValue,
     changeTextFont,
     changeTextScale,
     changeTextColor,
