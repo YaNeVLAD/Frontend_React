@@ -15,4 +15,5 @@
     border: none;
     outline: none;
     overflow: auto;
+    background: transparent;
 }

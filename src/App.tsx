@@ -9,21 +9,11 @@ const SELECTED_SLIDE_SCALE = 1
 type AppProps = {
   editor: EditorType
 }
-//Клавиатурное управление. Хоткеи
-//Если делать --- просчитать все хоткеи
-
-//css - переменная
-//Объявляется 1 раз, используется где угодно.
-//--variableName: 70px
-//var(--variableName)
-//background-color: transparent --- прозрачный фон элемента
-// У стрелочных функций контекст тот, в котором их объявили
-// Они нужны для обработчиков событий 
 
 function App({ editor }: AppProps) {
   return (
     <>
-      <ToolsArea
+      <ToolsArea 
         title={editor.presentation.title}
         background={editor.selection.selectedSlide.background} />
       <div className={style.container}>

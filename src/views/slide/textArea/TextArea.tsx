@@ -3,6 +3,7 @@ import { TextAreaType } from '../../../storage/types'
 import { dispatch } from '../../../storage/editor'
 import { useState } from 'react'
 import style from './TextArea.module.css'
+import { deleteObject } from '../../../storage/actions/object/delete'
 
 const MINIMUM_TEXT_SIZE = 1.5
 
@@ -21,6 +22,7 @@ function TextArea({ object, scale, onClick }: TextAreaProps) {
 
     const onBlur = () => {
         setIsEditable(false)
+        if (object.value == "") dispatch(deleteObject)
     }
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
