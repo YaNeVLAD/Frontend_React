@@ -10,8 +10,6 @@ type SlideCollectionProps = {
     scale: number
 }
 
-// Для отключения взаимодействия использвать в css pointer-events: none
-// Родителю задавать onClick, а слайду прокидывать pointer-events: none
 function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProps) {
     return (
         <div className={style.slideCollection}>

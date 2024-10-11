@@ -13,17 +13,10 @@ type SlideProps = {
     scale: number,
 }
 
-//Порешать превью. Сделать её слайдом. В каждый слайд и объект прокидывать scale
-// Добавить в пропсы isSelected для изменения стилей
-// И поле selection, чтобы устанавливать его через slide
-
-// ширина и высота делается через `${SLIDE_HEIGHT/SLIDE_WIDTH * scale}px`
-// Scale прокидывается и в объекты. С текстом могут быть проблемы
-// передавать функции с параметрами в on-что-то () => func(param)
 function Slide(props: SlideProps) {
 
     const slideStyle: CSSProperties = {}
-    if (props.isSelected) slideStyle.border = 'solid 5px #6565FF'
+    if (props.isSelected) slideStyle.outline = 'solid 3.5px #6565FF'
 
     switch (props.background.type) {
         case 'solid':

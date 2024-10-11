@@ -12,6 +12,25 @@
     border-radius: 20px;
 }
 
+.slideCollection::-webkit-scrollbar {
+    width: 10px;
+}
+
+.slideCollection::-webkit-scrollbar-track {
+    background: #EFEFEF;
+    border-radius: 10px;
+}
+
+.slideCollection::-webkit-scrollbar-thumb {
+    background-color: #808080;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.slideCollection::-webkit-scrollbar-thumb:hover {
+    background-color: #404040;
+}
+
 .slideCollectionItemTitle {
     font-size: 15px;
     text-align: center;
@@ -29,4 +48,10 @@
     align-items: center;
     flex-wrap: nowrap;
     margin: 10px 5px;
+}
+
+.slideCollectionItemDiv:hover .slideCollectionSlide {
+    outline: 3px solid #404040;
+    outline-width: 3.5px;
+    border: 0;
 }
