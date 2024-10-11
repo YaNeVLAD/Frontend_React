@@ -11,10 +11,10 @@ let _editor: EditorType = {
     }
 }
 
-let presentationChangeHandler: Function | null = null
+let editorChangeHandler: Function | null = null
 
-function addPresentationChangeHandler(handler: Function) {
-    presentationChangeHandler = handler
+function addEditorChangeHandler(handler: Function) {
+    editorChangeHandler = handler
 }
 
 function getEditor(): EditorType {
@@ -26,14 +26,14 @@ function setEditor(editor: EditorType) {
 }
 
 function dispatch(modifier: Function, params?: object) {
-    const newPresentation = modifier(_editor, params)
-    setEditor(newPresentation)
-    if (presentationChangeHandler) presentationChangeHandler()
+    const newEditor = modifier(_editor, params)
+    setEditor(newEditor)
+    if (editorChangeHandler) editorChangeHandler()
 }
 
 export {
     getEditor,
     setEditor,
-    addPresentationChangeHandler,
+    addEditorChangeHandler,
     dispatch,
 }

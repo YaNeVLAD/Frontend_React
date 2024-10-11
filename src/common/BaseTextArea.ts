@@ -1,7 +1,8 @@
+import { deepCopy } from "../storage/deepCopy"
 import { uuid } from "../storage/functions"
 import { TextAreaType } from "../storage/types"
 
-const BASE_TEXT_AREA: TextAreaType = {
+const BASE_TEXT_AREA: TextAreaType = deepCopy({
     id: uuid(),
     type: 'textObj',
     pos: { x: 100, y: 150 },
@@ -11,6 +12,6 @@ const BASE_TEXT_AREA: TextAreaType = {
     font: 'Inter, sans-serif',
     color: 'black',
     textSize: 30,
-}
+})
 
 export { BASE_TEXT_AREA }

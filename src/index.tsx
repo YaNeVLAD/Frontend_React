@@ -1,4 +1,4 @@
-import { addPresentationChangeHandler, getEditor } from './storage/editor.ts'
+import { addEditorChangeHandler, getEditor } from './storage/editor.ts'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
@@ -12,5 +12,5 @@ function render() {
   )
 }
 
-addPresentationChangeHandler(render)
+addEditorChangeHandler(render)
 render()
