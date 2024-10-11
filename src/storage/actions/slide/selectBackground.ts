@@ -1,7 +1,7 @@
 import { CSSProperties } from "react"
-import { Background } from "../../types"
+import { BackgroundType } from "../../types"
 
-function selectSlideBackground(style: CSSProperties, background: Background): CSSProperties {
+function selectSlideBackgroundType(style: CSSProperties, background: BackgroundType): CSSProperties {
     switch (background.type) {
         case 'solid':
             {
@@ -23,4 +23,4 @@ function selectSlideBackground(style: CSSProperties, background: Background): CS
     return style
 }
 
-export { selectSlideBackground }
+export { selectSlideBackgroundType }

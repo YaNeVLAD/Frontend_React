@@ -2,15 +2,15 @@ import { addObject } from '../../storage/actions/object/add'
 import { deleteObject } from '../../storage/actions/object/delete'
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { addSlide } from '../../storage/actions/slide/add'
-import { changeSlideBackground } from '../../storage/actions/slide/changeBackground'
+import { changeSlideBackgroundType } from '../../storage/actions/slide/changeBackgroundType'
 import { deleteSlide } from '../../storage/actions/slide/delete'
 import { dispatch } from '../../storage/editor'
-import { Background } from '../../storage/types'
+import { BackgroundType } from '../../storage/types'
 import style from './ToolsArea.module.css'
 
 type ToolsAreaProps = {
     title: string,
-    background: Background
+    background: BackgroundType
 }
 
 function onAddSlideClick() { dispatch(addSlide) }
@@ -31,8 +31,8 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
 
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
-        const background: Background = { value: value, type: 'solid' }
-        dispatch(changeSlideBackground, { background: background })
+        const background: BackgroundType = { value: value, type: 'solid' }
+        dispatch(changeSlideBackgroundType, { background: background })
     }
 
     return (

@@ -1,3 +1,8 @@
+//В SelectionType хранить id
+//А то реально получается, что в каждой функции есть такое типо
+//find(smth => smth.id == editor.selection.selectedSlide.id)
+//Чтоб справа такого не было, храним id
+
 type EditorType = {
     presentation: PresentationType,
     selection: SelectionType
@@ -16,10 +21,10 @@ type SelectionType = {
 type SlideType = {
     id: string,
     objects: Array<SlideObjectType>,
-    background: Background
+    background: BackgroundType
 }
 
-type Background = SolidColor | ImageSrc | GradientColor
+type BackgroundType = SolidColor | ImageSrc | GradientColor
 
 type SolidColor = {
     value: string,
@@ -77,6 +82,6 @@ export type {
     ImageSrc,
     SolidColor,
     GradientColor,
-    Background,
+    BackgroundType,
     SlideObjectType
 }

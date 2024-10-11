@@ -1,9 +1,9 @@
-import { Background, EditorType, PresentationType } from "../../types"
+import { BackgroundType, EditorType, PresentationType } from "../../types"
 import { deepCopy } from "../../deepCopy"
 
-function changeSlideBackground(
+function changeSlideBackgroundType(
     editor: EditorType,
-    { background }: { background: Background }
+    { background }: { background: BackgroundType }
 ): EditorType {
     const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
@@ -24,4 +24,4 @@ function changeSlideBackground(
     }
 }
 
-export { changeSlideBackground }
+export { changeSlideBackgroundType }
