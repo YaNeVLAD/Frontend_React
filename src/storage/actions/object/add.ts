@@ -10,7 +10,9 @@ function addObject(
 ): EditorType {
     const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
-    const selectedSlide = presentationCopy.slides.find(slide => slide.id == editor.selection.selectedSlide.id)
+    const selectedSlide = presentationCopy.slides.find(
+        slide => slide.id == editor.selection.selectedSlide.id
+    )
     if (selectedSlide == undefined) return editor
 
     let newObject
@@ -29,7 +31,8 @@ function addObject(
             ...presentationCopy,
         },
         selection: {
-            selectedSlide: selectedSlide
+            selectedSlide: selectedSlide,
+            selectedObject: newObject
         },
     }
 }

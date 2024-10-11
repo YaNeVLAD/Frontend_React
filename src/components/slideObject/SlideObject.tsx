@@ -1,8 +1,6 @@
-import { selectObject } from "../../storage/actions/object/select"
 import { SlideObjectType } from "../../storage/types"
 import { TextArea } from "../../views/slide/textArea/TextArea"
 import { Image } from "../../views/slide/image/Image"
-import { dispatch } from "../../storage/editor"
 import { CSSProperties } from "react"
 import style from './SlideObject.module.css'
 
@@ -13,21 +11,17 @@ type SlideObjectProps = {
 }
 
 function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
-    const onObjectClick = () => dispatch(selectObject, { id: object.id })
-
     let obj
     switch (object.type) {
         case 'textObj':
             obj = <TextArea
-                object={object}
-                scale={scale}
-                onClick={onObjectClick} />
+                context={object}
+                scale={scale} />
             break
         case 'imageObj':
             obj = <Image
-                object={object}
-                scale={scale}
-                onClick={onObjectClick} />
+                context={object}
+                scale={scale} />
             break
     }
 

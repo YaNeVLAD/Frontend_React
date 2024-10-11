@@ -1,28 +1,39 @@
 import { changeTextValue } from '../../../storage/actions/textArea/changeValue'
+import { deleteObject } from '../../../storage/actions/object/delete'
 import { TextAreaType } from '../../../storage/types'
 import { dispatch } from '../../../storage/editor'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { selectObject } from '../../../storage/actions/object/select'
 import style from './TextArea.module.css'
-import { deleteObject } from '../../../storage/actions/object/delete'
 
 const MINIMUM_TEXT_SIZE = 1.5
 
 type TextAreaProps = {
-    object: TextAreaType,
+    context: TextAreaType,
     scale: number,
-    onClick: () => void,
 }
 
-function TextArea({ object, scale, onClick }: TextAreaProps) {
+function TextArea({ context, scale }: TextAreaProps) {
     const [isEditable, setIsEditable] = useState(false)
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
-    const handleDoubleClick = () => {
+    useEffect(() => {
         setIsEditable(true)
+        if (textAreaRef.current) {
+            const textarea = textAreaRef.current
+            textarea.focus()
+            textarea.selectionStart = textarea.selectionEnd = textarea.value.length
+        }
+    }, [])
+
+    const onClick = () => {
+        setIsEditable(true)
+        dispatch(selectObject, { id: context.id })
     }
 
     const onBlur = () => {
         setIsEditable(false)
-        if (object.value == "") dispatch(deleteObject)
+        if (context.value == "") dispatch(deleteObject)
     }
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,36 +42,26 @@ function TextArea({ object, scale, onClick }: TextAreaProps) {
     }
 
     const textAreaStyle = {
-        font: object.font,
-        fontSize: object.textSize * scale + MINIMUM_TEXT_SIZE,
-        color: object.color,
+        font: context.font,
+        fontSize: context.textSize * scale + MINIMUM_TEXT_SIZE,
+        color: context.color,
     }
 
     return (
-        <div className={style.textAreaWrapper} onClick={onClick}>
-            {isEditable ? (
-                <textarea
-                    value={object.value}
-                    style={textAreaStyle}
-                    className={style.textAreaInput}
-                    onBlur={onBlur}
-                    autoFocus
-                    rows={4}
-                    onChange={onChange}
-                />
-            ) : (
-                <p
-                    style={textAreaStyle}
-                    className={style.textArea}
-                    onDoubleClick={handleDoubleClick}>
-                    {object.value.split('\n').map((line, index) => (
-                        <span key={index}>
-                            {line}
-                            <br />
-                        </span>
-                    ))}
-                </p>
-            )}
+        <div
+            className={style.textAreaWrapper}
+            onClick={onClick}>
+
+            <textarea
+                ref={textAreaRef}
+                value={context.value}
+                style={textAreaStyle}
+                className={style.textAreaInput}
+                autoFocus
+                readOnly={!isEditable}
+                rows={4}
+                onBlur={onBlur}
+                onChange={onChange} />
         </div>
     )
 }
