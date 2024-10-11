@@ -3,6 +3,7 @@ import { SlideCollection } from './views/slideCollection/SlideCollection'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import { Slide } from './views/slide/Slide'
 import style from './App.module.css'
+
 const COLLECTION_SLIDE_SCALE = 0.2
 const SELECTED_SLIDE_SCALE = 1
 

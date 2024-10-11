@@ -4,6 +4,8 @@ import { Image } from "../../views/slide/image/Image"
 import { CSSProperties } from "react"
 import style from './SlideObject.module.css'
 
+const SELECTED_OBJECT_OUTLINE = 'solid 5px #6565FF'
+
 type SlideObjectProps = {
     object: SlideObjectType,
     isSelected: boolean,
@@ -11,6 +13,15 @@ type SlideObjectProps = {
 }
 
 function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
+    const slideObjectStyle: CSSProperties = {
+        left: object.pos.x * scale,
+        top: object.pos.y * scale,
+        width: object.size.width * scale,
+        height: object.size.height * scale,
+        transform: `rotate(${object.turnAngle}deg)`,
+        outline: isSelected ? SELECTED_OBJECT_OUTLINE : ''
+    }
+
     let obj
     switch (object.type) {
         case 'textObj':
@@ -26,16 +37,6 @@ function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
         default:
             throw Error(`Unknown slide object type.`)
     }
-
-    const slideObjectStyle: CSSProperties = {
-        left: object.pos.x * scale,
-        top: object.pos.y * scale,
-        width: object.size.width * scale,
-        height: object.size.height * scale,
-        transform: 'rotate(' + object.turnAngle + 'deg)',
-    }
-
-    if (isSelected) slideObjectStyle.outline = 'solid 5px #6565FF'
 
     return (
         <div className={style.slideObject} style={slideObjectStyle}>

@@ -1,8 +1,8 @@
+import { selectSlideBackground } from "../../storage/actions/slide/selectBackground"
 import { Background, SlideObjectType } from "../../storage/types"
 import { SlideObject } from "../../components/slideObject/SlideObject"
 import { CSSProperties } from "react"
 import style from './Slide.module.css'
-import { selectSlideBackground } from "../../storage/actions/slide/selectBackground"
 
 const SELECTED_SLIDE_OUTLINE = 'solid 3.5px #6565FF'
 

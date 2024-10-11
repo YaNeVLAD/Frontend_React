@@ -51,7 +51,7 @@
 }
 
 .slideCollectionItemDiv:hover .slideCollectionSlide {
-    outline: 3px solid #404040;
+    outline: 3px solid #808080;
     outline-width: 3.5px;
     border: 0;
 }
