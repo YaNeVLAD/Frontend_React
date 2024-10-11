@@ -1,13 +1,12 @@
 import { changeTextValue } from '../../../storage/actions/textArea/changeValue'
-import { deleteObject } from '../../../storage/actions/object/delete'
-import { TextAreaType } from '../../../storage/types'
-import { dispatch } from '../../../storage/editor'
-import { useEffect, useRef, useState } from 'react'
-import { selectObject } from '../../../storage/actions/object/select'
 import { changeObjectSize } from '../../../storage/actions/object/changeSize'
+import { deleteObject } from '../../../storage/actions/object/delete'
+import { selectObject } from '../../../storage/actions/object/select'
+import { MINIMUM_TEXT_SIZE } from '../../../storage/constants'
+import { TextAreaType } from '../../../storage/types'
+import { useEffect, useRef, useState } from 'react'
+import { dispatch } from '../../../storage/editor'
 import style from './TextArea.module.css'
-
-const MINIMUM_TEXT_SIZE = 1.5
 
 type TextAreaProps = {
     context: TextAreaType,

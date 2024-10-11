@@ -1,10 +1,9 @@
-import { SlideObjectType } from "../../storage/types"
+import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
 import { TextArea } from "../../views/slide/textArea/TextArea"
+import { SlideObjectType } from "../../storage/types"
 import { Image } from "../../views/slide/image/Image"
 import { CSSProperties } from "react"
 import style from './SlideObject.module.css'
-
-const SELECTED_OBJECT_OUTLINE = 'solid 5px #6565FF'
 
 type SlideObjectProps = {
     object: SlideObjectType,
