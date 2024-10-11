@@ -1,4 +1,4 @@
-import { selectSlideBackgroundType } from "../../storage/actions/slide/selectBackgroundType"
+import { selectSlideBackgroundType } from "../../storage/actions/slide/selectBackground"
 import { SlideObject } from "../../components/slideObject/SlideObject"
 import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
