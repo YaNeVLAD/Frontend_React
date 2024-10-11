@@ -27,7 +27,6 @@ function TextArea({ context, scale }: TextAreaProps) {
     }
 
     useEffect(() => {
-        setIsEditable(true)
         if (textAreaRef.current) {
             const textArea = textAreaRef.current
             textArea.focus()
