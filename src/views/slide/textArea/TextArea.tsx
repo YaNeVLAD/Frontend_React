@@ -4,6 +4,7 @@ import { TextAreaType } from '../../../storage/types'
 import { dispatch } from '../../../storage/editor'
 import { useEffect, useRef, useState } from 'react'
 import { selectObject } from '../../../storage/actions/object/select'
+import { changeObjectSize } from '../../../storage/actions/object/changeSize'
 import style from './TextArea.module.css'
 
 const MINIMUM_TEXT_SIZE = 1.5
@@ -17,12 +18,20 @@ function TextArea({ context, scale }: TextAreaProps) {
     const [isEditable, setIsEditable] = useState(false)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
+    const textAreaStyle = {
+        fontFamily: context.font,
+        fontSize: (context.textSize * scale) < MINIMUM_TEXT_SIZE
+            ? MINIMUM_TEXT_SIZE
+            : context.textSize * scale,
+        color: context.color,
+    }
+
     useEffect(() => {
         setIsEditable(true)
         if (textAreaRef.current) {
-            const textarea = textAreaRef.current
-            textarea.focus()
-            textarea.selectionStart = textarea.selectionEnd = textarea.value.length
+            const textArea = textAreaRef.current
+            textArea.focus()
+            textArea.selectionStart = textArea.selectionEnd = textArea.value.length
         }
     }, [])
 
@@ -39,12 +48,15 @@ function TextArea({ context, scale }: TextAreaProps) {
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = (event.target as HTMLTextAreaElement).value
         dispatch(changeTextValue, { value: value })
-    }
 
-    const textAreaStyle = {
-        font: context.font,
-        fontSize: context.textSize * scale + MINIMUM_TEXT_SIZE,
-        color: context.color,
+        if (textAreaRef.current) {
+            const textArea = textAreaRef.current
+
+            textArea.style.height = 'auto'
+            textArea.style.height = `${textArea.scrollHeight}px`
+
+            dispatch(changeObjectSize, { width: context.size.width, height: textArea.scrollHeight })
+        }
     }
 
     return (
@@ -59,7 +71,7 @@ function TextArea({ context, scale }: TextAreaProps) {
                 className={style.textAreaInput}
                 autoFocus
                 readOnly={!isEditable}
-                rows={4}
+                rows={1}
                 onBlur={onBlur}
                 onChange={onChange} />
         </div>

@@ -8,9 +8,9 @@ const BASE_TEXT_AREA: TextAreaType = {
     size: { width: 300, height: 100 },
     turnAngle: 0,
     value: 'Hello World',
-    font: 'Arial',
+    font: 'Inter, sans-serif',
     color: 'black',
-    textSize: 16,
+    textSize: 30,
 }
 
 export { BASE_TEXT_AREA }

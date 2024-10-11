@@ -23,6 +23,8 @@ function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
                 context={object}
                 scale={scale} />
             break
+        default:
+            throw Error(`Unknown slide object type.`)
     }
 
     const slideObjectStyle: CSSProperties = {
@@ -33,7 +35,7 @@ function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
         transform: 'rotate(' + object.turnAngle + 'deg)',
     }
 
-    if (isSelected) slideObjectStyle.border = 'solid 5px #6565FF'
+    if (isSelected) slideObjectStyle.outline = 'solid 5px #6565FF'
 
     return (
         <div className={style.slideObject} style={slideObjectStyle}>
