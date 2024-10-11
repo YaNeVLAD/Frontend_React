@@ -2,6 +2,9 @@ import { Background, SlideObjectType } from "../../storage/types"
 import { SlideObject } from "../../components/slideObject/SlideObject"
 import { CSSProperties } from "react"
 import style from './Slide.module.css'
+import { selectSlideBackground } from "../../storage/actions/slide/selectBackground"
+
+const SELECTED_SLIDE_OUTLINE = 'solid 3.5px #6565FF'
 
 type SlideProps = {
     id: string,
@@ -16,25 +19,9 @@ type SlideProps = {
 function Slide(props: SlideProps) {
 
     const slideStyle: CSSProperties = {}
-    if (props.isSelected) slideStyle.outline = 'solid 3.5px #6565FF'
+    if (props.isSelected) slideStyle.outline = SELECTED_SLIDE_OUTLINE
 
-    switch (props.background.type) {
-        case 'solid':
-            {
-                slideStyle.backgroundColor = props.background.value
-                break
-            }
-        case 'image':
-            {
-                slideStyle.backgroundImage = 'url(\'' + props.background.value + '\')'
-                break
-            }
-        case 'gradient':
-            {
-                slideStyle.backgroundImage = 'linear-gradient(to left, ' + props.background.value[0] + ', ' + props.background.value[1] + ')'
-                break
-            }
-    }
+    selectSlideBackground(slideStyle, props.background)
 
     return (
         <div style={slideStyle} className={`${style.slide} ${props.className}`}>
