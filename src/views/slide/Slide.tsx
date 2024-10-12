@@ -23,7 +23,9 @@ function Slide(props: SlideProps) {
     selectSlideBackgroundType(slideStyle, props.background)
 
     return (
-        <div style={slideStyle} className={`${style.slide} ${props.className}`}>
+        <div
+            style={slideStyle}
+            className={`${style.slide} ${props.className}`}>
             {
                 props.objects.map(
                     object => <SlideObject
