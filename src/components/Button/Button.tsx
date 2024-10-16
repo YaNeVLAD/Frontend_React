@@ -1,3 +1,5 @@
+import { DropListOptionType } from '../../storage/types'
+import { DropList } from './DropList/DropList'
 import style from './Button.module.css'
 
 type Icons = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image'
@@ -16,15 +18,18 @@ type BaseButton = ButtonWithIcon | ButtonWithText
 
 type ButtonProps = BaseButton & {
     className: string,
+    dropList?: Array<DropListOptionType>,
     onClick: () => void,
 }
 
 function Button(props: ButtonProps) {
     let payload
     let iconClass = ""
+    let onClick
     switch (props.type) {
         case 'text':
             payload = <p>{props.value}</p>
+            onClick = props.onClick
             break
 
         case 'icon':
@@ -53,12 +58,17 @@ function Button(props: ButtonProps) {
                     break
             }
             payload = <div className={`${style.icon} ${iconClass}`} />
+            onClick = props.onClick
             break
     }
 
     return (
-        <button onClick={props.onClick} className={`${style.button} ${props.className}`}>
+        <button onClick={onClick} className={`${style.button} ${props.className}`}>
             {payload}
+            {props.dropList
+                ? <DropList options={props.dropList} className='' />
+                : <></>
+            }
         </button>
     )
 }

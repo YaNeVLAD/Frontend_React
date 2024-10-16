@@ -72,6 +72,18 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
                     onClick={onAddImageClick}
                     className='' />
 
+                <Button
+                    type='icon'
+                    value={'plus'}
+                    onClick={onAddImageClick}
+                    dropList={[
+                        { id: 0, value: 'option1', onClick: () => { } },
+                        { id: 1, value: 'option2', onClick: () => { } },
+                        { id: 2, value: 'option3', onClick: () => { } },
+                        { id: 3, value: 'option4', onClick: () => { } },
+                    ]}
+                    className='' />
+
                 <button
                     className={style.deleteSlide}
                     onClick={onDeleteSlideClick}>
