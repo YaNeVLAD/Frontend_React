@@ -1,0 +1,40 @@
+.button {
+    padding: 6px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 0;
+    margin: 0 6px;
+}
+
+.button:hover {
+    background-color: #DFE5EB;
+}
+
+.icon {
+    height: 16px;
+    width: 16px;
+}
+
+.plus {
+    background-image: url('./Icons/plus.svg');
+}
+
+.cursor {
+    background-image: url('./Icons/cursor.svg');
+}
+
+.text {
+    background-image: url('./Icons/text.svg');
+}
+
+.image {
+    background-image: url('./Icons/image.svg');
+}
+
+.pageUp {
+    background-image: url('./Icons/pageUp.svg');
+}
+
+.pageDown {
+    background-image: url('./Icons/pageDown.svg');
+}

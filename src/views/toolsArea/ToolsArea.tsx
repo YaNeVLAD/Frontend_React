@@ -1,3 +1,4 @@
+import { Button } from '../../components/Button/Button'
 import { addObject } from '../../storage/actions/object/add'
 import { deleteObject } from '../../storage/actions/object/delete'
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
@@ -26,6 +27,7 @@ function onDeletObjectClick() { dispatch(deleteObject) }
 function ToolsArea({ title, background }: ToolsAreaProps) {
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
+
         dispatch(changePresentationTitle, { title: value })
     }
 
@@ -36,41 +38,52 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
     }
 
     return (
-        <div className={style.toolsArea}>
-            <input
-                type="text"
-                defaultValue={title}
-                onChange={onTitleChange} />
-            <input
-                type='color'
-                value={background.value}
-                onChange={onColorChange} />
-            <button
-                className={style.addSlide}
-                onClick={onAddSlideClick}>
-                +slide
-            </button>
-            <button
-                className={style.addObject}
-                onClick={onAddImageClick}>
-                +image
-            </button>
-            <button
-                className={style.addObject}
-                onClick={onAddTextClick}>
-                +text
-            </button>
-            <button
-                className={style.deleteSlide}
-                onClick={onDeleteSlideClick}>
-                -slide
-            </button>
-            <button
-                className={style.deleteObject}
-                onClick={onDeletObjectClick}>
-                -object
-            </button>
-        </div>
+        <>
+            <div className={style.presentationTitleWrapper}>
+                <input
+                    type="text"
+                    placeholder={"Введите название презентации"}
+                    defaultValue={title}
+                    onChange={onTitleChange}
+                    className={style.presentationTitle} />
+            </div>
+
+            <div className={style.toolsArea}>
+                <input
+                    type='color'
+                    value={background.value}
+                    onChange={onColorChange} />
+
+                <Button
+                    type='icon'
+                    value={'plus'}
+                    onClick={onAddSlideClick}
+                    className='' />
+
+                <Button
+                    type='icon'
+                    value={'text'}
+                    onClick={onAddTextClick}
+                    className='' />
+
+                <Button
+                    type='icon'
+                    value={'image'}
+                    onClick={onAddImageClick}
+                    className='' />
+
+                <button
+                    className={style.deleteSlide}
+                    onClick={onDeleteSlideClick}>
+                    -slide
+                </button>
+                <button
+                    className={style.deleteObject}
+                    onClick={onDeletObjectClick}>
+                    -object
+                </button>
+            </div>
+        </>
     )
 }
 

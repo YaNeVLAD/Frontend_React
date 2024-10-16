@@ -7,8 +7,9 @@
 :root {
   height: calc(100vh - var(--toolsBarHeight));
   width: 100vw;
-  background-color: #EFEFEF;
-  --toolsBarHeight: 100px;
+  background-color: #F9FBFD;
+  --toolsBarHeight: 40px;
+  --titleMarginSide: 20px;
 }
 
 .presentation {

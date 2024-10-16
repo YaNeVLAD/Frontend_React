@@ -1,9 +1,25 @@
 .toolsArea {
-    height: 50px;
-    margin: 5px 0;
-    border: #101010 1px solid;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: var(--toolsBarHeight);
+  margin: 5px 20px;
+  border-radius: 30px;
+  background-color: #EDF2FA;
+  margin-bottom: 25px;
+  padding: 5px 20px;
 }
 
 .presentationTitle {
-  font-size: 36px;
+  font-size: 20px;
+  height: 24px;
+  width: 100%;
+  padding: 2px;
+  border: 1px solid #808080;
+  border-radius: 5px;
+}
+
+.presentationTitleWrapper {
+  margin: 5px var(--titleMarginSide);
 }
