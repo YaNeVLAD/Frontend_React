@@ -12,7 +12,7 @@ type AppProps = {
 function App({ editor }: AppProps) {
   return (
     <>
-      <ToolsArea 
+      <ToolsArea
         title={editor.presentation.title}
         background={editor.selection.selectedSlide.background} />
       <div className={style.container}>
@@ -20,15 +20,15 @@ function App({ editor }: AppProps) {
           slides={editor.presentation.slides}
           selectedSlideId={editor.selection.selectedSlide.id}
           scale={COLLECTION_SLIDE_SCALE} />
-        <Slide
-          id={editor.selection.selectedSlide.id}
-          selectedObjectId={editor.selection.selectedObject?.id}
-          objects={editor.selection.selectedSlide.objects}
-          background={editor.selection.selectedSlide.background}
-          isSelected={false}
-          className={style.selectedSlide}
-          scale={SELECTED_SLIDE_SCALE} />
-        <div>
+        <div className={style.workspaceArea}>
+          <Slide
+            id={editor.selection.selectedSlide.id}
+            selectedObjectId={editor.selection.selectedObject?.id}
+            objects={editor.selection.selectedSlide.objects}
+            background={editor.selection.selectedSlide.background}
+            isSelected={false}
+            className={style.workspaceSlide}
+            scale={SELECTED_SLIDE_SCALE} />
         </div>
       </div>
     </>

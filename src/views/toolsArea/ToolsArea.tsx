@@ -1,12 +1,12 @@
-import { Button } from '../../components/Button/Button'
-import { addObject } from '../../storage/actions/object/add'
-import { deleteObject } from '../../storage/actions/object/delete'
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
-import { addSlide } from '../../storage/actions/slide/add'
 import { changeSlideBackgroundType } from '../../storage/actions/slide/changeBackground'
+import { deleteObject } from '../../storage/actions/object/delete'
 import { deleteSlide } from '../../storage/actions/slide/delete'
-import { dispatch } from '../../storage/editor'
+import { addObject } from '../../storage/actions/object/add'
+import { addSlide } from '../../storage/actions/slide/add'
+import { Button } from '../../components/Button/Button'
 import { BackgroundType } from '../../storage/types'
+import { dispatch } from '../../storage/editor'
 import style from './ToolsArea.module.css'
 
 type ToolsAreaProps = {
@@ -73,27 +73,16 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
                     className='' />
 
                 <Button
-                    type='icon'
-                    value={'plus'}
-                    onClick={onAddImageClick}
-                    dropList={[
-                        { id: 0, value: 'option1', onClick: () => { } },
-                        { id: 1, value: 'option2', onClick: () => { } },
-                        { id: 2, value: 'option3', onClick: () => { } },
-                        { id: 3, value: 'option4', onClick: () => { } },
-                    ]}
+                    type='text'
+                    value='Удалить слайд'
+                    onClick={onDeleteSlideClick}
                     className='' />
 
-                <button
-                    className={style.deleteSlide}
-                    onClick={onDeleteSlideClick}>
-                    -slide
-                </button>
-                <button
-                    className={style.deleteObject}
-                    onClick={onDeletObjectClick}>
-                    -object
-                </button>
+                <Button
+                    type='text'
+                    value='Удалить объект'
+                    onClick={onDeletObjectClick}
+                    className='' />
             </div>
         </>
     )

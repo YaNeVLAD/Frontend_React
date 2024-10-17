@@ -1,7 +1,7 @@
 import { selectSlide } from "../../storage/actions/slide/select"
 import { SlideType } from "../../storage/types"
-import { Slide } from "../slide/Slide"
 import { dispatch } from "../../storage/editor"
+import { Slide } from "../slide/Slide"
 import style from './SlideCollection.module.css'
 
 type SlideCollectionProps = {
@@ -15,7 +15,9 @@ function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProp
         <div className={style.slideCollection}>
             {
                 slides.map(slide =>
-                    <div key={slide.id} onClick={() => dispatch(selectSlide, { id: slide.id })}>
+                    <div
+                        key={slide.id}
+                        onClick={() => dispatch(selectSlide, { id: slide.id })}>
                         <h3 className={style.slideCollectionItemTitle}>
                             {slides.indexOf(slide) + 1}
                         </h3>

@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    width: max-content;
-    height: 75vh;
+    width: calc(225px + 47px);
+    height: calc(100vh - var(--toolsBarHeight) - 200px);
     overflow-y: auto;
     overflow-x: hidden;
-    margin: 0 50px 0 15px;
-    padding: 25px;
+    margin: 5px 25px 10px 0;
+    padding: 0 14px 0 33px;
     background-color: #FEFEFE;
     border-radius: 20px;
 }
@@ -17,18 +17,18 @@
 }
 
 .slideCollection::-webkit-scrollbar-track {
-    background: #EFEFEF;
+    background: #FEFEFE;
     border-radius: 10px;
 }
 
 .slideCollection::-webkit-scrollbar-thumb {
-    background-color: #808080;
+    background-color: #DADCE0;
     border-radius: 10px;
     border: 0px;
 }
 
 .slideCollection::-webkit-scrollbar-thumb:hover {
-    background-color: #404040;
+    background-color: #808080;
 }
 
 .slideCollectionItemTitle {
@@ -38,8 +38,8 @@
 }
 
 .slideCollectionSlide {
-    min-height: 90px;
-    min-width: 200px;
+    min-height: 110px;
+    min-width: 190px;
     pointer-events: none;
 }
 

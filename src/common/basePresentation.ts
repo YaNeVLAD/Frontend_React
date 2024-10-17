@@ -2,7 +2,7 @@ import { deepCopy } from "../storage/deepCopy"
 import { EMPTY_SLIDE } from "./emptySlide"
 
 const BASE_PRESENTATION = deepCopy({
-    title: "My Presentation",
+    title: "Моя презентация, которая будет служить мне верой и правдой!",
     slides: [EMPTY_SLIDE],
 })
 
