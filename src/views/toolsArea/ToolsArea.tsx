@@ -8,6 +8,7 @@ import { Button } from '../../components/Button/Button'
 import { BackgroundType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import style from './ToolsArea.module.css'
+import { Dropdown } from '../../components/Dropdown/Dropdown'
 
 type ToolsAreaProps = {
     title: string,
@@ -83,6 +84,8 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
                     value='Удалить объект'
                     onClick={onDeletObjectClick}
                     className='' />
+
+                <Dropdown />
             </div>
         </>
     )

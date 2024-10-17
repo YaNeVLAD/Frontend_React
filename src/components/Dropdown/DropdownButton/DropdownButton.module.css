@@ -1,0 +1,27 @@
+.dropdownButton {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.buttonOpen {
+    outline: 1px solid green;
+}
+
+.icon {
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
+.pageUp {
+    background-image: url('./Icons/pageUp.svg');
+}
+
+.pageDown {
+    background-image: url('./Icons/pageDown.svg');
+}

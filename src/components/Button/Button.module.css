@@ -31,11 +31,3 @@
 .image {
     background-image: url('./Icons/image.svg');
 }
-
-.pageUp {
-    background-image: url('./Icons/pageUp.svg');
-}
-
-.pageDown {
-    background-image: url('./Icons/pageDown.svg');
-}
