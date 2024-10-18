@@ -1,5 +1,5 @@
-import { DropdownButton } from "./DropdownButton/DropdownButton"
-import { DropdownContent } from "./DropdownContent/DropdownContent"
+import { DropdownContent } from "./dropdownContent/DropdownContent"
+import { DropdownButton } from "./dropdownButton/DropdownButton"
 import { ReactNode, useEffect, useRef, useState } from "react"
 import style from "./Dropdown.module.css"
 

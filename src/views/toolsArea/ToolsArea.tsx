@@ -1,30 +1,22 @@
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
-import { changeSlideBackgroundType } from '../../storage/actions/slide/changeBackground'
-import { deselectAllObjects } from '../../storage/actions/object/deselectAll'
+import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
 import { deleteObject } from '../../storage/actions/object/delete'
 import { deleteSlide } from '../../storage/actions/slide/delete'
-import { addObject } from '../../storage/actions/object/add'
-import { addSlide } from '../../storage/actions/slide/add'
-import { Button } from '../../components/Button/Button'
-import { BackgroundType } from '../../storage/types'
+import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
+import { Button } from '../../components/button/Button'
+import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import style from './ToolsArea.module.css'
 
 type ToolsAreaProps = {
     title: string,
-    background: BackgroundType
+    selection: SelectionType
 }
 
-function ToolsArea({ title, background }: ToolsAreaProps) {
+function ToolsArea({ title, selection }: ToolsAreaProps) {
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
         dispatch(changePresentationTitle, { title: value })
-    }
-
-    const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = (event.target as HTMLInputElement).value
-        const background: BackgroundType = { value: value, type: 'solid' }
-        dispatch(changeSlideBackgroundType, { background: background })
     }
 
     return (
@@ -39,40 +31,12 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
             </div>
 
             <div className={style.toolsArea}>
-                <input
-                    type='color'
-                    value={background.value}
-                    onChange={onColorChange} />
 
-                <Button
-                    type='icon'
-                    value={'plus'}
-                    onClick={() => dispatch(addSlide, { type: 'none' })}
-                    className=''
-                    dropdownContent={[
-                        <span onClick={() => dispatch(addSlide, { type: 'title' })}>Титульный слайд</span>,
-                        <span onClick={() => dispatch(addSlide, { type: 'image' })}>Слайд с картинкой</span>,
-                        <span onClick={() => dispatch(addSlide, { type: 'title&image' })}>Слайд с заголовком и картинкой</span>,
-                        <span onClick={() => dispatch(addSlide, { type: 'none' })}>Пустой слайд</span>,
-                    ]} />
+                <PresentationButtonSet />
+                <div className={style.separator} />
 
-                <Button
-                    type='icon'
-                    value={'cursor'}
-                    onClick={() => dispatch(deselectAllObjects)}
-                    className='' />
-
-                <Button
-                    type='icon'
-                    value={'text'}
-                    onClick={() => dispatch(addObject, { type: 'textObj' })}
-                    className='' />
-
-                <Button
-                    type='icon'
-                    value={'image'}
-                    onClick={() => dispatch(addObject, { type: 'imageObj' })}
-                    className='' />
+                <SlideButtonSet slide={selection.selectedSlide} />
+                <div className={style.separator} />
 
                 <Button
                     type='text'

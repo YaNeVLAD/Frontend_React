@@ -14,7 +14,7 @@ function App({ editor }: AppProps) {
     <>
       <ToolsArea
         title={editor.presentation.title}
-        background={editor.selection.selectedSlide.background} />
+        selection={editor.selection} />
       <div className={style.container}>
         <SlideCollection
           slides={editor.presentation.slides}

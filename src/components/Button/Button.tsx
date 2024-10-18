@@ -1,12 +1,12 @@
+import { Dropdown } from '../dropdown/Dropdown'
 import { ReactNode } from 'react'
 import style from './Button.module.css'
-import { Dropdown } from '../Dropdown/Dropdown'
 
-type Icons = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image'
+type Icon = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image' | 'bucket'
 
 type ButtonWithIcon = {
     type: 'icon',
-    value: Icons,
+    value: Icon,
 }
 
 type ButtonWithText = {
@@ -31,32 +31,8 @@ function Button(props: ButtonProps) {
             payload = <p>{props.value}</p>
             onClick = props.onClick
             break
-
         case 'icon':
-            switch (props.value) {
-                case 'plus':
-                    iconClass += style.plus
-                    break
-                case 'cursor':
-                    iconClass += style.cursor
-                    break
-
-                case 'image':
-                    iconClass += style.image
-                    break
-
-                case 'text':
-                    iconClass += style.text
-                    break
-
-                case 'pageUp':
-                    iconClass += style.pageUp
-                    break
-
-                case 'pageDown':
-                    iconClass += style.pageDown
-                    break
-            }
+            iconClass = selectButtonIcon(props.value)
             payload = <div className={`${style.icon} ${iconClass}`} />
             onClick = props.onClick
             break
@@ -76,5 +52,36 @@ function Button(props: ButtonProps) {
     )
 }
 
+function selectButtonIcon(icon: Icon): string {
+    switch (icon) {
+        case 'plus':
+            return style.plus
+
+        case 'cursor':
+            return style.cursor
+
+
+        case 'image':
+            return style.image
+
+
+        case 'text':
+            return style.text
+
+
+        case 'pageUp':
+            return style.pageUp
+
+
+        case 'pageDown':
+            return style.pageDown
+
+        case 'bucket':
+            return style.bucket
+
+        default:
+            throw new Error("Unknown button icon type")
+    }
+}
+
 export { Button }
-export type { ButtonProps }
