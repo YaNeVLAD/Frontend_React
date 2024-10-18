@@ -6,10 +6,12 @@ type DropdownContentProps = {
     open: boolean
 }
 
-function DropdownContent(props: DropdownContentProps) {
+function DropdownContent({ content, open }: DropdownContentProps) {
     return (
-        <div className={`${style.dropdownContent} ${props.open ? style.contentOpen : ''}`}>
-            {props.content}
+        <div className={`${style.dropdownContent} ${open ? style.contentOpen : ''}`}>
+            {content.map(item =>
+                <div className={style.dropdownItem}>{item}</div>
+            )}
         </div>
     )
 }

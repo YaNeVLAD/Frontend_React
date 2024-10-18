@@ -1,9 +1,13 @@
 import { DropdownButton } from "./DropdownButton/DropdownButton"
 import { DropdownContent } from "./DropdownContent/DropdownContent"
+import { ReactNode, useState } from "react"
 import style from "./Dropdown.module.css"
-import { useState } from "react"
 
-function Dropdown() {
+type DropdownProps = {
+    content: Array<ReactNode>
+}
+
+function Dropdown({ content }: DropdownProps) {
     const [open, setOpen] = useState(false)
 
     const onToggleDropdown = () => {
@@ -13,11 +17,10 @@ function Dropdown() {
     return (
         <div className={style.dropdown}>
             <DropdownButton
-                buttonText="Button"
                 open={open}
                 onClick={onToggleDropdown} />
             <DropdownContent
-                content={[<p>Привет</p>]}
+                content={content}
                 open={open} />
         </div>
     )

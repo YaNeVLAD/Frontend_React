@@ -4,18 +4,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
-    margin-top: 0.5rem;
-    border-radius: 0.5rem;
     max-height: 40vh;
     overflow-y: scroll;
     scrollbar-width: none;
-    border: solid black;
-    opacity: 0;
+    display: none;
+    z-index: 100;
+    background-color: #FFFFFF;
+    padding: 1px;
+}
+
+.dropdownItem {
+    padding: 5px;
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.dropdownItem:hover {
+    background-color: #F1F3F4;
 }
 
 .contentOpen {
-    opacity: 1;
+    display: inline-block;
 }
 
 .dropdownContent::-webkit-scrollbar {

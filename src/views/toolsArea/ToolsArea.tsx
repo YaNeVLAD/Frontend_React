@@ -1,5 +1,6 @@
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { changeSlideBackgroundType } from '../../storage/actions/slide/changeBackground'
+import { deselectAllObjects } from '../../storage/actions/object/deselectAll'
 import { deleteObject } from '../../storage/actions/object/delete'
 import { deleteSlide } from '../../storage/actions/slide/delete'
 import { addObject } from '../../storage/actions/object/add'
@@ -8,7 +9,6 @@ import { Button } from '../../components/Button/Button'
 import { BackgroundType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import style from './ToolsArea.module.css'
-import { Dropdown } from '../../components/Dropdown/Dropdown'
 
 type ToolsAreaProps = {
     title: string,
@@ -16,6 +16,8 @@ type ToolsAreaProps = {
 }
 
 function onAddSlideClick() { dispatch(addSlide) }
+
+function onDeselectObjects() { dispatch(deselectAllObjects) }
 
 function onAddImageClick() { dispatch(addObject, { type: 'imageObj' }) }
 
@@ -59,6 +61,13 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
                     type='icon'
                     value={'plus'}
                     onClick={onAddSlideClick}
+                    className=''
+                    dropdownContent={[<p>ABOBA</p>, <p>ABOBA</p>, <p>ABOBA</p>, <p>ABOBA</p>]} />
+
+                <Button
+                    type='icon'
+                    value={'cursor'}
+                    onClick={onDeselectObjects}
                     className='' />
 
                 <Button
@@ -85,7 +94,7 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
                     onClick={onDeletObjectClick}
                     className='' />
 
-                <Dropdown />
+
             </div>
         </>
     )

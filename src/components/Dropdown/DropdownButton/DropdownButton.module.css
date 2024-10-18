@@ -1,27 +1,21 @@
-.dropdownButton {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    cursor: pointer;
+.button {
+    border-radius: 5px;
+    border: 0;
+    position: relative;
+}
+
+.button:hover {
+    background-color: #DFE5EB;
 }
 
 .buttonOpen {
-    outline: 1px solid green;
+    background-color: #D8DEE5;
 }
 
-.icon {
-    height: 16px;
-    width: 16px;
+.dropdownIcon {
+    height: 10px;
+    width: 10px;
     display: inline-block;
-}
-
-.pageUp {
-    background-image: url('./Icons/pageUp.svg');
-}
-
-.pageDown {
-    background-image: url('./Icons/pageDown.svg');
+    background-repeat: no-repeat;
+    background-image: url('./Icons/DropdownCaret.svg');
 }
