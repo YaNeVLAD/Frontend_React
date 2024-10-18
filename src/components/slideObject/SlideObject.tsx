@@ -1,6 +1,8 @@
 import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
+import { selectObject } from "../../storage/actions/object/select"
 import { SlideObjectType } from "../../storage/types"
 import { TextArea } from "./textArea/TextArea"
+import { dispatch } from "../../storage/editor"
 import { Image } from "./image/Image"
 import { CSSProperties } from "react"
 import style from './SlideObject.module.css'
@@ -38,7 +40,10 @@ function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
     }
 
     return (
-        <div className={style.slideObject} style={slideObjectStyle}>
+        <div
+            onClick={() => { dispatch(selectObject, { id: object.id }) }}
+            className={style.slideObject}
+            style={slideObjectStyle}>
             {obj}
         </div>
     )
