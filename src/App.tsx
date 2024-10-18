@@ -1,8 +1,8 @@
 import { COLLECTION_SLIDE_SCALE, SELECTED_SLIDE_SCALE } from './storage/constants'
 import { SlideCollection } from './views/slideCollection/SlideCollection'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
+import { Slide } from './components/slide/Slide'
 import { EditorType } from './storage/types'
-import { Slide } from './views/slide/Slide'
 import style from './App.module.css'
 
 type AppProps = {
