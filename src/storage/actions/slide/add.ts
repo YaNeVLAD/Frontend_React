@@ -1,10 +1,13 @@
-import { EMPTY_SLIDE } from "../../../common/emptySlide"
-import { deepCopy } from "../../deepCopy"
+import { TITLE_AND_IMAGE_SLIDE } from "../../../common/slides/titleAndImageSlide"
+import { EMPTY_SLIDE } from "../../../common/slides/emptySlide"
+import { EditorType, SlideStartContentType, SlideType } from "../../types"
+import { IMAGE_SLIDE } from "../../../common/slides/imageSlide"
+import { TITLE_SLIDE } from "../../../common/slides/titleSlide"
 import { uuid } from "../../functions"
-import { EditorType } from "../../types"
+import { deepCopy } from "../../deepCopy"
 
-function addSlide(editor: EditorType): EditorType {
-    const newSlide = deepCopy(EMPTY_SLIDE)
+function addSlide(editor: EditorType, { type }: { type: SlideStartContentType }): EditorType {
+    const newSlide = deepCopy(selectSlideStartContent(type))
     newSlide.id = uuid()
 
     const selectedSlideIndex = editor.presentation.slides.findIndex(
@@ -27,6 +30,21 @@ function addSlide(editor: EditorType): EditorType {
             selectedSlide: newSlide,
             selectedObject: undefined,
         },
+    }
+}
+
+function selectSlideStartContent(type: SlideStartContentType): SlideType {
+    switch (type) {
+        case 'none':
+            return EMPTY_SLIDE
+        case 'image':
+            return IMAGE_SLIDE
+        case 'title':
+            return TITLE_SLIDE
+        case 'title&image':
+            return TITLE_AND_IMAGE_SLIDE
+        default:
+            throw Error("Invalid slide start content type")
     }
 }
 

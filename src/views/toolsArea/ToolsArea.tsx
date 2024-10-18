@@ -15,22 +15,9 @@ type ToolsAreaProps = {
     background: BackgroundType
 }
 
-function onAddSlideClick() { dispatch(addSlide) }
-
-function onDeselectObjects() { dispatch(deselectAllObjects) }
-
-function onAddImageClick() { dispatch(addObject, { type: 'imageObj' }) }
-
-function onAddTextClick() { dispatch(addObject, { type: 'textObj' }) }
-
-function onDeleteSlideClick() { dispatch(deleteSlide) }
-
-function onDeletObjectClick() { dispatch(deleteObject) }
-
 function ToolsArea({ title, background }: ToolsAreaProps) {
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
-
         dispatch(changePresentationTitle, { title: value })
     }
 
@@ -60,40 +47,44 @@ function ToolsArea({ title, background }: ToolsAreaProps) {
                 <Button
                     type='icon'
                     value={'plus'}
-                    onClick={onAddSlideClick}
+                    onClick={() => dispatch(addSlide, { type: 'none' })}
                     className=''
-                    dropdownContent={[<p>ABOBA</p>, <p>ABOBA</p>, <p>ABOBA</p>, <p>ABOBA</p>]} />
+                    dropdownContent={[
+                        <span onClick={() => dispatch(addSlide, { type: 'title' })}>Титульный слайд</span>,
+                        <span onClick={() => dispatch(addSlide, { type: 'image' })}>Слайд с картинкой</span>,
+                        <span onClick={() => dispatch(addSlide, { type: 'title&image' })}>Слайд с заголовком и картинкой</span>,
+                        <span onClick={() => dispatch(addSlide, { type: 'none' })}>Пустой слайд</span>,
+                    ]} />
 
                 <Button
                     type='icon'
                     value={'cursor'}
-                    onClick={onDeselectObjects}
+                    onClick={() => dispatch(deselectAllObjects)}
                     className='' />
 
                 <Button
                     type='icon'
                     value={'text'}
-                    onClick={onAddTextClick}
+                    onClick={() => dispatch(addObject, { type: 'textObj' })}
                     className='' />
 
                 <Button
                     type='icon'
                     value={'image'}
-                    onClick={onAddImageClick}
+                    onClick={() => dispatch(addObject, { type: 'imageObj' })}
                     className='' />
 
                 <Button
                     type='text'
                     value='Удалить слайд'
-                    onClick={onDeleteSlideClick}
+                    onClick={() => dispatch(deleteSlide)}
                     className='' />
 
                 <Button
                     type='text'
                     value='Удалить объект'
-                    onClick={onDeletObjectClick}
+                    onClick={() => dispatch(deleteObject)}
                     className='' />
-
 
             </div>
         </>

@@ -15,9 +15,12 @@ type SelectionType = {
 
 type SlideType = {
     id: string,
+    startContentType: SlideStartContentType,
     objects: Array<SlideObjectType>,
     background: BackgroundType
 }
+
+type SlideStartContentType = 'title' | 'image' | 'title&image' | 'none'
 
 type BackgroundType = SolidColor | ImageSrc | GradientColor
 
@@ -86,5 +89,5 @@ export type {
     BackgroundType,
     SlideObjectType,
     DropListOptionType,
-    
+    SlideStartContentType,
 }

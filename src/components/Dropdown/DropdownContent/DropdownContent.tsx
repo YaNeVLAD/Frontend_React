@@ -7,10 +7,15 @@ type DropdownContentProps = {
 }
 
 function DropdownContent({ content, open }: DropdownContentProps) {
+    let i = 0
     return (
         <div className={`${style.dropdownContent} ${open ? style.contentOpen : ''}`}>
             {content.map(item =>
-                <div className={style.dropdownItem}>{item}</div>
+                <div
+                    key={i++}
+                    className={style.dropdownItem}>
+                    {item}
+                </div>
             )}
         </div>
     )
