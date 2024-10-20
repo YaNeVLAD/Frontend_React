@@ -1,6 +1,5 @@
 import { changeTextValue } from '../../../storage/actions/textArea/changeValue'
 import { changeObjectSize } from '../../../storage/actions/object/changeSize'
-import { deleteObject } from '../../../storage/actions/object/delete'
 import { selectObject } from '../../../storage/actions/object/select'
 import { MINIMUM_TEXT_SIZE } from '../../../storage/constants'
 import { TextAreaType } from '../../../storage/types'
@@ -40,13 +39,11 @@ function TextArea({ context, scale }: TextAreaProps) {
 
     const onBlur = () => {
         setIsEditable(false)
-        if (context.value == "") dispatch(deleteObject)
     }
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = (event.target as HTMLTextAreaElement).value
         dispatch(changeTextValue, { value: value })
-
         if (textAreaRef.current) {
             const textArea = textAreaRef.current
 

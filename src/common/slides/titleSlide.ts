@@ -1,11 +1,12 @@
 import { uuid } from "../../storage/functions"
 import { SlideType } from "../../storage/types"
-import { BASE_TEXT_AREA } from "../baseTextArea"
+import { SUBTITLE_TEXT_AREA } from "../textArea/subtitleTextArea"
+import { TITLE_TEXT_AREA } from "../textArea/titleTextArea"
 
 const TITLE_SLIDE: SlideType = {
     id: uuid(),
     startContentType: 'title',
-    objects: [BASE_TEXT_AREA],
+    objects: [TITLE_TEXT_AREA, SUBTITLE_TEXT_AREA],
     background: {
         value: "#FEFEFE",
         type: "solid"

@@ -2,7 +2,7 @@ import { Dropdown } from '../dropdown/Dropdown'
 import { ReactNode } from 'react'
 import style from './Button.module.css'
 
-type Icon = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image' | 'bucket'
+type Icon = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image' | 'bucket' | 'trashCan'
 
 type ButtonWithIcon = {
     type: 'icon',
@@ -24,7 +24,7 @@ type ButtonProps = BaseButton & {
 
 function Button(props: ButtonProps) {
     let payload
-    let iconClass = ""
+    let icon = ""
     let onClick
     switch (props.type) {
         case 'text':
@@ -32,8 +32,8 @@ function Button(props: ButtonProps) {
             onClick = props.onClick
             break
         case 'icon':
-            iconClass = selectButtonIcon(props.value)
-            payload = <div className={`${style.icon} ${iconClass}`} />
+            icon = selectButtonIcon(props.value)
+            payload = <div className={`${style.icon} ${icon}`} />
             onClick = props.onClick
             break
     }
@@ -60,24 +60,23 @@ function selectButtonIcon(icon: Icon): string {
         case 'cursor':
             return style.cursor
 
-
         case 'image':
             return style.image
-
 
         case 'text':
             return style.text
 
-
         case 'pageUp':
             return style.pageUp
-
 
         case 'pageDown':
             return style.pageDown
 
         case 'bucket':
             return style.bucket
+
+        case 'trashCan':
+            return style.trashCan
 
         default:
             throw new Error("Unknown button icon type")

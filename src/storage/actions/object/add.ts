@@ -1,6 +1,6 @@
 import { EditorType, PresentationType } from "../../types"
 import { BASE_IMAGE } from "./../../../common/baseImage"
-import { BASE_TEXT_AREA } from "../../../common/baseTextArea"
+import { BASE_TEXT_AREA } from "../../../common/textArea/baseTextArea"
 import { deepCopy } from "../../deepCopy"
 import { uuid } from "../../functions"
 
@@ -17,9 +17,9 @@ function addObject(
 
     let newObject
     if (type === 'imageObj') {
-        newObject = BASE_IMAGE
+        newObject = deepCopy(BASE_IMAGE)
     } else {
-        newObject = BASE_TEXT_AREA
+        newObject = deepCopy(BASE_TEXT_AREA)
     }
     newObject.id = uuid()
 

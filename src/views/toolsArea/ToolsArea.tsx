@@ -1,9 +1,7 @@
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
-import { deleteObject } from '../../storage/actions/object/delete'
-import { deleteSlide } from '../../storage/actions/slide/delete'
+import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
 import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
-import { Button } from '../../components/button/Button'
 import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import style from './ToolsArea.module.css'
@@ -38,17 +36,8 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
                 <SlideButtonSet slide={selection.selectedSlide} />
                 <div className={style.separator} />
 
-                <Button
-                    type='text'
-                    value='Удалить слайд'
-                    onClick={() => dispatch(deleteSlide)}
-                    className='' />
-
-                <Button
-                    type='text'
-                    value='Удалить объект'
-                    onClick={() => dispatch(deleteObject)}
-                    className='' />
+                <ObjectButtonSet object={selection.selectedObject} />
+                <div className={style.separator} />
 
             </div>
         </>

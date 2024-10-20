@@ -40,3 +40,7 @@
 .bucket {
     background-image: url('./Icons/bucket.svg');
 }
+
+.trashCan {
+    background-image: url('./Icons/trashCan.svg');
+}
