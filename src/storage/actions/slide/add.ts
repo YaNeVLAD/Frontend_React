@@ -8,6 +8,7 @@ import { deepCopy } from "../../deepCopy"
 
 function addSlide(editor: EditorType, { type }: { type: SlideStartContentType }): EditorType {
     const newSlide = deepCopy(selectSlideStartContent(type))
+    newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
 
     const selectedSlideIndex = editor.presentation.slides.findIndex(

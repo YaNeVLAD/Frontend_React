@@ -1,8 +1,7 @@
-import { uuid } from "../../storage/functions"
 import { TextAreaType } from "../../storage/types"
 
 const TITLE_TEXT_AREA: TextAreaType = {
-    id: uuid(),
+    id: "0",
     type: 'textObj',
     pos: {
         x: 500,

@@ -11,7 +11,7 @@ let _editor: EditorType = {
     }
 }
 
-let editorChangeHandler: Function | null = null
+let editorChangeHandler: Function | undefined
 
 function addEditorChangeHandler(handler: Function) {
     editorChangeHandler = handler

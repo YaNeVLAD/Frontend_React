@@ -1,9 +1,8 @@
 import { changeTextValue } from '../../../storage/actions/textArea/changeValue'
-import { changeObjectSize } from '../../../storage/actions/object/changeSize'
 import { selectObject } from '../../../storage/actions/object/select'
 import { MINIMUM_TEXT_SIZE } from '../../../storage/constants'
 import { TextAreaType } from '../../../storage/types'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { dispatch } from '../../../storage/editor'
 import style from './TextArea.module.css'
 
@@ -24,14 +23,6 @@ function TextArea({ context, scale }: TextAreaProps) {
         color: context.color,
     }
 
-    useEffect(() => {
-        if (textAreaRef.current) {
-            const textArea = textAreaRef.current
-            textArea.focus()
-            textArea.selectionStart = textArea.selectionEnd = textArea.value.length
-        }
-    }, [])
-
     const onClick = () => {
         setIsEditable(true)
         dispatch(selectObject, { id: context.id })
@@ -44,14 +35,6 @@ function TextArea({ context, scale }: TextAreaProps) {
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = (event.target as HTMLTextAreaElement).value
         dispatch(changeTextValue, { value: value })
-        if (textAreaRef.current) {
-            const textArea = textAreaRef.current
-
-            textArea.style.height = 'auto'
-            textArea.style.height = `${textArea.scrollHeight}px`
-
-            dispatch(changeObjectSize, { width: context.size.width, height: textArea.scrollHeight })
-        }
     }
 
     return (

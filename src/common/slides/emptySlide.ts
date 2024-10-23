@@ -1,8 +1,7 @@
-import { uuid } from "../../storage/functions"
 import { SlideType } from "../../storage/types"
 
 const EMPTY_SLIDE: SlideType = {
-    id: uuid(),
+    id: "0",
     startContentType: 'none',
     objects: [],
     background: {
