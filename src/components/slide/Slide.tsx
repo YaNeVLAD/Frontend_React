@@ -27,7 +27,12 @@ function Slide(props: SlideProps) {
     return (
         <div
             style={slideStyle}
-            onMouseDown={() => dispatch(deselectAllObjects)}
+            onClick={(e) => {
+                if (e.defaultPrevented) return
+                e.preventDefault()
+                dispatch(deselectAllObjects)
+            }}
+
             className={`${style.slide} ${props.className}`}>
             {
                 props.objects.map(

@@ -4,7 +4,7 @@ import { SlideObjectType } from "../../storage/types"
 import { TextArea } from "./textArea/TextArea"
 import { dispatch } from "../../storage/editor"
 import { Image } from "./image/Image"
-import { CSSProperties } from "react"
+import { CSSProperties, useRef } from "react"
 import style from './SlideObject.module.css'
 
 type SlideObjectProps = {
@@ -14,6 +14,8 @@ type SlideObjectProps = {
 }
 
 function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
+    const ref = useRef(null)
+
     const slideObjectStyle: CSSProperties = {
         left: object.pos.x * scale,
         top: object.pos.y * scale,
@@ -41,7 +43,14 @@ function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
 
     return (
         <div
-            onClick={() => { dispatch(selectObject, { id: object.id }) }}
+            ref={ref}
+            draggable
+            onClick={(e) => {
+                if (e.defaultPrevented) return
+                e.preventDefault()
+                dispatch(selectObject, { id: object.id })
+            }}
+
             className={style.slideObject}
             style={slideObjectStyle}>
             {obj}
