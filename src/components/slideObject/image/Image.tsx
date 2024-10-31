@@ -12,6 +12,7 @@ function Image({ context }: ImageProps) {
     const onClick = () => dispatch(selectObject, { id: context.id })
     return (
         <img
+            draggable={false}
             className={style.image}
             src={context.src.value}
             onClick={onClick} />

@@ -1,12 +1,19 @@
 import { deepCopy } from "../../deepCopy"
-import { EditorType } from "../../types"
+import { EditorType, PositionType } from "../../types"
 
-function moveObject(editor: EditorType, { x, y }: { x: number, y: number }): EditorType {
+function moveObject(editor: EditorType, pos: PositionType): EditorType {
     const editorCopy = deepCopy(editor)
-    const object = editorCopy.selection.selectedObject
+    const selectedSlide = editorCopy.presentation.slides
+        .find(slide => slide.id == editorCopy.selection.selectedSlide.id)
+
+    if (selectedSlide == undefined) return editor
+
+    const object = selectedSlide.objects
+        .find(obj => obj.id == editorCopy.selection.selectedObject?.id)
+
     if (object == undefined) return editor
 
-    object.pos = { x, y }
+    object.pos = pos
 
     return {
         ...editorCopy

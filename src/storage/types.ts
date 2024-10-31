@@ -39,14 +39,16 @@ type ImageSrc = {
     type: 'image',
 }
 
+type PositionType = {
+    x: number
+    y: number
+}
+
 type BaseSlideObjectType = {
     id: string,
     type: 'imageObj' | 'textObj'
 
-    pos: {
-        x: number,
-        y: number,
-    },
+    pos: PositionType,
     size: {
         width: number,
         height: number,
@@ -87,6 +89,7 @@ export type {
     SolidColor,
     GradientColor,
     BackgroundType,
+    PositionType,
     SlideObjectType,
     DropListOptionType,
     SlideStartContentType,

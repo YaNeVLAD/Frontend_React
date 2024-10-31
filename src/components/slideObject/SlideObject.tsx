@@ -1,24 +1,29 @@
 import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
 import { selectObject } from "../../storage/actions/object/select"
-import { SlideObjectType } from "../../storage/types"
-import { TextArea } from "./textArea/TextArea"
+import { CSSProperties, RefObject, useRef, useState } from "react"
+import { PositionType, SlideObjectType } from "../../storage/types"
+import { useDragAndDrop } from "./hooks/useDragAndDrop"
 import { dispatch } from "../../storage/editor"
+import { TextArea } from "./textArea/TextArea"
 import { Image } from "./image/Image"
-import { CSSProperties, useRef } from "react"
 import style from './SlideObject.module.css'
 
 type SlideObjectProps = {
     object: SlideObjectType,
     isSelected: boolean,
-    scale: number
+    scale: number,
+    parentRef: RefObject<HTMLElement>
 }
 
-function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
+function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps) {
     const ref = useRef(null)
+    const [pos, setPos] = useState<PositionType>(object.pos)
+
+    useDragAndDrop(ref, parentRef, setPos)
 
     const slideObjectStyle: CSSProperties = {
-        left: object.pos.x * scale,
-        top: object.pos.y * scale,
+        left: pos.x * scale,
+        top: pos.y * scale,
         width: object.size.width * scale,
         height: object.size.height * scale,
         transform: `rotate(${object.turnAngle}deg)`,
@@ -44,8 +49,7 @@ function SlideObject({ object, isSelected, scale }: SlideObjectProps) {
     return (
         <div
             ref={ref}
-            draggable
-            onClick={(e) => {
+            onMouseDown={(e) => {
                 if (e.defaultPrevented) return
                 e.preventDefault()
                 dispatch(selectObject, { id: object.id })

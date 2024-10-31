@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import { BASE_PRESENTATION } from "../common/basePresentation"
-import { EMPTY_SLIDE } from "../common/slides/emptySlide"
 import { EditorType } from "./types"
 
 let _editor: EditorType = {
     presentation: BASE_PRESENTATION,
     selection: {
-        selectedSlide: EMPTY_SLIDE,
+        selectedSlide: BASE_PRESENTATION.slides[0],
         selectedObject: undefined
     }
 }

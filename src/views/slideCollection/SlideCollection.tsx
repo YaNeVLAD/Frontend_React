@@ -10,7 +10,7 @@ type SlideCollectionProps = {
     scale: number
 }
 
-function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProps) {
+function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProps) {    
     return (
         <div className={style.slideCollection}>
             {

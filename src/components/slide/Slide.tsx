@@ -4,7 +4,7 @@ import { SlideObject } from "../../components/slideObject/SlideObject"
 import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
 import { dispatch } from "../../storage/editor"
-import { CSSProperties } from "react"
+import { CSSProperties, useRef } from "react"
 import style from './Slide.module.css'
 
 type SlideProps = {
@@ -18,6 +18,7 @@ type SlideProps = {
 }
 
 function Slide(props: SlideProps) {
+    const ref = useRef(null)
 
     const slideStyle: CSSProperties = {}
     if (props.isSelected) slideStyle.outline = SELECTED_SLIDE_OUTLINE
@@ -26,8 +27,9 @@ function Slide(props: SlideProps) {
 
     return (
         <div
+            ref={ref}
             style={slideStyle}
-            onClick={(e) => {
+            onMouseDown={(e) => {
                 if (e.defaultPrevented) return
                 e.preventDefault()
                 dispatch(deselectAllObjects)
@@ -40,6 +42,7 @@ function Slide(props: SlideProps) {
                         key={object.id}
                         object={object}
                         isSelected={object.id == props.selectedObjectId}
+                        parentRef={ref}
                         scale={props.scale} />
                 )
             }

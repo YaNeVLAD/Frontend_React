@@ -44,6 +44,7 @@ function TextArea({ context, scale }: TextAreaProps) {
 
             <textarea
                 ref={textAreaRef}
+                draggable={false}
                 value={context.value}
                 style={textAreaStyle}
                 className={style.textAreaInput}
