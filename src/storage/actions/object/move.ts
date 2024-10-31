@@ -16,7 +16,12 @@ function moveObject(editor: EditorType, pos: PositionType): EditorType {
     object.pos = pos
 
     return {
-        ...editorCopy
+        ...editorCopy,
+        selection: {
+            ...editorCopy.selection,
+            selectedSlide: selectedSlide,
+            selectedObject: object
+        }
     }
 }
 

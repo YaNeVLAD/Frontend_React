@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { BASE_PRESENTATION } from "../common/basePresentation"
+import { BASE_EDITOR } from "../common/baseEditor"
+import { deepCopy } from "./deepCopy"
 import { EditorType } from "./types"
 
-let _editor: EditorType = {
-    presentation: BASE_PRESENTATION,
-    selection: {
-        selectedSlide: BASE_PRESENTATION.slides[0],
-        selectedObject: undefined
-    }
-}
+const EDITOR_LOCALE_STORAGE_KEY = "editor"
+
+let _editor: EditorType = initEditor()
 
 let editorChangeHandler: Function | undefined
 
@@ -22,6 +19,12 @@ function getEditor(): EditorType {
 
 function setEditor(editor: EditorType) {
     _editor = editor
+    localStorage.setItem(EDITOR_LOCALE_STORAGE_KEY, JSON.stringify(editor))
+}
+
+function initEditor() {
+    const savedData = localStorage.getItem(EDITOR_LOCALE_STORAGE_KEY)
+    return savedData ? JSON.parse(savedData) : deepCopy(BASE_EDITOR)
 }
 
 function dispatch(modifier: Function, params?: object) {

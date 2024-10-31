@@ -5,6 +5,8 @@ import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
 import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import style from './ToolsArea.module.css'
+import { exportDocument } from '../../storage/file/export'
+import { importDocument } from '../../storage/file/import'
 
 type ToolsAreaProps = {
     title: string,
@@ -27,6 +29,10 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
                     onChange={onTitleChange}
                     className={style.presentationTitle} />
             </div>
+
+            <button onClick={exportDocument}>EXPORT</button>
+
+            <input type='file' onChange={importDocument} />
 
             <div className={style.toolsArea}>
 

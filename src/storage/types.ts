@@ -1,4 +1,5 @@
 type EditorType = {
+    editor: EditorType
     presentation: PresentationType,
     selection: SelectionType
 }

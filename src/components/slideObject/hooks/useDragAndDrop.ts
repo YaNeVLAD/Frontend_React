@@ -45,7 +45,7 @@ const useDragAndDrop = (
             document.removeEventListener("mousemove", handleMouseMove)
             document.removeEventListener("mouseup", handleMouseUp)
 
-            dispatch(moveObject, { x: currentPos.current.x, y: currentPos.current.y })
+            dispatch(moveObject, currentPos.current)
         }
 
         document.addEventListener("mousedown", handleMouseDown)
