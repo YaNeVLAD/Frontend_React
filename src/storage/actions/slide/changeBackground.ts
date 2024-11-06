@@ -1,5 +1,5 @@
 import { BackgroundType, EditorType, PresentationType } from "../../types"
-import { deepCopy } from "../../deepCopy"
+import { deepCopy } from "../../utils/deepCopy"
 
 function changeSlideBackgroundType(
     editor: EditorType,

@@ -1,5 +1,5 @@
-import { parsePresentationFromJson, parseSelectionFromJson } from "./file/parse"
-import { EditorType, PresentationType, SelectionType } from "./types"
+import { parsePresentationFromJson, parseSelectionFromJson } from "../file/parse"
+import { EditorType, PresentationType, SelectionType } from "../types"
 
 const PRESENTATION_LOCALE_STORAGE_KEY = "presentation"
 const SELECTION_LOCALE_STORAGE_KEY = "selection"

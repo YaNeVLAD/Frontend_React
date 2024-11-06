@@ -3,8 +3,8 @@ import { EMPTY_SLIDE } from "../../../common/slides/emptySlide"
 import { EditorType, SlideStartContentType, SlideType } from "../../types"
 import { IMAGE_SLIDE } from "../../../common/slides/imageSlide"
 import { TITLE_SLIDE } from "../../../common/slides/titleSlide"
-import { uuid } from "../../functions"
-import { deepCopy } from "../../deepCopy"
+import { uuid } from "../../utils/functions"
+import { deepCopy } from "../../utils/deepCopy"
 
 function addSlide(editor: EditorType, { type }: { type: SlideStartContentType }): EditorType {
     const newSlide = deepCopy(selectSlideStartContent(type))

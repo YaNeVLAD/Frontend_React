@@ -1,8 +1,8 @@
 import { EditorType, PositionType, PresentationType } from "../types"
 import { BASE_IMAGE } from "../../common/baseImage"
 import { BASE_TEXT_AREA } from "../../common/textArea/baseTextArea"
-import { deepCopy } from "../deepCopy"
-import { uuid } from "../functions"
+import { deepCopy } from "../utils/deepCopy"
+import { uuid } from "../utils/functions"
 
 function addObject(
     editor: EditorType,

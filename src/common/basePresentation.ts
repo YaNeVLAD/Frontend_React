@@ -1,5 +1,5 @@
-import { deepCopy } from "../storage/deepCopy"
-import { uuid } from "../storage/functions"
+import { deepCopy } from "../storage/utils/deepCopy"
+import { uuid } from "../storage/utils/functions"
 import { EMPTY_SLIDE } from "./slides/emptySlide"
 
 const BASE_PRESENTATION = deepCopy({

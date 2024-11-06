@@ -1,4 +1,4 @@
-import { uuid } from "../../storage/functions"
+import { uuid } from "../../storage/utils/functions"
 import { TextAreaType } from "../../storage/types"
 
 const BASE_TEXT_AREA: TextAreaType = {

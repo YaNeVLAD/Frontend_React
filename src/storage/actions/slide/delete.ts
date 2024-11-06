@@ -1,4 +1,4 @@
-import { deepCopy } from "../../deepCopy"
+import { deepCopy } from "../../utils/deepCopy"
 import { EditorType } from "../../types"
 
 function deleteSlide(editor: EditorType): EditorType {

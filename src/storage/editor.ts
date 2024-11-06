@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { getEditorFromStorage, saveEditorToStorage } from "./localStorage"
+import { getEditorFromStorage, saveEditorToStorage } from "./utils/localStorage"
 import { BASE_EDITOR } from "../common/baseEditor"
-import { deepCopy } from "./deepCopy"
+import { deepCopy } from "./utils/deepCopy"
 import { EditorType } from "./types"
 import { validatePresentation } from "./file/validate"
 

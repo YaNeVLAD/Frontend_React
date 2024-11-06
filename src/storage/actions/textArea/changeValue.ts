@@ -1,5 +1,5 @@
 import { EditorType } from "../../types"
-import { deepCopy } from "../../deepCopy"
+import { deepCopy } from "../../utils/deepCopy"
 
 function changeTextValue(editor: EditorType, { value }: { value: string }): EditorType {
     const editorCopy = deepCopy(editor)
