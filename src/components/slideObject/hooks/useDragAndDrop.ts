@@ -1,15 +1,15 @@
-import { moveObject } from "../../../storage/actions/object/move"
 import { PositionType } from "../../../storage/types"
 import { dispatch } from "../../../storage/editor"
 import { useRef, useEffect } from "react"
+import { moveObject } from "../../../storage/actions/objectActions"
 
 const useDragAndDrop = (
     ref: React.RefObject<HTMLElement>,
     parentRef: React.RefObject<HTMLElement>,
+    initialPosition: PositionType,
     setPos: (pos: PositionType) => void
 ) => {
-    const startPos = useRef<PositionType>({ x: 0, y: 0 })
-    const currentPos = useRef<PositionType>({ x: 0, y: 0 })
+    const position = useRef<PositionType>(initialPosition)
     const offset = useRef<PositionType>({ x: 0, y: 0 })
 
     useEffect(() => {
@@ -18,8 +18,6 @@ const useDragAndDrop = (
             if (!parentRef.current) return
 
             const elementRect = ref.current.getBoundingClientRect()
-
-            startPos.current = { x: e.pageX, y: e.pageY }
             offset.current = {
                 x: e.pageX - elementRect.left,
                 y: e.pageY - elementRect.top,
@@ -33,19 +31,18 @@ const useDragAndDrop = (
             if (!parentRef.current) return
 
             const parentRect = parentRef.current.getBoundingClientRect()
-            currentPos.current = {
+            position.current = {
                 x: e.pageX - parentRect.left - offset.current.x,
                 y: e.pageY - parentRect.top - offset.current.y,
             }
 
-            setPos(currentPos.current)
+            setPos(position.current)
         }
 
         const handleMouseUp = () => {
             document.removeEventListener("mousemove", handleMouseMove)
             document.removeEventListener("mouseup", handleMouseUp)
-
-            dispatch(moveObject, currentPos.current)
+            dispatch(moveObject, position.current)
         }
 
         document.addEventListener("mousedown", handleMouseDown)

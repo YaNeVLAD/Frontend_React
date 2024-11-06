@@ -1,8 +1,7 @@
 import { changeSlideBackgroundType } from "../../../storage/actions/slide/changeBackground"
-import { deselectAllObjects } from "../../../storage/actions/object/deselectAll"
+import { addObject, deselectAllObjects } from "../../../storage/actions/objectActions"
 import { deleteSlide } from "../../../storage/actions/slide/delete"
 import { BackgroundType, SlideType } from "../../../storage/types"
-import { addObject } from "../../../storage/actions/object/add"
 import { Button } from "../../../components/button/Button"
 import { dispatch } from "../../../storage/editor"
 

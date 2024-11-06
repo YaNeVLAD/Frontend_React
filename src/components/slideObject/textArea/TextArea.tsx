@@ -1,5 +1,5 @@
 import { changeTextValue } from '../../../storage/actions/textArea/changeValue'
-import { selectObject } from '../../../storage/actions/object/select'
+import { selectObject } from '../../../storage/actions/objectActions'
 import { MINIMUM_TEXT_SIZE } from '../../../storage/constants'
 import { TextAreaType } from '../../../storage/types'
 import { useRef, useState } from 'react'

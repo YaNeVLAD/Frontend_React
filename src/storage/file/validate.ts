@@ -1,49 +1,127 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { PositionType, PresentationType, SlideObjectType } from "../types"
+import Ajv, { JSONSchemaType } from 'ajv'
+import { PresentationType, SlideType, SlideStartContentType, BackgroundType, SolidColor, ImageSrc, GradientColor, SlideObjectType, PositionType } from '../types'
 
-const validateDocument = (data: any): data is PresentationType => {
-    if (typeof data !== 'object') return false
+const ajv = new Ajv()
 
-    if (
-        typeof data.title !== 'string' ||
-        !Array.isArray(data.slides)
-    ) return false
-
-    return data.slides.every((slide: any) =>
-        typeof slide.id === 'string' &&
-        ['title', 'image', 'title&image', 'none'].includes(slide.startContentType) &&
-        Array.isArray(slide.objects) &&
-        slide.objects.every(validateSlideObject)
-    )
+const positionTypeSchema: JSONSchemaType<PositionType> = {
+    type: 'object',
+    properties: {
+        x: { type: 'number' },
+        y: { type: 'number' },
+    },
+    required: ['x', 'y'],
+    additionalProperties: false,
 }
 
-const validateSlideObject = (obj: any): obj is SlideObjectType => {
-    if (obj.type === 'imageObj') {
-        return (
-            typeof obj.src.value === 'string' &&
-            obj.src.type === 'image' &&
-            validatePosition(obj.pos) &&
-            validateSize(obj.size)
-        )
-    } else if (obj.type === 'textObj') {
-        return (
-            typeof obj.value === 'string' &&
-            typeof obj.font === 'string' &&
-            typeof obj.color === 'string' &&
-            typeof obj.textSize === 'number' &&
-            validatePosition(obj.pos) &&
-            validateSize(obj.size)
-        )
-    }
-    return false
+const solidColorSchema: JSONSchemaType<SolidColor> = {
+    type: 'object',
+    properties: {
+        type: { type: 'string', const: 'solid' },
+        value: { type: 'string' },
+    },
+    required: ['type', 'value'],
+    additionalProperties: false,
 }
 
-const validatePosition = (pos: any): pos is PositionType => {
-    return typeof pos.x === 'number' && typeof pos.y === 'number'
+const gradientColorSchema: JSONSchemaType<GradientColor> = {
+    type: 'object',
+    properties: {
+        type: { type: 'string', const: 'gradient' },
+        value: { type: 'array', items: { type: 'string' } },
+    },
+    required: ['type', 'value'],
+    additionalProperties: false,
 }
 
-const validateSize = (size: any): size is { width: number, height: number } => {
-    return typeof size.width === 'number' && typeof size.height === 'number'
+const imageSrcSchema: JSONSchemaType<ImageSrc> = {
+    type: 'object',
+    properties: {
+        type: { type: 'string', const: 'image' },
+        value: { type: 'string' },
+    },
+    required: ['type', 'value'],
+    additionalProperties: false,
 }
 
-export { validateDocument }
+const backgroundTypeSchema: JSONSchemaType<BackgroundType> = {
+    oneOf: [solidColorSchema, gradientColorSchema, imageSrcSchema],
+}
+
+const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
+    oneOf: [
+        {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                type: { type: 'string', const: 'imageObj' },
+                pos: positionTypeSchema,
+                size: {
+                    type: 'object',
+                    properties: {
+                        width: { type: 'number' },
+                        height: { type: 'number' },
+                    },
+                    required: ['width', 'height'],
+                    additionalProperties: false,
+                },
+                turnAngle: { type: 'number' },
+                src: imageSrcSchema,
+            },
+            required: ['id', 'type', 'pos', 'size', 'turnAngle', 'src'],
+            additionalProperties: false,
+        },
+        {
+            type: 'object',
+            properties: {
+                id: { type: 'string' },
+                type: { type: 'string', const: 'textObj' },
+                pos: positionTypeSchema,
+                size: {
+                    type: 'object',
+                    properties: {
+                        width: { type: 'number' },
+                        height: { type: 'number' },
+                    },
+                    required: ['width', 'height'],
+                    additionalProperties: false,
+                },
+                turnAngle: { type: 'number' },
+                value: { type: 'string' },
+                font: { type: 'string' },
+                color: { type: 'string' },
+                textSize: { type: 'number' },
+            },
+            required: ['id', 'type', 'pos', 'size', 'turnAngle', 'value', 'font', 'color', 'textSize'],
+            additionalProperties: false,
+        },
+    ],
+}
+
+const slideTypeSchema: JSONSchemaType<SlideType> = {
+    type: 'object',
+    properties: {
+        id: { type: 'string' },
+        startContentType: { type: 'string', enum: ['title', 'image', 'title&image', 'none'] as SlideStartContentType[] },
+        objects: { type: 'array', items: slideObjectTypeSchema },
+        background: backgroundTypeSchema,
+    },
+    required: ['id', 'startContentType', 'objects', 'background'],
+    additionalProperties: false,
+}
+
+const presentationTypeSchema: JSONSchemaType<PresentationType> = {
+    type: 'object',
+    properties: {
+        title: { type: 'string' },
+        slides: { type: 'array', items: slideTypeSchema },
+    },
+    required: ['title', 'slides'],
+    additionalProperties: false,
+}
+
+// Компилируем схему для валидации PresentationType
+const validatePresentation = ajv.compile(presentationTypeSchema)
+
+export {
+    validatePresentation
+}

@@ -1,7 +1,7 @@
 import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
-import { selectObject } from "../../storage/actions/object/select"
 import { CSSProperties, RefObject, useRef, useState } from "react"
 import { PositionType, SlideObjectType } from "../../storage/types"
+import { selectObject } from "../../storage/actions/objectActions"
 import { useDragAndDrop } from "./hooks/useDragAndDrop"
 import { dispatch } from "../../storage/editor"
 import { TextArea } from "./textArea/TextArea"
@@ -19,7 +19,7 @@ function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps)
     const ref = useRef(null)
     const [pos, setPos] = useState<PositionType>(object.pos)
 
-    useDragAndDrop(ref, parentRef, setPos)
+    useDragAndDrop(ref, parentRef, object.pos, setPos)
 
     const slideObjectStyle: CSSProperties = {
         left: pos.x * scale,

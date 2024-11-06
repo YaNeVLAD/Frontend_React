@@ -1,4 +1,4 @@
-import { selectObject } from "../../../storage/actions/object/select"
+import { selectObject } from "../../../storage/actions/objectActions"
 import { dispatch } from "../../../storage/editor"
 import { ImageType } from "../../../storage/types"
 import style from './Image.module.css'

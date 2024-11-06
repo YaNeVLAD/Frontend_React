@@ -11,6 +11,7 @@ function exportDocument() {
     a.download = presentation.title
     a.click()
     URL.revokeObjectURL(url)
+    a.remove()
 }
 
 export { exportDocument }

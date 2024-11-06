@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
+import { getEditorFromStorage, saveEditorToStorage } from "./localStorage"
 import { BASE_EDITOR } from "../common/baseEditor"
 import { deepCopy } from "./deepCopy"
 import { EditorType } from "./types"
-
-const EDITOR_LOCALE_STORAGE_KEY = "editor"
-
-let _editor: EditorType = initEditor()
+import { validatePresentation } from "./file/validate"
 
 let editorChangeHandler: Function | undefined
+
+let _editor: EditorType = initEditor()
 
 function addEditorChangeHandler(handler: Function) {
     editorChangeHandler = handler
@@ -19,12 +19,17 @@ function getEditor(): EditorType {
 
 function setEditor(editor: EditorType) {
     _editor = editor
-    localStorage.setItem(EDITOR_LOCALE_STORAGE_KEY, JSON.stringify(editor))
+    saveEditorToStorage(editor)
 }
 
-function initEditor() {
-    const savedData = localStorage.getItem(EDITOR_LOCALE_STORAGE_KEY)
-    return savedData ? JSON.parse(savedData) : deepCopy(BASE_EDITOR)
+function initEditor(): EditorType {
+    let savedEditor = getEditorFromStorage()
+    if (savedEditor == null || !validatePresentation(savedEditor.presentation)) {
+        alert("Что-то пошло не так. Ваша презентация была утеряня")
+        savedEditor = deepCopy(BASE_EDITOR)
+    }
+
+    return savedEditor
 }
 
 function dispatch(modifier: Function, params?: object) {
