@@ -16,14 +16,14 @@ type ToolsAreaProps = {
 }
 
 function ToolsArea({ title, selection }: ToolsAreaProps) {
-    const inputRef = useRef<HTMLInputElement>(null)
+    const presentationInputRef = useRef<HTMLInputElement>(null)
 
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
         dispatch(changePresentationTitle, { title: value })
     }
 
-    const onImport = useImportPresentation(inputRef)
+    useImportPresentation(presentationInputRef)
 
     return (
         <>
@@ -38,7 +38,7 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
 
             <button onClick={exportDocument}>EXPORT</button>
 
-            <input type='file' ref={inputRef} onChange={onImport} />
+            <input type='file' ref={presentationInputRef} />
 
             <div className={style.toolsArea}>
 

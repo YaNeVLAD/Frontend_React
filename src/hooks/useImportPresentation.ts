@@ -1,10 +1,10 @@
-import { useCallback } from "react"
 import { dispatch } from "../storage/editor"
 import { savePresentation } from "../storage/actions/presentation/save"
 import { restoreEditor } from "../storage/file/read"
+import { useCallback, useEffect } from "react"
 
 const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
-    return useCallback(() => {
+    const onImport = useCallback(() => {
         const file = inputRef.current?.files?.[0]
         if (!file) return
 
@@ -19,6 +19,17 @@ const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
                 if (inputRef.current) inputRef.current.value = ""
             })
     }, [inputRef])
+
+    useEffect(() => {
+        const inputElement = inputRef.current
+        if (!inputElement) return
+
+        inputElement.addEventListener('change', onImport)
+
+        return () => {
+            inputElement.removeEventListener('change', onImport)
+        }
+    }, [inputRef, onImport])
 }
 
 export { useImportPresentation }

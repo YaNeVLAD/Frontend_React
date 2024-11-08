@@ -1,6 +1,6 @@
 import { PresentationType, SlideType, SlideStartContentType, BackgroundType, SolidColor, ImageSrc, GradientColor, SlideObjectType, PositionType, SelectionType, SizeType } from '../../types'
-import Ajv, { JSONSchemaType } from 'ajv'
 import { arrayAjv, numberAjv, objectAjv, stringAjv } from './ajvTypes'
+import Ajv, { JSONSchemaType } from 'ajv'
 
 const ajv = new Ajv()
 
