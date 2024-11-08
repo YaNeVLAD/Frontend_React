@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import { getEditorFromStorage, saveEditorToStorage } from "./utils/localStorage"
+import { validatePresentation } from "./file/validation/ajv"
 import { BASE_EDITOR } from "../common/baseEditor"
 import { deepCopy } from "./utils/deepCopy"
 import { EditorType } from "./types"
-import { validatePresentation } from "./file/validate"
 
 let editorChangeHandler: Function | undefined
 

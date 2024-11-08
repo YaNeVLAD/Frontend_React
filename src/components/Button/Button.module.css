@@ -10,6 +10,9 @@
     background-color: transparent;
     border: 0;
     position: relative;
+    text-align: center;
+    font-weight: 500;
+    color: #000000B3;
 }
 
 .button:hover {

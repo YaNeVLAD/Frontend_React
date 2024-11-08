@@ -1,4 +1,4 @@
-import { PresentationType, SlideType, SlideStartContentType, BackgroundType, SolidColor, ImageSrc, GradientColor, SlideObjectType, PositionType } from '../types'
+import { PresentationType, SlideType, SlideStartContentType, BackgroundType, SolidColor, ImageSrc, GradientColor, SlideObjectType, PositionType, SelectionType, SizeType } from '../../types'
 import Ajv, { JSONSchemaType } from 'ajv'
 
 const ajv = new Ajv()
@@ -10,6 +10,16 @@ const positionTypeSchema: JSONSchemaType<PositionType> = {
         y: { type: 'number' },
     },
     required: ['x', 'y'],
+    additionalProperties: false,
+}
+
+const sizeTypeSchema: JSONSchemaType<SizeType> = {
+    type: 'object',
+    properties: {
+        width: { type: 'number' },
+        height: { type: 'number' },
+    },
+    required: ['width', 'height'],
     additionalProperties: false,
 }
 
@@ -48,6 +58,7 @@ const backgroundTypeSchema: JSONSchemaType<BackgroundType> = {
 }
 
 const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
+    type: 'object',
     oneOf: [
         {
             type: 'object',
@@ -55,15 +66,7 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
                 id: { type: 'string' },
                 type: { type: 'string', const: 'imageObj' },
                 pos: positionTypeSchema,
-                size: {
-                    type: 'object',
-                    properties: {
-                        width: { type: 'number' },
-                        height: { type: 'number' },
-                    },
-                    required: ['width', 'height'],
-                    additionalProperties: false,
-                },
+                size: sizeTypeSchema,
                 turnAngle: { type: 'number' },
                 src: imageSrcSchema,
             },
@@ -76,15 +79,7 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
                 id: { type: 'string' },
                 type: { type: 'string', const: 'textObj' },
                 pos: positionTypeSchema,
-                size: {
-                    type: 'object',
-                    properties: {
-                        width: { type: 'number' },
-                        height: { type: 'number' },
-                    },
-                    required: ['width', 'height'],
-                    additionalProperties: false,
-                },
+                size: sizeTypeSchema,
                 turnAngle: { type: 'number' },
                 value: { type: 'string' },
                 font: { type: 'string' },
@@ -119,8 +114,20 @@ const presentationTypeSchema: JSONSchemaType<PresentationType> = {
     additionalProperties: false,
 }
 
+const selectionTypeSchema: JSONSchemaType<SelectionType> = {
+    type: 'object',
+    properties: {
+        selectedSlide: slideTypeSchema,
+        selectedObject: { ...slideObjectTypeSchema, nullable: true }
+    },
+    required: ['selectedSlide'],
+    additionalProperties: false,
+}
+
 const validatePresentation = ajv.compile(presentationTypeSchema)
+const validateSelection = ajv.compile(selectionTypeSchema)
 
 export {
-    validatePresentation
+    validatePresentation,
+    validateSelection
 }

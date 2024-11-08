@@ -18,8 +18,8 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
     return (
         <>
             <Button
-                type='icon'
-                value='bucket'
+                type='text'
+                value='Фон'
                 onClick={() => { }}
                 className=''
                 dropdownContent={[
@@ -30,8 +30,8 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
                 ]} />
 
             <Button
-                type='icon'
-                value='trashCan'
+                type='text'
+                value='Удалить слайд'
                 onClick={() => dispatch(deleteSlide)}
                 className='' />
         </>

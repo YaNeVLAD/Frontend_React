@@ -1,6 +1,6 @@
 import { parsePresentationFromJson } from "./parse"
-import { validatePresentation } from "./validate"
 import { PresentationType } from "../types"
+import { validatePresentation } from "./validation/ajv"
 
 function restoreEditor(file: File | undefined): Promise<PresentationType | null> {
     return new Promise((resolve, reject) => {
