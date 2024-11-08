@@ -1,22 +1,31 @@
-import { dispatch } from "../editor"
-import { saveEditor } from "../actions/editor/save"
 import { parsePresentationFromJson } from "./parse"
 import { validatePresentation } from "./validate"
+import { PresentationType } from "../types"
 
-function restoreEditor(file: File | undefined) {
-    if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            const json = e.target?.result as string
-            const presentation = parsePresentationFromJson(json)
-            if (presentation == null || !validatePresentation(presentation)) {
-                alert("Неправильный формат файла")
-                return
+function restoreEditor(file: File | undefined): Promise<PresentationType | null> {
+    return new Promise((resolve, reject) => {
+        if (file) {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                try {
+                    const json = e.target?.result as string
+                    const presentation = parsePresentationFromJson(json)
+                    if (presentation == null || !validatePresentation(presentation)) {
+                        alert("Неправильный формат файла")
+                        resolve(null)
+                    } else {
+                        resolve(presentation)
+                    }
+                } catch (error) {
+                    reject(error)
+                }
             }
-            dispatch(saveEditor, presentation)
+            reader.onerror = (error) => reject(error)
+            reader.readAsText(file)
+        } else {
+            resolve(null)
         }
-        reader.readAsText(file)
-    }
+    })
 }
 
 export { restoreEditor }

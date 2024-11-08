@@ -1,7 +1,9 @@
-import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
+import { PositionType, SizeType, SlideObjectType } from "../../storage/types"
+import { useResizableDragAndDrop } from "./hooks/useResizableDragAndDrop"
+import ResizableHandlers from "./resizableHandlers/resizableHandlers"
 import { CSSProperties, RefObject, useRef, useState } from "react"
-import { PositionType, SlideObjectType } from "../../storage/types"
 import { selectObject } from "../../storage/actions/objectActions"
+import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
 import { useDragAndDrop } from "./hooks/useDragAndDrop"
 import { dispatch } from "../../storage/editor"
 import { TextArea } from "./textArea/TextArea"
@@ -18,14 +20,16 @@ type SlideObjectProps = {
 function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps) {
     const ref = useRef(null)
     const [pos, setPos] = useState<PositionType>(object.pos)
+    const [size, setSize] = useState<SizeType>(object.size)
 
     useDragAndDrop(ref, parentRef, object.pos, setPos)
+    useResizableDragAndDrop(ref, parentRef, object.pos, object.size, setPos, setSize)
 
     const slideObjectStyle: CSSProperties = {
         left: pos.x * scale,
         top: pos.y * scale,
-        width: object.size.width * scale,
-        height: object.size.height * scale,
+        width: size.width * scale,
+        height: size.height * scale,
         transform: `rotate(${object.turnAngle}deg)`,
         outline: isSelected ? SELECTED_OBJECT_OUTLINE : ''
     }
@@ -58,6 +62,7 @@ function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps)
             className={style.slideObject}
             style={slideObjectStyle}>
             {obj}
+            {isSelected ? <ResizableHandlers /> : <></>}
         </div>
     )
 }

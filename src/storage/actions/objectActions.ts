@@ -1,4 +1,4 @@
-import { EditorType, PositionType, PresentationType } from "../types"
+import { EditorType, PositionType, PresentationType, SizeType } from "../types"
 import { BASE_IMAGE } from "../../common/baseImage"
 import { BASE_TEXT_AREA } from "../../common/textArea/baseTextArea"
 import { deepCopy } from "../utils/deepCopy"
@@ -127,6 +127,30 @@ function moveObject(editor: EditorType, pos: PositionType): EditorType {
     }
 }
 
+function resizeObject(editor: EditorType, size: SizeType): EditorType {
+    const editorCopy = deepCopy(editor)
+    const selectedSlide = editorCopy.presentation.slides
+        .find(slide => slide.id == editorCopy.selection.selectedSlide.id)
+
+    if (selectedSlide == undefined) return editor
+
+    const object = selectedSlide.objects
+        .find(obj => obj.id == editorCopy.selection.selectedObject?.id)
+
+    if (object == undefined) return editor
+
+    object.size = size
+
+    return {
+        ...editorCopy,
+        selection: {
+            ...editorCopy.selection,
+            selectedSlide: selectedSlide,
+            selectedObject: object
+        }
+    }
+}
+
 function selectObject(editor: EditorType, { id }: { id: string }): EditorType {
     const object = editor.selection.selectedSlide.objects.find(object => object.id == id)
     if (object == undefined) return editor
@@ -146,5 +170,6 @@ export {
     deleteObject,
     deselectAllObjects,
     moveObject,
+    resizeObject,
     selectObject
 }

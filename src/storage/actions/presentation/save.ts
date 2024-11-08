@@ -1,6 +1,6 @@
 import { EditorType, PresentationType } from "../../types"
 
-function saveEditor(editor: EditorType, presentation: PresentationType): EditorType {
+function savePresentation(editor: EditorType, presentation: PresentationType): EditorType {
     return {
         ...editor,
         presentation: presentation,
@@ -11,4 +11,4 @@ function saveEditor(editor: EditorType, presentation: PresentationType): EditorT
     }
 }
 
-export { saveEditor }
+export { savePresentation }

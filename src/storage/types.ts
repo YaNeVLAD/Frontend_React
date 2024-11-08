@@ -44,15 +44,16 @@ type PositionType = {
     y: number
 }
 
+type SizeType = {
+    width: number,
+    height: number
+}
+
 type BaseSlideObjectType = {
     id: string,
     type: 'imageObj' | 'textObj'
-
     pos: PositionType,
-    size: {
-        width: number,
-        height: number,
-    },
+    size: SizeType,
     turnAngle: number,
 }
 
@@ -89,6 +90,7 @@ export type {
     SolidColor,
     GradientColor,
     BackgroundType,
+    SizeType,
     PositionType,
     SlideObjectType,
     DropListOptionType,
