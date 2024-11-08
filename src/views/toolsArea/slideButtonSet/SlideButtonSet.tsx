@@ -1,5 +1,4 @@
 import { changeSlideBackgroundType } from "../../../storage/actions/slide/changeBackground"
-import { addObject, deselectAllObjects } from "../../../storage/actions/objectActions"
 import { deleteSlide } from "../../../storage/actions/slide/delete"
 import { BackgroundType, SlideType } from "../../../storage/types"
 import { Button } from "../../../components/button/Button"
@@ -18,24 +17,6 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
 
     return (
         <>
-            <Button
-                type='icon'
-                value='cursor'
-                onClick={() => dispatch(deselectAllObjects)}
-                className='' />
-
-            <Button
-                type='icon'
-                value='text'
-                onClick={() => dispatch(addObject, { type: 'textObj' })}
-                className='' />
-
-            <Button
-                type='icon'
-                value='image'
-                onClick={() => dispatch(addObject, { type: 'imageObj' })}
-                className='' />
-
             <Button
                 type='icon'
                 value='bucket'

@@ -8,8 +8,6 @@ type ObjectButtonSetProps = {
 }
 
 function ObjectButtonSet({ object }: ObjectButtonSetProps) {
-    
-
     return (
         object
             ?

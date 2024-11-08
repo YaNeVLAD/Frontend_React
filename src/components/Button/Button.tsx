@@ -46,7 +46,7 @@ function Button(props: ButtonProps) {
             {
                 props.dropdownContent
                     ? <Dropdown content={props.dropdownContent} />
-                    : null
+                    : <></>
             }
         </div>
     )

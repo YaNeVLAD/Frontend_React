@@ -119,7 +119,6 @@ const presentationTypeSchema: JSONSchemaType<PresentationType> = {
     additionalProperties: false,
 }
 
-// Компилируем схему для валидации PresentationType
 const validatePresentation = ajv.compile(presentationTypeSchema)
 
 export {

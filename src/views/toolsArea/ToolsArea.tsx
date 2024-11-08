@@ -8,6 +8,7 @@ import { exportDocument } from '../../storage/file/export'
 import style from './ToolsArea.module.css'
 import { restoreEditor } from '../../storage/file/read'
 import { savePresentation } from '../../storage/actions/presentation/save'
+import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 
 type ToolsAreaProps = {
     title: string,
@@ -53,10 +54,15 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
                 <PresentationButtonSet />
                 <div className={style.separator} />
 
-                <SlideButtonSet slide={selection.selectedSlide} />
+                <CreateButtonSet />
                 <div className={style.separator} />
 
-                <ObjectButtonSet object={selection.selectedObject} />
+                {selection.selectedObject
+                    ? <ObjectButtonSet object={selection.selectedObject} />
+                    : <SlideButtonSet slide={selection.selectedSlide} />
+                }
+                <div className={style.separator} />
+
             </div>
         </>
     )
