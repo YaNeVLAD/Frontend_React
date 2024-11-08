@@ -16,7 +16,7 @@ type SlideObjectProps = {
     scale: number,
     parentRef: RefObject<HTMLElement>
 }
-
+//Можно сделать хок компонент - resizable. Для изменения поведения объекта.
 function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps) {
     const ref = useRef(null)
     const [pos, setPos] = useState<PositionType>(object.pos)

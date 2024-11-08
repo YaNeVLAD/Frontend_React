@@ -3,6 +3,9 @@ import { dispatch } from "../../../storage/editor"
 import { useRef, useEffect } from "react"
 import { moveObject } from "../../../storage/actions/objectActions"
 
+//Варианты: Менять позицию у dom элемента
+//Если делать как есть - прописываем логику обработки position в компоненте
+
 const useDragAndDrop = (
     ref: React.RefObject<HTMLElement>,
     parentRef: React.RefObject<HTMLElement>,

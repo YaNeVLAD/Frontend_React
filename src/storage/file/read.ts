@@ -11,7 +11,6 @@ function restoreEditor(file: File | undefined): Promise<PresentationType | null>
                     const json = e.target?.result as string
                     const presentation = parsePresentationFromJson(json)
                     if (presentation == null || !validatePresentation(presentation)) {
-                        alert("Неправильный формат файла")
                         resolve(null)
                     } else {
                         resolve(presentation)

@@ -1,14 +1,14 @@
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
+import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
 import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
+import { useImportPresentation } from '../../hooks/useImportPresentation'
+import { exportDocument } from '../../storage/file/export'
 import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
-import { exportDocument } from '../../storage/file/export'
+import { useRef } from 'react'
 import style from './ToolsArea.module.css'
-import { restoreEditor } from '../../storage/file/read'
-import { savePresentation } from '../../storage/actions/presentation/save'
-import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 
 type ToolsAreaProps = {
     title: string,
@@ -16,23 +16,14 @@ type ToolsAreaProps = {
 }
 
 function ToolsArea({ title, selection }: ToolsAreaProps) {
+    const inputRef = useRef<HTMLInputElement>(null)
+
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
         dispatch(changePresentationTitle, { title: value })
     }
 
-    const onImport = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-
-        restoreEditor(file)
-            .then((presentation) => {
-                if (presentation) {
-                    dispatch(savePresentation, presentation)
-                }
-            })
-            .catch(() => alert("При загрузке файла произошла ошибка."))
-            .finally(() => event.target.value = "")
-    }
+    const onImport = useImportPresentation(inputRef)
 
     return (
         <>
@@ -47,7 +38,7 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
 
             <button onClick={exportDocument}>EXPORT</button>
 
-            <input type='file' onChange={onImport} />
+            <input type='file' ref={inputRef} onChange={onImport} />
 
             <div className={style.toolsArea}>
 
