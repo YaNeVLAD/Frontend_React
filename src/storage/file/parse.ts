@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PresentationType, SelectionType } from "../types"
 import { validatePresentation, validateSelection } from "./validation/ajv"
 
