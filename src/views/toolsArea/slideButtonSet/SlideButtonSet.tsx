@@ -19,11 +19,14 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
 
     return (
         <>
-            <Popup content={<ColorPicker color={
-                slide.background.type == 'solid'
-                    ? slide.background.value
-                    : ''}
-                onColorChange={onColorChange} />}>
+            <Popup
+                title="Фон"
+                content={<ColorPicker
+                    color={
+                        slide.background.type == 'solid'
+                            ? slide.background.value
+                            : ''}
+                    onColorChange={onColorChange} />}>
                 <Button
                     type='text'
                     value='Фон'
