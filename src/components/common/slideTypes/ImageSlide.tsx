@@ -1,4 +1,3 @@
-
 const ImageSlide = () => {
     return (
         <div>

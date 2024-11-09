@@ -28,6 +28,14 @@
     color: #000000B3;
 }
 
+.pressed {
+    background-color: #44474626;
+}
+
+.popoverIcon:hover.pressed {
+    background-color: #44474626;
+}
+
 .popoverIcon:hover {
     background-color: #DFE5EB;
 }

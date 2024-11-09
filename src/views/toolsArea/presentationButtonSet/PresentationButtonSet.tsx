@@ -1,8 +1,8 @@
-import { Button } from "../../../components/button/Button"
-import EmptySlide from "../../common/slidePreviews/EmptySlide"
-import { addSlide } from "../../../storage/actions/slide/add"
-import { dispatch } from "../../../storage/editor"
+import EmptySlide from "../../../components/common/slideTypes/EmptySlide"
 import Plus20Icon from "../../../components/common/icons/Plus20Icon"
+import { addSlide } from "../../../storage/actions/slide/add"
+import { Button } from "../../../components/button/Button"
+import { dispatch } from "../../../storage/editor"
 
 function PresentationButtonSet() {
     const popoverContent = (
