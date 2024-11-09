@@ -1,10 +1,11 @@
 import { selectSlide } from "../../storage/actions/slide/select"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
+import { moveSlide } from "../../storage/actions/slide/move"
 import { Slide } from "../../components/slide/Slide"
 import { SlideType } from "../../storage/types"
 import { dispatch } from "../../storage/editor"
+import { useRef } from "react"
 import style from './SlideCollection.module.css'
-import { moveSlide } from "../../storage/actions/slide/move"
 
 type SlideCollectionProps = {
     slides: Array<SlideType>,
@@ -13,15 +14,17 @@ type SlideCollectionProps = {
 }
 
 function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProps) {
+    const containerRef = useRef<HTMLDivElement>(null)
     const { handleDragStart, handleDragOver, handleDrop, draggingSlideId } = useDraggableSlides({
         slides,
         onReorder: (updatedSlides) => {
             dispatch(moveSlide, { slides: updatedSlides })
-        }
+        },
+        containerRef,
     })
 
     return (
-        <div className={style.slideCollection}>
+        <div className={style.slideCollection} ref={containerRef}>
             {
                 slides.map(slide => (
                     <div

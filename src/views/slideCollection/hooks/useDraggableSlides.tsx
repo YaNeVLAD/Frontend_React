@@ -1,24 +1,42 @@
-import { useState, useRef, DragEvent } from "react"
+import { useState, useRef, useCallback, DragEvent } from "react"
 import { SlideType } from "../../../storage/types"
+import { SLIDE_COLLECTION_SCROLL_AREA, SLIDE_COLLECTION_SCROLL_SPEED } from "../../../storage/constants"
 
 type UseDraggableSlidesProps = {
     slides: Array<SlideType>,
     onReorder: (updatedSlides: Array<SlideType>) => void,
+    containerRef: React.RefObject<HTMLDivElement>
 }
 
-function useDraggableSlides({ slides, onReorder }: UseDraggableSlidesProps) {
+function useDraggableSlides({ slides, onReorder, containerRef }: UseDraggableSlidesProps) {
     const [draggingSlideId, setDraggingSlideId] = useState<string | null>(null)
     const dragOverSlideId = useRef<string | null>(null)
+    const scrollSpeed = SLIDE_COLLECTION_SCROLL_SPEED
 
     const handleDragStart = (event: DragEvent<HTMLDivElement>, slideId: string) => {
         setDraggingSlideId(slideId)
         event.dataTransfer.effectAllowed = "move"
     }
 
-    const handleDragOver = (event: DragEvent<HTMLDivElement>, slideId: string) => {
-        event.preventDefault()
-        dragOverSlideId.current = slideId
-    }
+    const handleDragOver = useCallback(
+        (event: DragEvent<HTMLDivElement>, slideId: string) => {
+            event.preventDefault()
+            dragOverSlideId.current = slideId
+
+            const container = containerRef.current
+            if (container) {
+                const { top, bottom } = container.getBoundingClientRect()
+                const scrollArea = SLIDE_COLLECTION_SCROLL_AREA
+
+                if (event.clientY < top + scrollArea) {
+                    container.scrollBy(0, -scrollSpeed)
+                } else if (event.clientY > bottom - scrollArea) {
+                    container.scrollBy(0, scrollSpeed)
+                }
+            }
+        },
+        [containerRef, scrollSpeed]
+    )
 
     const handleDrop = () => {
         if (!draggingSlideId || !dragOverSlideId.current || draggingSlideId === dragOverSlideId.current) {
