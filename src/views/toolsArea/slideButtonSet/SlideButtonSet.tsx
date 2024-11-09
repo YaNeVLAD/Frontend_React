@@ -1,5 +1,5 @@
 import { changeSlideBackgroundType } from "../../../storage/actions/slide/changeBackground"
-import SlideBackgroundPicker from "./slideBackgroundPicker/SlideBackgroundPicker"
+import BackgroundPicker from "./slideBackgroundPicker/BackgroundPicker"
 import { deleteSlide } from "../../../storage/actions/slide/delete"
 import { BackgroundType, SlideType } from "../../../storage/types"
 import { Button } from "../../../components/button/Button"
@@ -26,7 +26,7 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
         <>
             <Popup
                 title="Фон"
-                content={<SlideBackgroundPicker
+                content={<BackgroundPicker
                     color={
                         slide.background.type == 'solid'
                             ? slide.background.value

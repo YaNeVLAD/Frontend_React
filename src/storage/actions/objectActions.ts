@@ -6,7 +6,7 @@ import { uuid } from "../utils/functions"
 
 function addObject(
     editor: EditorType,
-    { type }: { type: 'imageObj' | 'textObj' }
+    { type, value }: { type: 'imageObj' | 'textObj', value: string }
 ): EditorType {
     const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
@@ -18,6 +18,7 @@ function addObject(
     let newObject
     if (type === 'imageObj') {
         newObject = deepCopy(BASE_IMAGE)
+        newObject.src.value = value
     } else {
         newObject = deepCopy(BASE_TEXT_AREA)
     }
