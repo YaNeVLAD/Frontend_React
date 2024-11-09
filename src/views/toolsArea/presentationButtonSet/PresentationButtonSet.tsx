@@ -1,6 +1,6 @@
 import EmptySlide from "../../../components/common/slideTypes/EmptySlide"
 import Plus20Icon from "../../../components/common/icons/Plus20Icon"
-import { addSlide } from "../../../storage/actions/slide/add"
+import { addSlide } from "../../../storage/actions/slideActions"
 import { Button } from "../../../components/button/Button"
 import { dispatch } from "../../../storage/editor"
 

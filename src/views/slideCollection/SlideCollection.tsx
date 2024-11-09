@@ -1,6 +1,5 @@
-import { selectSlide } from "../../storage/actions/slide/select"
+import { moveSlide, selectSlide } from "../../storage/actions/slideActions"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
-import { moveSlide } from "../../storage/actions/slide/move"
 import { Slide } from "../../components/slide/Slide"
 import { SlideType } from "../../storage/types"
 import { dispatch } from "../../storage/editor"
