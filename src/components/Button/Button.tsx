@@ -1,5 +1,3 @@
-import { Dropdown } from '../dropdown/Dropdown'
-import { ReactNode } from 'react'
 import style from './Button.module.css'
 
 type Icon = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image' | 'bucket' | 'trashCan'
@@ -19,7 +17,6 @@ type BaseButton = ButtonWithIcon | ButtonWithText
 type ButtonProps = BaseButton & {
     className: string,
     onClick: () => void,
-    dropdownContent?: Array<ReactNode>
 }
 
 function Button(props: ButtonProps) {
@@ -43,11 +40,6 @@ function Button(props: ButtonProps) {
             <button onClick={onClick} className={`${style.button} ${props.className}`}>
                 {payload}
             </button>
-            {
-                props.dropdownContent
-                    ? <Dropdown content={props.dropdownContent} />
-                    : <></>
-            }
         </div>
     )
 }

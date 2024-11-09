@@ -53,7 +53,6 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
                     : <SlideButtonSet slide={selection.selectedSlide} />
                 }
                 <div className={style.separator} />
-
             </div>
         </>
     )
