@@ -1,4 +1,5 @@
-import React, { useState, ReactNode } from 'react'
+import { useState, ReactNode, useRef } from 'react'
+import useHandleClickOutside from '../../hooks/useHandleClickOutside'
 import styles from './Popover.module.css'
 
 type PopoverProps = {
@@ -6,13 +7,18 @@ type PopoverProps = {
     children: ReactNode
 }
 
-const Popover: React.FC<PopoverProps> = ({ content, children }) => {
+const Popover = ({ content, children }: PopoverProps) => {
+    const ref = useRef<HTMLDivElement>(null)
     const [isOpen, setIsOpen] = useState(false)
 
     const togglePopover = () => setIsOpen(!isOpen)
 
+    const hidePopover = () => setIsOpen(false)
+
+    useHandleClickOutside(ref, hidePopover)
+
     return (
-        <div className={styles.popoverContainer}>
+        <div className={styles.popoverContainer} ref={ref}>
             <div onClick={togglePopover} className={styles.clickable}>
                 {children}
             </div>

@@ -3,7 +3,8 @@ import { deleteSlide } from "../../../storage/actions/slide/delete"
 import { BackgroundType, SlideType } from "../../../storage/types"
 import { Button } from "../../../components/button/Button"
 import { dispatch } from "../../../storage/editor"
-import Popover from "../../../components/popover/Popover"
+import Popup from "../../../components/popup/Popup"
+import ColorPicker from "./colorPicker/ColorPicker"
 
 type SlideButtonSetProps = {
     slide: SlideType
@@ -18,16 +19,17 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
 
     return (
         <>
-            <Popover content={<><input
-                type='color'
-                value={slide.background.value}
-                onChange={onColorChange} /></>}>
+            <Popup content={<ColorPicker color={
+                slide.background.type == 'solid'
+                    ? slide.background.value
+                    : ''}
+                onColorChange={onColorChange} />}>
                 <Button
                     type='text'
                     value='Фон'
                     onClick={() => { }}
                     className='' />
-            </Popover>
+            </Popup>
 
             <Button
                 type='text'

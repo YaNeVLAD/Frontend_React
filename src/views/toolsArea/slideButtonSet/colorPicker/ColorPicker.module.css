@@ -1,0 +1,27 @@
+.colorPickerButton {
+    border: 1px solid #FEFEFE;
+    border-radius: 100px;
+    cursor: pointer;
+    padding: 8px 6px 8px 8px;
+    width: 22px;
+    height: 22px;
+    justify-content: space-between;
+}
+
+.colorPickerButtonWrapper {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1.5px solid #DFDFDF;
+}
+
+.colorPickerLabel {
+    text-align: center;
+    color: #808080;
+}
+
+.colorPickerWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
