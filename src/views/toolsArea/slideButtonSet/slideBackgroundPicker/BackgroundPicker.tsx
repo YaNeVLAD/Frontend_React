@@ -11,13 +11,13 @@ type ColorPickerProps = {
 const BackgroundPicker = ({ color, onColorChange, onImageUpload }: ColorPickerProps) => {
     return (
         <>
-            <ColorInput color={color} onColorChange={onColorChange}></ColorInput>
+            <div className={style.colorPickerWrapper}>
+                <label className={style.colorPickerLabel}>Цвет</label>
+                <ColorInput color={color} onColorChange={onColorChange}></ColorInput>
+            </div>
             <div className={style.colorPickerWrapper}>
                 <label className={style.colorPickerLabel}>Изображение</label>
-                <label className={style.imageInputButton}>
-                    Обзор
-                    <ImageInput onImageUpload={onImageUpload} />
-                </label>
+                <ImageInput onImageUpload={onImageUpload} />
             </div>
         </>
     )

@@ -1,47 +1,4 @@
-// import { type PresentationType, type SlideType, type TextAreaType, ImageType } from "./types"
 // //Разнести функции на файлы
-
-// function moveSlide(slideFrom: SlideType, slideTo: SlideType, presentation: PresentationType): PresentationType {
-//     if (presentation.selection.selectedSlide != slideFrom) {
-//         throw new Error('Can\'t move slide that isn\'t selected')
-//     }
-
-//     const slides = presentation.slides
-
-//     const tmp = slideTo
-//     slideTo = slideFrom
-//     slideFrom = tmp
-
-//     return {
-//         ...presentation,
-//         slides: slides
-//     }
-// }
-
-// function moveObject(slide: SlideType, objectToMove: ImageType | TextAreaType, newX: number, newY: number, selection: GlobalSelectionType): SlideType {
-//     if (selection.selectedObject != objectToMove) {
-//         throw new Error('Can\'t move slide that isn\'t selected')
-//     }
-
-//     const objects = slide.objects
-//     const index: number = objects.indexOf(objectToMove)
-
-//     if (index == -1) {
-//         throw new Error('Object doen\'t exist on this slide')
-//     }
-
-//     objects.splice(index, 1)
-
-//     objectToMove.pos.x = newX
-//     objectToMove.pos.y = newY
-
-//     objects.push(objectToMove)
-
-//     return {
-//         ...slide,
-//         objects: objects
-//     }
-// }
 
 // function changeTextFont(textArea: TextAreaType, newFont: string, selection: GlobalSelectionType): TextAreaType {
 //     if (selection.selectedObject != textArea) {

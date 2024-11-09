@@ -3,13 +3,13 @@ import { PresentationButtonSet } from './presentationButtonSet/PresentationButto
 import { useImportPresentation } from '../../hooks/useImportPresentation'
 import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
+import { BASE_PRESENTATION } from '../../common/basePresentation'
 import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
 import { exportDocument } from '../../storage/file/export'
 import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
-import { BASE_PRESENTATION } from '../../common/basePresentation'
 
 type ToolsAreaProps = {
     title: string,

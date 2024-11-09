@@ -1,0 +1,19 @@
+.uploadImagePopoverButton {
+    display: flex;
+    user-select: none;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: max-content;
+    gap: 5px;
+    padding-block: 5px;
+    font-size: 14px;
+    border-radius: 1px;
+}
+
+.uploadImagePopoverButton:hover {
+    background-color: #ECECEC;
+}
+
+.uploadImagePopoverButton:active {
+    background-color: #dcdcdc;
+}

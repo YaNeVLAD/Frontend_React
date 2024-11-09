@@ -13,17 +13,16 @@ const ColorInput = ({ color, onColorChange }: ColorInputProps) => {
     }
 
     return (
-        <div className={style.colorPickerWrapper}>
-            <label className={style.colorPickerLabel}>Цвет</label>
+        <>
             <Popover content={
                 <input type="color" value={color} onChange={onColorChange} />
             }>
                 <div
                     style={backgroundStyle}
-                    className={style.colorPickerButton}>
+                    className={style.colorInputButton}>
                 </div>
             </Popover>
-        </div>
+        </>
     )
 }
 
