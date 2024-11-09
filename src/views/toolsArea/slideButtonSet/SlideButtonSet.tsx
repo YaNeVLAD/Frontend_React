@@ -1,10 +1,10 @@
 import { changeSlideBackgroundType } from "../../../storage/actions/slide/changeBackground"
+import SlideBackgroundPicker from "./slideBackgroundPicker/SlideBackgroundPicker"
 import { deleteSlide } from "../../../storage/actions/slide/delete"
 import { BackgroundType, SlideType } from "../../../storage/types"
 import { Button } from "../../../components/button/Button"
-import { dispatch } from "../../../storage/editor"
 import Popup from "../../../components/popup/Popup"
-import ColorPicker from "./colorPicker/ColorPicker"
+import { dispatch } from "../../../storage/editor"
 
 type SlideButtonSetProps = {
     slide: SlideType
@@ -17,16 +17,22 @@ function SlideButtonSet({ slide }: SlideButtonSetProps) {
         dispatch(changeSlideBackgroundType, { background: background })
     }
 
+    const onImageUpload = (image: string) => {
+        const background: BackgroundType = { value: image, type: 'image' }
+        dispatch(changeSlideBackgroundType, { background: background })
+    }
+
     return (
         <>
             <Popup
                 title="Фон"
-                content={<ColorPicker
+                content={<SlideBackgroundPicker
                     color={
                         slide.background.type == 'solid'
                             ? slide.background.value
-                            : ''}
-                    onColorChange={onColorChange} />}>
+                            : '#FFFFFF'}
+                    onColorChange={onColorChange}
+                    onImageUpload={onImageUpload} />}>
                 <Button
                     type='text'
                     value='Фон'

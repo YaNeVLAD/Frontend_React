@@ -38,7 +38,7 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
 
             <button onClick={exportDocument}>EXPORT</button>
 
-            <input type='file' ref={presentationInputRef} />
+            <input type='file' ref={presentationInputRef} accept='.json' />
 
             <div className={style.toolsArea}>
 

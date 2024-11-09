@@ -14,7 +14,7 @@ const Popup = ({ title, content, children }: PopupProps) => {
     const togglePopup = () => setIsOpen(!isOpen)
 
     return (
-        <div>
+        <>
             <div onClick={togglePopup}>{children}</div>
 
             {isOpen && (
@@ -29,7 +29,7 @@ const Popup = ({ title, content, children }: PopupProps) => {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 
