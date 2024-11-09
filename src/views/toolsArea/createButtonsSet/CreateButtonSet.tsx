@@ -1,8 +1,11 @@
 import { addObject, deselectAllObjects } from "../../../storage/actions/objectActions"
-import { Button } from "../../../components/button/Button"
-import { dispatch } from "../../../storage/editor"
-import Popover from "../../../components/popover/Popover"
+import Cursor20Icon from "../../../components/common/icons/Cursor20Icon"
+import Image20Icon from "../../../components/common/icons/Image20Icon"
+import Text20Icon from "../../../components/common/icons/Text20Icon"
 import ImageInput from "../../../components/ImageInput/ImageInput"
+import { Button } from "../../../components/button/Button"
+import Popover from "../../../components/popover/Popover"
+import { dispatch } from "../../../storage/editor"
 
 function CreateButtonSet() {
     const onImageUpload = (image: string) => {
@@ -12,21 +15,21 @@ function CreateButtonSet() {
     return (
         <>
             <Button
-                type='icon'
-                value='cursor'
+                icon={Cursor20Icon}
+                text=""
                 onClick={() => dispatch(deselectAllObjects)}
                 className='' />
 
             <Button
-                type='icon'
-                value='text'
+                icon={Text20Icon}
+                text=""
                 onClick={() => dispatch(addObject, { type: 'textObj', value: '' })}
                 className='' />
 
             <Popover content={<><label>Загрузить<ImageInput onImageUpload={onImageUpload} /></label></>}>
                 <Button
-                    type='icon'
-                    value='image'
+                    icon={Image20Icon}
+                    text=""
                     onClick={() => { }}
                     className='' />
             </Popover>

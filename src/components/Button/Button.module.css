@@ -4,8 +4,21 @@
 }
 
 .button {
-    padding: 6px;
+    cursor: pointer;
+    padding: 4px;
     border-radius: 5px;
+    background-color: transparent;
+    border: 0;
+    position: relative;
+    text-align: center;
+    font-weight: 500;
+    color: #000000B3;
+}
+
+.popoverButton {
+    cursor: pointer;
+    padding: 4px 0 4px 4px;
+    border-radius: 5px 0 0 5px;
     background-color: transparent;
     border: 0;
     position: relative;
@@ -18,31 +31,6 @@
     background-color: #DFE5EB;
 }
 
-.icon {
-    height: 16px;
-    width: 16px;
-}
-
-.plus {
-    background-image: url('./Icons/plus.svg');
-}
-
-.cursor {
-    background-image: url('./Icons/cursor.svg');
-}
-
-.text {
-    background-image: url('./Icons/text.svg');
-}
-
-.image {
-    background-image: url('./Icons/image.svg');
-}
-
-.bucket {
-    background-image: url('./Icons/bucket.svg');
-}
-
-.trashCan {
-    background-image: url('./Icons/trashCan.svg');
+.popoverButton:hover {
+    background-color: #DFE5EB;
 }

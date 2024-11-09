@@ -1,14 +1,15 @@
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
+import { useImportPresentation } from '../../hooks/useImportPresentation'
 import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
 import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
-import { useImportPresentation } from '../../hooks/useImportPresentation'
 import { exportDocument } from '../../storage/file/export'
 import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
+import { BASE_PRESENTATION } from '../../common/basePresentation'
 
 type ToolsAreaProps = {
     title: string,
@@ -19,8 +20,12 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
     const presentationInputRef = useRef<HTMLInputElement>(null)
 
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = (event.target as HTMLInputElement).value
-        dispatch(changePresentationTitle, { title: value })
+        dispatch(changePresentationTitle, { title: event.target.value })
+    }
+
+    const onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value.length == 0) event.target.value = BASE_PRESENTATION.title
+        dispatch(changePresentationTitle, { title: event.target.value })
     }
 
     useImportPresentation(presentationInputRef)
@@ -30,9 +35,9 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
             <div className={style.presentationTitleWrapper}>
                 <input
                     type="text"
-                    placeholder={"Введите название презентации"}
                     defaultValue={title}
                     onChange={onTitleChange}
+                    onBlur={onBlur}
                     className={style.presentationTitle} />
             </div>
 

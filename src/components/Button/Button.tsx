@@ -1,78 +1,30 @@
+import { useRef } from 'react'
 import style from './Button.module.css'
+import Popover from '../popover/Popover'
 
-type Icon = 'plus' | 'pageUp' | 'pageDown' | 'cursor' | 'text' | 'image' | 'bucket' | 'trashCan'
-
-type ButtonWithIcon = {
-    type: 'icon',
-    value: Icon,
-}
-
-type ButtonWithText = {
-    type: 'text',
-    value: string,
-}
-
-type BaseButton = ButtonWithIcon | ButtonWithText
-
-type ButtonProps = BaseButton & {
+type ButtonProps = {
+    icon?: () => JSX.Element,
+    text: string,
     className: string,
     onClick: () => void,
+    popoverContent?: JSX.Element
 }
 
-function Button(props: ButtonProps) {
-    let payload
-    let icon = ""
-    let onClick
-    switch (props.type) {
-        case 'text':
-            payload = <p>{props.value}</p>
-            onClick = props.onClick
-            break
-        case 'icon':
-            icon = selectButtonIcon(props.value)
-            payload = <div className={`${style.icon} ${icon}`} />
-            onClick = props.onClick
-            break
-    }
+function Button({ icon, text, className, onClick, popoverContent }: ButtonProps) {
+    const ref = useRef<HTMLButtonElement>(null)
 
     return (
-        <div className={style.buttonWrapper}>
-            <button onClick={onClick} className={`${style.button} ${props.className}`}>
-                {payload}
+        (<div className={style.buttonWrapper}>
+            <button
+                ref={ref}
+                onClick={onClick}
+                className={`${popoverContent ? style.popoverButton : style.button} ${className}`}>
+                {icon ? icon() : <></>}
+                {text}
             </button>
-        </div>
+            {popoverContent && (<Popover content={popoverContent}></Popover>)}
+        </div>)
     )
-}
-
-function selectButtonIcon(icon: Icon): string {
-    switch (icon) {
-        case 'plus':
-            return style.plus
-
-        case 'cursor':
-            return style.cursor
-
-        case 'image':
-            return style.image
-
-        case 'text':
-            return style.text
-
-        case 'pageUp':
-            return style.pageUp
-
-        case 'pageDown':
-            return style.pageDown
-
-        case 'bucket':
-            return style.bucket
-
-        case 'trashCan':
-            return style.trashCan
-
-        default:
-            throw new Error("Unknown button icon type")
-    }
 }
 
 export { Button }
