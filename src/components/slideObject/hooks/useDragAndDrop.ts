@@ -26,8 +26,8 @@ const useDragAndDrop = (
             const elemRect = objRef.getBoundingClientRect()
 
             offset.current = {
-                x: e.clientX - elemRect.left,
-                y: e.clientY - elemRect.top,
+                x: e.clientX - elemRect.left - elemRect.width / 2,
+                y: e.clientY - elemRect.top - elemRect.height / 2,
             }
 
             isDragging.current = true
@@ -68,7 +68,7 @@ const useDragAndDrop = (
             document.removeEventListener('mousemove', handleMouseMove)
             document.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [ref, parentRef, setPos])
+    }, [ref, parentRef, setPos, initialPosition])
 }
 
 export default useDragAndDrop

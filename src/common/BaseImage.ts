@@ -3,7 +3,7 @@ import { ImageType } from "../storage/types"
 const BASE_IMAGE: ImageType = {
     id: "0",
     type: 'imageObj',
-    pos: { x: 0.5, y: 0.5 },
+    pos: { x: 50, y: 50 },
     size: { width: 200, height: 200 },
     turnAngle: 0,
     src: {

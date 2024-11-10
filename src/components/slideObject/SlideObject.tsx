@@ -30,7 +30,7 @@ function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps)
         top: `${pos.y}%`,
         width: size.width * scale,
         height: size.height * scale,
-        transform: `rotate(${object.turnAngle}deg)`,
+        transform: `translate(-50%, -50%) rotate(${object.turnAngle}deg)`,
         outline: isSelected ? SELECTED_OBJECT_OUTLINE : ''
     }
 
