@@ -4,11 +4,11 @@ import ResizableHandlers from "./resizableHandlers/resizableHandlers"
 import { CSSProperties, RefObject, useRef, useState } from "react"
 import { selectObject } from "../../storage/actions/objectActions"
 import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
-import { useDragAndDrop } from "./hooks/useDragAndDrop"
 import { dispatch } from "../../storage/editor"
 import { TextArea } from "./textArea/TextArea"
 import { Image } from "./image/Image"
 import style from './SlideObject.module.css'
+import useDragAndDrop from "./hooks/useDragAndDrop"
 
 type SlideObjectProps = {
     object: SlideObjectType,
@@ -26,8 +26,8 @@ function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps)
     useResizableDragAndDrop(ref, parentRef, object.pos, object.size, setPos, setSize)
 
     const slideObjectStyle: CSSProperties = {
-        left: pos.x * scale,
-        top: pos.y * scale,
+        left: `${pos.x}%`,
+        top: `${pos.y}%`,
         width: size.width * scale,
         height: size.height * scale,
         transform: `rotate(${object.turnAngle}deg)`,
