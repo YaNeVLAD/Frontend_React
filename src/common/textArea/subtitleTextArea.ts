@@ -4,8 +4,8 @@ const SUBTITLE_TEXT_AREA: TextAreaType = {
     id: "0",
     type: 'textObj',
     pos: {
-        x: 575,
-        y: 400,
+        x: 50,
+        y: 60,
     },
     size: {
         width: 400,

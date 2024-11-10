@@ -15,6 +15,7 @@ type SlideProps = {
     isSelected: boolean,
     className: string,
     scale: number,
+    objectScale: number
 }
 
 function Slide(props: SlideProps) {
@@ -22,6 +23,7 @@ function Slide(props: SlideProps) {
 
     const slideStyle: CSSProperties = {}
     if (props.isSelected) slideStyle.outline = SELECTED_SLIDE_OUTLINE
+    slideStyle.transform = `scale(${props.scale})`
 
     selectSlideBackgroundType(slideStyle, props.background)
 
@@ -43,7 +45,7 @@ function Slide(props: SlideProps) {
                         object={object}
                         isSelected={object.id == props.selectedObjectId}
                         parentRef={ref}
-                        scale={props.scale} />
+                        scale={props.objectScale} />
                 )
             }
         </div>

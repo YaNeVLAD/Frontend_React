@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { getEditorFromStorage, saveEditorToStorage } from "./utils/localStorage"
+import { getEditorFromDB, saveEditorToDB } from "./utils/indexedDB"
 import { validatePresentation } from "./file/validation/ajv"
 import { BASE_EDITOR } from "../common/baseEditor"
 import { deepCopy } from "./utils/deepCopy"
@@ -7,34 +7,34 @@ import { EditorType } from "./types"
 
 let editorChangeHandler: Function | undefined
 
-let _editor: EditorType = initEditor()
+let _editor: EditorType
+await initEditor()
 
-function addEditorChangeHandler(handler: Function) {
-    editorChangeHandler = handler
+async function initEditor() {
+    let savedEditor = await getEditorFromDB()
+    if (savedEditor == null || !validatePresentation(savedEditor.presentation)) {
+        alert("Что-то пошло не так. Ваша презентация была утеряна")
+        savedEditor = deepCopy(BASE_EDITOR)
+    }
+    _editor = savedEditor
 }
 
 function getEditor(): EditorType {
     return _editor
 }
 
-function setEditor(editor: EditorType) {
+async function setEditor(editor: EditorType) {
     _editor = editor
-    saveEditorToStorage(editor)
+    await saveEditorToDB(editor)
 }
 
-function initEditor(): EditorType {
-    let savedEditor = getEditorFromStorage()
-    if (savedEditor == null || !validatePresentation(savedEditor.presentation)) {
-        alert("Что-то пошло не так. Ваша презентация была утеряня")
-        savedEditor = deepCopy(BASE_EDITOR)
-    }
-
-    return savedEditor
+function addEditorChangeHandler(handler: Function) {
+    editorChangeHandler = handler
 }
 
-function dispatch(modifier: Function, params?: object) {
+async function dispatch(modifier: Function, params?: object) {
     const newEditor = modifier(_editor, params)
-    setEditor(newEditor)
+    await setEditor(newEditor)
     if (editorChangeHandler) editorChangeHandler()
 }
 
@@ -43,4 +43,5 @@ export {
     setEditor,
     addEditorChangeHandler,
     dispatch,
+    initEditor,
 }

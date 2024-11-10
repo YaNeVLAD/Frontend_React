@@ -11,11 +11,21 @@ type ImageProps = {
 function Image({ context }: ImageProps) {
     const onClick = () => dispatch(selectObject, { id: context.id })
     return (
-        <img
+        <div
             draggable={false}
+            style={{
+                backgroundImage: `url(${context.src.value})`,
+            }}
             className={style.image}
-            src={context.src.value}
-            onClick={onClick} />
+            onClick={onClick} >
+
+        </div >
+
+        // <img
+        //     draggable={false}
+        //     className={style.image}
+        //     src={context.src.value}
+        //     onClick={onClick} />
     )
 }
 

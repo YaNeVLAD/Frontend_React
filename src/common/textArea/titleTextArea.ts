@@ -4,8 +4,8 @@ const TITLE_TEXT_AREA: TextAreaType = {
     id: "0",
     type: 'textObj',
     pos: {
-        x: 500,
-        y: 200,
+        x: 50,
+        y: 40,
     },
     size: {
         width: 600,

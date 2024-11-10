@@ -3,8 +3,9 @@ import { useDraggableSlides } from "./hooks/useDraggableSlides"
 import { Slide } from "../../components/slide/Slide"
 import { SlideType } from "../../storage/types"
 import { dispatch } from "../../storage/editor"
-import { useRef } from "react"
 import style from './SlideCollection.module.css'
+import { useRef } from "react"
+import { SELECTED_SLIDE_SCALE } from "../../storage/constants"
 
 type SlideCollectionProps = {
     slides: Array<SlideType>,
@@ -29,10 +30,12 @@ function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProp
                     <div
                         key={slide.id}
                         draggable
-                        onDragStart={(e) => handleDragStart(e, slide.id)}
+                        onMouseDown={() => dispatch(selectSlide, { id: slide.id })}
+                        onDragStart={(e) => {
+                            handleDragStart(e, slide.id)
+                        }}
                         onDragOver={(e) => handleDragOver(e, slide.id)}
                         onDrop={handleDrop}
-                        onClick={() => dispatch(selectSlide, { id: slide.id })}
                         className={draggingSlideId === slide.id ? style.draggingSlide : ""}
                     >
                         <h3 className={style.slideCollectionItemTitle}>
@@ -47,7 +50,8 @@ function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProp
                                 selectedObjectId={undefined}
                                 isSelected={slide.id == selectedSlideId}
                                 className={style.slideCollectionSlide}
-                                scale={scale} />
+                                scale={SELECTED_SLIDE_SCALE}
+                                objectScale={scale} />
                         </div>
                     </div>
                 ))
