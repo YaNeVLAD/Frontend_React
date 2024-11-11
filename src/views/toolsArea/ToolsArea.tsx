@@ -10,6 +10,7 @@ import { SelectionType } from '../../storage/types'
 import { dispatch } from '../../storage/editor'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
+import WorkspaceActions from './workspaceActions/WorkspaceActions'
 
 type ToolsAreaProps = {
     title: string,
@@ -48,6 +49,9 @@ const ToolsArea = ({ title, selection }: ToolsAreaProps) => {
             <div className={style.toolsArea}>
 
                 <PresentationButtonSet selectedSlidePreset={selection.selectedSlide.preset} />
+                <div className={style.separator} />
+
+                <WorkspaceActions />
                 <div className={style.separator} />
 
                 <CreateButtonSet />

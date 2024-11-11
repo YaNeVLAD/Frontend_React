@@ -4,6 +4,7 @@ import { COLLECTION_SLIDE_SCALE } from './storage/constants'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import { EditorType } from './storage/types'
 import style from './App.module.css'
+import { ZoomProvider } from './views/workspaceArea/scrollAreaWrapper/ZoomContext'
 
 type AppProps = {
     editor: EditorType
@@ -11,7 +12,7 @@ type AppProps = {
 
 function App({ editor }: AppProps) {
     return (
-        <>
+        <ZoomProvider>
             <ToolsArea
                 title={editor.presentation.title}
                 selection={editor.selection} />
@@ -24,7 +25,7 @@ function App({ editor }: AppProps) {
                     slide={editor.selection.selectedSlide}
                     selectedObject={editor.selection.selectedObject} />
             </div>
-        </>
+        </ZoomProvider>
     )
 }
 
