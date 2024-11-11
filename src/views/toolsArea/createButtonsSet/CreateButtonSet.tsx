@@ -10,22 +10,6 @@ import { dispatch } from "../../../storage/editor"
 import style from "./CreateButtonSet.module.css"
 
 function CreateButtonSet() {
-    const onImageUpload = (image: string) => {
-        dispatch(addObject, { type: 'imageObj', value: image })
-    }
-
-    const selectImagePopoverContent = (): React.ReactNode => {
-        return (
-            <>
-                <ImageInput
-                    labelText="Загрузить с компьютера"
-                    labelIcon={Upload24Icon}
-                    labelClassName={style.uploadImagePopoverButton}
-                    onImageUpload={onImageUpload} />
-            </>
-        )
-    }
-
     return (
         <>
             <Button
@@ -44,6 +28,22 @@ function CreateButtonSet() {
                     onClick={() => { }}
                     className='' />
             </Popover>
+        </>
+    )
+}
+
+const onImageUpload = (image: string) => {
+    dispatch(addObject, { type: 'imageObj', value: image })
+}
+
+const selectImagePopoverContent = () => {
+    return (
+        <>
+            <ImageInput
+                labelText="Загрузить с компьютера"
+                labelIcon={Upload24Icon}
+                labelClassName={style.uploadImagePopoverButton}
+                onImageUpload={onImageUpload} />
         </>
     )
 }

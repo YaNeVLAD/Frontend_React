@@ -3,7 +3,7 @@ import { BASE_IMAGE } from "../baseImage"
 
 const IMAGE_SLIDE: SlideType = {
     id: "0",
-    startContentType: 'image',
+    preset: 'image',
     objects: [BASE_IMAGE],
     background: {
         value: "#FEFEFE",

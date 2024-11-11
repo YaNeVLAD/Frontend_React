@@ -1,4 +1,4 @@
-import { PresentationType, SlideType, SlideStartContentType, BackgroundType, SolidColor, ImageSrc, GradientColor, SlideObjectType, PositionType, SelectionType, SizeType } from '../../types'
+import { PresentationType, SlideType, BackgroundType, SolidColor, ImageSrc, GradientColor, SlideObjectType, PositionType, SelectionType, SizeType, SlidePreset } from '../../types'
 import { arrayAjv, numberAjv, objectAjv, stringAjv } from './ajvTypes'
 import Ajv, { JSONSchemaType } from 'ajv'
 
@@ -97,11 +97,11 @@ const slideTypeSchema: JSONSchemaType<SlideType> = {
     type: objectAjv,
     properties: {
         id: { type: stringAjv },
-        startContentType: { type: stringAjv, enum: ['title', 'image', 'title&image', 'none'] as SlideStartContentType[] },
+        preset: { type: stringAjv, enum: ['image', 'title', 'title&image', 'none'] as SlidePreset[] },
         objects: { type: arrayAjv, items: slideObjectTypeSchema },
         background: backgroundTypeSchema,
     },
-    required: ['id', 'startContentType', 'objects', 'background'],
+    required: ['id', 'preset', 'objects', 'background'],
     additionalProperties: false,
 }
 

@@ -1,4 +1,4 @@
-import { BackgroundType, EditorType, PresentationType, SlideStartContentType, SlideType } from "../types"
+import { BackgroundType, EditorType, PresentationType, SlidePreset, SlideType } from "../types"
 import { TITLE_AND_IMAGE_SLIDE } from "../../common/slides/titleAndImageSlide"
 import { EMPTY_SLIDE } from "../../common/slides/emptySlide"
 import { IMAGE_SLIDE } from "../../common/slides/imageSlide"
@@ -9,9 +9,9 @@ import { CSSProperties } from "react"
 
 function addSlide(
     editor: EditorType,
-    { type }: { type: SlideStartContentType }
+    { type }: { type: SlidePreset }
 ): EditorType {
-    const newSlide = deepCopy(selectSlideStartContent(type))
+    const newSlide = deepCopy(selectSlidePreset(type))
     newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
 
@@ -122,7 +122,7 @@ function selectSlide(editor: EditorType, { id }: { id: string }): EditorType {
     }
 }
 
-function selectSlideStartContent(type: SlideStartContentType): SlideType {
+function selectSlidePreset(type: SlidePreset): SlideType {    
     switch (type) {
         case 'none':
             return EMPTY_SLIDE

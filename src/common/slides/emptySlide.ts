@@ -2,7 +2,7 @@ import { SlideType } from "../../storage/types"
 
 const EMPTY_SLIDE: SlideType = {
     id: "0",
-    startContentType: 'none',
+    preset: 'none',
     objects: [],
     background: {
         value: "#FEFEFE",

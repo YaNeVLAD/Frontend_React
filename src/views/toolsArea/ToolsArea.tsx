@@ -16,7 +16,7 @@ type ToolsAreaProps = {
     selection: SelectionType
 }
 
-function ToolsArea({ title, selection }: ToolsAreaProps) {
+function ToolsArea({ title, selection }: ToolsAreaProps) {    
     const presentationInputRef = useRef<HTMLInputElement>(null)
 
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +47,7 @@ function ToolsArea({ title, selection }: ToolsAreaProps) {
 
             <div className={style.toolsArea}>
 
-                <PresentationButtonSet />
+                <PresentationButtonSet selectedSlidePreset={selection.selectedSlide.preset} />
                 <div className={style.separator} />
 
                 <CreateButtonSet />

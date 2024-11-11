@@ -4,7 +4,7 @@ import { TITLE_TEXT_AREA } from "../textArea/titleTextArea"
 
 const TITLE_SLIDE: SlideType = {
     id: "0",
-    startContentType: 'title',
+    preset: 'title',
     objects: [TITLE_TEXT_AREA, SUBTITLE_TEXT_AREA],
     background: {
         value: "#FEFEFE",
