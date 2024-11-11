@@ -1,0 +1,21 @@
+.button {
+    cursor: pointer;
+    user-select: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 0;
+    position: relative;
+    text-align: center;
+    color: #000000B3;
+}
+
+.button:hover {
+    background-color: #DFE5EB;
+}
+
+.separator {
+    height: 30px;
+    width: 1px;
+    background-color: #D9D9D9;
+}

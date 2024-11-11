@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react'
 
-const useFileInput = (callback: (base64String: string) => void) => {
+const useImportImage = (callback: (base64String: string) => void) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null)
 
     const handleFileChange: () => void = useCallback(() => {
@@ -28,4 +28,4 @@ const useFileInput = (callback: (base64String: string) => void) => {
     return { fileInputRef, handleFileChange }
 }
 
-export default useFileInput
+export default useImportImage

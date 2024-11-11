@@ -1,10 +1,10 @@
-import { changeTextValue } from '../../../storage/actions/textArea/changeValue'
 import { selectObject } from '../../../storage/actions/objectActions'
 import { MINIMUM_TEXT_SIZE } from '../../../storage/constants'
 import { TextAreaType } from '../../../storage/types'
 import { useRef, useState } from 'react'
 import { dispatch } from '../../../storage/editor'
 import style from './TextArea.module.css'
+import { changeTextValue } from '../../../storage/actions/textAreaActions'
 
 type TextAreaProps = {
     context: TextAreaType,

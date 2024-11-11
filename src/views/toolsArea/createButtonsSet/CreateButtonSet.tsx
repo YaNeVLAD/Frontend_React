@@ -30,20 +30,17 @@ function CreateButtonSet() {
         <>
             <Button
                 icon={Cursor20Icon}
-                text=""
                 onClick={() => dispatch(deselectAllObjects)}
                 className='' />
 
             <Button
                 icon={Text20Icon}
-                text=""
                 onClick={() => dispatch(addObject, { type: 'textObj', value: '' })}
                 className='' />
 
             <Popover content={selectImagePopoverContent()}>
                 <Button
                     icon={Image20Icon}
-                    text=""
                     onClick={() => { }}
                     className='' />
             </Popover>

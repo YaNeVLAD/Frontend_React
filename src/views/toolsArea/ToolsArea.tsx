@@ -1,6 +1,6 @@
 import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
-import { useImportPresentation } from '../../hooks/useImportPresentation'
+import { useImportPresentation } from './hooks/useImportPresentation'
 import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
 import { BASE_PRESENTATION } from '../../common/basePresentation'

@@ -1,10 +1,10 @@
+import Popover from '../popover/Popover'
 import { useRef } from 'react'
 import style from './Button.module.css'
-import Popover from '../popover/Popover'
 
 type ButtonProps = {
     icon?: () => JSX.Element,
-    text: string,
+    text?: string,
     className: string,
     onClick: () => void,
     popoverContent?: JSX.Element
@@ -20,7 +20,7 @@ function Button({ icon, text, className, onClick, popoverContent }: ButtonProps)
                 onClick={onClick}
                 className={`${popoverContent ? style.popoverButton : style.button} ${className}`}>
                 {icon ? icon() : <></>}
-                {text}
+                {text || <></>}
             </button>
             {popoverContent && (<Popover content={popoverContent}></Popover>)}
         </div>)

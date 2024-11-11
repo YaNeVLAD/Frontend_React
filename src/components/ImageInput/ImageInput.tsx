@@ -1,5 +1,5 @@
+import useImportImage from "./hooks/useImportImage"
 import style from "./ImageInput.module.css"
-import useFileInput from "../../hooks/useImportImage"
 
 type ImageInputProps = {
     labelIcon?: () => JSX.Element
@@ -9,7 +9,7 @@ type ImageInputProps = {
 }
 
 const ImageInput = ({ labelText, labelIcon, labelClassName, onImageUpload }: ImageInputProps) => {
-    const { fileInputRef, handleFileChange } = useFileInput(onImageUpload)
+    const { fileInputRef, handleFileChange } = useImportImage(onImageUpload)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleFileChange()

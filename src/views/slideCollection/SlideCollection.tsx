@@ -1,11 +1,11 @@
 import { moveSlide, selectSlide } from "../../storage/actions/slideActions"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
+import { COLLECTION_SLIDE_OBJECT_SCALE } from "../../storage/constants"
 import { Slide } from "../../components/slide/Slide"
 import { SlideType } from "../../storage/types"
 import { dispatch } from "../../storage/editor"
-import style from './SlideCollection.module.css'
 import { useRef } from "react"
-import { SELECTED_SLIDE_SCALE } from "../../storage/constants"
+import style from './SlideCollection.module.css'
 
 type SlideCollectionProps = {
     slides: Array<SlideType>,
@@ -30,14 +30,14 @@ function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProp
                     <div
                         key={slide.id}
                         draggable
+                        style={{ position: 'relative' }}
                         onMouseDown={() => dispatch(selectSlide, { id: slide.id })}
                         onDragStart={(e) => {
                             handleDragStart(e, slide.id)
                         }}
                         onDragOver={(e) => handleDragOver(e, slide.id)}
                         onDrop={handleDrop}
-                        className={draggingSlideId === slide.id ? style.draggingSlide : ""}
-                    >
+                        className={draggingSlideId === slide.id ? style.draggingSlide : ""}>
                         <h3 className={style.slideCollectionItemTitle}>
                             {slides.indexOf(slide) + 1}
                         </h3>
@@ -50,8 +50,8 @@ function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProp
                                 selectedObjectId={undefined}
                                 isSelected={slide.id == selectedSlideId}
                                 className={style.slideCollectionSlide}
-                                scale={SELECTED_SLIDE_SCALE}
-                                objectScale={scale} />
+                                scale={scale}
+                                objectScale={COLLECTION_SLIDE_OBJECT_SCALE} />
                         </div>
                     </div>
                 ))

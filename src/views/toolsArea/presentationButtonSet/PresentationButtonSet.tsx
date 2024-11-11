@@ -18,7 +18,6 @@ function PresentationButtonSet() {
         <>
             <Button
                 icon={Plus20Icon}
-                text=""
                 onClick={() => dispatch(addSlide, { type: 'none' })}
                 className=''
                 popoverContent={popoverContent} />

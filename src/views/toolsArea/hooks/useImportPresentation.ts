@@ -1,6 +1,6 @@
-import { dispatch } from "../storage/editor"
-import { savePresentation } from "../storage/actions/presentation/save"
-import { restoreEditor } from "../storage/file/read"
+import { savePresentation } from "../../../storage/actions/presentation/save"
+import { restoreEditor } from "../../../storage/file/read"
+import { dispatch } from "../../../storage/editor"
 import { useCallback, useEffect } from "react"
 
 const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
