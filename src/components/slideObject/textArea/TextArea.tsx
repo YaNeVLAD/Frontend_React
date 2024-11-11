@@ -1,10 +1,9 @@
-import { selectObject } from '../../../storage/actions/objectActions'
-import { MINIMUM_TEXT_SIZE } from '../../../storage/constants'
-import { TextAreaType } from '../../../storage/types'
-import { useRef, useState } from 'react'
-import { dispatch } from '../../../storage/editor'
-import style from './TextArea.module.css'
 import { changeTextValue } from '../../../storage/actions/textAreaActions'
+import { selectObject } from '../../../storage/actions/objectActions'
+import { TextAreaType } from '../../../storage/types'
+import { dispatch } from '../../../storage/editor'
+import { useRef, useState } from 'react'
+import style from './TextArea.module.css'
 
 type TextAreaProps = {
     context: TextAreaType,
@@ -17,9 +16,7 @@ function TextArea({ context, scale }: TextAreaProps) {
 
     const textAreaStyle = {
         fontFamily: context.font,
-        fontSize: (context.textSize * scale) < MINIMUM_TEXT_SIZE
-            ? MINIMUM_TEXT_SIZE
-            : context.textSize * scale,
+        fontSize: context.textSize * scale,
         color: context.color,
     }
 

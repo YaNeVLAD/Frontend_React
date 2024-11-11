@@ -1,14 +1,14 @@
+import { SELECTED_OBJECT_OUTLINE, SELECTED_OBJECT_OUTLINE_SHADOW } from "../../storage/constants"
 import { PositionType, SizeType, SlideObjectType } from "../../storage/types"
 import { useResizableDragAndDrop } from "./hooks/useResizableDragAndDrop"
 import ResizableHandlers from "./resizableHandlers/resizableHandlers"
 import { CSSProperties, RefObject, useRef, useState } from "react"
 import { selectObject } from "../../storage/actions/objectActions"
-import { SELECTED_OBJECT_OUTLINE } from "../../storage/constants"
+import useDragAndDrop from "./hooks/useDragAndDrop"
 import { dispatch } from "../../storage/editor"
 import { TextArea } from "./textArea/TextArea"
 import { Image } from "./image/Image"
 import style from './SlideObject.module.css'
-import useDragAndDrop from "./hooks/useDragAndDrop"
 
 type SlideObjectProps = {
     object: SlideObjectType,
@@ -26,12 +26,13 @@ function SlideObject({ object, isSelected, scale, parentRef }: SlideObjectProps)
     useResizableDragAndDrop(ref, parentRef, object.pos, object.size, setPos, setSize)
 
     const slideObjectStyle: CSSProperties = {
-        left: `${pos.x}%`,
-        top: `${pos.y}%`,
-        width: size.width * scale,
-        height: size.height * scale,
-        transform: `translate(-50%, -50%) rotate(${object.turnAngle}deg)`,
-        outline: isSelected ? SELECTED_OBJECT_OUTLINE : ''
+        left: `${pos.x - (size.width / 2)}%`,
+        top: `${pos.y - (size.height / 2)}%`,
+        width: `${size.width}%`,
+        height: `${size.height}%`,
+        transform: `rotate(${object.turnAngle}deg)`,
+        outline: isSelected ? SELECTED_OBJECT_OUTLINE : '',
+        boxShadow: isSelected ? SELECTED_OBJECT_OUTLINE_SHADOW : '',
     }
 
     let obj

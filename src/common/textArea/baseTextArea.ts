@@ -5,10 +5,10 @@ const BASE_TEXT_AREA: TextAreaType = {
     id: uuid(),
     type: 'textObj',
     pos: { x: 50, y: 50 },
-    size: { width: 300, height: 100 },
+    size: { width: 20, height: 10 },
     turnAngle: 0,
     value: 'Hello World',
-    font: 'Inter, sans-serif',
+    font: 'Arial, sans-serif',
     color: 'black',
     textSize: 30,
 }

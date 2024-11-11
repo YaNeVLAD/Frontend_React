@@ -8,31 +8,31 @@
 }
 
 .resize-handle.top-left {
-    top: -6px;
-    left: -6px;
+    top: -4.5px;
+    left: -4.5px;
     cursor: nwse-resize;
 }
 
 .resize-handle.top-right {
-    top: -6px;
-    right: -6px;
+    top: -4.5px;
+    right: -4.5px;
     cursor: nesw-resize;
 }
 
 .resize-handle.bottom-left {
-    bottom: -6px;
-    left: -6px;
+    bottom: -4.5px;
+    left: -4.5px;
     cursor: nesw-resize;
 }
 
 .resize-handle.bottom-right {
-    bottom: -6px;
-    right: -6px;
+    bottom: -4.5px;
+    right: -4.5px;
     cursor: nwse-resize;
 }
 
 .resize-handle.top {
-    top: -6px;
+    top: -4.5px;
     left: 50%;
     transform: translateX(-50%);
     cursor: ns-resize;
@@ -40,13 +40,13 @@
 
 .resize-handle.right {
     top: 50%;
-    right: -6px;
+    right: -4.5px;
     transform: translateY(-50%);
     cursor: ew-resize;
 }
 
 .resize-handle.bottom {
-    bottom: -6px;
+    bottom: -4.5px;
     left: 50%;
     transform: translateX(-50%);
     cursor: ns-resize;
@@ -54,7 +54,7 @@
 
 .resize-handle.left {
     top: 50%;
-    left: -6px;
+    left: -4.5px;
     transform: translateY(-50%);
     cursor: ew-resize;
 }

@@ -1,3 +1,4 @@
+import { WORKSPACE_SLIDE_OBJECT_SCALE } from "../../storage/constants"
 import { SlideObjectType, SlideType } from "../../storage/types"
 import { Slide } from "../../components/slide/Slide"
 import { useEffect, useRef, useState } from "react"
@@ -58,7 +59,7 @@ const WorkspaceArea = ({ slide, selectedObject }: WorkspaceAreaProps) => {
                     isSelected={false}
                     className={style.workspaceSlide}
                     scale={scale}
-                    objectScale={scale} />
+                    objectScale={WORKSPACE_SLIDE_OBJECT_SCALE} />
             </div>
         </div >
     )
