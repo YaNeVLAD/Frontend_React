@@ -10,7 +10,7 @@ type TextAreaProps = {
     scale: number,
 }
 
-function TextArea({ context, scale }: TextAreaProps) {
+const TextArea = ({ context, scale }: TextAreaProps) => {
     const [isEditable, setIsEditable] = useState(false)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
 

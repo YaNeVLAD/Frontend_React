@@ -3,14 +3,14 @@ import { PositionType, SizeType } from "../../../storage/types"
 import { dispatch } from "../../../storage/editor"
 import { moveObject, resizeObject } from "../../../storage/actions/objectActions"
 
-export function useResizableDragAndDrop(
+const useResizableDragAndDrop = (
     ref: RefObject<HTMLElement>,
     parentRef: RefObject<HTMLElement>,
     initialPos: PositionType,
     initialSize: SizeType,
     setPos: (pos: PositionType) => void,
     setSize: (size: SizeType) => void
-) {
+) => {
     const pos = useRef<PositionType>(initialPos)
     const size = useRef<SizeType>(initialSize)
 
@@ -106,3 +106,5 @@ export function useResizableDragAndDrop(
 
     return null
 }
+
+export { useResizableDragAndDrop }

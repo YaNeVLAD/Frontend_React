@@ -18,7 +18,7 @@ type SlideProps = {
     objectScale: number
 }
 
-function Slide(props: SlideProps) {
+const Slide = (props: SlideProps) => {
     const ref = useRef(null)
 
     const slideStyle: CSSProperties = {}

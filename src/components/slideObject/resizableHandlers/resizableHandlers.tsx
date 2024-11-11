@@ -1,6 +1,6 @@
 import "./resizableHandlers.css"
 
-function ResizableHandles() {
+const ResizableHandles = () => {
     return (
         <div className="resizable-object">
             {/* 8 resize handles */}

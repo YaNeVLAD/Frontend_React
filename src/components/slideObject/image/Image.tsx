@@ -8,7 +8,7 @@ type ImageProps = {
     scale: number
 }
 
-function Image({ context }: ImageProps) {
+const Image = ({ context }: ImageProps) => {
     const onClick = () => dispatch(selectObject, { id: context.id })
     return (
         <div

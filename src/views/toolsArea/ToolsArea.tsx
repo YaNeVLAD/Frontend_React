@@ -16,7 +16,7 @@ type ToolsAreaProps = {
     selection: SelectionType
 }
 
-function ToolsArea({ title, selection }: ToolsAreaProps) {    
+const ToolsArea = ({ title, selection }: ToolsAreaProps) => {
     const presentationInputRef = useRef<HTMLInputElement>(null)
 
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

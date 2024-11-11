@@ -8,7 +8,7 @@ type UseDraggableSlidesProps = {
     containerRef: React.RefObject<HTMLDivElement>
 }
 
-function useDraggableSlides({ slides, onReorder, containerRef }: UseDraggableSlidesProps) {
+const useDraggableSlides = ({ slides, onReorder, containerRef }: UseDraggableSlidesProps) => {
     const [draggingSlideId, setDraggingSlideId] = useState<string | null>(null)
     const dragOverSlideId = useRef<string | null>(null)
     const scrollSpeed = SLIDE_COLLECTION_SCROLL_SPEED

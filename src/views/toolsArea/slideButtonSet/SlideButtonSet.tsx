@@ -9,7 +9,7 @@ type SlideButtonSetProps = {
     slide: SlideType
 }
 
-function SlideButtonSet({ slide }: SlideButtonSetProps) {
+const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
         const background: BackgroundType = { value: value, type: 'solid' }

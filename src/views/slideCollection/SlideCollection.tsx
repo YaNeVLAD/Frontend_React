@@ -13,7 +13,7 @@ type SlideCollectionProps = {
     scale: number
 }
 
-function SlideCollection({ slides, selectedSlideId, scale }: SlideCollectionProps) {
+const SlideCollection = ({ slides, selectedSlideId, scale }: SlideCollectionProps) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const { handleDragStart, handleDragOver, handleDrop, draggingSlideId } = useDraggableSlides({
         slides,

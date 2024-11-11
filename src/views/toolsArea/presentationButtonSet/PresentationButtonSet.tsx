@@ -9,7 +9,7 @@ type PresentationButtonSetProps = {
     selectedSlidePreset: SlidePreset
 }
 
-function PresentationButtonSet({ selectedSlidePreset }: PresentationButtonSetProps) {
+const PresentationButtonSet = ({ selectedSlidePreset }: PresentationButtonSetProps) => {
     const popoverContent = (
         <>
             <div onClick={() => dispatch(addSlide, { type: 'title' })}>Слайд с заголовком</div>

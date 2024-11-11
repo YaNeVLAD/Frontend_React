@@ -10,7 +10,7 @@ type ButtonProps = {
     popoverContent?: JSX.Element
 }
 
-function Button({ icon, text, className, onClick, popoverContent }: ButtonProps) {
+const Button = ({ icon, text, className, onClick, popoverContent }: ButtonProps) => {
     const ref = useRef<HTMLButtonElement>(null)
 
     return (

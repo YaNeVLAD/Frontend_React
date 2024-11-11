@@ -9,7 +9,7 @@ import Popover from "../../../components/popover/Popover"
 import { dispatch } from "../../../storage/editor"
 import style from "./CreateButtonSet.module.css"
 
-function CreateButtonSet() {
+const CreateButtonSet = () => {
     return (
         <>
             <Button
