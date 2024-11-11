@@ -1,24 +1,24 @@
 import { TextAreaType } from "../../storage/types"
 import { uuid } from "../../storage/utils/functions"
 
-const SUBTITLE_TEXT_AREA: TextAreaType = {
+const TITLE_ON_TEXT_SLIDE_AREA: TextAreaType = {
     id: "0",
     type: 'textObj',
     pos: {
         x: 50,
-        y: 66,
+        y: 15,
     },
     size: {
-        width: 95,
-        height: 16.5,
+        width: 90,
+        height: 7,
     },
-    value: 'Введите подзаголовок',
+    value: 'Введите заголовок',
     font: 'Arial, sans-serif',
     color: 'black',
-    textSize: 28,
+    textSize: 25,
     turnAngle: 0,
 }
 
-const SubtitleArea = { ...SUBTITLE_TEXT_AREA, id: uuid() }
+const TextTitleArea = { ...TITLE_ON_TEXT_SLIDE_AREA, id: uuid() }
 
-export { SubtitleArea }
+export { TextTitleArea }

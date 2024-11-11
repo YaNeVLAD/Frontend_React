@@ -6,12 +6,17 @@ import { TITLE_SLIDE } from "../../common/slides/titleSlide"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 import { CSSProperties } from "react"
+import { TITLE_AND_TEXT_STYLE } from "../../common/slides/titleAndTextSlide"
 
 function addSlide(
     editor: EditorType,
-    { type }: { type: SlidePreset }
+    { type, prev }: { type: SlidePreset, prev: boolean },
 ): EditorType {
-    const newSlide = deepCopy(selectSlidePreset(type))
+    const newSlide =
+        prev && editor.presentation.slides.length == 1
+            ? deepCopy(selectSlidePreset('title&text'))
+            : deepCopy(selectSlidePreset(type))
+
     newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
 
@@ -122,7 +127,7 @@ function selectSlide(editor: EditorType, { id }: { id: string }): EditorType {
     }
 }
 
-function selectSlidePreset(type: SlidePreset): SlideType {    
+function selectSlidePreset(type: SlidePreset): SlideType {
     switch (type) {
         case 'none':
             return EMPTY_SLIDE
@@ -132,6 +137,8 @@ function selectSlidePreset(type: SlidePreset): SlideType {
             return TITLE_SLIDE
         case 'title&image':
             return TITLE_AND_IMAGE_SLIDE
+        case 'title&text':
+            return TITLE_AND_TEXT_STYLE
         default:
             throw Error("Invalid slide start content type")
     }

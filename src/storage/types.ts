@@ -20,7 +20,7 @@ type SlideType = {
     background: BackgroundType
 }
 
-type SlidePreset = 'title' | 'image' | 'title&image' | 'none'
+type SlidePreset = 'title' | 'image' | 'title&image' | 'none' | 'title&text'
 
 type BackgroundType = SolidColor | ImageSrc | GradientColor
 

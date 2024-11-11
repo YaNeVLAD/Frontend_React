@@ -1,6 +1,6 @@
 import { EditorType, PositionType, PresentationType, SizeType } from "../types"
+import { BaseArea } from "../../common/textArea/baseTextArea"
 import { BASE_IMAGE } from "../../common/baseImage"
-import { BASE_TEXT_AREA } from "../../common/textArea/baseTextArea"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 
@@ -20,7 +20,7 @@ function addObject(
         newObject = deepCopy(BASE_IMAGE)
         newObject.src.value = value
     } else {
-        newObject = deepCopy(BASE_TEXT_AREA)
+        newObject = deepCopy(BaseArea)
     }
     newObject.id = uuid()
 

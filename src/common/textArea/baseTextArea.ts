@@ -13,4 +13,6 @@ const BASE_TEXT_AREA: TextAreaType = {
     textSize: 30,
 }
 
-export { BASE_TEXT_AREA }
+const BaseArea = { ...BASE_TEXT_AREA, id: uuid() }
+
+export { BaseArea }

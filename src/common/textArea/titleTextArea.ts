@@ -1,4 +1,5 @@
 import { TextAreaType } from "../../storage/types"
+import { uuid } from "../../storage/utils/functions"
 
 const TITLE_TEXT_AREA: TextAreaType = {
     id: "0",
@@ -18,4 +19,6 @@ const TITLE_TEXT_AREA: TextAreaType = {
     turnAngle: 0,
 }
 
-export { TITLE_TEXT_AREA }
+const TitleArea = { ...TITLE_TEXT_AREA, id: uuid() }
+
+export { TitleArea }

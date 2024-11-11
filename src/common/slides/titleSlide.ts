@@ -1,11 +1,11 @@
 import { SlideType } from "../../storage/types"
-import { SUBTITLE_TEXT_AREA } from "../textArea/subtitleTextArea"
-import { TITLE_TEXT_AREA } from "../textArea/titleTextArea"
+import { SubtitleArea } from "../textArea/subtitleTextArea"
+import { TitleArea } from "../textArea/titleTextArea"
 
 const TITLE_SLIDE: SlideType = {
     id: "0",
     preset: 'title',
-    objects: [TITLE_TEXT_AREA, SUBTITLE_TEXT_AREA],
+    objects: [TitleArea, SubtitleArea],
     background: {
         value: "#FEFEFE",
         type: "solid"
