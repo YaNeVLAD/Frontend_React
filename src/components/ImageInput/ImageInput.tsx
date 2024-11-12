@@ -1,8 +1,9 @@
+import { IconComponent } from "../common/IconComponent"
 import useImportImage from "./hooks/useImportImage"
 import style from "./ImageInput.module.css"
 
 type ImageInputProps = {
-    labelIcon?: () => JSX.Element
+    labelIcon?: IconComponent
     labelText?: string,
     labelClassName?: string,
     onImageUpload: (data: string) => void
@@ -18,7 +19,7 @@ const ImageInput = ({ labelText, labelIcon, labelClassName, onImageUpload }: Ima
 
     return (
         <label className={labelClassName || style.imageInputButton}>
-            {labelIcon ? labelIcon() : <></>}
+            {labelIcon}
             {labelText || "Найти изображение"}
             <input
                 className={style.hidden}

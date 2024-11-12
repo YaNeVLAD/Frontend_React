@@ -12,7 +12,8 @@ type WorkspaceAreaProps = {
 const WorkspaceArea = ({ slide, selectedObject }: WorkspaceAreaProps) => {
     return (
         <ScrollAreaWrapper>
-            <div className={style.workspaceArea}>
+            <div
+                className={style.workspaceArea}>
                 <div
                     className={style.workspaceSlideWrapper}>
                     <Slide

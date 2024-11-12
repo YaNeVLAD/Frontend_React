@@ -1,8 +1,6 @@
 .workspaceArea {
     display: flex;
     justify-content: center;
-    border-left: 1px solid #808080;
-    border-top: 1px solid #808080;
     padding: 20px;
     height: calc(100vh - var(--toolsBarHeight) - 200px);
 }

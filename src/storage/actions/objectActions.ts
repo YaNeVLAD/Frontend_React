@@ -21,6 +21,7 @@ function addObject(
         newObject.src.value = value
     } else {
         newObject = deepCopy(BaseArea)
+        newObject.value = value
     }
     newObject.id = uuid()
 

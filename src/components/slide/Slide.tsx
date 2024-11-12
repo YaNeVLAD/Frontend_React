@@ -1,9 +1,7 @@
 import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
-import { deselectAllObjects } from "../../storage/actions/objectActions"
 import { SlideObject } from "../../components/slideObject/SlideObject"
 import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
-import { dispatch } from "../../storage/editor"
 import { CSSProperties, useRef } from "react"
 import style from './Slide.module.css'
 
@@ -31,12 +29,6 @@ const Slide = (props: SlideProps) => {
         <div
             ref={ref}
             style={slideStyle}
-            onMouseDown={(e) => {
-                if (e.defaultPrevented) return
-                e.preventDefault()
-                dispatch(deselectAllObjects)
-            }}
-
             className={`${style.slide} ${props.className}`}>
             {
                 props.objects.map(

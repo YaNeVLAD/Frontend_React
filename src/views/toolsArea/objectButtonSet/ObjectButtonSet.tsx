@@ -1,5 +1,5 @@
-import RecycleBin20Icon from "../../../components/common/icons/RecycleBin20Icon"
 import { ImageType, SlideObjectType, TextAreaType } from "../../../storage/types"
+import RecycleBin20Icon from "../../../components/common/icons/RecycleBin20Icon"
 import { changeSrcValue } from "../../../storage/actions/imageActions"
 import { deleteObject } from "../../../storage/actions/objectActions"
 import ImageInput from "../../../components/ImageInput/ImageInput"
@@ -12,12 +12,15 @@ type ObjectButtonSetProps = {
 }
 
 const ObjectButtonSet = ({ object }: ObjectButtonSetProps) => {
+    const onDeleteObject = () => dispatch(deleteObject)
+
     return (
         <>
             <Button
-                icon={RecycleBin20Icon}
-                onClick={() => dispatch(deleteObject)}
-                className='' />
+                type="icon"
+                onClick={onDeleteObject}>
+                {RecycleBin20Icon}
+            </Button>
 
             {object.type == 'textObj' && (
                 <>

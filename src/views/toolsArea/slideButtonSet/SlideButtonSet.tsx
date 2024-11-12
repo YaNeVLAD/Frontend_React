@@ -29,19 +29,21 @@ const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
                     color={
                         slide.background.type == 'solid'
                             ? slide.background.value
-                            : '#FFFFFF'}
+                            : '#FEFEFE'}
                     onColorChange={onColorChange}
                     onImageUpload={onImageUpload} />}>
                 <Button
-                    text="Фон"
-                    onClick={() => { }}
-                    className='' />
+                    type="text"
+                    onClick={() => { }}>
+                    {'Фон'}
+                </Button>
             </Popup>
 
             <Button
-                text="Удалить слайд"
-                onClick={() => dispatch(deleteSlide)}
-                className='' />
+                type="text"
+                onClick={() => dispatch(deleteSlide)}>
+                {'Удалить слайд'}
+            </Button>
         </>
     )
 }

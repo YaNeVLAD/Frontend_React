@@ -23,10 +23,11 @@ const PresentationButtonSet = ({ selectedSlidePreset }: PresentationButtonSetPro
     return (
         <>
             <Button
-                icon={Plus20Icon}
+                type="icon"
                 onClick={() => dispatch(addSlide, { type: selectedSlidePreset, prev: true })}
-                className=''
-                popoverContent={popoverContent} />
+                popoverContent={popoverContent}>
+                {Plus20Icon}
+            </Button>
         </>
 
     )

@@ -12,20 +12,19 @@ export function useZoomableScroll() {
             if (e.ctrlKey) {
                 e.preventDefault()
 
-                const zoomStep = 0.1
+                const zoomStep = scale * 0.25
                 const newScale = e.deltaY > 0
                     ? Math.max(0.25, scale - zoomStep)
                     : Math.min(16, scale + zoomStep)
 
                 if (container && newScale !== scale) {
                     const rect = container.getBoundingClientRect()
-                    const offsetX = (e.clientX - rect.left) / scale
-                    const offsetY = (e.clientY - rect.top) / scale
+                    const offsetX = (e.clientX - rect.x) / scale
+                    const offsetY = (e.clientY - rect.y) / scale
 
                     setScale(newScale)
-
-                    container.scrollLeft += offsetX * (newScale - scale)
-                    container.scrollTop += offsetY * (newScale - scale)
+                    container.scrollLeft += offsetX * (newScale - scale) * scale
+                    container.scrollTop += offsetY * (newScale - scale) * scale
                 }
             }
         }

@@ -22,7 +22,7 @@ const Popover = ({ content, children }: PopoverProps) => {
         <div className={styles.popoverContainer} ref={ref}>
             <div onClick={togglePopover} className={styles.clickable}>
                 {children ||
-                    (<div className={`${styles.popoverIcon} ${isOpen && styles.pressed}`}><ArrowDown20Icon /></div>)}
+                    (<div className={`${styles.popoverIcon} ${isOpen && styles.pressed}`}>{ArrowDown20Icon}</div>)}
             </div>
             {isOpen && (
                 <div className={styles.popoverContent}>

@@ -10,23 +10,30 @@ import { dispatch } from "../../../storage/editor"
 import style from "./CreateButtonSet.module.css"
 
 const CreateButtonSet = () => {
+    const onDeselectAllObjects = () => dispatch(deselectAllObjects)
+    const onAddTextArea = () => dispatch(addObject, { type: 'textObj', value: '' })
+    const onAddImage = () => { }
+
     return (
         <>
             <Button
-                icon={Cursor20Icon}
-                onClick={() => dispatch(deselectAllObjects)}
-                className='' />
+                type="icon"
+                onClick={onDeselectAllObjects}>
+                {Cursor20Icon}
+            </Button>
 
             <Button
-                icon={Text20Icon}
-                onClick={() => dispatch(addObject, { type: 'textObj', value: '' })}
-                className='' />
+                type="icon"
+                onClick={onAddTextArea}>
+                {Text20Icon}
+            </Button>
 
-            <Popover content={selectImagePopoverContent()}>
+            <Popover content={selectImagePopoverContent}>
                 <Button
-                    icon={Image20Icon}
-                    onClick={() => { }}
-                    className='' />
+                    type="icon"
+                    onClick={onAddImage}>
+                    {Image20Icon}
+                </Button>
             </Popover>
         </>
     )
@@ -36,16 +43,14 @@ const onImageUpload = (image: string) => {
     dispatch(addObject, { type: 'imageObj', value: image })
 }
 
-const selectImagePopoverContent = () => {
-    return (
-        <>
-            <ImageInput
-                labelText="Загрузить с компьютера"
-                labelIcon={Upload24Icon}
-                labelClassName={style.uploadImagePopoverButton}
-                onImageUpload={onImageUpload} />
-        </>
-    )
-}
+const selectImagePopoverContent = (
+    <>
+        <ImageInput
+            labelText="Загрузить с компьютера"
+            labelIcon={Upload24Icon}
+            labelClassName={style.uploadImagePopoverButton}
+            onImageUpload={onImageUpload} />
+    </>
+)
 
 export { CreateButtonSet }
