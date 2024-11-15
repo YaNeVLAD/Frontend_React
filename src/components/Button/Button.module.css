@@ -21,6 +21,11 @@
     background-color: #DFE5EB;
 }
 
+.button:active {
+    background-color: #4447461F;
+    color: #444746;
+}
+
 .popoverButton {
     cursor: pointer;
     user-select: none;

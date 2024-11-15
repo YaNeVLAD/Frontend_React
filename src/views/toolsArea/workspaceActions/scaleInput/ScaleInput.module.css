@@ -1,53 +1,21 @@
-.scaleInputWrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-}
-
 .scaleInput {
     width: 80px;
-    padding: 5px;
+    padding-inline: 4px;
+    padding-block: 7px;
     font-size: 14px;
     text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.3s;
+    border: 0;
+    color: #000000B3;
+    font-family: "Roboto", sans-serif;
+    background-color: transparent;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.scaleInput:hover {
+    background-color: #DFE5EB;
 }
 
 .scaleInput:focus {
-    border-color: #4285f4;
-}
-
-.selectWrapper {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: white;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.selectWrapper select {
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.selectWrapper select:focus {
-    outline: none;
-}
-
-.scaleInputContainer {
-    display: flex;
-    align-items: center;
-}
-
-.selectWrapper,
-.scaleInput {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    outline: 2px solid #0B57D0;
 }

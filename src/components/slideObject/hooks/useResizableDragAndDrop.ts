@@ -1,7 +1,7 @@
+import { moveObject, resizeObject } from "../../../storage/actions/objectActions"
 import { RefObject, useCallback, useEffect, useRef } from "react"
 import { PositionType, SizeType } from "../../../storage/types"
 import { dispatch } from "../../../storage/editor"
-import { moveObject, resizeObject } from "../../../storage/actions/objectActions"
 
 const useResizableDragAndDrop = (
     ref: RefObject<HTMLElement>,
@@ -85,7 +85,6 @@ const useResizableDragAndDrop = (
         document.addEventListener("mousemove", resize)
         document.addEventListener("mouseup", stopResize)
 
-        event.preventDefault()
     }, [initialPos, initialSize, parentRef, ref, setPos, setSize])
 
     useEffect(() => {

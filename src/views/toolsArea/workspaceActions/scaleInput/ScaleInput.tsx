@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
 import { useZoomContext } from '../../../workspaceArea/scrollAreaWrapper/hooks/useZoomContext'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './ScaleInput.module.css'
+import Popover from '../../../../components/popover/Popover'
 
 const ScaleInput = () => {
     const { scale, setScale } = useZoomContext()
@@ -32,34 +33,32 @@ const ScaleInput = () => {
         setInputValue(percentScale)
     }
 
-    const onOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setScale(Number(e.target.value))
-        setInputValue(e.target.value)
-    }
+    // const onOptionChange = (value: string) => {
+    //     setScale(Number(value))
+    //     setInputValue(value)
+    // }
+
+    const PopoverContent = (
+        <>
+            <div>100</div>
+            <div>200</div>
+        </>
+    )
 
     return (
-        <div className={styles.scaleInputContainer}>
-            <input
-                ref={inputRef}
-                type="text"
-                value={inputValue}
-                onFocus={selectAllText}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={onScaleChange}
-                onBlur={restoreValue}
-                className={styles.scaleInput}
-            />
-            <div className={styles.selectWrapper}>
-                <select onChange={onOptionChange}>
-                    <option value={0.50}>50%</option>
-                    <option value={0.75}>75%</option>
-                    <option value={0.90}>90%</option>
-                    <option value={1.00}>100%</option>
-                    <option value={1.25}>125%</option>
-                    <option value={1.50}>150%</option>
-                    <option value={2.00}>200%</option>
-                </select>
-            </div>
+        <div>
+            <Popover content={PopoverContent} >
+                <input
+                    ref={inputRef}
+                    type="text"
+                    value={inputValue}
+                    onFocus={selectAllText}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={onScaleChange}
+                    onBlur={restoreValue}
+                    className={styles.scaleInput}
+                />
+            </Popover>
         </div>
     )
 }

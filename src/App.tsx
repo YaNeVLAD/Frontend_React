@@ -1,10 +1,10 @@
+import { ZoomProvider } from './views/workspaceArea/scrollAreaWrapper/ZoomContext'
 import { SlideCollection } from './views/slideCollection/SlideCollection'
 import WorkspaceArea from './views/workspaceArea/WorkspaceArea'
 import { COLLECTION_SLIDE_SCALE } from './storage/constants'
 import { ToolsArea } from './views/toolsArea/ToolsArea'
 import { EditorType } from './storage/types'
 import style from './App.module.css'
-import { ZoomProvider } from './views/workspaceArea/scrollAreaWrapper/ZoomContext'
 
 type AppProps = {
     editor: EditorType

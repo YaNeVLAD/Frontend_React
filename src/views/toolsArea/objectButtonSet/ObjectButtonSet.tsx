@@ -44,6 +44,8 @@ const ImageObjectButtonSet = (
     const updateImage = (image: string) => {
         dispatch(changeSrcValue, { value: image })
     }
+    console.log(object)
+    
 
     return (
         <>
@@ -58,6 +60,8 @@ const ImageObjectButtonSet = (
 const TextObjectButtonSet = (
     { object }: { object: TextAreaType }
 ) => {
+    console.log(object)
+    
     return (
         <>
         </>
