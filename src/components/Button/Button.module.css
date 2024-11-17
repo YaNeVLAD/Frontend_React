@@ -3,7 +3,7 @@
     align-items: center;
 }
 
-.button {
+.toolsAreaButton {
     cursor: pointer;
     user-select: none;
     padding: 4px;
@@ -17,16 +17,18 @@
     color: #000000B3;
 }
 
-.button:hover {
+.toolsAreaButton:hover,
+.popoverButton:hover {
     background-color: #DFE5EB;
 }
 
-.button:active {
+.toolsAreaButton:active,
+.popoverButton:hover:active {
     background-color: #4447461F;
     color: #444746;
 }
 
-.popoverButton {
+.toolsAreaPopoverButton {
     cursor: pointer;
     user-select: none;
     padding: 4px;
@@ -39,6 +41,40 @@
     color: #000000B3;
 }
 
-.popoverButton:hover {
+.colorPickerButton {
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 6px 0 6px 6px;
+    width: 100%;
+    align-items: center;
+    background: none;
+    color: #3c4043;
+    display: inline-flex;
+    justify-content: space-between;
+    outline: none;
+    position: relative;
+}
+
+.colorPickerButton:hover {
+    background-color: #3C3D430A;
+    border: 1px solid #DADCE0;
+    box-shadow: none;
+}
+
+.colorPickerButton:active {
+    border: 1px solid transparent;
+    box-shadow: 0 2px 6px 2px #3C404326;
+}
+
+.button:hover,
+.toolsAreaPopoverButton:hover {
     background-color: #DFE5EB;
+}
+
+.button:active,
+.toolsAreaPopoverButton:hover:active {
+    background-color: #4447461F;
+    color: #444746;
 }

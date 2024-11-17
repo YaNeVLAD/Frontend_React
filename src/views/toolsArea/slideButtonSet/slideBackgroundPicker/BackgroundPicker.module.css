@@ -21,3 +21,12 @@
     align-items: center;
     margin-bottom: 16px;
 }
+
+.colorInputButton {
+    border: 1px solid #DFDFDF;
+    border-radius: 100px;
+    padding: 8px 6px 8px 8px;
+    width: 22px;
+    height: 22px;
+    justify-content: space-between;
+}

@@ -2,7 +2,7 @@ import { ReactNode, useRef, useState } from 'react'
 import style from './Popup.module.css'
 
 type PopupProps = {
-    title: string,
+    title?: string,
     content: ReactNode,
     children: ReactNode
 }
@@ -21,7 +21,7 @@ const Popup = ({ title, content, children }: PopupProps) => {
                 <div className={style.overlay}>
                     <div className={style.popup} ref={popupRef}>
                         <div className={style.titleWrapper}>
-                            <span className={style.title}>{title}</span>
+                            {title || (<span className={style.title}>{title}</span>)}
                             <div className={style.closeIcon} onClick={togglePopup}></div>
                         </div>
                         {content}

@@ -18,12 +18,14 @@ const CreateButtonSet = () => {
         <>
             <Button
                 type="icon"
+                displayType="tools-area"
                 onClick={onDeselectAllObjects}>
                 {Cursor20Icon}
             </Button>
 
             <Button
                 type="icon"
+                displayType="tools-area"
                 onClick={onAddTextArea}>
                 {Text20Icon}
             </Button>
@@ -31,6 +33,7 @@ const CreateButtonSet = () => {
             <Popover content={selectImagePopoverContent}>
                 <Button
                     type="icon"
+                    displayType="tools-area"
                     onClick={onAddImage}>
                     {Image20Icon}
                 </Button>

@@ -6,48 +6,59 @@ import { IconComponent } from '../common/IconComponent'
 type ButtonType = 'text' | 'icon' | 'icon&text' | 'empty'
 
 type ButtonWithText = {
-    type: 'text'
+    type: 'text',
     children: string,
 }
 
 type ButtonWithIcon = {
-    type: 'icon'
-    children: IconComponent
+    type: 'icon',
+    children: IconComponent,
 }
 
 type ButtonWithIconAndText = {
-    type: 'icon&text'
-    children: [IconComponent, string]
+    type: 'icon&text',
+    children: [IconComponent, string],
 }
 
 type EmptyButton = {
-    type: 'empty'
-    children: JSX.Element
+    type: 'empty',
+    children: JSX.Element,
 }
 
 type VariableButtons = ButtonWithText | ButtonWithIcon | ButtonWithIconAndText | EmptyButton
 
+type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover'
+
 type BaseButtonProps = {
     type: ButtonType,
     onClick: () => void,
-    popoverContent?: JSX.Element
+    popoverContent?: JSX.Element,
+    displayType: ButtonDisplayTypes,
 }
 
 type ButtonProps = BaseButtonProps & VariableButtons
 
-const Button = ({ onClick, popoverContent, children }: ButtonProps) => {
+const Button = ({ onClick, popoverContent, children, displayType }: ButtonProps) => {
     const ref = useRef<HTMLButtonElement>(null)
 
+    const displayClassMap: Record<ButtonDisplayTypes, string> = {
+        'tools-area': style.toolsAreaButton,
+        'color-picker': style.colorPickerButton,
+        'tools-area-popover': style.toolsAreaPopoverButton,
+    }
+
+    const selectedClass = displayClassMap[displayType]
+
     return (
-        (<div className={style.buttonWrapper}>
+        <div className={style.buttonWrapper}>
             <button
                 ref={ref}
                 onClick={onClick}
-                className={`${popoverContent ? style.popoverButton : style.button}`}>
+                className={`${selectedClass} ${popoverContent ? style.popoverButton : ''}`}>
                 {children}
             </button>
-            {popoverContent && (<Popover content={popoverContent}></Popover>)}
-        </div>)
+            {popoverContent && <Popover content={popoverContent}></Popover>}
+        </div>
     )
 }
 

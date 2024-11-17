@@ -7,6 +7,7 @@ import { EditorType } from "./types"
 
 let editorChangeHandler: Function | undefined
 
+//Или прелоадер или пустой экран потом вынести в index.tsx
 let _editor: EditorType
 await initEditor()
 

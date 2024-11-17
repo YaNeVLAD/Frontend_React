@@ -12,8 +12,11 @@ type SlideCollectionProps = {
     selectedSlideId: string,
     scale: number
 }
-
+//Проблема с обновлением слайда в коллекции здесь. Он не перерисовывается.
+//Это может быть из-за того, что сюда передаётся старый объект. 
 const SlideCollection = ({ slides, selectedSlideId, scale }: SlideCollectionProps) => {
+    console.log(slides)
+    
     const containerRef = useRef<HTMLDivElement>(null)
     const { handleDragStart, handleDragOver, handleDrop, draggingSlideId } = useDraggableSlides({
         slides,

@@ -1,4 +1,4 @@
-const SELECTED_SLIDE_OUTLINE = 'solid 3.5px #6565FF'
+const SELECTED_SLIDE_OUTLINE = 'solid 3px #6565FF'
 const SELECTED_OBJECT_OUTLINE = 'solid 2px #6565FF'
 const SELECTED_OBJECT_OUTLINE_SHADOW = '0px 0px 0px 1px #B9D2FB inset, 0px -2px 0px 1px #B9D2FB'
 

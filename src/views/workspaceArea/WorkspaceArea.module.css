@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    height: calc(100vh - var(--toolsBarHeight) - 200px);
+    height: calc(100vh - var(--toolsBarHeight) - 150px);
 }
 
 .workspaceSlideWrapper {
@@ -15,6 +15,5 @@
     aspect-ratio: 16 / 9;
     max-width: 1920px;
     max-height: 1080px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
     position: relative;
 }

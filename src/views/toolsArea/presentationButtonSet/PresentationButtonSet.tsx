@@ -24,6 +24,7 @@ const PresentationButtonSet = ({ selectedSlidePreset }: PresentationButtonSetPro
         <>
             <Button
                 type="icon"
+                displayType="tools-area-popover"
                 onClick={() => dispatch(addSlide, { type: selectedSlidePreset, prev: true })}
                 popoverContent={popoverContent}>
                 {Plus20Icon}

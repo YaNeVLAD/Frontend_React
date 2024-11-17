@@ -18,6 +18,7 @@ const ObjectButtonSet = ({ object }: ObjectButtonSetProps) => {
         <>
             <Button
                 type="icon"
+                displayType="tools-area"
                 onClick={onDeleteObject}>
                 {RecycleBin20Icon}
             </Button>

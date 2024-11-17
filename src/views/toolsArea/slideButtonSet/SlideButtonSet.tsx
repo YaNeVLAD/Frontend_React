@@ -34,6 +34,7 @@ const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
                     onImageUpload={onImageUpload} />}>
                 <Button
                     type="text"
+                    displayType="tools-area"
                     onClick={() => { }}>
                     {'Фон'}
                 </Button>
@@ -41,6 +42,7 @@ const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
 
             <Button
                 type="text"
+                displayType="tools-area"
                 onClick={() => dispatch(deleteSlide)}>
                 {'Удалить слайд'}
             </Button>
