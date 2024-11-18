@@ -1,5 +1,5 @@
 import { EditorType, PositionType, PresentationType, SelectionType, SizeType, SlideType } from "../types"
-import { BaseArea } from "../../common/textArea/baseTextArea"
+import { BaseArea } from "../../common/TextArea/baseTextArea"
 import { BASE_IMAGE } from "../../common/baseImage"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"

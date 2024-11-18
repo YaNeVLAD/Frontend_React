@@ -2,7 +2,7 @@ import { COLLECTION_SLIDE_OBJECT_SCALE } from "../../storage/constants"
 import { useGetSelectedSlide } from "../../hooks/useGetSelectedSlide"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
-import { Slide } from "../../components/slide/Slide"
+import { Slide } from "../../components/Slide/Slide"
 import { useRef } from "react"
 import style from './SlideCollection.module.css'
 

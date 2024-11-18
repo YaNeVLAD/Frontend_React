@@ -1,5 +1,5 @@
 import { IconComponent } from '../common/IconComponent'
-import Popover from '../popover/Popover'
+import Popover from '../Popover/Popover'
 import style from './Button.module.css'
 import { useRef } from 'react'
 

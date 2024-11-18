@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
-import { Button } from "../../../../components/button/Button"
-import ColorInput from "../../../../components/colorInput/ColorInput"
+import { Button } from "../../../../components/Button/Button"
+import ColorInput from "../../../../components/ColorInput/ColorInput"
 import ImageInput from "../../../../components/ImageInput/ImageInput"
 import style from "./BackgroundPicker.module.css"
 import ArrowDown20Icon from "../../../../components/common/icons/ArrowDown20Icon"

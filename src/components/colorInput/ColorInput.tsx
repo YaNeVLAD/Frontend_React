@@ -1,4 +1,4 @@
-import Popover from "../popover/Popover"
+import Popover from "../Popover/Popover"
 
 type ColorInputProps = {
     color: string,

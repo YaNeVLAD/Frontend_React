@@ -1,5 +1,5 @@
 import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
-import { SlideObject } from "../../components/slideObject/SlideObject"
+import { SlideObject } from "../slideObject/SlideObject"
 import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
 import { CSSProperties, useRef } from "react"

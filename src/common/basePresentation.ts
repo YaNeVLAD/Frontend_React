@@ -1,6 +1,6 @@
 import { deepCopy } from "../storage/utils/deepCopy"
 import { uuid } from "../storage/utils/functions"
-import { TITLE_SLIDE } from "./slides/titleSlide"
+import { TITLE_SLIDE } from "./Slides/titleSlide"
 
 const BASE_PRESENTATION = deepCopy({
     title: "Новая презентация",

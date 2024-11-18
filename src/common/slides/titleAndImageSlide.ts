@@ -1,6 +1,6 @@
 import { SlideType } from "../../storage/types"
 import { BASE_IMAGE } from "../baseImage"
-import { TitleArea } from "../textArea/titleTextArea"
+import { TitleArea } from "../TextArea/titleTextArea"
 
 const TITLE_AND_IMAGE_SLIDE: SlideType = {
     id: "0",

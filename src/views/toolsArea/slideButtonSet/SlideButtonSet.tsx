@@ -1,9 +1,9 @@
 import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
 import BackgroundPicker from "./slideBackgroundPicker/BackgroundPicker"
-import { Button } from "../../../components/button/Button"
+import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import { BackgroundType } from "../../../storage/types"
-import Popup from "../../../components/popup/Popup"
+import Popup from "../../../components/Popup/Popup"
 import { useState } from "react"
 
 const SlideButtonSet = () => {

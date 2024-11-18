@@ -1,12 +1,12 @@
 import { SELECTED_OBJECT_OUTLINE, SELECTED_OBJECT_OUTLINE_SHADOW } from "../../storage/constants"
 import { PositionType, SizeType, SlideObjectType } from "../../storage/types"
 import { useResizableDragAndDrop } from "./hooks/useResizableDragAndDrop"
-import ResizableHandlers from "./resizableHandlers/resizableHandlers"
+import ResizableHandlers from "./ResizableHandlers/resizableHandlers"
 import { CSSProperties, RefObject, useRef, useState } from "react"
 import { useAppActions } from "../../hooks/useRedux"
 import useDragAndDrop from "./hooks/useDragAndDrop"
-import { TextArea } from "./textArea/TextArea"
-import { Image } from "./image/Image"
+import { TextArea } from "./TextArea/TextArea"
+import { Image } from "./Image/Image"
 import style from './SlideObject.module.css'
 
 type SlideObjectProps = {

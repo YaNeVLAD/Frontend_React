@@ -1,7 +1,7 @@
 import EmptySlide from "../../../components/common/slideTypes/EmptySlide"
 import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
 import Plus20Icon from "../../../components/common/icons/Plus20Icon"
-import { Button } from "../../../components/button/Button"
+import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 
 const PresentationButtonSet = () => {

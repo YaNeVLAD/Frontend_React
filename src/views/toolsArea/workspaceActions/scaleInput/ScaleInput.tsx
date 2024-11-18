@@ -1,7 +1,7 @@
 import { useZoomContext } from '../../../workspaceArea/scrollAreaWrapper/hooks/useZoomContext'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './ScaleInput.module.css'
-import Popover from '../../../../components/popover/Popover'
+import Popover from '../../../../components/Popover/Popover'
 
 const ScaleInput = () => {
     const { scale, setScale } = useZoomContext()

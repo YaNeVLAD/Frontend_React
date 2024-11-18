@@ -1,6 +1,6 @@
-import { TextTitleArea } from "../textArea/titleOnTextSlideTextArea"
+import { TextTitleArea } from "../TextArea/titleOnTextSlideTextArea"
 import { SlideType } from "../../storage/types"
-import { TextArea } from "../textArea/textArea"
+import { TextArea } from "../TextArea/textArea"
 
 const TITLE_AND_TEXT_SLIDE: SlideType = {
     id: "0",
