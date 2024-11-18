@@ -25,7 +25,7 @@ type DeleteSlideAction = {
 type AddObjectAction = {
     type: 'ADD_OBJECT',
     payload: {
-        selectedSlideId: string,
+        selectedSlideId?: string,
         type: 'imageObj' | 'textObj',
         value: string
     }
@@ -56,6 +56,7 @@ type DeselectAllObjectsAction = {
 type MoveObjectAction = {
     type: 'MOVE_OBJECT',
     payload: {
+        selectedSlideId: string,
         selectedObjectId: string,
         position: PositionType
     }

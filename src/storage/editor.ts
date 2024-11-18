@@ -1,24 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { getEditorFromDB, saveEditorToDB } from "./utils/indexedDB"
-import { validatePresentation } from "./file/validation/ajv"
-import { BASE_EDITOR } from "../common/baseEditor"
-import { deepCopy } from "./utils/deepCopy"
+import { saveEditorToDB } from "./utils/indexedDB"
 import { EditorType } from "./types"
 
 let editorChangeHandler: Function | undefined
 
 //Или прелоадер или пустой экран потом вынести в index.tsx
 let _editor: EditorType
-await initEditor()
+// await initEditor()
 
-async function initEditor() {
-    let savedEditor = await getEditorFromDB()
-    if (savedEditor == null || !validatePresentation(savedEditor.presentation)) {
-        alert("Что-то пошло не так. Ваша презентация была утеряна")
-        savedEditor = deepCopy(BASE_EDITOR)
-    }
-    _editor = savedEditor
-}
+// async function initEditor() {
+//     let savedEditor = await getEditorFromDB()
+//     if (savedEditor == null || !validatePresentation(savedEditor.presentation)) {
+//         alert("Что-то пошло не так. Ваша презентация была утеряна")
+//         savedEditor = deepCopy(BASE_EDITOR)
+//     }
+//     _editor = savedEditor
+// }
 
 function getEditor(): EditorType {
     return _editor
@@ -44,5 +41,4 @@ export {
     setEditor,
     addEditorChangeHandler,
     dispatch,
-    initEditor,
 }

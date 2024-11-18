@@ -1,19 +1,27 @@
-import { EditorType, PositionType, PresentationType, SelectionType, SizeType } from "../types"
+import { EditorType, PositionType, PresentationType, SelectionType, SizeType, SlideType } from "../types"
 import { BaseArea } from "../../common/textArea/baseTextArea"
 import { BASE_IMAGE } from "../../common/baseImage"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 
 function addObject(
-    editor: EditorType,
-    { type, value }: { type: 'imageObj' | 'textObj', value: string }
-): EditorType {
-    const presentationCopy: PresentationType = deepCopy(editor.presentation)
+    slides: Array<SlideType>,
+    {
+        selectedSlideId,
+        type,
+        value
+    }: {
+        selectedSlideId?: string,
+        type: 'imageObj' | 'textObj',
+        value: string
+    }
+): Array<SlideType> {
+    const slidesCopy = deepCopy(slides)
 
-    const selectedSlide = presentationCopy.slides.find(
-        slide => slide.id == editor.selection.selectedSlideId
+    const selectedSlide = slidesCopy.find(
+        slide => slide.id == selectedSlideId
     )
-    if (selectedSlide == undefined) return editor
+    if (selectedSlide == undefined) return slides
 
     let newObject
     if (type === 'imageObj') {
@@ -27,16 +35,7 @@ function addObject(
 
     selectedSlide.objects.push(newObject)
 
-    return {
-        ...editor,
-        presentation: {
-            ...presentationCopy,
-        },
-        selection: {
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: newObject.id
-        },
-    }
+    return slidesCopy
 }
 
 function changeObjectSize(editor: EditorType, { width, height }: { width: number, height: number }): EditorType {
@@ -106,28 +105,32 @@ function deselectAllObjects(
     }
 }
 
-function moveObject(editor: EditorType, pos: PositionType): EditorType {
-    const editorCopy = deepCopy(editor)
-    const selectedSlide = editorCopy.presentation.slides
-        .find(slide => slide.id == editorCopy.selection.selectedSlideId)
+function moveObject(
+    slides: Array<SlideType>,
+    {
+        selectedSlideId,
+        selectedObjectId,
+        position
+    }: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        position: PositionType
+    }
+): Array<SlideType> {
+    const slidesCopy = deepCopy(slides)
+    const selectedSlide = slidesCopy
+        .find(slide => slide.id == selectedSlideId)
 
-    if (selectedSlide == undefined) return editor
+    if (selectedSlide == undefined) return slides
 
     const object = selectedSlide.objects
-        .find(obj => obj.id == editorCopy.selection.selectedObjectId)
+        .find(obj => obj.id == selectedObjectId)
 
-    if (object == undefined) return editor
+    if (object == undefined) return slides
 
-    object.pos = pos
+    object.pos = position
 
-    return {
-        ...editorCopy,
-        selection: {
-            ...editorCopy.selection,
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: object.id
-        }
-    }
+    return slidesCopy
 }
 
 function resizeObject(editor: EditorType, size: SizeType): EditorType {

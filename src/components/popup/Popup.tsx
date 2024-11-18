@@ -1,34 +1,27 @@
-import { ReactNode, useRef, useState } from 'react'
+import { ReactNode } from 'react'
 import style from './Popup.module.css'
 
 type PopupProps = {
     title?: string,
     content: ReactNode,
-    children: ReactNode
+    children?: ReactNode,
+    closeAction: () => void,
 }
 
-const Popup = ({ title, content, children }: PopupProps) => {
-    const popupRef = useRef<HTMLDivElement>(null)
-    const [isOpen, setIsOpen] = useState(false)
-
-    const togglePopup = () => setIsOpen(!isOpen)
-
+const Popup = ({ title, content, children, closeAction }: PopupProps) => {
     return (
         <>
-            <div onClick={togglePopup}>{children}</div>
-
-            {isOpen && (
-                <div className={style.overlay}>
-                    <div className={style.popup} ref={popupRef}>
-                        <div className={style.titleWrapper}>
-                            {title || (<span className={style.title}>{title}</span>)}
-                            <div className={style.closeIcon} onClick={togglePopup}></div>
-                        </div>
-                        {content}
-                        <button onClick={togglePopup} className={style.closeButton}>Готово</button>
+            {children}
+            <div className={style.overlay}>
+                <div className={style.popup}>
+                    <div className={style.titleWrapper}>
+                        {title && (<span className={style.title}>{title}</span>)}
+                        <div className={style.closeIcon} onClick={closeAction}></div>
                     </div>
+                    {content}
+                    <button onClick={closeAction} className={style.closeButton}>Готово</button>
                 </div>
-            )}
+            </div>
         </>
     )
 }

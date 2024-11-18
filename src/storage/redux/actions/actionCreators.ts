@@ -16,7 +16,7 @@ const deleteSlide = (selectdeSlideId: string): Action => ({
     payload: selectdeSlideId
 })
 
-const addObject = (selectedSlideId: string, type: 'imageObj' | 'textObj', value: string): Action => ({
+const addObject = (selectedSlideId: string | undefined, type: 'imageObj' | 'textObj', value: string): Action => ({
     type: 'ADD_OBJECT',
     payload: { selectedSlideId, type, value }
 })
@@ -31,9 +31,9 @@ const deleteObject = (selectedSlideId: string, selectedObjectId: string): Action
     payload: { selectedSlideId, selectedObjectId }
 })
 
-const moveObject = (selectedObjectId: string, position: PositionType): Action => ({
+const moveObject = (selectedSlideId: string, selectedObjectId: string, position: PositionType): Action => ({
     type: 'MOVE_OBJECT',
-    payload: { selectedObjectId, position }
+    payload: { selectedSlideId, selectedObjectId, position }
 })
 
 const resizeObject = (selectedObjectId: string, size: SizeType): Action => ({

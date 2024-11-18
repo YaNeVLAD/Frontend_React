@@ -1,12 +1,12 @@
-import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideType } from "../types"
+import { BackgroundType, SelectionType, SlidePreset, SlideType } from "../types"
 import { TITLE_AND_IMAGE_SLIDE } from "../../common/slides/titleAndImageSlide"
+import { TITLE_AND_TEXT_SLIDE } from "../../common/slides/titleAndTextSlide"
 import { EMPTY_SLIDE } from "../../common/slides/emptySlide"
 import { IMAGE_SLIDE } from "../../common/slides/imageSlide"
 import { TITLE_SLIDE } from "../../common/slides/titleSlide"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 import { CSSProperties } from "react"
-import { TITLE_AND_TEXT_STYLE } from "../../common/slides/titleAndTextSlide"
 
 function addSlide(
     slides: Array<SlideType>,
@@ -46,8 +46,6 @@ function changeSlideBackground(
 
     selectedSlide.background = background
 
-    console.log(slidesCopy)
-
     return slidesCopy
 }
 
@@ -63,11 +61,6 @@ function deleteSlide(
     if (index == -1) return slides
 
     const updatedSlides = slidesCopy.filter((_, i) => i !== index)
-
-    // let newSelectedSlide = updatedSlides[updatedSlides.length - 1]
-    // if (index < updatedSlides.length) {
-    //     newSelectedSlide = updatedSlides[index]
-    // }
 
     return updatedSlides
 }
@@ -101,7 +94,7 @@ function selectSlidePreset(type: SlidePreset): SlideType {
         case 'title&image':
             return TITLE_AND_IMAGE_SLIDE
         case 'title&text':
-            return TITLE_AND_TEXT_STYLE
+            return TITLE_AND_TEXT_SLIDE
         default:
             throw Error("Invalid slide start content type")
     }
@@ -109,21 +102,18 @@ function selectSlidePreset(type: SlidePreset): SlideType {
 
 function selectSlideBackgroundType(style: CSSProperties, background: BackgroundType): CSSProperties {
     switch (background.type) {
-        case 'solid':
-            {
-                style.backgroundColor = background.value
-                break
-            }
-        case 'image':
-            {
-                style.backgroundImage = `url('${background.value}')`
-                break
-            }
-        case 'gradient':
-            {
-                style.backgroundImage = `linear-gradient(to left, '${background.value[0]}', '${background.value[1]}')`
-                break
-            }
+        case 'solid': {
+            style.backgroundColor = background.value
+            break
+        }
+        case 'image': {
+            style.backgroundImage = `url('${background.value}')`
+            break
+        }
+        case 'gradient': {
+            style.backgroundImage = `linear-gradient(to left, '${background.value[0]}', '${background.value[1]}')`
+            break
+        }
     }
 
     return style

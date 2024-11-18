@@ -4,10 +4,14 @@ import { Button } from "../../../components/button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import { BackgroundType } from "../../../storage/types"
 import Popup from "../../../components/popup/Popup"
+import { useState } from "react"
 
 const SlideButtonSet = () => {
     const selectedSlide = useGetSelectedSlide()
     const { changeSlideBackground, deleteSlide } = useAppActions()
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
+
     if (selectedSlide == undefined) return (<></>)
 
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,24 +27,26 @@ const SlideButtonSet = () => {
 
     return (
         <>
-            <Popup
-                title="Фон"
-                content={<BackgroundPicker
-                    color={
-                        selectedSlide.background.type == 'solid'
-                            ? selectedSlide.background.value
-                            : '#FEFEFE'}
-                    onColorChange={onColorChange}
-                    onImageUpload={onImageUpload} />}>
-                <Button
-                    type="text"
-                    displayType="tools-area"
-                    onClick={() => { }}>
-                    {'Фон'}
-                </Button>
-            </Popup>
             <Button
-
+                type="text"
+                displayType="tools-area"
+                onClick={() => setIsPopupOpen(true)}>
+                {'Фон'}
+            </Button>
+            {isPopupOpen && (<Popup
+                title="Фон"
+                closeAction={() => setIsPopupOpen(false)}
+                content={
+                    <BackgroundPicker
+                        color={
+                            selectedSlide.background.type == 'solid'
+                                ? selectedSlide.background.value
+                                : '#FEFEFE'}
+                        onColorChange={onColorChange}
+                        onImageUpload={onImageUpload} />}>
+            </Popup>)
+            }
+            <Button
                 type="text"
                 displayType="tools-area"
                 onClick={() => deleteSlide(selectedSlide.id)}>

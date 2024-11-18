@@ -30,6 +30,7 @@ const saveToIndexedDBMiddleware: Middleware = store => next => action => {
 
 const configureStore = async () => {
     const initialState = await loadStateFromIndexedDB()
+    console.log(initialState)
     
     const store = createStore(
         rootReducer,

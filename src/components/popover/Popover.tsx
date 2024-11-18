@@ -4,8 +4,8 @@ import { useState, useRef } from 'react'
 import styles from './Popover.module.css'
 
 type PopoverProps = {
-    content: JSX.Element
-    children?: JSX.Element
+    content: JSX.Element,
+    children?: JSX.Element,
 }
 
 const Popover = ({ content, children }: PopoverProps) => {

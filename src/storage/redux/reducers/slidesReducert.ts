@@ -1,6 +1,7 @@
 import { addSlide, changeSlideBackground, deleteSlide, moveSlide } from "../../actions/slideActions"
 import { Action } from "../actions/actions"
 import { SlideType } from "../../types"
+import { addObject, moveObject } from "../../actions/objectActions"
 
 const initialState: Array<SlideType> = []
 
@@ -14,6 +15,11 @@ const slidesReducer = (state = initialState, action: Action): Array<SlideType> =
             return deleteSlide(state, action.payload)
         case 'MOVE_SLIDE':
             return moveSlide(state, action.payload)
+        case 'MOVE_OBJECT':
+            return moveObject(state, action.payload)
+        case 'ADD_OBJECT':
+            return addObject(state, action.payload)
+
         default:
             return state
     }

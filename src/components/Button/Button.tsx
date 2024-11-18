@@ -1,7 +1,7 @@
-import Popover from '../popover/Popover'
-import { useRef } from 'react'
-import style from './Button.module.css'
 import { IconComponent } from '../common/IconComponent'
+import Popover from '../popover/Popover'
+import style from './Button.module.css'
+import { useRef } from 'react'
 
 type ButtonType = 'text' | 'icon' | 'icon&text' | 'empty'
 
@@ -57,7 +57,7 @@ const Button = ({ onClick, popoverContent, children, displayType }: ButtonProps)
                 className={`${selectedClass} ${popoverContent ? style.popoverButton : ''}`}>
                 {children}
             </button>
-            {popoverContent && <Popover content={popoverContent}></Popover>}
+            {popoverContent && <Popover content={popoverContent} />}
         </div>
     )
 }
