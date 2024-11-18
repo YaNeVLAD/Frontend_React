@@ -1,7 +1,7 @@
 import { Action } from "./actions"
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType } from "../../types"
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType } from "../../types"
 
-const addSlide = (selectedSlideId: string, type: SlidePreset, prev: boolean = false): Action => ({
+const addSlide = (selectedSlideId: string | undefined, type: SlidePreset, prev: boolean = false): Action => ({
     type: 'ADD_SLIDE',
     payload: { selectedSlideId, type, prev }
 })
@@ -75,6 +75,11 @@ const moveSlide = (slides: Array<SlideType>): Action => ({
     payload: slides
 })
 
+const updatePresentation = (presentation: PresentationType): Action => ({
+    type: 'UPDATE_PRESENTATION',
+    payload: presentation
+})
+
 export {
     addSlide,
     moveSlide,
@@ -89,6 +94,7 @@ export {
     changeTextValue,
     deselectObjects,
     changeObjectSize,
+    updatePresentation,
     changeSlideBackground,
     changePresentationTitle,
 }

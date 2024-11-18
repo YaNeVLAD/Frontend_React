@@ -10,8 +10,20 @@ import { CSSProperties } from "react"
 
 function addSlide(
     slides: Array<SlideType>,
-    { selectedSlideId, type, prev }: { selectedSlideId: string, type: SlidePreset, prev: boolean },
+    {
+        selectedSlideId,
+        type,
+        prev
+    }: {
+        selectedSlideId?: string,
+        type: SlidePreset,
+        prev: boolean
+    },
 ): Array<SlideType> {
+    if (selectedSlideId == undefined) {
+        return [deepCopy(TITLE_SLIDE)]
+    }
+
     const newSlide =
         prev && slides.length == 1
             ? deepCopy(selectSlidePreset('title&text'))
@@ -65,13 +77,6 @@ function deleteSlide(
     return updatedSlides
 }
 
-function moveSlide(
-    slides: Array<SlideType>,
-    newSlides: Array<SlideType>
-): Array<SlideType> {
-    return newSlides
-}
-
 function selectSlide(
     selection: SelectionType,
     selectedSlideId: string
@@ -123,7 +128,6 @@ export {
     addSlide,
     changeSlideBackground,
     deleteSlide,
-    moveSlide,
     selectSlide,
     selectSlideBackgroundType
 }

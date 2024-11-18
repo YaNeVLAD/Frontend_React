@@ -6,17 +6,16 @@ import { useAppActions } from "../../../hooks/useRedux"
 
 const PresentationButtonSet = () => {
     const selectedSlide = useGetSelectedSlide()
-    const { addSlide } = useAppActions()
 
-    if (selectedSlide == undefined) return (<></>)
+    const { addSlide } = useAppActions()
 
     const popoverContent = (
         <>
-            <div onClick={() => addSlide(selectedSlide.id, 'title')}>Слайд с заголовком</div>
-            <div onClick={() => addSlide(selectedSlide.id, 'image')}>Слайд с картинкой</div>
-            <div onClick={() => addSlide(selectedSlide.id, 'title&image')}>Слайд с заголовком и картинкой</div>
-            <div onClick={() => addSlide(selectedSlide.id, 'none')}><EmptySlide /></div>
-            <div onClick={() => addSlide(selectedSlide.id, 'title&text')}>Слайд с текстом</div>
+            <div onClick={() => addSlide(selectedSlide?.id, 'title')}>Слайд с заголовком</div>
+            <div onClick={() => addSlide(selectedSlide?.id, 'image')}>Слайд с картинкой</div>
+            <div onClick={() => addSlide(selectedSlide?.id, 'title&image')}>Слайд с заголовком и картинкой</div>
+            <div onClick={() => addSlide(selectedSlide?.id, 'none')}><EmptySlide /></div>
+            <div onClick={() => addSlide(selectedSlide?.id, 'title&text')}>Слайд с текстом</div>
         </>
     )
 
@@ -25,7 +24,13 @@ const PresentationButtonSet = () => {
             <Button
                 type="icon"
                 displayType="tools-area-popover"
-                onClick={() => addSlide(selectedSlide.id, selectedSlide.preset, true)}
+                onClick={() => addSlide(
+                    selectedSlide?.id,
+                    selectedSlide?.preset
+                        ? selectedSlide.preset
+                        : 'title',
+                    true)
+                }
                 popoverContent={popoverContent}>
                 {Plus20Icon}
             </Button >

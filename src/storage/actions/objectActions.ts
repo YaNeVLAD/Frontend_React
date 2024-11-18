@@ -97,8 +97,6 @@ function deleteObject(editor: EditorType): EditorType {
 function deselectAllObjects(
     selection: SelectionType
 ): SelectionType {
-    console.log(selection)
-
     return {
         ...selection,
         selectedObjectId: undefined

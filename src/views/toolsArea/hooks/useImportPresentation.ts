@@ -1,7 +1,10 @@
+import { useAppActions } from "../../../hooks/useRedux"
 import { restoreEditor } from "../../../storage/file/read"
 import { useCallback, useEffect } from "react"
 
 const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
+    const { updatePresentation } = useAppActions()
+
     const onImport = useCallback(() => {
         const file = inputRef.current?.files?.[0]
         if (!file) return
@@ -9,14 +12,14 @@ const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
         restoreEditor(file)
             .then((presentation) => {
                 if (presentation) {
-                    // dispatch(savePresentation, presentation)
+                    updatePresentation(presentation)
                 }
             })
             .catch(() => alert("При загрузке файла произошла ошибка."))
             .finally(() => {
                 if (inputRef.current) inputRef.current.value = ""
             })
-    }, [inputRef])
+    }, [inputRef, updatePresentation])
 
     useEffect(() => {
         const inputElement = inputRef.current

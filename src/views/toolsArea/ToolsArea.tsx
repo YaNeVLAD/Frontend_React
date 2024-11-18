@@ -1,12 +1,12 @@
 import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
+import { useExportPresentation } from '../../hooks/useExportDocument'
 import { useImportPresentation } from './hooks/useImportPresentation'
+import { useAppActions, useAppSelector } from '../../hooks/useRedux'
 import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
 import WorkspaceActions from './workspaceActions/WorkspaceActions'
 import { BASE_PRESENTATION } from '../../common/basePresentation'
 import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
-import { exportDocument } from '../../storage/file/export'
-import { useAppActions, useAppSelector } from '../../hooks/useRedux'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
 
@@ -17,6 +17,7 @@ const ToolsArea = () => {
     const { changePresentationTitle } = useAppActions()
 
     const presentationInputRef = useRef<HTMLInputElement>(null)
+    const presentationExportRef = useRef<HTMLButtonElement>(null)
 
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         changePresentationTitle(event.target.value)
@@ -28,6 +29,7 @@ const ToolsArea = () => {
     }
 
     useImportPresentation(presentationInputRef)
+    useExportPresentation(presentationExportRef)
 
     return (
         <>
@@ -40,7 +42,7 @@ const ToolsArea = () => {
                     className={style.presentationTitle} />
             </div>
 
-            <button onClick={exportDocument}>EXPORT</button>
+            <button ref={presentationExportRef}>EXPORT</button>
 
             <input type='file' ref={presentationInputRef} accept='.json' />
 

@@ -1,9 +1,9 @@
-import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType } from "../../types"
+import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType } from "../../types"
 
 type AddSlideAction = {
     type: 'ADD_SLIDE',
     payload: {
-        selectedSlideId: string,
+        selectedSlideId?: string,
         type: SlidePreset,
         prev: boolean
     }
@@ -29,6 +29,11 @@ type AddObjectAction = {
         type: 'imageObj' | 'textObj',
         value: string
     }
+}
+
+type UpdatePresentationAction = {
+    type: 'UPDATE_PRESENTATION',
+    payload: PresentationType
 }
 
 type ChangeObjectSizeAction = {
@@ -126,6 +131,7 @@ type Action =
     | ChangeSrcValueAction
     | ChangeTextValueAction
     | ChangeObjectSizeAction
+    | UpdatePresentationAction
     | DeselectAllObjectsAction
     | ChangeSlideBackgroundAction
     | ChangePresentationTitleAction

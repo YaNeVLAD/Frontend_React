@@ -2,9 +2,7 @@ import { COLLECTION_SLIDE_OBJECT_SCALE } from "../../storage/constants"
 import { useGetSelectedSlide } from "../../hooks/useGetSelectedSlide"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
-import { moveSlide } from "../../storage/actions/slideActions"
 import { Slide } from "../../components/slide/Slide"
-import { dispatch } from "../../storage/editor"
 import { useRef } from "react"
 import style from './SlideCollection.module.css'
 
@@ -18,13 +16,13 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
     const slides = useAppSelector(state => state.editor.presentation.slides)
     const selectedSlide = useGetSelectedSlide()
 
-    const { selectSlide } = useAppActions()
+    const { selectSlide, moveSlide } = useAppActions()
 
     const containerRef = useRef<HTMLDivElement>(null)
     const { handleDragStart, handleDragOver, handleDrop, draggingSlideId } = useDraggableSlides({
         slides,
         onReorder: (updatedSlides) => {
-            dispatch(moveSlide, { slides: updatedSlides })
+            moveSlide(updatedSlides)
         },
         containerRef,
     })
