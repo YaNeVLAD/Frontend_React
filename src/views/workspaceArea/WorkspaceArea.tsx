@@ -1,15 +1,16 @@
 import { SELECTED_SLIDE_SCALE, WORKSPACE_SLIDE_OBJECT_SCALE } from "../../storage/constants"
+import { useGetSelectedObject } from "../../hooks/useGetSelectedObject"
+import { useGetSelectedSlide } from "../../hooks/useGetSelectedSlide"
 import ScrollAreaWrapper from "./scrollAreaWrapper/ScrollAreaWrapper"
-import { SlideObjectType, SlideType } from "../../storage/types"
 import { Slide } from "../../components/slide/Slide"
 import style from "./WorkspaceArea.module.css"
 
-type WorkspaceAreaProps = {
-    slide: SlideType,
-    selectedObject: SlideObjectType | undefined,
-}
+const WorkspaceArea = () => {
+    const selectedSlide = useGetSelectedSlide()
+    const selectedObject = useGetSelectedObject()
 
-const WorkspaceArea = ({ slide, selectedObject }: WorkspaceAreaProps) => {
+    if (selectedSlide == undefined) return (<></>)
+
     return (
         <ScrollAreaWrapper>
             <div
@@ -17,10 +18,10 @@ const WorkspaceArea = ({ slide, selectedObject }: WorkspaceAreaProps) => {
                 <div
                     className={style.workspaceSlideWrapper}>
                     <Slide
-                        id={slide.id}
+                        id={selectedSlide.id}
                         selectedObjectId={selectedObject?.id}
-                        objects={slide.objects}
-                        background={slide.background}
+                        objects={selectedSlide.objects}
+                        background={selectedSlide.background}
                         isSelected={false}
                         className={style.workspaceSlide}
                         scale={SELECTED_SLIDE_SCALE}

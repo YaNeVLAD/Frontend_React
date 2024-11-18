@@ -118,10 +118,10 @@ const presentationTypeSchema: JSONSchemaType<PresentationType> = {
 const selectionTypeSchema: JSONSchemaType<SelectionType> = {
     type: objectAjv,
     properties: {
-        selectedSlide: slideTypeSchema,
-        selectedObject: { ...slideObjectTypeSchema, nullable: true }
+        selectedSlideId: { type: stringAjv, nullable: true },
+        selectedObjectId: { type: stringAjv, nullable: true }
     },
-    required: ['selectedSlide'],
+    required: [],
     additionalProperties: false,
 }
 

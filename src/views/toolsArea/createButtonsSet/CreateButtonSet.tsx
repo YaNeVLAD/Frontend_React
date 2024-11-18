@@ -1,4 +1,4 @@
-import { addObject, deselectAllObjects } from "../../../storage/actions/objectActions"
+import { addObject } from "../../../storage/actions/objectActions"
 import Cursor20Icon from "../../../components/common/icons/Cursor20Icon"
 import Upload24Icon from "../../../components/common/icons/Upload24Icon"
 import Image20Icon from "../../../components/common/icons/Image20Icon"
@@ -8,9 +8,11 @@ import { Button } from "../../../components/button/Button"
 import Popover from "../../../components/popover/Popover"
 import { dispatch } from "../../../storage/editor"
 import style from "./CreateButtonSet.module.css"
+import { useAppActions } from "../../../hooks/useRedux"
 
 const CreateButtonSet = () => {
-    const onDeselectAllObjects = () => dispatch(deselectAllObjects)
+    const { deselectObjects } = useAppActions()
+
     const onAddTextArea = () => dispatch(addObject, { type: 'textObj', value: '' })
     const onAddImage = () => { }
 
@@ -19,7 +21,7 @@ const CreateButtonSet = () => {
             <Button
                 type="icon"
                 displayType="tools-area"
-                onClick={onDeselectAllObjects}>
+                onClick={() => deselectObjects()}>
                 {Cursor20Icon}
             </Button>
 

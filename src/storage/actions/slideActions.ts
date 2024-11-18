@@ -1,4 +1,4 @@
-import { BackgroundType, EditorType, PresentationType, SlidePreset, SlideType } from "../types"
+import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideType } from "../types"
 import { TITLE_AND_IMAGE_SLIDE } from "../../common/slides/titleAndImageSlide"
 import { EMPTY_SLIDE } from "../../common/slides/emptySlide"
 import { IMAGE_SLIDE } from "../../common/slides/imageSlide"
@@ -9,121 +9,84 @@ import { CSSProperties } from "react"
 import { TITLE_AND_TEXT_STYLE } from "../../common/slides/titleAndTextSlide"
 
 function addSlide(
-    editor: EditorType,
-    { type, prev }: { type: SlidePreset, prev: boolean },
-): EditorType {
+    slides: Array<SlideType>,
+    { selectedSlideId, type, prev }: { selectedSlideId: string, type: SlidePreset, prev: boolean },
+): Array<SlideType> {
     const newSlide =
-        prev && editor.presentation.slides.length == 1
+        prev && slides.length == 1
             ? deepCopy(selectSlidePreset('title&text'))
             : deepCopy(selectSlidePreset(type))
 
     newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
 
-    const selectedSlideIndex = editor.presentation.slides.findIndex(
-        slide => slide.id == editor.selection.selectedSlide.id
+    const selectedSlideIndex = slides.findIndex(
+        slide => slide.id == selectedSlideId
     )
-    if (selectedSlideIndex == -1) return editor
+    if (selectedSlideIndex == -1) return slides
 
-    const before = editor.presentation.slides.slice(0, selectedSlideIndex + 1)
-    const after = editor.presentation.slides.slice(selectedSlideIndex + 1, editor.presentation.slides.length)
+    const before = slides.slice(0, selectedSlideIndex + 1)
+    const after = slides.slice(selectedSlideIndex + 1, slides.length)
 
     const updatedSlides = before.concat([newSlide], after)
 
-    return {
-        ...editor,
-        presentation: {
-            ...editor.presentation,
-            slides: updatedSlides,
-        },
-        selection: {
-            selectedSlide: newSlide,
-            selectedObject: undefined,
-        },
-    }
+    return updatedSlides
 }
 
 function changeSlideBackground(
-    editor: EditorType,
-    { background }: { background: BackgroundType }
-): EditorType {
-    const presentationCopy: PresentationType = deepCopy(editor.presentation)
+    slides: Array<SlideType>,
+    { selectedSlideId, background }: { selectedSlideId: string, background: BackgroundType }
+): Array<SlideType> {
+    const slidesCopy = deepCopy(slides)
 
-    const selectedSlide = presentationCopy.slides.find(slide =>
-        slide.id == editor.selection.selectedSlide.id
+    const selectedSlide = slidesCopy.find(slide =>
+        slide.id == selectedSlideId
     )
-    if (selectedSlide == undefined) return editor
+    if (selectedSlide == undefined) return slidesCopy
 
     selectedSlide.background = background
 
-    return {
-        ...editor,
-        presentation: presentationCopy,
-        selection: {
-            selectedSlide: selectedSlide,
-            selectedObject: editor.selection.selectedObject
-        }
-    }
+    console.log(slidesCopy)
+
+    return slidesCopy
 }
 
-function deleteSlide(editor: EditorType): EditorType {
-    if (editor.presentation.slides.length === 1) return editor
+function deleteSlide(
+    slides: Array<SlideType>,
+    selectedSlideId: string
+): Array<SlideType> {
+    if (slides.length == 1) return slides
 
-    const presentationCopy = deepCopy(editor.presentation)
+    const slidesCopy = deepCopy(slides)
 
-    const index = presentationCopy.slides.findIndex(slide => slide.id == editor.selection.selectedSlide.id)
-    if (index === -1) return editor
+    const index = slidesCopy.findIndex(slide => slide.id == selectedSlideId)
+    if (index == -1) return slides
 
-    const updatedSlides = presentationCopy.slides.filter((_, i) => i !== index)
+    const updatedSlides = slidesCopy.filter((_, i) => i !== index)
 
-    let newSelectedSlide = updatedSlides[updatedSlides.length - 1]
-    if (index < updatedSlides.length) {
-        newSelectedSlide = updatedSlides[index]
-    }
+    // let newSelectedSlide = updatedSlides[updatedSlides.length - 1]
+    // if (index < updatedSlides.length) {
+    //     newSelectedSlide = updatedSlides[index]
+    // }
 
-    return {
-        ...editor,
-        presentation: {
-            ...editor.presentation,
-            slides: updatedSlides,
-        },
-        selection: {
-            selectedSlide: newSelectedSlide,
-            selectedObject: undefined,
-        },
-    }
+    return updatedSlides
 }
 
-function deselectSlideObjects(editor: EditorType): EditorType {
-    return {
-        ...editor,
-        selection: {
-            ...editor.selection,
-            selectedObject: undefined
-        }
-    }
+function moveSlide(
+    slides: Array<SlideType>,
+    newSlides: Array<SlideType>
+): Array<SlideType> {
+    return newSlides
 }
 
-function moveSlide(editor: EditorType, { slides }: { slides: Array<SlideType> }): EditorType {
+function selectSlide(
+    selection: SelectionType,
+    selectedSlideId: string
+): SelectionType {
     return {
-        ...editor,
-        presentation: {
-            ...editor.presentation,
-            slides: slides
-        }
-    }
-}
-
-function selectSlide(editor: EditorType, { id }: { id: string }): EditorType {
-    const slide = editor.presentation.slides.find(slide => slide.id == id)
-    if (slide == undefined) return editor
-
-    return {
-        ...editor,
-        selection: {
-            selectedSlide: slide,
-            selectedObject: undefined
-        }
+        ...selection,
+        selectedSlideId: selectedSlideId,
+        selectedObjectId: undefined
     }
 }
 
@@ -170,7 +133,6 @@ export {
     addSlide,
     changeSlideBackground,
     deleteSlide,
-    deselectSlideObjects,
     moveSlide,
     selectSlide,
     selectSlideBackgroundType

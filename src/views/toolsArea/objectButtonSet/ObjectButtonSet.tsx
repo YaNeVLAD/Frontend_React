@@ -1,4 +1,4 @@
-import { ImageType, SlideObjectType, TextAreaType } from "../../../storage/types"
+import { ImageType, TextAreaType } from "../../../storage/types"
 import RecycleBin20Icon from "../../../components/common/icons/RecycleBin20Icon"
 import { changeSrcValue } from "../../../storage/actions/imageActions"
 import { deleteObject } from "../../../storage/actions/objectActions"
@@ -6,13 +6,14 @@ import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/button/Button"
 import { dispatch } from "../../../storage/editor"
 import style from "./ObjectButtonSet.module.css"
+import { useGetSelectedObject } from "../../../hooks/useGetSelectedObject"
 
-type ObjectButtonSetProps = {
-    object: SlideObjectType
-}
+const ObjectButtonSet = () => {
+    const object = useGetSelectedObject()
 
-const ObjectButtonSet = ({ object }: ObjectButtonSetProps) => {
     const onDeleteObject = () => dispatch(deleteObject)
+
+    if (object == undefined) return (<></>)
 
     return (
         <>
@@ -45,8 +46,6 @@ const ImageObjectButtonSet = (
     const updateImage = (image: string) => {
         dispatch(changeSrcValue, { value: image })
     }
-    console.log(object)
-    
 
     return (
         <>
@@ -61,8 +60,6 @@ const ImageObjectButtonSet = (
 const TextObjectButtonSet = (
     { object }: { object: TextAreaType }
 ) => {
-    console.log(object)
-    
     return (
         <>
         </>

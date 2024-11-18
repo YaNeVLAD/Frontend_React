@@ -1,8 +1,8 @@
 .scaleInput {
     width: 80px;
     padding-inline: 4px;
-    padding-block: 7px;
-    font-size: 14px;
+    padding-block: 6px;
+    font-size: 16px;
     text-align: center;
     border: 0;
     color: #000000B3;
@@ -16,6 +16,12 @@
     background-color: #DFE5EB;
 }
 
+.scaleInput::selection {
+    background-color: #D3E3FD;
+    color: #1f1f1f;
+}
+
 .scaleInput:focus {
     outline: 2px solid #0B57D0;
+    color: #1f1f1f;
 }

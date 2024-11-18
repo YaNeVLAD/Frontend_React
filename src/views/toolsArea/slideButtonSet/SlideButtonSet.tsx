@@ -1,24 +1,24 @@
-import { changeSlideBackground, deleteSlide } from "../../../storage/actions/slideActions"
+import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
 import BackgroundPicker from "./slideBackgroundPicker/BackgroundPicker"
-import { BackgroundType, SlideType } from "../../../storage/types"
 import { Button } from "../../../components/button/Button"
+import { useAppActions } from "../../../hooks/useRedux"
+import { BackgroundType } from "../../../storage/types"
 import Popup from "../../../components/popup/Popup"
-import { dispatch } from "../../../storage/editor"
 
-type SlideButtonSetProps = {
-    slide: SlideType
-}
+const SlideButtonSet = () => {
+    const selectedSlide = useGetSelectedSlide()
+    const { changeSlideBackground, deleteSlide } = useAppActions()
+    if (selectedSlide == undefined) return (<></>)
 
-const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
     const onColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = (event.target as HTMLInputElement).value
         const background: BackgroundType = { value: value, type: 'solid' }
-        dispatch(changeSlideBackground, { background: background })
+        changeSlideBackground(selectedSlide.id, background)
     }
 
     const onImageUpload = (image: string) => {
         const background: BackgroundType = { value: image, type: 'image' }
-        dispatch(changeSlideBackground, { background: background })
+        changeSlideBackground(selectedSlide.id, background)
     }
 
     return (
@@ -27,8 +27,8 @@ const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
                 title="Фон"
                 content={<BackgroundPicker
                     color={
-                        slide.background.type == 'solid'
-                            ? slide.background.value
+                        selectedSlide.background.type == 'solid'
+                            ? selectedSlide.background.value
                             : '#FEFEFE'}
                     onColorChange={onColorChange}
                     onImageUpload={onImageUpload} />}>
@@ -39,11 +39,11 @@ const SlideButtonSet = ({ slide }: SlideButtonSetProps) => {
                     {'Фон'}
                 </Button>
             </Popup>
-
             <Button
+
                 type="text"
                 displayType="tools-area"
-                onClick={() => dispatch(deleteSlide)}>
+                onClick={() => deleteSlide(selectedSlide.id)}>
                 {'Удалить слайд'}
             </Button>
         </>

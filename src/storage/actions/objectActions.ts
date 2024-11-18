@@ -1,4 +1,4 @@
-import { EditorType, PositionType, PresentationType, SizeType } from "../types"
+import { EditorType, PositionType, PresentationType, SelectionType, SizeType } from "../types"
 import { BaseArea } from "../../common/textArea/baseTextArea"
 import { BASE_IMAGE } from "../../common/baseImage"
 import { deepCopy } from "../utils/deepCopy"
@@ -11,7 +11,7 @@ function addObject(
     const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
     const selectedSlide = presentationCopy.slides.find(
-        slide => slide.id == editor.selection.selectedSlide.id
+        slide => slide.id == editor.selection.selectedSlideId
     )
     if (selectedSlide == undefined) return editor
 
@@ -33,8 +33,8 @@ function addObject(
             ...presentationCopy,
         },
         selection: {
-            selectedSlide: selectedSlide,
-            selectedObject: newObject
+            selectedSlideId: selectedSlide.id,
+            selectedObjectId: newObject.id
         },
     }
 }
@@ -42,15 +42,15 @@ function addObject(
 function changeObjectSize(editor: EditorType, { width, height }: { width: number, height: number }): EditorType {
     const editorCopy = deepCopy(editor)
 
-    if (editorCopy.selection.selectedObject?.type != 'textObj') return editor
+    // if (editorCopy.selection.selectedObject?.type != 'textObj') return editor
 
     const selectedSlide = editorCopy.presentation.slides.find(
-        slide => slide.id == editorCopy.selection.selectedSlide.id
+        slide => slide.id == editorCopy.selection.selectedSlideId
     )
     if (selectedSlide == undefined) return editor
 
     const selectedObject = selectedSlide.objects.find(
-        obj => obj.id == editorCopy.selection.selectedObject?.id
+        obj => obj.id == editorCopy.selection.selectedObjectId
     )
     if (selectedObject == undefined) return editor
 
@@ -60,24 +60,24 @@ function changeObjectSize(editor: EditorType, { width, height }: { width: number
     return {
         ...editorCopy,
         selection: {
-            selectedSlide: selectedSlide,
-            selectedObject: selectedObject
+            selectedSlideId: selectedSlide.id,
+            selectedObjectId: selectedObject.id
         }
     }
 }
 
 function deleteObject(editor: EditorType): EditorType {
-    if (editor.selection.selectedObject == undefined) return editor
+    if (editor.selection.selectedObjectId == undefined) return editor
 
     const presentationCopy: PresentationType = deepCopy(editor.presentation)
 
     const selectedSlide = presentationCopy.slides.find(slide =>
-        slide.id == editor.selection.selectedSlide.id
+        slide.id == editor.selection.selectedSlideId
     )
     if (selectedSlide == undefined) return editor
 
     const selectedObjectIndex = selectedSlide.objects.findIndex(obj =>
-        obj.id == editor.selection.selectedObject?.id
+        obj.id == editor.selection.selectedObjectId
     )
     if (selectedObjectIndex === -1) return editor
 
@@ -89,31 +89,32 @@ function deleteObject(editor: EditorType): EditorType {
             ...presentationCopy,
         },
         selection: {
-            selectedSlide: selectedSlide,
-            selectedObject: undefined,
+            selectedSlideId: selectedSlide.id,
+            selectedObjectId: undefined,
         },
     }
 }
 
-function deselectAllObjects(editor: EditorType): EditorType {
+function deselectAllObjects(
+    selection: SelectionType
+): SelectionType {
+    console.log(selection)
+
     return {
-        ...editor,
-        selection: {
-            ...editor.selection,
-            selectedObject: undefined
-        }
+        ...selection,
+        selectedObjectId: undefined
     }
 }
 
 function moveObject(editor: EditorType, pos: PositionType): EditorType {
     const editorCopy = deepCopy(editor)
     const selectedSlide = editorCopy.presentation.slides
-        .find(slide => slide.id == editorCopy.selection.selectedSlide.id)
+        .find(slide => slide.id == editorCopy.selection.selectedSlideId)
 
     if (selectedSlide == undefined) return editor
 
     const object = selectedSlide.objects
-        .find(obj => obj.id == editorCopy.selection.selectedObject?.id)
+        .find(obj => obj.id == editorCopy.selection.selectedObjectId)
 
     if (object == undefined) return editor
 
@@ -123,8 +124,8 @@ function moveObject(editor: EditorType, pos: PositionType): EditorType {
         ...editorCopy,
         selection: {
             ...editorCopy.selection,
-            selectedSlide: selectedSlide,
-            selectedObject: object
+            selectedSlideId: selectedSlide.id,
+            selectedObjectId: object.id
         }
     }
 }
@@ -132,12 +133,12 @@ function moveObject(editor: EditorType, pos: PositionType): EditorType {
 function resizeObject(editor: EditorType, size: SizeType): EditorType {
     const editorCopy = deepCopy(editor)
     const selectedSlide = editorCopy.presentation.slides
-        .find(slide => slide.id == editorCopy.selection.selectedSlide.id)
+        .find(slide => slide.id == editorCopy.selection.selectedSlideId)
 
     if (selectedSlide == undefined) return editor
 
     const object = selectedSlide.objects
-        .find(obj => obj.id == editorCopy.selection.selectedObject?.id)
+        .find(obj => obj.id == editorCopy.selection.selectedObjectId)
 
     if (object == undefined) return editor
 
@@ -147,22 +148,19 @@ function resizeObject(editor: EditorType, size: SizeType): EditorType {
         ...editorCopy,
         selection: {
             ...editorCopy.selection,
-            selectedSlide: selectedSlide,
-            selectedObject: object
+            selectedSlideId: selectedSlide.id,
+            selectedObjectId: object.id
         }
     }
 }
 
-function selectObject(editor: EditorType, { id }: { id: string }): EditorType {
-    const object = editor.selection.selectedSlide.objects.find(object => object.id == id)
-    if (object == undefined) return editor
-
+function selectObject(
+    selection: SelectionType,
+    selectedObjectId: string
+): SelectionType {
     return {
-        ...editor,
-        selection: {
-            selectedSlide: editor.selection.selectedSlide,
-            selectedObject: object
-        }
+        ...selection,
+        selectedObjectId: selectedObjectId
     }
 }
 

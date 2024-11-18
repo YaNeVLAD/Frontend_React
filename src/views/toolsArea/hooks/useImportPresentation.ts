@@ -1,6 +1,4 @@
-import { savePresentation } from "../../../storage/actions/presentation/save"
 import { restoreEditor } from "../../../storage/file/read"
-import { dispatch } from "../../../storage/editor"
 import { useCallback, useEffect } from "react"
 
 const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
@@ -11,7 +9,7 @@ const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
         restoreEditor(file)
             .then((presentation) => {
                 if (presentation) {
-                    dispatch(savePresentation, presentation)
+                    // dispatch(savePresentation, presentation)
                 }
             })
             .catch(() => alert("При загрузке файла произошла ошибка."))

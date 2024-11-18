@@ -3,9 +3,8 @@ import { PositionType, SizeType, SlideObjectType } from "../../storage/types"
 import { useResizableDragAndDrop } from "./hooks/useResizableDragAndDrop"
 import ResizableHandlers from "./resizableHandlers/resizableHandlers"
 import { CSSProperties, RefObject, useRef, useState } from "react"
-import { selectObject } from "../../storage/actions/objectActions"
+import { useAppActions } from "../../hooks/useRedux"
 import useDragAndDrop from "./hooks/useDragAndDrop"
-import { dispatch } from "../../storage/editor"
 import { TextArea } from "./textArea/TextArea"
 import { Image } from "./image/Image"
 import style from './SlideObject.module.css'
@@ -18,10 +17,12 @@ type SlideObjectProps = {
 }
 
 //Можно сделать хок компонент - resizable. Для изменения поведения объекта.
-const SlideObject = ({ object, isSelected, scale, parentRef }: SlideObjectProps) =>{
+const SlideObject = ({ object, isSelected, scale, parentRef }: SlideObjectProps) => {
     const ref = useRef(null)
     const [pos, setPos] = useState<PositionType>(object.pos)
     const [size, setSize] = useState<SizeType>(object.size)
+
+    const { selectObject } = useAppActions()
 
     useDragAndDrop(ref, parentRef, object.pos, setPos)
     useResizableDragAndDrop(ref, parentRef, object.pos, object.size, setPos, setSize)
@@ -58,7 +59,7 @@ const SlideObject = ({ object, isSelected, scale, parentRef }: SlideObjectProps)
             onMouseDown={(e) => {
                 if (e.defaultPrevented) return
                 e.preventDefault()
-                dispatch(selectObject, { id: object.id })
+                selectObject(object.id)
             }}
 
             className={style.slideObject}

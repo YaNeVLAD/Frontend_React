@@ -1,6 +1,5 @@
-import { deselectAllObjects } from '../../../storage/actions/objectActions'
 import { useZoomableScroll } from './hooks/useZoomableScroll'
-import { dispatch } from '../../../storage/editor'
+import { useAppActions } from '../../../hooks/useRedux'
 import styles from './ScrollAreaWrapper.module.css'
 
 interface ZoomableScrollWrapperProps {
@@ -9,6 +8,9 @@ interface ZoomableScrollWrapperProps {
 
 const ScrollAreaWrapper = ({ children }: ZoomableScrollWrapperProps) => {
     const { containerRef, scale } = useZoomableScroll()
+
+    const { deselectObjects } = useAppActions()
+
     return (
         <div
             className={styles.container}
@@ -16,7 +18,7 @@ const ScrollAreaWrapper = ({ children }: ZoomableScrollWrapperProps) => {
             onMouseDown={(e) => {
                 if (e.defaultPrevented) return
                 e.preventDefault()
-                dispatch(deselectAllObjects)
+                deselectObjects()
             }}>
             <div
                 style={{

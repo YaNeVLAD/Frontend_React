@@ -9,8 +9,8 @@ type PresentationType = {
 }
 
 type SelectionType = {
-    selectedSlide: SlideType,
-    selectedObject?: SlideObjectType,
+    selectedSlideId?: string,
+    selectedObjectId?: string,
 }
 
 type SlideType = {

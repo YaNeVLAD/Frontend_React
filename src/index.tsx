@@ -1,16 +1,20 @@
-import { addEditorChangeHandler, getEditor } from './storage/editor.ts'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import ReactDOM from "react-dom/client"
+import configureStore from "./storage/redux/store.ts"
+import { Provider } from "react-redux"
+import App from "./App.tsx"
 
-const root = createRoot(document.getElementById('root')!)
-function render() {
+(async () => {
+  const store = await configureStore()
+
+  const rootElement = document.getElementById("root")
+  if (!rootElement) {
+    throw new Error("Root element not found")
+  }
+
+  const root = ReactDOM.createRoot(rootElement)
   root.render(
-    <StrictMode>
-      <App editor={getEditor()} />
-    </StrictMode>,
+    <Provider store={store}>
+      <App />
+    </Provider>
   )
-}
-
-addEditorChangeHandler(render)
-render()
+})()

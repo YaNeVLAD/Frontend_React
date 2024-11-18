@@ -5,8 +5,8 @@ function savePresentation(editor: EditorType, presentation: PresentationType): E
         ...editor,
         presentation: presentation,
         selection: {
-            selectedSlide: presentation.slides[0],
-            selectedObject: undefined
+            selectedSlideId: presentation.slides[0].id,
+            selectedObjectId: undefined
         }
     }
 }

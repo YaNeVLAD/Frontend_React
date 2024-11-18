@@ -1,32 +1,30 @@
-import { changePresentationTitle } from '../../storage/actions/presentation/changeTitle'
 import { PresentationButtonSet } from './presentationButtonSet/PresentationButtonSet'
 import { useImportPresentation } from './hooks/useImportPresentation'
 import { CreateButtonSet } from './createButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './objectButtonSet/ObjectButtonSet'
+import WorkspaceActions from './workspaceActions/WorkspaceActions'
 import { BASE_PRESENTATION } from '../../common/basePresentation'
 import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
 import { exportDocument } from '../../storage/file/export'
-import { SelectionType } from '../../storage/types'
-import { dispatch } from '../../storage/editor'
+import { useAppActions, useAppSelector } from '../../hooks/useRedux'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
-import WorkspaceActions from './workspaceActions/WorkspaceActions'
 
-type ToolsAreaProps = {
-    title: string,
-    selection: SelectionType
-}
+const ToolsArea = () => {
+    const title = useAppSelector(state => state.editor.presentation.title)
+    const selection = useAppSelector(state => state.editor.selection)
 
-const ToolsArea = ({ title, selection }: ToolsAreaProps) => {
+    const { changePresentationTitle } = useAppActions()
+
     const presentationInputRef = useRef<HTMLInputElement>(null)
 
     const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(changePresentationTitle, { title: event.target.value })
+        changePresentationTitle(event.target.value)
     }
 
     const onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value.length == 0) event.target.value = BASE_PRESENTATION.title
-        dispatch(changePresentationTitle, { title: event.target.value })
+        changePresentationTitle(event.target.value)
     }
 
     useImportPresentation(presentationInputRef)
@@ -48,7 +46,7 @@ const ToolsArea = ({ title, selection }: ToolsAreaProps) => {
 
             <div className={style.toolsArea}>
 
-                <PresentationButtonSet selectedSlidePreset={selection.selectedSlide.preset} />
+                <PresentationButtonSet />
                 <div className={style.separator} />
 
                 <WorkspaceActions />
@@ -57,9 +55,9 @@ const ToolsArea = ({ title, selection }: ToolsAreaProps) => {
                 <CreateButtonSet />
                 <div className={style.separator} />
 
-                {selection.selectedObject
-                    ? <ObjectButtonSet object={selection.selectedObject} />
-                    : <SlideButtonSet slide={selection.selectedSlide} />
+                {selection.selectedObjectId
+                    ? <ObjectButtonSet />
+                    : <SlideButtonSet />
                 }
                 <div className={style.separator} />
             </div>
