@@ -1,12 +1,17 @@
-import { BASE_PRESENTATION } from "./basePresentation"
+import { BasePresentation } from "./basePresentation"
 import { EditorType } from "../storage/types"
+import { deepCopy } from "../storage/utils/deepCopy"
+
+const presentation = BasePresentation()
 
 const BASE_EDITOR: EditorType = {
-    presentation: BASE_PRESENTATION,
+    presentation: presentation,
     selection: {
-        selectedSlideId: BASE_PRESENTATION.slides[0].id,
+        selectedSlideId: presentation.slides[0].id,
         selectedObjectId: undefined
     }
 }
 
-export { BASE_EDITOR }
+const BaseEditor = (): EditorType => deepCopy(BASE_EDITOR)
+
+export { BaseEditor }

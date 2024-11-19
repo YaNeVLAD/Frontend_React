@@ -1,9 +1,9 @@
 import { BackgroundType, SelectionType, SlidePreset, SlideType } from "../types"
-import { TITLE_AND_IMAGE_SLIDE } from "../../common/Slides/titleAndImageSlide"
-import { TITLE_AND_TEXT_SLIDE } from "../../common/Slides/titleAndTextSlide"
-import { EMPTY_SLIDE } from "../../common/Slides/emptySlide"
-import { IMAGE_SLIDE } from "../../common/Slides/imageSlide"
-import { TITLE_SLIDE } from "../../common/Slides/titleSlide"
+import { TitleAndImageSlide } from "../../common/Slides/TitleAndImageSlide"
+import { TitleAndTextSlide } from "../../common/Slides/TitleAndTextSlide"
+import { EmptySlide } from "../../common/Slides/EmptySlide"
+import { ImageSlide } from "../../common/Slides/ImageSlide"
+import { TitleSlide } from "../../common/Slides/TitleSlide"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 import { CSSProperties } from "react"
@@ -21,13 +21,13 @@ function addSlide(
     },
 ): Array<SlideType> {
     if (selectedSlideId == undefined) {
-        return [deepCopy(TITLE_SLIDE)]
+        return [TitleSlide()]
     }
 
     const newSlide =
         prev && slides.length == 1
-            ? deepCopy(selectSlidePreset('title&text'))
-            : deepCopy(selectSlidePreset(type))
+            ? selectSlidePreset('title&text')
+            : selectSlidePreset(type)
 
     newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
@@ -91,15 +91,15 @@ function selectSlide(
 function selectSlidePreset(type: SlidePreset): SlideType {
     switch (type) {
         case 'none':
-            return EMPTY_SLIDE
+            return EmptySlide()
         case 'image':
-            return IMAGE_SLIDE
+            return ImageSlide()
         case 'title':
-            return TITLE_SLIDE
+            return TitleSlide()
         case 'title&image':
-            return TITLE_AND_IMAGE_SLIDE
+            return TitleAndImageSlide()
         case 'title&text':
-            return TITLE_AND_TEXT_SLIDE
+            return TitleAndTextSlide()
         default:
             throw Error("Invalid slide start content type")
     }

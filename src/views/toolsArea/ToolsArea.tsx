@@ -4,11 +4,11 @@ import { useImportPresentation } from './hooks/useImportPresentation'
 import { useAppActions, useAppSelector } from '../../hooks/useRedux'
 import { CreateButtonSet } from './CreateButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './ObjectButtonSet/ObjectButtonSet'
-import WorkspaceActions from './workspaceActions/WorkspaceActions'
-import { BASE_PRESENTATION } from '../../common/basePresentation'
-import { SlideButtonSet } from './slideButtonSet/SlideButtonSet'
+import WorkspaceActions from './WorkspaceActions/WorkspaceActions'
+import { SlideButtonSet } from './SlideButtonSet/SlideButtonSet'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
+import { BasePresentation } from '../../common/basePresentation'
 
 const ToolsArea = () => {
     const title = useAppSelector(state => state.editor.presentation.title)
@@ -24,7 +24,7 @@ const ToolsArea = () => {
     }
 
     const onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value.length == 0) event.target.value = BASE_PRESENTATION.title
+        if (event.target.value.length == 0) event.target.value = BasePresentation().title
         changePresentationTitle(event.target.value)
     }
 

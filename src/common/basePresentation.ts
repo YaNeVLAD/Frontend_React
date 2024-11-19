@@ -1,10 +1,12 @@
+import { PresentationType } from "../storage/types"
 import { deepCopy } from "../storage/utils/deepCopy"
-import { uuid } from "../storage/utils/functions"
-import { TITLE_SLIDE } from "./Slides/titleSlide"
+import { TitleSlide } from "./Slides/TitleSlide"
 
 const BASE_PRESENTATION = deepCopy({
     title: "Новая презентация",
-    slides: [{ ...TITLE_SLIDE, id: uuid() }]
+    slides: [TitleSlide()]
 })
 
-export { BASE_PRESENTATION }
+const BasePresentation = (): PresentationType => deepCopy(BASE_PRESENTATION)
+
+export { BasePresentation }

@@ -1,5 +1,6 @@
-import { TextAreaType } from "../../storage/types"
+import { deepCopy } from "../../storage/utils/deepCopy"
 import { uuid } from "../../storage/utils/functions"
+import { TextAreaType } from "../../storage/types"
 
 const TEXT_AREA: TextAreaType = {
     id: "0",
@@ -19,6 +20,11 @@ const TEXT_AREA: TextAreaType = {
     turnAngle: 0,
 }
 
-const TextArea = { ...TEXT_AREA, id: uuid() }
+const TextArea = (): TextAreaType => {
+    return {
+        ...deepCopy(TEXT_AREA),
+        id: uuid()
+    }
+}
 
 export { TextArea }

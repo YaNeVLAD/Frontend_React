@@ -1,5 +1,6 @@
-import { TextAreaType } from "../../storage/types"
+import { deepCopy } from "../../storage/utils/deepCopy"
 import { uuid } from "../../storage/utils/functions"
+import { TextAreaType } from "../../storage/types"
 
 const TITLE_ON_TEXT_SLIDE_AREA: TextAreaType = {
     id: "0",
@@ -19,6 +20,11 @@ const TITLE_ON_TEXT_SLIDE_AREA: TextAreaType = {
     turnAngle: 0,
 }
 
-const TextTitleArea = { ...TITLE_ON_TEXT_SLIDE_AREA, id: uuid() }
+const TextTitleArea = (): TextAreaType => {
+    return {
+        ...deepCopy(TITLE_ON_TEXT_SLIDE_AREA),
+        id: uuid()
+    }
+}
 
 export { TextTitleArea }

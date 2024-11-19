@@ -1,4 +1,6 @@
 import { ImageType } from "../storage/types"
+import { deepCopy } from "../storage/utils/deepCopy"
+import { uuid } from "../storage/utils/functions"
 
 const BASE_IMAGE: ImageType = {
     id: "0",
@@ -12,4 +14,11 @@ const BASE_IMAGE: ImageType = {
     },
 }
 
-export { BASE_IMAGE }
+const BaseImage = (): ImageType => {
+    return {
+        ...deepCopy(BASE_IMAGE),
+        id: uuid()
+    }
+}
+
+export { BaseImage }

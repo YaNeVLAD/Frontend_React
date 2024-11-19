@@ -1,12 +1,13 @@
-import { TextAreaType } from "../../storage/types"
+import { deepCopy } from "../../storage/utils/deepCopy"
 import { uuid } from "../../storage/utils/functions"
+import { TextAreaType } from "../../storage/types"
 
 const SUBTITLE_TEXT_AREA: TextAreaType = {
     id: "0",
     type: 'textObj',
     pos: {
         x: 50,
-        y: 66,
+        y: 67,
     },
     size: {
         width: 95,
@@ -19,6 +20,11 @@ const SUBTITLE_TEXT_AREA: TextAreaType = {
     turnAngle: 0,
 }
 
-const SubtitleArea = { ...SUBTITLE_TEXT_AREA, id: uuid() }
+const SubtitleArea = (): TextAreaType => {
+    return {
+        ...deepCopy(SUBTITLE_TEXT_AREA),
+        id: uuid()
+    }
+}
 
 export { SubtitleArea }
