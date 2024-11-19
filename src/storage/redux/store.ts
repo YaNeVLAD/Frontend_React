@@ -1,17 +1,16 @@
-import { applyMiddleware, legacy_createStore as createStore, Middleware } from "redux"
+import { applyMiddleware, legacy_createStore as createStore, Middleware } from 'redux'
 import { getEditorFromDB, saveEditorToDB } from "../utils/indexedDB"
-import { BaseEditor } from "../../common/baseEditor"
-import { rootReducer } from "./reducers/rootReducer"
-import { EditorType } from "../types"
+import { rootReducer, RootState } from "./reducers/rootReducer"
+import { BaseEditor } from "../../common/BaseEditor"
 
-const loadStateFromIndexedDB = async (): Promise<{ editor?: EditorType }> => {
+const loadStateFromIndexedDB = async (): Promise<RootState> => {
     try {
         const savedEditor = await getEditorFromDB()
         if (savedEditor) {
             return { editor: savedEditor }
         }
     } catch (error) {
-        console.error('Failed to load state from IndexedDB:', error)
+        console.error("Failed to load state from IndexedDB:", error)
     }
     return { editor: BaseEditor() }
 }
@@ -33,7 +32,7 @@ const configureStore = async () => {
 
     const store = createStore(
         rootReducer,
-        initialState,
+        initialState as unknown as Partial<{ editor: never; }>,
         applyMiddleware(saveToIndexedDBMiddleware)
     )
 

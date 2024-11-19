@@ -1,7 +1,7 @@
 import { deepCopy } from "../../storage/utils/deepCopy"
 import { uuid } from "../../storage/utils/functions"
 import { SlideType } from "../../storage/types"
-import { BaseImage } from "../baseImage"
+import { BaseImage } from "../BaseImage.ts"
 
 const IMAGE_SLIDE: SlideType = {
     id: "0",

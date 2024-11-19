@@ -25,7 +25,7 @@ const changeObjectSize = (selectedObjectId: string, width: number, height: numbe
     payload: { selectedObjectId, width, height }
 })
 
-const deleteObject = (selectedSlideId: string, selectedObjectId: string): Action => ({
+const deleteObject = (selectedSlideId: string | undefined, selectedObjectId: string | undefined): Action => ({
     type: 'DELETE_OBJECT',
     payload: { selectedSlideId, selectedObjectId }
 })

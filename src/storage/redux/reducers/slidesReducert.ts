@@ -1,24 +1,26 @@
-import { changeAllSlidesBackground, changeSlideBackground } from "../../actions/slideActions"
+import { changeAllSlidesBackground } from "../../actions/slideActions"
+import { deepCopy } from "../../utils/deepCopy"
+import { slideReducer } from "./slideReducer"
 import { Action } from "../actions/actions"
 import { SlideType } from "../../types"
-import { addObject, moveObject } from "../../actions/objectActions"
-import { deepCopy } from "../../utils/deepCopy"
 
 const initialState: Array<SlideType> = []
 
 const slidesReducer = (state = initialState, action: Action): Array<SlideType> => {
     switch (action.type) {
+        case 'ADD_OBJECT':
+        case 'MOVE_OBJECT':
+        case 'DELETE_OBJECT':
         case 'CHANGE_SLIDE_BACKGROUND':
-            return changeSlideBackground(state, action.payload)
+            return state.map(slide =>
+                slide.id == action.payload.selectedSlideId
+                    ? slideReducer(slide, action)
+                    : slide
+            )
         case 'MOVE_SLIDE':
             return deepCopy(action.payload)
-        case 'MOVE_OBJECT':
-            return moveObject(state, action.payload)
-        case 'ADD_OBJECT':
-            return addObject(state, action.payload)
         case 'CHANGE_ALL_SLIDES_BACKGROUND':
             return changeAllSlidesBackground(state, action.payload)
-
         default:
             return state
     }

@@ -50,19 +50,16 @@ function addSlide(
 }
 
 function changeSlideBackground(
-    slides: Array<SlideType>,
-    { selectedSlideId, background }: { selectedSlideId: string, background: BackgroundType }
-): Array<SlideType> {
-    const slidesCopy = deepCopy(slides)
-
-    const selectedSlide = slidesCopy.find(slide =>
-        slide.id == selectedSlideId
-    )
-    if (selectedSlide == undefined) return slidesCopy
-
-    selectedSlide.background = background
-
-    return slidesCopy
+    slide: SlideType,
+    {
+        background
+    }: {
+        background: BackgroundType
+    }
+): SlideType {
+    const slideCopy = deepCopy(slide)
+    slideCopy.background = background
+    return slideCopy
 }
 
 function deleteSlide(

@@ -1,5 +1,3 @@
-import { selectObject } from "../../../storage/actions/objectActions"
-import { dispatch } from "../../../storage/editor"
 import { ImageType } from "../../../storage/types"
 import style from './Image.module.css'
 
@@ -9,15 +7,13 @@ type ImageProps = {
 }
 
 const Image = ({ context }: ImageProps) => {
-    const onClick = () => dispatch(selectObject, { id: context.id })
     return (
         <div
             draggable={false}
             style={{
                 backgroundImage: `url(${context.src.value})`,
             }}
-            className={style.image}
-            onClick={onClick} >
+            className={style.image}>
 
         </div >
 

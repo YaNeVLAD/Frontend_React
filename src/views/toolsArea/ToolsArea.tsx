@@ -6,7 +6,7 @@ import { CreateButtonSet } from './CreateButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './ObjectButtonSet/ObjectButtonSet'
 import WorkspaceActions from './WorkspaceActions/WorkspaceActions'
 import { SlideButtonSet } from './SlideButtonSet/SlideButtonSet'
-import { BasePresentation } from '../../common/basePresentation'
+import { BasePresentation } from '../../common/BasePresentation'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
 

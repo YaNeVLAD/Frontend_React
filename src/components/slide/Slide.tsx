@@ -1,5 +1,5 @@
 import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
-import { SlideObject } from "../slideObject/SlideObject"
+import { SlideObject } from "../SlideObject/SlideObject"
 import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
 import { CSSProperties, useRef } from "react"
@@ -7,7 +7,7 @@ import style from './Slide.module.css'
 
 type SlideProps = {
     id: string,
-    selectedObjectId: string | undefined,
+    selectedObjectId?: string,
     objects: Array<SlideObjectType>
     background: BackgroundType,
     isSelected: boolean,
@@ -17,7 +17,7 @@ type SlideProps = {
 }
 
 const Slide = (props: SlideProps) => {
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement>(null)
 
     const slideStyle: CSSProperties = {}
     if (props.isSelected) slideStyle.outline = SELECTED_SLIDE_OUTLINE
@@ -34,6 +34,7 @@ const Slide = (props: SlideProps) => {
                 props.objects.map(
                     object => <SlideObject
                         key={object.id}
+                        slideId={props.id}
                         object={object}
                         isSelected={object.id == props.selectedObjectId}
                         parentRef={ref}

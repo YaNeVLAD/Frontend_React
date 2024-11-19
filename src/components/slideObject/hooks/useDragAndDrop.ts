@@ -1,74 +1,65 @@
-import { useEffect, useRef } from 'react'
-import { dispatch } from '../../../storage/editor'
-import { moveObject } from '../../../storage/actions/objectActions'
+import { PositionType } from "../../../storage/types"
+import { useEffect } from "react"
 
-type PositionType = {
-    x: number
-    y: number
-}
-
-const useDragAndDrop = (
+function useDragAndDrop(
     ref: React.RefObject<HTMLElement>,
     parentRef: React.RefObject<HTMLElement>,
     initialPosition: PositionType,
-    setPos: (pos: PositionType) => void
-) => {
-    const offset = useRef<PositionType>({ x: 0, y: 0 })
-    const isDragging = useRef(false)
-    const pos = useRef<PositionType>(initialPosition)
+    onPositionChange: (pos: PositionType) => void
+) {
+    let dragging = false
+    let offset = { x: 0, y: 0 }
+    let position = initialPosition
 
     useEffect(() => {
-        const objRef = ref.current
-
         const handleMouseDown = (e: MouseEvent) => {
-            if (!objRef || !parentRef.current) return
-
-            const elemRect = objRef.getBoundingClientRect()
-
-            offset.current = {
-                x: e.clientX - elemRect.left - elemRect.width / 2,
-                y: e.clientY - elemRect.top - elemRect.height / 2,
+            const rect = ref.current?.getBoundingClientRect()
+            if (rect) {
+                dragging = true
+                offset = {
+                    x: e.clientX - (rect.left + rect.width / 2),
+                    y: e.clientY - (rect.top + rect.height / 2)
+                }
             }
-
-            isDragging.current = true
-
-            document.addEventListener('mousemove', handleMouseMove)
-            document.addEventListener('mouseup', handleMouseUp)
         }
 
         const handleMouseMove = (e: MouseEvent) => {
-            if (!isDragging.current || !objRef || !parentRef.current) return
+            if (!dragging || !parentRef.current) return
 
             const parentRect = parentRef.current.getBoundingClientRect()
+            const newX = e.clientX - parentRect.left - offset.x
+            const newY = e.clientY - parentRect.top - offset.y
 
-            const newX = ((e.clientX - parentRect.left - offset.current.x) / parentRect.width) * 100
-            const newY = ((e.clientY - parentRect.top - offset.current.y) / parentRect.height) * 100
-
-            const newPos = {
-                x: Math.max(0, Math.min(100, newX)),
-                y: Math.max(0, Math.min(100, newY)),
+            position = {
+                x: (newX / parentRect.width) * 100,
+                y: (newY / parentRect.height) * 100
             }
-
-            setPos(newPos)
-            pos.current = newPos
+            onPositionChange(position)
         }
 
         const handleMouseUp = () => {
-            isDragging.current = false
-
-            document.removeEventListener('mousemove', handleMouseMove)
-            document.removeEventListener('mouseup', handleMouseUp)
-            dispatch(moveObject, pos.current)
+            dragging = false
         }
 
-        objRef?.addEventListener('mousedown', handleMouseDown)
+        const handleMouseLeave = () => {
+            dragging = false
+        }
+
+        const element = ref.current
+        element?.addEventListener("mousedown", handleMouseDown)
+        window.addEventListener("mousemove", handleMouseMove)
+        window.addEventListener("mouseup", handleMouseUp)
+        window.addEventListener("mouseleave", handleMouseLeave)
 
         return () => {
-            objRef?.removeEventListener('mousedown', handleMouseDown)
-            document.removeEventListener('mousemove', handleMouseMove)
-            document.removeEventListener('mouseup', handleMouseUp)
+            element?.removeEventListener("mousedown", handleMouseDown)
+            window.removeEventListener("mousemove", handleMouseMove)
+            window.removeEventListener("mouseup", handleMouseUp)
+            window.removeEventListener("mouseleave", handleMouseLeave)
         }
-    }, [ref, parentRef, setPos, initialPosition])
+    }, [ref, parentRef])
+
+    return position
 }
 
 export default useDragAndDrop

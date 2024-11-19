@@ -1,4 +1,4 @@
-import { BasePresentation } from "./basePresentation"
+import { BasePresentation } from "./BasePresentation"
 import { EditorType } from "../storage/types"
 import { deepCopy } from "../storage/utils/deepCopy"
 

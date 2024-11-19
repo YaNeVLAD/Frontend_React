@@ -46,8 +46,8 @@ type ChangeObjectSizeAction = {
 type DeleteObjectAction = {
     type: 'DELETE_OBJECT',
     payload: {
-        selectedSlideId: string,
-        selectedObjectId: string
+        selectedSlideId?: string,
+        selectedObjectId?: string
     }
 }
 

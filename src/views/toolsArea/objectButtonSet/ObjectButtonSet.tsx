@@ -1,17 +1,20 @@
-import { ImageType, TextAreaType } from "../../../storage/types"
 import RecycleBin20Icon from "../../../components/common/Icons/RecycleBin20Icon"
+import { useGetSelectedObject } from "../../../hooks/useGetSelectedObject"
+import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
 import { changeSrcValue } from "../../../storage/actions/imageActions"
-import { deleteObject } from "../../../storage/actions/objectActions"
 import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
+import { useAppActions } from "../../../hooks/useRedux"
 import { dispatch } from "../../../storage/editor"
 import style from "./ObjectButtonSet.module.css"
-import { useGetSelectedObject } from "../../../hooks/useGetSelectedObject"
 
 const ObjectButtonSet = () => {
+    const slide = useGetSelectedSlide()
     const object = useGetSelectedObject()
 
-    const onDeleteObject = () => dispatch(deleteObject)
+    const { deleteObject } = useAppActions()
+
+    const onDeleteObject = () => deleteObject(slide?.id, object?.id)
 
     if (object == undefined) return (<></>)
 
@@ -27,13 +30,17 @@ const ObjectButtonSet = () => {
             {object.type == 'textObj' && (
                 <>
                     <div className={style.separator} />
-                    <TextObjectButtonSet object={object} />
+                    <TextObjectButtonSet
+                    // object={object}
+                    />
                 </>
             )}
             {object.type == 'imageObj' && (
                 <>
                     <div className={style.separator} />
-                    <ImageObjectButtonSet object={object} />
+                    <ImageObjectButtonSet
+                    // object={object}
+                    />
                 </>
             )}
         </>
@@ -41,7 +48,7 @@ const ObjectButtonSet = () => {
 }
 
 const ImageObjectButtonSet = (
-    { object }: { object: ImageType }
+    // { object }: { object: ImageType }
 ) => {
     const updateImage = (image: string) => {
         dispatch(changeSrcValue, { value: image })
@@ -58,7 +65,7 @@ const ImageObjectButtonSet = (
 }
 
 const TextObjectButtonSet = (
-    { object }: { object: TextAreaType }
+    // { object }: { object: TextAreaType }
 ) => {
     return (
         <>

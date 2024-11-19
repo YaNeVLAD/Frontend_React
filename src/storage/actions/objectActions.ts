@@ -1,13 +1,12 @@
-import { EditorType, PositionType, PresentationType, SelectionType, SizeType, SlideType } from "../types"
+import { EditorType, PositionType, SelectionType, SizeType, SlideType } from "../types"
 import { BaseArea } from "../../common/TextArea/BaseTextArea"
-import { BaseImage } from "../../common/baseImage"
+import { BaseImage } from "../../common/BaseImage.ts"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 
 function addObject(
-    slides: Array<SlideType>,
+    slide: SlideType,
     {
-        selectedSlideId,
         type,
         value
     }: {
@@ -15,13 +14,8 @@ function addObject(
         type: 'imageObj' | 'textObj',
         value: string
     }
-): Array<SlideType> {
-    const slidesCopy = deepCopy(slides)
-
-    const selectedSlide = slidesCopy.find(
-        slide => slide.id == selectedSlideId
-    )
-    if (selectedSlide == undefined) return slides
+): SlideType {
+    const slideCopy = deepCopy(slide)
 
     let newObject
     if (type === 'imageObj') {
@@ -33,9 +27,9 @@ function addObject(
     }
     newObject.id = uuid()
 
-    selectedSlide.objects.push(newObject)
+    slideCopy.objects.push(newObject)
 
-    return slidesCopy
+    return slideCopy
 }
 
 function changeObjectSize(editor: EditorType, { width, height }: { width: number, height: number }): EditorType {
@@ -65,33 +59,27 @@ function changeObjectSize(editor: EditorType, { width, height }: { width: number
     }
 }
 
-function deleteObject(editor: EditorType): EditorType {
-    if (editor.selection.selectedObjectId == undefined) return editor
-
-    const presentationCopy: PresentationType = deepCopy(editor.presentation)
-
-    const selectedSlide = presentationCopy.slides.find(slide =>
-        slide.id == editor.selection.selectedSlideId
-    )
-    if (selectedSlide == undefined) return editor
-
-    const selectedObjectIndex = selectedSlide.objects.findIndex(obj =>
-        obj.id == editor.selection.selectedObjectId
-    )
-    if (selectedObjectIndex === -1) return editor
-
-    selectedSlide.objects.splice(selectedObjectIndex, 1)
-
-    return {
-        ...editor,
-        presentation: {
-            ...presentationCopy,
-        },
-        selection: {
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: undefined,
-        },
+function deleteObject(
+    slide: SlideType,
+    {
+        selectedObjectId
+    }: {
+        selectedSlideId?: string,
+        selectedObjectId?: string,
     }
+): SlideType {
+    if (selectedObjectId == undefined) return slide
+
+    const slideCopy = deepCopy(slide)
+
+    const selectedObjectIndex = slideCopy.objects.findIndex(obj =>
+        obj.id == selectedObjectId
+    )
+    if (selectedObjectIndex === -1) return slide
+
+    slideCopy.objects.splice(selectedObjectIndex, 1)
+
+    return slideCopy
 }
 
 function deselectAllObjects(
@@ -104,9 +92,8 @@ function deselectAllObjects(
 }
 
 function moveObject(
-    slides: Array<SlideType>,
+    slide: SlideType,
     {
-        selectedSlideId,
         selectedObjectId,
         position
     }: {
@@ -114,21 +101,17 @@ function moveObject(
         selectedObjectId: string,
         position: PositionType
     }
-): Array<SlideType> {
-    const slidesCopy = deepCopy(slides)
-    const selectedSlide = slidesCopy
-        .find(slide => slide.id == selectedSlideId)
+): SlideType {
+    const slideCopy = deepCopy(slide)
 
-    if (selectedSlide == undefined) return slides
-
-    const object = selectedSlide.objects
+    const object = slideCopy.objects
         .find(obj => obj.id == selectedObjectId)
 
-    if (object == undefined) return slides
+    if (object == undefined) return slide
 
     object.pos = position
 
-    return slidesCopy
+    return slideCopy
 }
 
 function resizeObject(editor: EditorType, size: SizeType): EditorType {
@@ -161,6 +144,7 @@ function selectObject(
 ): SelectionType {
     return {
         ...selection,
+        selectedSlideId: selection.selectedSlideId,
         selectedObjectId: selectedObjectId
     }
 }

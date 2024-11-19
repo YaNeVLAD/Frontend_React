@@ -1,6 +1,6 @@
 import { addSlide, deleteSlide } from "../../actions/slideActions"
 import { presentationReducer } from "./presentationReducer"
-import { BaseEditor } from "../../../common/baseEditor"
+import { BaseEditor } from "../../../common/BaseEditor"
 import { selectionReducer } from "./selectionReducer"
 import { Action } from "../actions/actions"
 import { EditorType } from "../../types"
@@ -13,7 +13,7 @@ const combinedEditorReducers = combineReducers({
     selection: selectionReducer,
 })
 
-const editorReducer = (state = initialState, action: Action) => {
+const editorReducer = (state = initialState, action: Action): EditorType => {
     switch (action.type) {
         case 'ADD_SLIDE':
             return addSlide(state, action.payload)

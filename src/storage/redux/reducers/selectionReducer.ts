@@ -4,7 +4,7 @@ import { SelectionType } from "../../types"
 import { Action } from "../actions/actions"
 
 const initialState: SelectionType = {
-    selectedSlideId: undefined,
+    selectedSlideId: '',
     selectedObjectId: undefined
 }
 

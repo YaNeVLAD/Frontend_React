@@ -1,71 +1,68 @@
 import { SELECTED_OBJECT_OUTLINE, SELECTED_OBJECT_OUTLINE_SHADOW } from "../../storage/constants"
-import { PositionType, SizeType, SlideObjectType } from "../../storage/types"
-import { useResizableDragAndDrop } from "./hooks/useResizableDragAndDrop"
 import ResizableHandlers from "./ResizableHandlers/resizableHandlers"
-import { CSSProperties, RefObject, useRef, useState } from "react"
+import { SlideObjectType } from "../../storage/types"
 import { useAppActions } from "../../hooks/useRedux"
 import useDragAndDrop from "./hooks/useDragAndDrop"
 import { TextArea } from "./TextArea/TextArea"
 import { Image } from "./Image/Image"
+import { useRef } from "react"
 import style from './SlideObject.module.css'
 
 type SlideObjectProps = {
-    object: SlideObjectType,
-    isSelected: boolean,
-    scale: number,
-    parentRef: RefObject<HTMLElement>
+    object: SlideObjectType
+    slideId: string
+    scale: number
+    isSelected: boolean
+    parentRef: React.RefObject<HTMLElement>
 }
 
-//Можно сделать хок компонент - resizable. Для изменения поведения объекта.
-const SlideObject = ({ object, isSelected, scale, parentRef }: SlideObjectProps) => {
-    const ref = useRef(null)
-    const [pos, setPos] = useState<PositionType>(object.pos)
-    const [size, setSize] = useState<SizeType>(object.size)
+const SlideObject = ({ object, slideId, scale, isSelected, parentRef }: SlideObjectProps) => {
+    const ref = useRef<HTMLDivElement>(null)
 
-    const { selectObject } = useAppActions()
+    const { moveObject, selectObject } = useAppActions()
 
-    useDragAndDrop(ref, parentRef, object.pos, setPos)
-    useResizableDragAndDrop(ref, parentRef, object.pos, object.size, setPos, setSize)
+    const currentPosition = useDragAndDrop(
+        ref,
+        parentRef,
+        object.pos,
+        (pos) => moveObject(slideId, object.id, pos)
+    )
 
-    const slideObjectStyle: CSSProperties = {
-        left: `${pos.x - (size.width / 2)}%`,
-        top: `${pos.y - (size.height / 2)}%`,
-        width: `${size.width}%`,
-        height: `${size.height}%`,
+    if (!object) return null
+
+    const slideObjectStyle = {
+        left: `${currentPosition.x - object.size.width / 2}%`,
+        top: `${currentPosition.y - object.size.height / 2}%`,
+        width: `${object.size.width}%`,
+        height: `${object.size.height}%`,
         transform: `rotate(${object.turnAngle}deg)`,
-        outline: isSelected ? SELECTED_OBJECT_OUTLINE : '',
-        boxShadow: isSelected ? SELECTED_OBJECT_OUTLINE_SHADOW : '',
+        outline: isSelected ? SELECTED_OBJECT_OUTLINE : "",
+        boxShadow: isSelected ? SELECTED_OBJECT_OUTLINE_SHADOW : "",
     }
 
-    let obj
-    switch (object.type) {
-        case 'textObj':
-            obj = <TextArea
-                context={object}
-                scale={scale} />
-            break
-        case 'imageObj':
-            obj = <Image
-                context={object}
-                scale={scale} />
-            break
-        default:
-            throw Error(`Unknown slide object type.`)
+    const renderObject = () => {
+        switch (object.type) {
+            case "textObj":
+                return <TextArea context={object} scale={scale} />
+            case "imageObj":
+                return <Image context={object} scale={scale} />
+            default:
+                throw new Error("Unknown object type")
+        }
     }
 
     return (
         <div
             ref={ref}
+            className={style.slideObject}
+            style={slideObjectStyle}
             onMouseDown={(e) => {
-                if (e.defaultPrevented) return
                 e.preventDefault()
                 selectObject(object.id)
             }}
-
-            className={style.slideObject}
-            style={slideObjectStyle}>
-            {obj}
-            {isSelected ? <ResizableHandlers /> : <></>}
+        >
+            {renderObject()}
+            {isSelected && <ResizableHandlers />}
         </div>
     )
 }

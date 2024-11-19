@@ -13,8 +13,8 @@ type SlideCollectionProps = {
 //Проблема с обновлением слайда в коллекции здесь. Он не перерисовывается.
 //Это может быть из-за того, что сюда передаётся старый объект. 
 const SlideCollection = ({ scale }: SlideCollectionProps) => {
-    const slides = useAppSelector(state => state.editor.presentation.slides)
     const selectedSlide = useGetSelectedSlide()
+    const slides = useAppSelector(state => state.editor.presentation.slides)
 
     const { selectSlide, moveSlide } = useAppActions()
 
@@ -51,7 +51,6 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
                                 key={slide.id}
                                 objects={slide.objects}
                                 background={slide.background}
-                                selectedObjectId={undefined}
                                 isSelected={slide.id == selectedSlide?.id}
                                 className={style.slideCollectionSlide}
                                 scale={scale}
