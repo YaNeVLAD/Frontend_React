@@ -20,7 +20,7 @@ const ImageInput = ({ labelText, labelIcon, labelClassName, onImageUpload }: Ima
     return (
         <label className={labelClassName || style.imageInputButton}>
             {labelIcon}
-            {labelText || "Найти изображение"}
+            {labelText || "Выбрать изображение"}
             <input
                 className={style.hidden}
                 ref={fileInputRef}

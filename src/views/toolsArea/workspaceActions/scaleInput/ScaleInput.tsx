@@ -44,8 +44,13 @@ const ScaleInput = () => {
 
     const PopoverContent = (
         <>
-            <div onClick={() => onOptionChange(1)}>100</div>
-            <div onClick={() => onOptionChange(2)}>200</div>
+            <div onClick={() => onOptionChange(0.50)}>50%</div>
+            <div onClick={() => onOptionChange(0.75)}>75%</div>
+            <div onClick={() => onOptionChange(0.90)}>90%</div>
+            <div onClick={() => onOptionChange(1.00)}>100%</div>
+            <div onClick={() => onOptionChange(1.25)}>125%</div>
+            <div onClick={() => onOptionChange(1.50)}>150%</div>
+            <div onClick={() => onOptionChange(2.00)}>200%</div>
         </>
     )
 

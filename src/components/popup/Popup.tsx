@@ -5,10 +5,11 @@ type PopupProps = {
     title?: string,
     content: ReactNode,
     children?: ReactNode,
+    footer?: ReactNode
     closeAction: () => void,
 }
 
-const Popup = ({ title, content, children, closeAction }: PopupProps) => {
+const Popup = ({ title, content, children, footer, closeAction }: PopupProps) => {
     return (
         <>
             {children}
@@ -19,7 +20,7 @@ const Popup = ({ title, content, children, closeAction }: PopupProps) => {
                         <div className={style.closeIcon} onClick={closeAction}></div>
                     </div>
                     {content}
-                    <button onClick={closeAction} className={style.closeButton}>Готово</button>
+                    {footer}
                 </div>
             </div>
         </>

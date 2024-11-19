@@ -17,7 +17,6 @@ const ScrollAreaWrapper = ({ children }: ZoomableScrollWrapperProps) => {
             ref={containerRef}
             onMouseDown={(e) => {
                 if (e.defaultPrevented) return
-                e.preventDefault()
                 deselectObjects()
             }}>
             <div

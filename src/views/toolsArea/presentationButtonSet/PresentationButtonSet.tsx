@@ -19,7 +19,7 @@ const PresentationButtonSet = () => {
     const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
 
     const addSlideWithPreset = (preset: SlidePreset, prev: boolean = false) => {
-        addSlide(selectedSlide?.id, preset, prev)
+        addSlide(preset, prev)
         closePopover()
     }
 
@@ -39,10 +39,15 @@ const PresentationButtonSet = () => {
                 <Button
                     type="icon"
                     displayType="tools-area-popover"
-                    onClick={() => addSlideWithPreset('none', true)}>
+                    onClick={() => addSlideWithPreset(
+                        selectedSlide?.preset
+                            ? selectedSlide.preset
+                            : 'none'
+                        , true)
+                    }>
                     {Plus20Icon}
                 </Button>
-                
+
                 <Popover
                     isOpen={isPopoverOpen}
                     togglePopover={togglePopover}

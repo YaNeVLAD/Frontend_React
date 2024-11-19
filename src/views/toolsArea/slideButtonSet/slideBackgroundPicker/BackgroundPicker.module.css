@@ -10,13 +10,14 @@
 
 .colorPickerLabel {
     text-align: center;
-    color: #808080;
+    color: #3C4043;
+    font-size: 14px;
     user-select: none;
 }
 
 .colorPickerWrapper {
     display: flex;
-    width: 330px;
+    width: 350px;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
@@ -29,4 +30,8 @@
     width: 22px;
     height: 22px;
     justify-content: space-between;
+}
+
+.colorPickerContent {
+    margin-bottom: 32px;
 }

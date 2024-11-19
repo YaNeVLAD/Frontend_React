@@ -1,5 +1,6 @@
 import Popover from "../Popover/Popover"
 import { useState } from "react"
+import styles from "./ColorInput.module.css"
 
 type ColorInputProps = {
     color: string,
@@ -26,7 +27,11 @@ const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
                 content={
                     <input type="color" value={color} onChange={onChange} />
                 }>
-                <div onClick={openPopover}>{children || <>Цвет</>}</div>
+                <div
+                    className={isPopoverOpen ? styles.openedPopoverButton : ""}
+                    onClick={openPopover}>
+                    {children || <>Цвет</>}
+                </div>
             </Popover>
         </>
     )

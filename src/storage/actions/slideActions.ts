@@ -1,4 +1,4 @@
-import { BackgroundType, SelectionType, SlidePreset, SlideType } from "../types"
+import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideType } from "../types"
 import { TitleAndImageSlide } from "../../common/Slides/TitleAndImageSlide"
 import { TitleAndTextSlide } from "../../common/Slides/TitleAndTextSlide"
 import { EmptySlide } from "../../common/Slides/EmptySlide"
@@ -9,40 +9,44 @@ import { uuid } from "../utils/functions"
 import { CSSProperties } from "react"
 
 function addSlide(
-    slides: Array<SlideType>,
+    editor: EditorType,
     {
-        selectedSlideId,
         type,
         prev
     }: {
-        selectedSlideId?: string,
         type: SlidePreset,
         prev: boolean
-    },
-): Array<SlideType> {
-    if (selectedSlideId == undefined) {
-        return [TitleSlide()]
     }
-
+): EditorType {
     const newSlide =
-        prev && slides.length == 1
-            ? selectSlidePreset('title&text')
-            : selectSlidePreset(type)
+        prev && editor.presentation.slides.length == 1
+            ? deepCopy(selectSlidePreset('title&text'))
+            : deepCopy(selectSlidePreset(type))
 
     newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
 
-    const selectedSlideIndex = slides.findIndex(
-        slide => slide.id == selectedSlideId
+    const selectedSlideIndex = editor.presentation.slides.findIndex(
+        slide => slide.id == editor.selection.selectedSlideId
     )
-    if (selectedSlideIndex == -1) return slides
+    if (selectedSlideIndex == -1) return editor
 
-    const before = slides.slice(0, selectedSlideIndex + 1)
-    const after = slides.slice(selectedSlideIndex + 1, slides.length)
+    const before = editor.presentation.slides.slice(0, selectedSlideIndex + 1)
+    const after = editor.presentation.slides.slice(selectedSlideIndex + 1, editor.presentation.slides.length)
 
     const updatedSlides = before.concat([newSlide], after)
 
-    return updatedSlides
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: updatedSlides,
+        },
+        selection: {
+            selectedSlideId: newSlide.id,
+            selectedObjectId: undefined,
+        },
+    }
 }
 
 function changeSlideBackground(
@@ -62,19 +66,33 @@ function changeSlideBackground(
 }
 
 function deleteSlide(
-    slides: Array<SlideType>,
-    selectedSlideId: string
-): Array<SlideType> {
-    if (slides.length == 1) return slides
+    editor: EditorType
+): EditorType {
+    if (editor.presentation.slides.length === 1) return editor
 
-    const slidesCopy = deepCopy(slides)
+    const presentationCopy = deepCopy(editor.presentation)
 
-    const index = slidesCopy.findIndex(slide => slide.id == selectedSlideId)
-    if (index == -1) return slides
+    const index = presentationCopy.slides.findIndex(slide => slide.id == editor.selection.selectedSlideId)
+    if (index === -1) return editor
 
-    const updatedSlides = slidesCopy.filter((_, i) => i !== index)
+    const updatedSlides = presentationCopy.slides.filter((_, i) => i !== index)
 
-    return updatedSlides
+    let newSelectedSlide = updatedSlides[updatedSlides.length - 1]
+    if (index < updatedSlides.length) {
+        newSelectedSlide = updatedSlides[index]
+    }
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: updatedSlides,
+        },
+        selection: {
+            selectedSlideId: newSelectedSlide.id,
+            selectedObjectId: undefined,
+        },
+    }
 }
 
 function selectSlide(
@@ -86,6 +104,15 @@ function selectSlide(
         selectedSlideId: selectedSlideId,
         selectedObjectId: undefined
     }
+}
+
+function changeAllSlidesBackground(
+    slides: Array<SlideType>,
+    background: BackgroundType
+): Array<SlideType> {
+    const slidesCopy = deepCopy(slides)
+    slidesCopy.forEach(slide => slide.background = background)
+    return slidesCopy
 }
 
 function selectSlidePreset(type: SlidePreset): SlideType {
@@ -129,5 +156,6 @@ export {
     changeSlideBackground,
     deleteSlide,
     selectSlide,
-    selectSlideBackgroundType
+    selectSlideBackgroundType,
+    changeAllSlidesBackground
 }

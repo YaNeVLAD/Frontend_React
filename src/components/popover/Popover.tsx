@@ -17,7 +17,7 @@ const Popover = ({ isOpen, togglePopover, closePopover, content, children }: Pop
     useHandleClickOutside(ref, closePopover)
 
     return (
-        <div className={styles.popoverContainer} ref={ref}>
+        <div className={`${styles.popoverContainer} ${isOpen && styles.pressed}`} ref={ref}>
             {children ||
                 (<div
                     onClick={togglePopover}

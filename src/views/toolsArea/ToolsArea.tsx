@@ -16,6 +16,8 @@ const ToolsArea = () => {
 
     const { changePresentationTitle } = useAppActions()
 
+    const titleInputRef = useRef<HTMLInputElement>(null)
+
     const presentationInputRef = useRef<HTMLInputElement>(null)
     const presentationExportRef = useRef<HTMLButtonElement>(null)
 
@@ -33,14 +35,13 @@ const ToolsArea = () => {
 
     return (
         <>
-            <div className={style.presentationTitleWrapper}>
-                <input
-                    type="text"
-                    defaultValue={title}
-                    onChange={onTitleChange}
-                    onBlur={onTitleInputBlur}
-                    className={style.presentationTitle} />
-            </div>
+            <input
+                type="text"
+                ref={titleInputRef}
+                defaultValue={title}
+                onChange={onTitleChange}
+                onBlur={onTitleInputBlur}
+                className={style.presentationTitle} />
 
             <button ref={presentationExportRef}>EXPORT</button>
 

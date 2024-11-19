@@ -1,9 +1,9 @@
 import { Action } from "./actions"
 import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType } from "../../types"
 
-const addSlide = (selectedSlideId: string | undefined, type: SlidePreset, prev: boolean = false): Action => ({
+const addSlide = (type: SlidePreset, prev: boolean = false): Action => ({
     type: 'ADD_SLIDE',
-    payload: { selectedSlideId, type, prev }
+    payload: { type, prev }
 })
 
 const changeSlideBackground = (selectedSlideId: string, background: BackgroundType): Action => ({
@@ -11,9 +11,8 @@ const changeSlideBackground = (selectedSlideId: string, background: BackgroundTy
     payload: { selectedSlideId, background }
 })
 
-const deleteSlide = (selectdeSlideId: string): Action => ({
-    type: 'DELETE_SLIDE',
-    payload: selectdeSlideId
+const deleteSlide = (): Action => ({
+    type: 'DELETE_SLIDE'
 })
 
 const addObject = (selectedSlideId: string | undefined, type: 'imageObj' | 'textObj', value: string): Action => ({
@@ -80,6 +79,11 @@ const updatePresentation = (presentation: PresentationType): Action => ({
     payload: presentation
 })
 
+const changeAllSlidesBackground = (background: BackgroundType): Action => ({
+    type: 'CHANGE_ALL_SLIDES_BACKGROUND',
+    payload: background
+})
+
 export {
     addSlide,
     moveSlide,
@@ -97,4 +101,5 @@ export {
     updatePresentation,
     changeSlideBackground,
     changePresentationTitle,
+    changeAllSlidesBackground,
 }

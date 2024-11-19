@@ -3,7 +3,6 @@ import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, Present
 type AddSlideAction = {
     type: 'ADD_SLIDE',
     payload: {
-        selectedSlideId?: string,
         type: SlidePreset,
         prev: boolean
     }
@@ -18,8 +17,7 @@ type ChangeSlideBackgroundAction = {
 }
 
 type DeleteSlideAction = {
-    type: 'DELETE_SLIDE',
-    payload: string
+    type: 'DELETE_SLIDE'
 }
 
 type AddObjectAction = {
@@ -117,6 +115,11 @@ type MoveSlideAction = {
     payload: Array<SlideType>
 }
 
+type ChangeAllSlidesBackground = {
+    type: 'CHANGE_ALL_SLIDES_BACKGROUND'
+    payload: BackgroundType
+}
+
 type Action =
     | AddSlideAction
     | AddObjectAction
@@ -133,6 +136,7 @@ type Action =
     | ChangeObjectSizeAction
     | UpdatePresentationAction
     | DeselectAllObjectsAction
+    | ChangeAllSlidesBackground
     | ChangeSlideBackgroundAction
     | ChangePresentationTitleAction
 

@@ -27,13 +27,14 @@ type EmptyButton = {
 
 type VariableButtons = ButtonWithText | ButtonWithIcon | ButtonWithIconAndText | EmptyButton
 
-type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover'
+type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover' | 'image-input'
 
 type BaseButtonProps = {
     type: ButtonType,
     onClick: () => void,
     popoverContent?: JSX.Element,
     displayType: ButtonDisplayTypes,
+    isDisabled?: boolean
 }
 
 type ButtonProps = BaseButtonProps & VariableButtons
@@ -42,9 +43,10 @@ const displayClassMap: Record<ButtonDisplayTypes, string> = {
     'tools-area': style.toolsAreaButton,
     'color-picker': style.colorPickerButton,
     'tools-area-popover': style.toolsAreaPopoverButton,
+    'image-input': style.imageInputButton
 }
 
-const Button = ({ onClick, popoverContent, children, displayType }: ButtonProps) => {
+const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: ButtonProps) => {
     const ref = useRef<HTMLButtonElement>(null)
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
@@ -61,6 +63,7 @@ const Button = ({ onClick, popoverContent, children, displayType }: ButtonProps)
     return (
         <div className={style.buttonWrapper}>
             <button
+                disabled={isDisabled}
                 ref={ref}
                 onClick={onButtonClick}
                 className={`${selectedClass} ${popoverContent ? style.popoverButton : ''}`}>

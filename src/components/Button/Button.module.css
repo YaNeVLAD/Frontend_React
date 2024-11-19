@@ -78,3 +78,35 @@
     background-color: #4447461F;
     color: #444746;
 }
+
+.imageInputButton {
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 14px;
+    height: 36px;
+    letter-spacing: .25px;
+    line-height: 16px;
+    padding: 9px 24px 11px;
+    background: #fff;
+    border: 1px solid #dadce0;
+    color: #202124;
+    user-select: none;
+    cursor: pointer;
+}
+
+.imageInputButton:enabled:hover {
+    background-color: #FFFDF6;
+    border: 1px solid #FEEDBC;
+}
+
+.imageInputButton:enabled:active {
+    background-color: #FFF5D7;
+    border: 1px solid #FEE7A4;
+}
+
+.imageInputButton:disabled {
+    opacity: .38;
+    border: 0;
+    cursor: auto;
+}
