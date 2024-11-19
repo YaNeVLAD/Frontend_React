@@ -6,9 +6,9 @@ import { CreateButtonSet } from './CreateButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './ObjectButtonSet/ObjectButtonSet'
 import WorkspaceActions from './WorkspaceActions/WorkspaceActions'
 import { SlideButtonSet } from './SlideButtonSet/SlideButtonSet'
+import { BasePresentation } from '../../common/basePresentation'
 import { useRef } from 'react'
 import style from './ToolsArea.module.css'
-import { BasePresentation } from '../../common/basePresentation'
 
 const ToolsArea = () => {
     const title = useAppSelector(state => state.editor.presentation.title)
@@ -23,7 +23,7 @@ const ToolsArea = () => {
         changePresentationTitle(event.target.value)
     }
 
-    const onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onTitleInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value.length == 0) event.target.value = BasePresentation().title
         changePresentationTitle(event.target.value)
     }
@@ -38,7 +38,7 @@ const ToolsArea = () => {
                     type="text"
                     defaultValue={title}
                     onChange={onTitleChange}
-                    onBlur={onBlur}
+                    onBlur={onTitleInputBlur}
                     className={style.presentationTitle} />
             </div>
 

@@ -22,29 +22,6 @@
   width: 100vw;
 }
 
-.workspaceArea {
-  display: flex;
-  justify-content: center;
-  border-left: 1px solid #808080;
-  border-top: 1px solid #808080;
-  margin-right: 20px;
-  width: 100%;
-  padding: 21px;
-  height: calc(100vh - var(--toolsBarHeight) - 200px);
-}
-
-.workspaceSlide {
-  background-color: white;
-  aspect-ratio: 16 / 9;
-  max-width: 1920px;
-  max-height: 1080px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
 .container {
   display: flex;
 }

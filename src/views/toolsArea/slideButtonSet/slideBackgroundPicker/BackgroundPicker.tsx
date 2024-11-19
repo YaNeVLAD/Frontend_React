@@ -1,26 +1,46 @@
-import { CSSProperties } from "react"
-import { Button } from "../../../../components/Button/Button"
+import ArrowDown20Icon from "../../../../components/common/icons/ArrowDown20Icon"
+import { useGetSelectedSlide } from "../../../../hooks/useGetSelectedSlide"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
 import ImageInput from "../../../../components/ImageInput/ImageInput"
+import { Button } from "../../../../components/Button/Button"
+import { BackgroundType } from "../../../../storage/types"
+import { useAppActions } from "../../../../hooks/useRedux"
+import { CSSProperties } from "react"
 import style from "./BackgroundPicker.module.css"
-import ArrowDown20Icon from "../../../../components/common/icons/ArrowDown20Icon"
 
-type ColorPickerProps = {
-    color: string,
-    onColorChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    onImageUpload: (data: string) => void
-}
+const BackgroundPicker = () => {
+    const selectedSlide = useGetSelectedSlide()
+    const { changeSlideBackground } = useAppActions()
 
-const BackgroundPicker = ({ color, onColorChange, onImageUpload }: ColorPickerProps) => {
+    if (selectedSlide == undefined) return (<></>)
+
+    const onColorChange = (color: string) => {
+        const background: BackgroundType = { value: color, type: 'solid' }
+        changeSlideBackground(selectedSlide.id, background)
+    }
+
+    const onImageUpload = (image: string) => {
+        const background: BackgroundType = { value: image, type: 'image' }
+        changeSlideBackground(selectedSlide.id, background)
+    }
+
     const backgroundStyle: CSSProperties = {
-        backgroundColor: color
+        backgroundColor: selectedSlide.background.type == 'solid'
+            ? selectedSlide.background.value
+            : ''
     }
 
     return (
         <>
             <div className={style.colorPickerWrapper}>
                 <label className={style.colorPickerLabel}>Цвет</label>
-                <ColorInput color={color} onColorChange={onColorChange}>
+                <ColorInput
+                    color={
+                        selectedSlide.background.type == 'solid'
+                            ? selectedSlide.background.value
+                            : "#FEFEFE"
+                    }
+                    onColorChange={onColorChange}>
                     <Button
                         type="empty"
                         displayType="color-picker"
@@ -43,4 +63,4 @@ const BackgroundPicker = ({ color, onColorChange, onImageUpload }: ColorPickerPr
     )
 }
 
-export default BackgroundPicker
+export { BackgroundPicker }

@@ -1,18 +1,20 @@
 import { useZoomContext } from '../../../workspaceArea/scrollAreaWrapper/hooks/useZoomContext'
+import Popover from '../../../../components/Popover/Popover'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './ScaleInput.module.css'
-import Popover from '../../../../components/Popover/Popover'
 
 const ScaleInput = () => {
     const { scale, setScale } = useZoomContext()
-    const percentScale = toPercent(scale)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        setInputValue(percentScale)
-    }, [percentScale])
+    const [inputValue, setInputValue] = useState(toPercent(scale))
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-    const [inputValue, setInputValue] = useState(percentScale)
+    useEffect(() => {
+        setInputValue(toPercent(scale))
+    }, [scale])
+
+    const closePopover = () => setIsPopoverOpen(false)
 
     const onScaleChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -26,28 +28,33 @@ const ScaleInput = () => {
 
     const selectAllText = (e: React.FocusEvent<HTMLInputElement>) => {
         e.target.select()
-        setInputValue(percentScale)
+        setInputValue(inputValue)
+        setIsPopoverOpen(true)
     }
 
     const restoreValue = () => {
-        setInputValue(percentScale)
+        setInputValue(inputValue)
     }
 
-    // const onOptionChange = (value: string) => {
-    //     setScale(Number(value))
-    //     setInputValue(value)
-    // }
+    const onOptionChange = (value: number) => {
+        setScale(value)
+        setInputValue(toPercent(value))
+        setIsPopoverOpen(false)
+    }
 
     const PopoverContent = (
         <>
-            <div>100</div>
-            <div>200</div>
+            <div onClick={() => onOptionChange(1)}>100</div>
+            <div onClick={() => onOptionChange(2)}>200</div>
         </>
     )
 
     return (
         <div>
-            <Popover content={PopoverContent} >
+            <Popover
+                isOpen={isPopoverOpen}
+                closePopover={closePopover}
+                content={PopoverContent}>
                 <input
                     ref={inputRef}
                     type="text"

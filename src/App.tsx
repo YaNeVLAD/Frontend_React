@@ -1,8 +1,8 @@
-import { ZoomProvider } from './views/workspaceArea/scrollAreaWrapper/ZoomContext'
-import { SlideCollection } from './views/slideCollection/SlideCollection'
-import WorkspaceArea from './views/workspaceArea/WorkspaceArea'
+import { ZoomProvider } from './views/WorkspaceArea/ScrollAreaWrapper/ZoomContext'
+import { SlideCollection } from './views/SlideCollection/SlideCollection'
+import WorkspaceArea from './views/WorkspaceArea/WorkspaceArea'
 import { COLLECTION_SLIDE_SCALE } from './storage/constants'
-import { ToolsArea } from './views/toolsArea/ToolsArea'
+import { ToolsArea } from './views/ToolsArea/ToolsArea'
 import style from './App.module.css'
 
 function App() {

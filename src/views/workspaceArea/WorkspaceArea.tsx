@@ -1,7 +1,7 @@
 import { SELECTED_SLIDE_SCALE, WORKSPACE_SLIDE_OBJECT_SCALE } from "../../storage/constants"
 import { useGetSelectedObject } from "../../hooks/useGetSelectedObject"
 import { useGetSelectedSlide } from "../../hooks/useGetSelectedSlide"
-import ScrollAreaWrapper from "./scrollAreaWrapper/ScrollAreaWrapper"
+import ScrollAreaWrapper from "./ScrollAreaWrapper/ScrollAreaWrapper"
 import { Slide } from "../../components/Slide/Slide"
 import style from "./WorkspaceArea.module.css"
 
