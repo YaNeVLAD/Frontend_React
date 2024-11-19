@@ -1,7 +1,7 @@
 import { IconComponent } from '../common/IconComponent'
 import Popover from '../Popover/Popover'
 import style from './Button.module.css'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 type ButtonType = 'text' | 'icon' | 'icon&text' | 'empty'
 
@@ -38,13 +38,22 @@ type BaseButtonProps = {
 
 type ButtonProps = BaseButtonProps & VariableButtons
 
+const displayClassMap: Record<ButtonDisplayTypes, string> = {
+    'tools-area': style.toolsAreaButton,
+    'color-picker': style.colorPickerButton,
+    'tools-area-popover': style.toolsAreaPopoverButton,
+}
+
 const Button = ({ onClick, popoverContent, children, displayType }: ButtonProps) => {
     const ref = useRef<HTMLButtonElement>(null)
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-    const displayClassMap: Record<ButtonDisplayTypes, string> = {
-        'tools-area': style.toolsAreaButton,
-        'color-picker': style.colorPickerButton,
-        'tools-area-popover': style.toolsAreaPopoverButton,
+    const closePopover = () => setIsPopoverOpen(false)
+    const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
+
+    const onButtonClick = () => {
+        onClick()
+        if (popoverContent) closePopover()
     }
 
     const selectedClass = displayClassMap[displayType]
@@ -53,11 +62,16 @@ const Button = ({ onClick, popoverContent, children, displayType }: ButtonProps)
         <div className={style.buttonWrapper}>
             <button
                 ref={ref}
-                onClick={onClick}
+                onClick={onButtonClick}
                 className={`${selectedClass} ${popoverContent ? style.popoverButton : ''}`}>
                 {children}
             </button>
-            {popoverContent && <Popover content={popoverContent} />}
+            {popoverContent
+                && <Popover
+                    isOpen={isPopoverOpen}
+                    togglePopover={togglePopover}
+                    closePopover={closePopover}
+                    content={popoverContent} />}
         </div>
     )
 }

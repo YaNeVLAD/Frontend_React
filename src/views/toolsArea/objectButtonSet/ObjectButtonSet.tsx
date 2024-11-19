@@ -1,5 +1,5 @@
 import { ImageType, TextAreaType } from "../../../storage/types"
-import RecycleBin20Icon from "../../../components/common/icons/RecycleBin20Icon"
+import RecycleBin20Icon from "../../../components/common/Icons/RecycleBin20Icon"
 import { changeSrcValue } from "../../../storage/actions/imageActions"
 import { deleteObject } from "../../../storage/actions/objectActions"
 import ImageInput from "../../../components/ImageInput/ImageInput"

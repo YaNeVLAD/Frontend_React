@@ -1,16 +1,17 @@
 import useHandleClickOutside from '../../hooks/useHandleClickOutside'
-import ArrowDown20Icon from '../common/icons/ArrowDown20Icon'
+import ArrowDown20Icon from '../common/Icons/ArrowDown20Icon'
 import { useRef } from 'react'
 import styles from './Popover.module.css'
 
 type PopoverProps = {
     isOpen: boolean,
+    togglePopover?: () => void,
     closePopover: () => void,
     content: JSX.Element,
-    children?: JSX.Element,
+    children?: JSX.Element
 }
 
-const Popover = ({ isOpen, closePopover, content, children }: PopoverProps) => {
+const Popover = ({ isOpen, togglePopover, closePopover, content, children }: PopoverProps) => {
     const ref = useRef<HTMLDivElement>(null)
 
     useHandleClickOutside(ref, closePopover)
@@ -18,7 +19,12 @@ const Popover = ({ isOpen, closePopover, content, children }: PopoverProps) => {
     return (
         <div className={styles.popoverContainer} ref={ref}>
             {children ||
-                (<div className={`${styles.popoverIcon} ${isOpen && styles.pressed}`}>{ArrowDown20Icon}</div>)}
+                (<div
+                    onClick={togglePopover}
+                    className={`${styles.popoverIcon} ${isOpen && styles.pressed}`}>
+                    {ArrowDown20Icon}
+                </div>)
+            }
             {isOpen && (
                 <div className={styles.popoverContent}>
                     {content}

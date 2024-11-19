@@ -1,4 +1,4 @@
-import ArrowDown20Icon from "../../../../components/common/icons/ArrowDown20Icon"
+import ArrowDown20Icon from "../../../../components/common/Icons/ArrowDown20Icon"
 import { useGetSelectedSlide } from "../../../../hooks/useGetSelectedSlide"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
 import ImageInput from "../../../../components/ImageInput/ImageInput"

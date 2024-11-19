@@ -1,22 +1,29 @@
-import Cursor20Icon from "../../../components/common/icons/Cursor20Icon"
+import Cursor20Icon from "../../../components/common/Icons/Cursor20Icon"
 import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
-import Upload24Icon from "../../../components/common/icons/Upload24Icon"
-import Image20Icon from "../../../components/common/icons/Image20Icon"
-import Text20Icon from "../../../components/common/icons/Text20Icon"
+import Upload24Icon from "../../../components/common/Icons/Upload24Icon"
+import Image20Icon from "../../../components/common/Icons/Image20Icon"
+import Text20Icon from "../../../components/common/Icons/Text20Icon"
 import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
 import Popover from "../../../components/Popover/Popover"
 import { useAppActions } from "../../../hooks/useRedux"
 import style from "./CreateButtonSet.module.css"
+import { useState } from "react"
 
 const CreateButtonSet = () => {
     const selectedSlide = useGetSelectedSlide()
     const { deselectObjects, addObject } = useAppActions()
 
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
+    const closePopover = () => setIsPopoverOpen(false)
+    const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
+
     const onAddTextArea = () => addObject(selectedSlide?.id, 'textObj', '')
 
     const onImageUpload = (image: string) => {
         addObject(selectedSlide?.id, 'imageObj', image)
+        closePopover()
     }
 
     const selectImagePopoverContent = (
@@ -45,11 +52,14 @@ const CreateButtonSet = () => {
                 {Text20Icon}
             </Button>
 
-            <Popover content={selectImagePopoverContent}>
+            <Popover
+                isOpen={isPopoverOpen}
+                closePopover={closePopover}
+                content={selectImagePopoverContent}>
                 <Button
                     type="icon"
                     displayType="tools-area"
-                    onClick={() => { }}>
+                    onClick={togglePopover}>
                     {Image20Icon}
                 </Button>
             </Popover>

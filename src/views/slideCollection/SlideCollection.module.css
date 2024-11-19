@@ -1,5 +1,6 @@
 .slideCollection {
     display: flex;
+    user-select: none;
     flex-direction: column;
     flex-wrap: nowrap;
     width: calc(225px + 50px);

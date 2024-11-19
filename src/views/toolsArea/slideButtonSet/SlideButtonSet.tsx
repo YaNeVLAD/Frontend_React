@@ -22,12 +22,14 @@ const SlideButtonSet = () => {
                 onClick={() => setIsPopupOpen(true)}>
                 {'Фон'}
             </Button>
+
             {isPopupOpen && (<Popup
                 title="Фон"
                 closeAction={() => setIsPopupOpen(false)}
                 content={<BackgroundPicker />}>
             </Popup>)
             }
+
             <Button
                 type="text"
                 displayType="tools-area"

@@ -61,7 +61,6 @@ const ToolsArea = () => {
                     ? <ObjectButtonSet />
                     : <SlideButtonSet />
                 }
-                <div className={style.separator} />
             </div>
         </>
     )
