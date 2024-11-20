@@ -22,7 +22,6 @@
 }
 
 .scaleInput:focus {
-    outline: 0;
-    border: 2px solid #0B57D0;
+    outline: 2px solid #0B57D0;
     color: #1f1f1f;
 }

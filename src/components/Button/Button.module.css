@@ -6,6 +6,7 @@
 .toolsAreaButton {
     cursor: pointer;
     user-select: none;
+    height: 100%;
     padding: 4px;
     border-radius: 5px;
     background-color: transparent;

@@ -8,7 +8,7 @@ const IMAGE_SLIDE: SlideType = {
     preset: 'image',
     objects: [BaseImage()],
     background: {
-        value: "#FEFEFE",
+        value: "#ffffff",
         type: "solid"
     }
 }

@@ -9,7 +9,7 @@ const TITLE_AND_TEXT_SLIDE: SlideType = {
     preset: "title&text",
     objects: [TextTitleArea(), TextArea()],
     background: {
-        value: "#FEFEFE",
+        value: "#ffffff",
         type: "solid"
     }
 }

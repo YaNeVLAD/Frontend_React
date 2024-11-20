@@ -7,7 +7,7 @@ const EMPTY_SLIDE: SlideType = {
     preset: 'none',
     objects: [],
     background: {
-        value: "#FEFEFE",
+        value: "#ffffff",
         type: "solid"
     }
 }

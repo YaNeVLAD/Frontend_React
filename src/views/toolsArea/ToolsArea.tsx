@@ -1,4 +1,5 @@
 import { PresentationButtonSet } from './PresentationButtonSet/PresentationButtonSet'
+import { useGetSelectedObject } from '../../hooks/useGetSelectedObject'
 import { useExportPresentation } from '../../hooks/useExportDocument'
 import { useImportPresentation } from './hooks/useImportPresentation'
 import { useAppActions, useAppSelector } from '../../hooks/useRedux'
@@ -12,7 +13,8 @@ import style from './ToolsArea.module.css'
 
 const ToolsArea = () => {
     const title = useAppSelector(state => state.editor.presentation.title)
-    const selection = useAppSelector(state => state.editor.selection)
+
+    const selectedObjectId = useGetSelectedObject()?.id
 
     const { changePresentationTitle } = useAppActions()
 
@@ -58,7 +60,7 @@ const ToolsArea = () => {
                 <CreateButtonSet />
                 <div className={style.separator} />
 
-                {selection.selectedObjectId
+                {selectedObjectId
                     ? <ObjectButtonSet />
                     : <SlideButtonSet />
                 }

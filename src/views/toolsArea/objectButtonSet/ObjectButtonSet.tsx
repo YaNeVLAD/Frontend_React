@@ -29,7 +29,6 @@ const ObjectButtonSet = () => {
 
             {object.type == 'textObj' && (
                 <>
-                    <div className={style.separator} />
                     <TextObjectButtonSet
                     // object={object}
                     />
@@ -37,7 +36,6 @@ const ObjectButtonSet = () => {
             )}
             {object.type == 'imageObj' && (
                 <>
-                    <div className={style.separator} />
                     <ImageObjectButtonSet
                     // object={object}
                     />

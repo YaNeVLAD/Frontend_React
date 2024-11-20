@@ -9,7 +9,7 @@ const TITLE_SLIDE: SlideType = {
     preset: 'title',
     objects: [TitleArea(), SubtitleArea()],
     background: {
-        value: "#FEFEFE",
+        value: "#ffffff",
         type: "solid"
     }
 }

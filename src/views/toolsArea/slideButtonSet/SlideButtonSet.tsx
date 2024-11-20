@@ -56,10 +56,15 @@ type BackgroundPopupFoorterProps = {
 const BackgroundPopupFoorter = ({ background, closePopup }: BackgroundPopupFoorterProps) => {
     const { changeAllSlidesBackground } = useAppActions()
 
+    const changeBackground = () => {
+        changeAllSlidesBackground(background)
+        closePopup()
+    }
+
     return (
         <div className={styles.popupFooterWrapper}>
             <button
-                onClick={() => changeAllSlidesBackground(background)}
+                onClick={changeBackground}
                 className={styles.imageInputButton}>
                 {'Применить ко всем'}
             </button>

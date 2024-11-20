@@ -3,13 +3,12 @@
   flex-direction: row;
   gap: 6px;
   flex-wrap: nowrap;
-  align-items: center;
   height: var(--toolsBarHeight);
   margin: 5px 20px;
   border-radius: 30px;
   background-color: #F0F4F9;
   margin-bottom: 25px;
-  padding: 0px 10px;
+  padding: 5px 10px;
 }
 
 .presentationTitle {
@@ -17,21 +16,35 @@
   max-width: 400px;
   border-radius: 4px;
   font-size: 18px;
-  line-height: 22px;
-  padding: 2px 8px;
-  outline: 0;
+  padding: 0 4px;
   border: 0;
+  outline: 1px solid transparent;
   overflow: hidden;
   color: #444746;
-  font-variant-ligatures: no-contextual;
+  margin: 15px 0 10px 40px;
 }
 
-.presentationTitleWrapper {
-  margin: 5px var(--titleMarginSide);
+.presentationTitle:hover {
+  outline-color: #747775;
+}
+
+.presentationTitle:focus {
+  outline: 2px solid #0B57D0;
+  box-shadow: none;
+  color: #1F1F1F;
 }
 
 .separator {
-  height: 25px;
-  width: 1px;
-  background-color: #C7C7C7;
+  border-color: #c7c7c7;
+  margin: 5px 3px;
+  border-left: 1px solid #dadce0;
+  vertical-align: top;
+  line-height: normal;
+  height: 20px;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  display: inline-block;
 }
