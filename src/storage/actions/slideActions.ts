@@ -1,4 +1,4 @@
-import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideType } from "../types"
+import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideTheme, SlideType } from "../types"
 import { TitleAndImageSlide } from "../../common/Slides/TitleAndImageSlide"
 import { TitleAndTextSlide } from "../../common/Slides/TitleAndTextSlide"
 import { EmptySlide } from "../../common/Slides/EmptySlide"
@@ -12,10 +12,12 @@ function addSlide(
     editor: EditorType,
     {
         type,
-        prev
+        prev,
+        theme
     }: {
         type: SlidePreset,
-        prev: boolean
+        prev: boolean,
+        theme: SlideTheme
     }
 ): EditorType {
     const newSlide =
@@ -25,6 +27,8 @@ function addSlide(
 
     newSlide.objects.forEach(obj => obj.id = uuid())
     newSlide.id = uuid()
+
+    newSlide.background = theme.background
 
     const selectedSlideIndex = editor.presentation.slides.findIndex(
         slide => slide.id == editor.selection.selectedSlideId

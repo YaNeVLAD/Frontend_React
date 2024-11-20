@@ -1,30 +1,30 @@
 import { applyMiddleware, legacy_createStore as createStore, Middleware } from 'redux'
-import { getEditorFromDB, saveEditorToDB } from "../utils/indexedDB"
+import { getRootStateFromDB, saveRootStateToDB } from "../utils/indexedDB"
 import { rootReducer, RootState } from "./reducers/rootReducer"
 import { BaseEditor } from "../../common/BaseEditor"
+import { BaseViewModel } from '../../common/BaseViewModel'
 
 const loadStateFromIndexedDB = async (): Promise<RootState> => {
     try {
-        const savedEditor = await getEditorFromDB()
-        if (savedEditor) {
-            return { editor: savedEditor }
+        const savedState = await getRootStateFromDB()
+        if (savedState) {
+            return savedState
         }
     } catch (error) {
         console.error("Failed to load state from IndexedDB:", error)
     }
-    return { editor: BaseEditor() }
+    return { editor: BaseEditor(), viewModel: BaseViewModel() }
 }
 
 const saveToIndexedDBMiddleware: Middleware = store => next => action => {
     const result = next(action)
 
     const state = store.getState()
-    if (state.editor) {
-        saveEditorToDB(state.editor)
-    }
+    saveRootStateToDB(state)
 
     return result
 }
+
 
 const configureStore = async () => {
     const initialState = await loadStateFromIndexedDB()

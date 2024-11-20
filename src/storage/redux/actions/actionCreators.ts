@@ -1,9 +1,9 @@
 import { Action } from "./actions"
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType } from "../../types"
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme } from "../../types"
 
-const addSlide = (type: SlidePreset, prev: boolean = false): Action => ({
+const addSlide = (type: SlidePreset, prev: boolean = false, theme: SlideTheme): Action => ({
     type: 'ADD_SLIDE',
-    payload: { type, prev }
+    payload: { type, prev, theme }
 })
 
 const changeSlideBackground = (selectedSlideId: string, background: BackgroundType): Action => ({
@@ -79,9 +79,19 @@ const updatePresentation = (presentation: PresentationType): Action => ({
     payload: presentation
 })
 
+const changeSlideThemeBackground = (background: BackgroundType): Action => ({
+    type: 'CHANGE_THEME_BACKGROUND',
+    payload: background
+})
+
 const changeAllSlidesBackground = (background: BackgroundType): Action => ({
     type: 'CHANGE_ALL_SLIDES_BACKGROUND',
     payload: background
+})
+
+const changeWorkspaceScale = (scale: number): Action => ({
+    type: 'CHANGE_SCALE',
+    payload: scale
 })
 
 export {
@@ -99,7 +109,9 @@ export {
     deselectObjects,
     changeObjectSize,
     updatePresentation,
+    changeWorkspaceScale,
     changeSlideBackground,
     changePresentationTitle,
     changeAllSlidesBackground,
+    changeSlideThemeBackground,
 }

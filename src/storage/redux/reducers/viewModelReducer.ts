@@ -1,8 +1,10 @@
-import { combineReducers } from "redux"
+import { themeReducer } from "./themeReducer"
 import { scaleReducer } from "./scaleReducer"
+import { combineReducers } from "redux"
 
 const viewModelReducer = combineReducers({
-    scale: scaleReducer
+    scale: scaleReducer,
+    slideTheme: themeReducer,
 })
 
 export { viewModelReducer }

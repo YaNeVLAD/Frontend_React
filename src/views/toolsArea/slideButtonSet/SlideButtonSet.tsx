@@ -54,9 +54,10 @@ type BackgroundPopupFoorterProps = {
 }
 
 const BackgroundPopupFoorter = ({ background, closePopup }: BackgroundPopupFoorterProps) => {
-    const { changeAllSlidesBackground } = useAppActions()
+    const { changeAllSlidesBackground, changeSlideThemeBackground } = useAppActions()
 
     const changeBackground = () => {
+        changeSlideThemeBackground(background)
         changeAllSlidesBackground(background)
         closePopup()
     }

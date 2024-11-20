@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { saveEditorToDB } from "./utils/indexedDB"
+// import { saveEditorToDB } from "./utils/indexedDB"
 import { EditorType } from "./types"
 
 let editorChangeHandler: Function | undefined
@@ -23,7 +23,7 @@ function getEditor(): EditorType {
 
 async function setEditor(editor: EditorType) {
     _editor = editor
-    await saveEditorToDB(editor)
+    // await saveEditorToDB(editor)
 }
 
 function addEditorChangeHandler(handler: Function) {

@@ -1,15 +1,17 @@
 import ArrowDown20Icon from "../../../../components/common/Icons/ArrowDown20Icon"
 import { useGetSelectedSlide } from "../../../../hooks/useGetSelectedSlide"
+import { useAppActions, useAppSelector } from "../../../../hooks/useRedux"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
 import ImageInput from "../../../../components/ImageInput/ImageInput"
 import { Button } from "../../../../components/Button/Button"
 import { BackgroundType } from "../../../../storage/types"
-import { useAppActions } from "../../../../hooks/useRedux"
 import { CSSProperties, useState } from "react"
 import styles from "./BackgroundPicker.module.css"
 
 const BackgroundPicker = () => {
     const selectedSlide = useGetSelectedSlide()
+
+    const themeBackground = useAppSelector(state => state.viewModel.slideTheme.background)
 
     const { changeSlideBackground } = useAppActions()
 
@@ -18,9 +20,8 @@ const BackgroundPicker = () => {
     if (selectedSlide == undefined) return (<></>)
 
     const restoreBackground = () => {
-        const baseBackground: BackgroundType = { type: 'solid', value: "#ffffff" }
-        setBackground(baseBackground)
-        changeSlideBackground(selectedSlide.id, baseBackground)
+        setBackground(themeBackground)
+        changeSlideBackground(selectedSlide.id, themeBackground)
     }
 
     const onBackgroundChange = (color: string) => {
@@ -72,14 +73,23 @@ const BackgroundPicker = () => {
                 <label className={styles.colorPickerLabel}>
                     {'Изображение'}
                 </label>
-                <ImageInput onImageUpload={onImageUpload} />
+                <ImageInput
+                    type="custom"
+                    onImageUpload={onImageUpload}>
+                    <Button
+                        type="text"
+                        displayType="image-input"
+                        onClick={() => { }}>
+                        {'Выбрать изображение'}
+                    </Button>
+                </ImageInput>
             </div>
             <div className={styles.colorPickerWrapper}>
                 <label className={styles.colorPickerLabel}>
                     {'Восстановить исходный фон'}
                 </label>
                 <Button
-                    isDisabled={background?.type == 'solid' && background.value.toLowerCase() == "#ffffff"}
+                    isDisabled={background?.value == themeBackground.value}
                     type="text"
                     displayType="image-input"
                     onClick={restoreBackground}>

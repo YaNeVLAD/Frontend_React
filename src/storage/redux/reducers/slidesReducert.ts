@@ -1,8 +1,8 @@
-import { changeAllSlidesBackground } from "../../actions/slideActions"
 import { deepCopy } from "../../utils/deepCopy"
 import { slideReducer } from "./slideReducer"
 import { Action } from "../actions/actions"
 import { SlideType } from "../../types"
+import { changeAllSlidesBackground } from "../../actions/slideActions"
 
 const initialState: Array<SlideType> = []
 

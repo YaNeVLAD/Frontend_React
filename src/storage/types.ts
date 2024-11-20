@@ -3,6 +3,15 @@ type EditorType = {
     selection: SelectionType
 }
 
+type ViewModel = {
+    scale: number,
+    slideTheme: SlideTheme
+}
+
+type SlideTheme = {
+    background: BackgroundType
+}
+
 type PresentationType = {
     title: string,
     slides: Array<SlideType>
@@ -95,4 +104,6 @@ export type {
     SlideObjectType,
     DropListOptionType,
     SlidePreset,
+    ViewModel,
+    SlideTheme
 }

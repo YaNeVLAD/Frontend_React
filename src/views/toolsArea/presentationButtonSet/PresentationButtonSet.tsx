@@ -3,13 +3,14 @@ import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
 import Plus20Icon from "../../../components/common/Icons/Plus20Icon"
 import { Button } from "../../../components/Button/Button"
 import Popover from "../../../components/Popover/Popover"
-import { useAppActions } from "../../../hooks/useRedux"
+import { useAppActions, useAppSelector } from "../../../hooks/useRedux"
 import { SlidePreset } from "../../../storage/types"
 import { useState } from "react"
 import styles from "./PresentationButtonSet.module.css"
 
 const PresentationButtonSet = () => {
     const selectedSlide = useGetSelectedSlide()
+    const theme = useAppSelector(state => state.viewModel.slideTheme)
 
     const { addSlide } = useAppActions()
 
@@ -19,7 +20,7 @@ const PresentationButtonSet = () => {
     const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
 
     const addSlideWithPreset = (preset: SlidePreset, prev: boolean = false) => {
-        addSlide(preset, prev)
+        addSlide(preset, prev, theme)
         closePopover()
     }
 
