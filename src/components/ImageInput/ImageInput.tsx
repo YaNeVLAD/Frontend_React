@@ -2,33 +2,58 @@ import { IconComponent } from "../common/IconComponent"
 import useImportImage from "./hooks/useImportImage"
 import style from "./ImageInput.module.css"
 
-type ImageInputProps = {
+type CustomImageInput = {
+    type: 'custom'
+    children: JSX.Element,
+    onImageUpload: (data: string) => void
+}
+
+type ImageInputProps = CustomImageInput | {
+    type: 'default'
     labelIcon?: IconComponent
     labelText?: string,
     labelClassName?: string,
     onImageUpload: (data: string) => void
 }
 
-const ImageInput = ({ labelText, labelIcon, labelClassName, onImageUpload }: ImageInputProps) => {
-    const { fileInputRef, handleFileChange } = useImportImage(onImageUpload)
+const ImageInput = (props: ImageInputProps) => {
+    const { fileInputRef, handleFileChange } = useImportImage(props.onImageUpload)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleFileChange()
         e.target.value = ''
     }
 
-    return (
-        <label className={labelClassName || style.imageInputButton}>
-            {labelIcon}
-            {labelText || "Выбрать изображение"}
-            <input
-                className={style.hidden}
-                ref={fileInputRef}
-                onChange={onChange}
-                type="file"
-                accept=".png, .jpeg, .jpg, .gif" />
-        </label>
-    )
+    const openInput = () => fileInputRef?.current?.click()
+
+    switch (props.type) {
+        case 'default':
+            return (
+                <label className={props.labelClassName || style.imageInputButton}>
+                    {props.labelIcon}
+                    {props.labelText || "Выбрать изображение"}
+                    <input
+                        className={style.hidden}
+                        ref={fileInputRef}
+                        onChange={onChange}
+                        type="file"
+                        accept=".png, .jpeg, .jpg, .gif" />
+                </label>
+            )
+
+        case 'custom':
+            return (
+                <label className={style.customLabel} onClick={openInput}>
+                    {props.children}
+                    <input
+                        className={style.hidden}
+                        ref={fileInputRef}
+                        onChange={onChange}
+                        type="file"
+                        accept=".png, .jpeg, .jpg, .gif" />
+                </label>
+            )
+    }
 }
 
 export default ImageInput

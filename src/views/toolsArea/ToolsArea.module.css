@@ -11,29 +11,6 @@
   padding: 5px 10px;
 }
 
-.presentationTitle {
-  background: none;
-  max-width: 400px;
-  border-radius: 4px;
-  font-size: 18px;
-  padding: 0 4px;
-  border: 0;
-  outline: 1px solid transparent;
-  overflow: hidden;
-  color: #444746;
-  margin: 15px 0 10px 40px;
-}
-
-.presentationTitle:hover {
-  outline-color: #747775;
-}
-
-.presentationTitle:focus {
-  outline: 2px solid #0B57D0;
-  box-shadow: none;
-  color: #1F1F1F;
-}
-
 .separator {
   border-color: #c7c7c7;
   margin: 5px 3px;

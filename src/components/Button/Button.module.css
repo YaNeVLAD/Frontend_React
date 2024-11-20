@@ -111,3 +111,26 @@
     border: 0;
     cursor: auto;
 }
+
+.dropdownButton {
+    display: flex;
+    user-select: none;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: max-content;
+    gap: 5px;
+    border: 0;
+    background: none;
+    padding-block: 5px;
+    font-size: 14px;
+    border-radius: 1px;
+    padding-right: 15px;
+}
+
+.dropdownButton:hover {
+    background-color: #ECECEC;
+}
+
+.dropdownButton:active {
+    background-color: #dcdcdc;
+}

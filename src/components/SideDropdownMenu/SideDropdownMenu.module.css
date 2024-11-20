@@ -1,0 +1,46 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #e1e1e1;
+}
+
+.popover {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    /* Открывается справа от кнопки */
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /* Расстояние между элементами меню */
+}
+
+.popover div {
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.popover div:hover {
+    background-color: #f9f9f9;
+}

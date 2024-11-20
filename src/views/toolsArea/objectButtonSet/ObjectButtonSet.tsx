@@ -6,7 +6,6 @@ import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import { dispatch } from "../../../storage/editor"
-import style from "./ObjectButtonSet.module.css"
 
 const ObjectButtonSet = () => {
     const slide = useGetSelectedSlide()
@@ -55,9 +54,15 @@ const ImageObjectButtonSet = (
     return (
         <>
             <ImageInput
-                labelText="Заменить изображение"
-                labelClassName={style.button}
-                onImageUpload={updateImage} />
+                type="custom"
+                onImageUpload={updateImage}>
+                <Button
+                    type="text"
+                    displayType="tools-area"
+                    onClick={() => { }}>
+                    {'Заменить изображение'}
+                </Button>
+            </ImageInput>
         </>
     )
 }

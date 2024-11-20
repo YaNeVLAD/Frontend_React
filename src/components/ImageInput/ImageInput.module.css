@@ -27,3 +27,7 @@
     background-color: #FFF5D7;
     border: 1px solid #FEE7A4;
 }
+
+.customLabel {
+    display: flex;
+}

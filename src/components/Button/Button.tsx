@@ -27,7 +27,7 @@ type EmptyButton = {
 
 type VariableButtons = ButtonWithText | ButtonWithIcon | ButtonWithIconAndText | EmptyButton
 
-type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover' | 'image-input'
+type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover' | 'image-input' | 'dropdown'
 
 type BaseButtonProps = {
     type: ButtonType,
@@ -43,7 +43,8 @@ const displayClassMap: Record<ButtonDisplayTypes, string> = {
     'tools-area': style.toolsAreaButton,
     'color-picker': style.colorPickerButton,
     'tools-area-popover': style.toolsAreaPopoverButton,
-    'image-input': style.imageInputButton
+    'image-input': style.imageInputButton,
+    'dropdown': style.dropdownButton
 }
 
 const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: ButtonProps) => {

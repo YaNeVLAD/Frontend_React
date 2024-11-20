@@ -7,7 +7,6 @@ import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
 import Popover from "../../../components/Popover/Popover"
 import { useAppActions } from "../../../hooks/useRedux"
-import style from "./CreateButtonSet.module.css"
 import { useState } from "react"
 
 const CreateButtonSet = () => {
@@ -29,10 +28,16 @@ const CreateButtonSet = () => {
     const selectImagePopoverContent = (
         <>
             <ImageInput
-                labelText="Загрузить с компьютера"
-                labelIcon={Upload24Icon}
-                labelClassName={style.uploadImagePopoverButton}
-                onImageUpload={onImageUpload} />
+                type="custom"
+                onImageUpload={onImageUpload}>
+                <Button
+                    type="icon&text"
+                    displayType="dropdown"
+                    onClick={() => { }}>
+                    {Upload24Icon}
+                    {'Загрузить с компьютера'}
+                </Button>
+            </ImageInput>
         </>
     )
 
