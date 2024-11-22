@@ -1,15 +1,17 @@
-import { useAppActions } from "../../../hooks/useRedux"
-import { restoreEditor } from "../../../storage/file/read"
-import { useCallback, useEffect } from "react"
+import { loadPresentation } from "../storage/file/read"
+import { useCallback, useEffect, useRef } from "react"
+import { useAppActions } from "./useRedux"
 
-const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
+const useImportPresentation = () => {
+    const inputRef = useRef<HTMLInputElement>(null)
+
     const { updatePresentation } = useAppActions()
 
     const onImport = useCallback(() => {
         const file = inputRef.current?.files?.[0]
         if (!file) return
 
-        restoreEditor(file)
+        loadPresentation(file)
             .then((presentation) => {
                 if (presentation) {
                     updatePresentation(presentation)
@@ -31,6 +33,8 @@ const useImportPresentation = (inputRef: React.RefObject<HTMLInputElement>) => {
             inputElement.removeEventListener('change', onImport)
         }
     }, [inputRef, onImport])
+
+    return { inputRef }
 }
 
 export { useImportPresentation }

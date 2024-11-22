@@ -1,5 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import style from './Popup.module.css'
+import Close24Icon from '../common/Icons/Close24Icon'
+import Close24ActiveIcon from '../common/Icons/Close24ActiveIcon'
 
 type PopupProps = {
     title?: string,
@@ -10,6 +12,8 @@ type PopupProps = {
 }
 
 const Popup = ({ title, content, children, footer, closeAction }: PopupProps) => {
+    const [isHovered, setIsHovered] = useState(false)
+
     return (
         <>
             {children}
@@ -17,7 +21,13 @@ const Popup = ({ title, content, children, footer, closeAction }: PopupProps) =>
                 <div className={style.popup}>
                     <div className={style.titleWrapper}>
                         {title && (<span className={style.title}>{title}</span>)}
-                        <div className={style.closeIcon} onClick={closeAction}></div>
+                        <div
+                            className={style.closeIcon}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            onClick={closeAction}>
+                            {isHovered ? Close24ActiveIcon : Close24Icon}
+                        </div>
                     </div>
                     {content}
                     {footer}

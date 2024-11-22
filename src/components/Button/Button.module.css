@@ -117,7 +117,8 @@
     user-select: none;
     align-items: center;
     flex-wrap: nowrap;
-    width: max-content;
+    min-width: max-content;
+    width: 100%;
     gap: 5px;
     border: 0;
     background: none;

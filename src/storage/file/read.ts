@@ -2,7 +2,7 @@ import { parsePresentationFromJson } from "./parse"
 import { PresentationType } from "../types"
 import { validatePresentation } from "./validation/ajv"
 
-function restoreEditor(file: File | undefined): Promise<PresentationType | null> {
+function loadPresentation(file: File | undefined): Promise<PresentationType | null> {
     return new Promise((resolve, reject) => {
         if (file) {
             const reader = new FileReader()
@@ -27,4 +27,4 @@ function restoreEditor(file: File | undefined): Promise<PresentationType | null>
     })
 }
 
-export { restoreEditor }
+export { loadPresentation }

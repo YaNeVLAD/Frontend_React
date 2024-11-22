@@ -37,15 +37,10 @@
 }
 
 .closeIcon {
-    display: inline-block;
-    background-image: url('./../../assets/icons/close.svg');
-    background-repeat: no-repeat;
-    background-position: center;
+    display: flex;
     border-radius: 50%;
     cursor: pointer;
-    height: 24px;
-    padding: 12px;
-    width: 24px;
+    padding: 7px;
 }
 
 .closeIcon:hover {

@@ -1,7 +1,7 @@
 import { IconComponent } from '../common/IconComponent'
 import Popover from '../Popover/Popover'
 import style from './Button.module.css'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 type ButtonType = 'text' | 'icon' | 'icon&text' | 'empty'
 
@@ -31,7 +31,7 @@ type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover' |
 
 type BaseButtonProps = {
     type: ButtonType,
-    onClick: () => void,
+    onClick?: () => void,
     popoverContent?: JSX.Element,
     displayType: ButtonDisplayTypes,
     isDisabled?: boolean
@@ -48,14 +48,13 @@ const displayClassMap: Record<ButtonDisplayTypes, string> = {
 }
 
 const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: ButtonProps) => {
-    const ref = useRef<HTMLButtonElement>(null)
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
     const closePopover = () => setIsPopoverOpen(false)
     const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
 
     const onButtonClick = () => {
-        onClick()
+        if (onClick) onClick()
         if (popoverContent) closePopover()
     }
 
@@ -65,7 +64,6 @@ const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: 
         <div className={style.buttonWrapper}>
             <button
                 disabled={isDisabled}
-                ref={ref}
                 onClick={onButtonClick}
                 className={`${selectedClass} ${popoverContent ? style.popoverButton : ''}`}>
                 {children}

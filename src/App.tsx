@@ -9,10 +9,8 @@ function App() {
     return (
         <ZoomProvider>
             <ToolsArea />
-            <div
-                className={style.container}>
-                <SlideCollection
-                    scale={COLLECTION_SLIDE_SCALE} />
+            <div className={style.container}>
+                <SlideCollection scale={COLLECTION_SLIDE_SCALE} />
                 <WorkspaceArea />
             </div>
         </ZoomProvider>

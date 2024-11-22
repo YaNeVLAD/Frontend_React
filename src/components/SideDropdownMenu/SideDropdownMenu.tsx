@@ -1,19 +1,19 @@
+import { useState } from "react"
 import styles from "./SideDropdownMenu.module.css"
 
 type SideDropdownMenuProps = {
-    isOpen: boolean,
-    onOpen: () => void,
-    onClose: () => void,
     children: JSX.Element,
     content: JSX.Element
 }
 
-const SideDropdownMenu = ({ isOpen, onOpen, onClose, children, content }: SideDropdownMenuProps) => {
+const SideDropdownMenu = ({ children, content }: SideDropdownMenuProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+
     return (
         <div
             className={styles.dropdown}
-            onMouseEnter={onOpen}
-            onMouseLeave={onClose}>
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}>
             {children}
             {isOpen && <div className={styles.popover}>{content}</div>}
         </div>
