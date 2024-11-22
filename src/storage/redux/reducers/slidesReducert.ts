@@ -11,6 +11,7 @@ const slidesReducer = (state = initialState, action: Action): Array<SlideType> =
         case 'ADD_OBJECT':
         case 'MOVE_OBJECT':
         case 'DELETE_OBJECT':
+        case 'RESIZE_OBJECT':
         case 'CHANGE_SLIDE_BACKGROUND':
             return state.map(slide =>
                 slide.id == action.payload.selectedSlideId

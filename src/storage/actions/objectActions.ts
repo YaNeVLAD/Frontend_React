@@ -114,28 +114,28 @@ function moveObject(
     return slideCopy
 }
 
-function resizeObject(editor: EditorType, size: SizeType): EditorType {
-    const editorCopy = deepCopy(editor)
-    const selectedSlide = editorCopy.presentation.slides
-        .find(slide => slide.id == editorCopy.selection.selectedSlideId)
+function resizeObject(
+    slide: SlideType,
+    {
+        selectedObjectId,
+        size,
+    }: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        size: SizeType
+    }
+): SlideType {
 
-    if (selectedSlide == undefined) return editor
+    const slideCopy = deepCopy(slide)
 
-    const object = selectedSlide.objects
-        .find(obj => obj.id == editorCopy.selection.selectedObjectId)
+    const object = slideCopy.objects
+        .find(obj => obj.id == selectedObjectId)
 
-    if (object == undefined) return editor
+    if (object == undefined) return slide
 
     object.size = size
 
-    return {
-        ...editorCopy,
-        selection: {
-            ...editorCopy.selection,
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: object.id
-        }
-    }
+    return slideCopy
 }
 
 function selectObject(

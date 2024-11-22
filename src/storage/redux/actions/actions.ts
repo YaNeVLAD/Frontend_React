@@ -69,6 +69,7 @@ type MoveObjectAction = {
 type ResizeObjectAction = {
     type: 'RESIZE_OBJECT',
     payload: {
+        selectedSlideId: string,
         selectedObjectId: string,
         size: SizeType
     }

@@ -1,5 +1,5 @@
+import { ResizableSlideObject } from "../SlideObject/ResizableHandlers/ResizableSlideObject"
 import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
-import { SlideObject } from "../SlideObject/SlideObject"
 import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
 import { CSSProperties, useRef } from "react"
@@ -32,7 +32,7 @@ const Slide = (props: SlideProps) => {
             className={`${style.slide} ${props.className}`}>
             {
                 props.objects.map(
-                    object => <SlideObject
+                    object => <ResizableSlideObject
                         key={object.id}
                         slideId={props.id}
                         object={object}

@@ -35,9 +35,9 @@ const moveObject = (selectedSlideId: string, selectedObjectId: string, position:
     payload: { selectedSlideId, selectedObjectId, position }
 })
 
-const resizeObject = (selectedObjectId: string, size: SizeType): Action => ({
+const resizeObject = (selectedSlideId: string, selectedObjectId: string, size: SizeType): Action => ({
     type: 'RESIZE_OBJECT',
-    payload: { selectedObjectId, size }
+    payload: { selectedSlideId, selectedObjectId, size }
 })
 
 const selectObject = (selectedObjectId: string): Action => ({
