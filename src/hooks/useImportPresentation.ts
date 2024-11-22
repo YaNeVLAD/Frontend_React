@@ -5,7 +5,7 @@ import { useAppActions } from "./useRedux"
 const useImportPresentation = () => {
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const { updatePresentation } = useAppActions()
+    const { importPresentation } = useAppActions()
 
     const onImport = useCallback(() => {
         const file = inputRef.current?.files?.[0]
@@ -14,14 +14,14 @@ const useImportPresentation = () => {
         loadPresentation(file)
             .then((presentation) => {
                 if (presentation) {
-                    updatePresentation(presentation)
+                    importPresentation(presentation)
                 }
             })
             .catch(() => alert("При загрузке файла произошла ошибка."))
             .finally(() => {
                 if (inputRef.current) inputRef.current.value = ""
             })
-    }, [inputRef, updatePresentation])
+    }, [inputRef, importPresentation])
 
     useEffect(() => {
         const inputElement = inputRef.current

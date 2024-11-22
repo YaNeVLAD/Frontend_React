@@ -1,9 +1,9 @@
 import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideTheme, SlideType } from "../types"
-import { TitleAndImageSlide } from "../../common/Slides/TitleAndImageSlide"
-import { TitleAndTextSlide } from "../../common/Slides/TitleAndTextSlide"
-import { EmptySlide } from "../../common/Slides/EmptySlide"
-import { ImageSlide } from "../../common/Slides/ImageSlide"
-import { TitleSlide } from "../../common/Slides/TitleSlide"
+import { TITLE_AND_IMAGE_SLIDE } from "../../common/Slides/TitleAndImageSlide"
+import { TITLE_AND_TEXT_SLIDE } from "../../common/Slides/TitleAndTextSlide"
+import { EMPTY_SLIDE } from "../../common/Slides/EmptySlide"
+import { IMAGE_SLIDE } from "../../common/Slides/ImageSlide"
+import { TITLE_SLIDE } from "../../common/Slides/TitleSlide"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 import { CSSProperties } from "react"
@@ -119,15 +119,15 @@ function changeAllSlidesBackground(
 function selectSlidePreset(type: SlidePreset): SlideType {
     switch (type) {
         case 'none':
-            return EmptySlide()
+            return EMPTY_SLIDE()
         case 'image':
-            return ImageSlide()
+            return IMAGE_SLIDE()
         case 'title':
-            return TitleSlide()
+            return TITLE_SLIDE()
         case 'title&image':
-            return TitleAndImageSlide()
+            return TITLE_AND_IMAGE_SLIDE()
         case 'title&text':
-            return TitleAndTextSlide()
+            return TITLE_AND_TEXT_SLIDE()
         default:
             throw Error("Invalid slide start content type")
     }

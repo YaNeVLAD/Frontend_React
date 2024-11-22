@@ -1,8 +1,8 @@
 import { applyMiddleware, legacy_createStore as createStore, Middleware } from 'redux'
 import { getRootStateFromDB, saveRootStateToDB } from "../utils/indexedDB"
 import { rootReducer, RootState } from "./reducers/rootReducer"
-import { BaseEditor } from "../../common/BaseEditor"
-import { BaseViewModel } from '../../common/BaseViewModel'
+import { BASE_VIEWMODEL } from '../../common/BaseViewModel'
+import { BASE_EDITOR } from '../../common/BaseEditor'
 
 const loadStateFromIndexedDB = async (): Promise<RootState> => {
     try {
@@ -13,7 +13,7 @@ const loadStateFromIndexedDB = async (): Promise<RootState> => {
     } catch (error) {
         console.error("Failed to load state from IndexedDB:", error)
     }
-    return { editor: BaseEditor(), viewModel: BaseViewModel() }
+    return { editor: BASE_EDITOR(), viewModel: BASE_VIEWMODEL() }
 }
 
 const saveToIndexedDBMiddleware: Middleware = store => next => action => {

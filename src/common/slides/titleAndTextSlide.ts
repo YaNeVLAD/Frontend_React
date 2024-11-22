@@ -1,25 +1,18 @@
-import { TextTitleArea } from "../TextArea/TitleOnTextSlideTextArea"
-import { deepCopy } from "../../storage/utils/deepCopy"
+import { TITLE_ON_TEXT_SLIDE_AREA } from "../TextArea/TitleOnTextSlideTextArea"
 import { uuid } from "../../storage/utils/functions"
-import { TextArea } from "../TextArea/TextArea"
+import { TEXT_AREA } from "../TextArea/TextArea"
 import { SlideType } from "../../storage/types"
 
-const TITLE_AND_TEXT_SLIDE: SlideType = {
-    id: "0",
-    preset: "title&text",
-    objects: [TextTitleArea(), TextArea()],
-    background: {
-        value: "#ffffff",
-        type: "solid"
-    }
-}
-
-const TitleAndTextSlide = (): SlideType => {
+function TITLE_AND_TEXT_SLIDE(): SlideType {
     return {
-        ...deepCopy(TITLE_AND_TEXT_SLIDE),
-        id: uuid()
+        id: uuid(),
+        preset: "title&text",
+        objects: [TITLE_ON_TEXT_SLIDE_AREA(), TEXT_AREA()],
+        background: {
+            value: "#ffffff",
+            type: "solid"
+        }
     }
 }
 
-
-export { TitleAndTextSlide }
+export { TITLE_AND_TEXT_SLIDE }

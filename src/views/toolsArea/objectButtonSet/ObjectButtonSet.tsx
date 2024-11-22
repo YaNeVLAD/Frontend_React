@@ -13,9 +13,11 @@ const ObjectButtonSet = () => {
 
     const { deleteObject } = useAppActions()
 
+    if (slide == undefined || object == undefined) return
+
     const onDeleteObject = () => deleteObject(slide?.id, object?.id)
 
-    if (object == undefined) return (<></>)
+    if (object == undefined) return
 
     return (
         <>

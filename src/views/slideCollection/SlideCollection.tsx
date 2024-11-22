@@ -10,8 +10,6 @@ type SlideCollectionProps = {
     scale: number
 }
 
-//Проблема с обновлением слайда в коллекции здесь. Он не перерисовывается.
-//Это может быть из-за того, что сюда передаётся старый объект. 
 const SlideCollection = ({ scale }: SlideCollectionProps) => {
     const selectedSlide = useGetSelectedSlide()
     const slides = useAppSelector(state => state.editor.presentation.slides)

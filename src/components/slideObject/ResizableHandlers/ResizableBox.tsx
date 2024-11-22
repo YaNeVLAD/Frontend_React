@@ -99,44 +99,43 @@ const ResizableBox: React.FC<ResizableBoxProps> = ({ onResize, width, height }) 
         position: 'absolute',
         width: '12px',
         height: '12px',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: '#0B57D0',
         cursor: `${direction}-resize`,
         zIndex: 10,
-        [direction]: '-6px',
     })
 
     return (
         <div ref={boxRef} style={boxStyle}>
             <div
-                style={{ ...cornerStyle('top-left'), top: '0', left: '0' }}
+                style={{ ...cornerStyle('nw'), top: '-6px', left: '-6px' }}
                 onMouseDown={(e) => handleMouseDown(e, 'top-left')}
             />
             <div
-                style={{ ...cornerStyle('top-right'), top: '0', right: '0' }}
+                style={{ ...cornerStyle('ne'), top: '-6px', right: '-6px' }}
                 onMouseDown={(e) => handleMouseDown(e, 'top-right')}
             />
             <div
-                style={{ ...cornerStyle('bottom-left'), bottom: '0', left: '0' }}
+                style={{ ...cornerStyle('sw'), bottom: '-6px', left: '-6px' }}
                 onMouseDown={(e) => handleMouseDown(e, 'bottom-left')}
             />
             <div
-                style={{ ...cornerStyle('bottom-right'), bottom: '0', right: '0' }}
+                style={{ ...cornerStyle('se'), bottom: '-6px', right: '-6px' }}
                 onMouseDown={(e) => handleMouseDown(e, 'bottom-right')}
             />
             <div
-                style={{ ...cornerStyle('top'), top: '0', left: '50%' }}
+                style={{ ...cornerStyle('n'), top: '-6px', left: '50%' }}
                 onMouseDown={(e) => handleMouseDown(e, 'top')}
             />
             <div
-                style={{ ...cornerStyle('right'), right: '0', top: '50%' }}
+                style={{ ...cornerStyle('e'), right: '-6px', top: '50%' }}
                 onMouseDown={(e) => handleMouseDown(e, 'right')}
             />
             <div
-                style={{ ...cornerStyle('bottom'), bottom: '0', left: '50%' }}
+                style={{ ...cornerStyle('s'), bottom: '-6px', left: '50%' }}
                 onMouseDown={(e) => handleMouseDown(e, 'bottom')}
             />
             <div
-                style={{ ...cornerStyle('left'), left: '0', top: '50%' }}
+                style={{ ...cornerStyle('w'), left: '-6px', top: '50%' }}
                 onMouseDown={(e) => handleMouseDown(e, 'left')}
             />
         </div>

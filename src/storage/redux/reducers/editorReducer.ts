@@ -1,12 +1,12 @@
 import { addSlide, deleteSlide } from "../../actions/slideActions"
 import { presentationReducer } from "./presentationReducer"
-import { BaseEditor } from "../../../common/BaseEditor"
+import { BASE_EDITOR } from "../../../common/BaseEditor"
 import { selectionReducer } from "./selectionReducer"
 import { Action } from "../actions/actions"
 import { EditorType } from "../../types"
 import { combineReducers } from "redux"
 
-const initialState: EditorType = BaseEditor()
+const initialState: EditorType = BASE_EDITOR()
 
 const combinedEditorReducers = combineReducers({
     presentation: presentationReducer,

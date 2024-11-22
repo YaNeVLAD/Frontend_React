@@ -1,6 +1,6 @@
 import { EditorType, PositionType, SelectionType, SizeType, SlideType } from "../types"
-import { BaseArea } from "../../common/TextArea/BaseTextArea"
-import { BaseImage } from "../../common/BaseImage.ts"
+import { BASE_TEXT_AREA } from "../../common/TextArea/BaseTextArea"
+import { BASE_IMAGE } from "../../common/BaseImage.ts"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/functions"
 
@@ -19,10 +19,10 @@ function addObject(
 
     let newObject
     if (type === 'imageObj') {
-        newObject = BaseImage()
+        newObject = BASE_IMAGE()
         newObject.src.value = value
     } else {
-        newObject = BaseArea()
+        newObject = BASE_TEXT_AREA()
         newObject.value = value
     }
     newObject.id = uuid()

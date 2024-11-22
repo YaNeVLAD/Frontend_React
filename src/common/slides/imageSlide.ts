@@ -1,24 +1,17 @@
-import { deepCopy } from "../../storage/utils/deepCopy"
 import { uuid } from "../../storage/utils/functions"
 import { SlideType } from "../../storage/types"
-import { BaseImage } from "../BaseImage.ts"
+import { BASE_IMAGE } from "../BaseImage.ts"
 
-const IMAGE_SLIDE: SlideType = {
-    id: "0",
-    preset: 'image',
-    objects: [BaseImage()],
-    background: {
-        value: "#ffffff",
-        type: "solid"
-    }
-}
-
-const ImageSlide = (): SlideType => {
+function IMAGE_SLIDE(): SlideType {
     return {
-        ...deepCopy(IMAGE_SLIDE),
-        id: uuid()
+        id: uuid(),
+        preset: 'image',
+        objects: [BASE_IMAGE()],
+        background: {
+            value: "#ffffff",
+            type: "solid"
+        }
     }
 }
 
-
-export { ImageSlide }
+export { IMAGE_SLIDE }

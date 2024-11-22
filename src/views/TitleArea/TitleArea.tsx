@@ -1,5 +1,5 @@
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
-import { BasePresentation } from "../../common/BasePresentation"
+import { BASE_PRESENTATION } from "../../common/BasePresentation"
 import { PROJECT_NAME } from "../../storage/constants"
 import { useRef, useState, useEffect } from "react"
 import style from "./TitleArea.module.css"
@@ -17,14 +17,14 @@ const TitleArea = () => {
     }
 
     const onTitleInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value.length == 0) event.target.value = BasePresentation().title
+        if (event.target.value.length == 0) event.target.value = BASE_PRESENTATION().title
         changePresentationTitle(event.target.value)
     }
 
     const updateWidth = (value: string) => {
         if (spanRef.current) {
             spanRef.current.textContent = value || " "
-            const newWidth = Math.min(spanRef.current.offsetWidth + 10, 600) // Добавляем небольшой отступ
+            const newWidth = Math.min(spanRef.current.offsetWidth + 10, 600)
             setInputWidth(newWidth + "px")
         }
     }
@@ -38,7 +38,7 @@ const TitleArea = () => {
         if (spanRef.current) {
             const value = e.target.value
             if (value.length > 20 && spanRef.current.offsetWidth > 600) {
-                e.target.value = value.slice(0, 20) + "..." // Обрезаем текст
+                e.target.value = value.slice(0, 20) + "..."
             }
             onTitleInputBlur(e)
             document.title = title + ' - ' + PROJECT_NAME

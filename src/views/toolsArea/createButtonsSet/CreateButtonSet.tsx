@@ -15,6 +15,8 @@ const CreateButtonSet = () => {
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
+    if (selectedSlide == undefined) return
+
     const closePopover = () => setIsPopoverOpen(false)
     const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
 

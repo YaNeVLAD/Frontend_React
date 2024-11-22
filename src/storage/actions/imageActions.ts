@@ -1,5 +1,5 @@
-import { EditorType } from "../types"
 import { deepCopy } from "../utils/deepCopy"
+import { EditorType } from "../types"
 
 function changeSrcValue(editor: EditorType, { value }: { value: string }): EditorType {
     const editorCopy = deepCopy(editor)

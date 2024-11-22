@@ -1,25 +1,18 @@
-import { deepCopy } from "../../storage/utils/deepCopy"
-import { TitleArea } from "../TextArea/TitleTextArea"
+import { TITLE_TEXT_AREA } from "../TextArea/TitleTextArea"
 import { uuid } from "../../storage/utils/functions"
 import { SlideType } from "../../storage/types"
-import { BaseImage } from "../BaseImage.ts"
+import { BASE_IMAGE } from "../BaseImage.ts"
 
-const TITLE_AND_IMAGE_SLIDE: SlideType = {
-    id: "0",
-    preset: 'title&image',
-    objects: [BaseImage(), TitleArea()],
-    background: {
-        value: "#ffffff",
-        type: "solid"
-    }
-}
-
-const TitleAndImageSlide = (): SlideType => {
+function TITLE_AND_IMAGE_SLIDE(): SlideType {
     return {
-        ...deepCopy(TITLE_AND_IMAGE_SLIDE),
-        id: uuid()
+        id: uuid(),
+        preset: 'title&image',
+        objects: [BASE_IMAGE(), TITLE_TEXT_AREA()],
+        background: {
+            value: "#ffffff",
+            type: "solid"
+        }
     }
 }
 
-
-export { TitleAndImageSlide }
+export { TITLE_AND_IMAGE_SLIDE }

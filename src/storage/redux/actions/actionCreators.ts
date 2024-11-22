@@ -15,7 +15,7 @@ const deleteSlide = (): Action => ({
     type: 'DELETE_SLIDE'
 })
 
-const addObject = (selectedSlideId: string | undefined, type: 'imageObj' | 'textObj', value: string): Action => ({
+const addObject = (selectedSlideId: string, type: 'imageObj' | 'textObj', value: string): Action => ({
     type: 'ADD_OBJECT',
     payload: { selectedSlideId, type, value }
 })
@@ -25,7 +25,7 @@ const changeObjectSize = (selectedObjectId: string, width: number, height: numbe
     payload: { selectedObjectId, width, height }
 })
 
-const deleteObject = (selectedSlideId: string | undefined, selectedObjectId: string | undefined): Action => ({
+const deleteObject = (selectedSlideId: string, selectedObjectId: string): Action => ({
     type: 'DELETE_OBJECT',
     payload: { selectedSlideId, selectedObjectId }
 })
@@ -74,7 +74,7 @@ const moveSlide = (slides: Array<SlideType>): Action => ({
     payload: slides
 })
 
-const updatePresentation = (presentation: PresentationType): Action => ({
+const importPresentation = (presentation: PresentationType): Action => ({
     type: 'UPDATE_PRESENTATION',
     payload: presentation
 })
@@ -108,7 +108,7 @@ export {
     changeTextValue,
     deselectObjects,
     changeObjectSize,
-    updatePresentation,
+    importPresentation,
     changeWorkspaceScale,
     changeSlideBackground,
     changePresentationTitle,

@@ -24,7 +24,7 @@ type DeleteSlideAction = {
 type AddObjectAction = {
     type: 'ADD_OBJECT',
     payload: {
-        selectedSlideId?: string,
+        selectedSlideId: string,
         type: 'imageObj' | 'textObj',
         value: string
     }
@@ -47,8 +47,8 @@ type ChangeObjectSizeAction = {
 type DeleteObjectAction = {
     type: 'DELETE_OBJECT',
     payload: {
-        selectedSlideId?: string,
-        selectedObjectId?: string
+        selectedSlideId: string,
+        selectedObjectId: string
     }
 }
 

@@ -1,24 +1,18 @@
-import { SubtitleArea } from "../TextArea/SubtitleTextArea"
-import { deepCopy } from "../../storage/utils/deepCopy"
-import { TitleArea } from "../TextArea/TitleTextArea"
-import { uuid } from "../../storage/utils/functions"
+import { SUBTITLE_TEXT_AREA } from "../TextArea/SubtitleTextArea"
+import { TITLE_TEXT_AREA } from "../TextArea/TitleTextArea"
 import { SlideType } from "../../storage/types"
+import { uuid } from "../../storage/utils/functions"
 
-const TITLE_SLIDE: SlideType = {
-    id: "0",
-    preset: 'title',
-    objects: [TitleArea(), SubtitleArea()],
-    background: {
-        value: "#ffffff",
-        type: "solid"
-    }
-}
-
-const TitleSlide = (): SlideType => {
+function TITLE_SLIDE(): SlideType {
     return {
-        ...deepCopy(TITLE_SLIDE),
-        id: uuid()
+        id: uuid(),
+        preset: 'title',
+        objects: [TITLE_TEXT_AREA(), SUBTITLE_TEXT_AREA()],
+        background: {
+            value: "#ffffff",
+            type: "solid"
+        }
     }
 }
 
-export { TitleSlide }
+export { TITLE_SLIDE }
