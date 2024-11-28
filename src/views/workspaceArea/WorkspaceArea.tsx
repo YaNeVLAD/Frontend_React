@@ -20,8 +20,6 @@ const WorkspaceArea = () => {
                     <Slide
                         id={selectedSlide.id}
                         selectedObjectId={selectedObject?.id}
-                        objects={selectedSlide.objects}
-                        background={selectedSlide.background}
                         isSelected={false}
                         className={style.workspaceSlide}
                         scale={SELECTED_SLIDE_SCALE}

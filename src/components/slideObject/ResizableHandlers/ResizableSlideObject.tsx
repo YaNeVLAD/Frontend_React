@@ -1,14 +1,13 @@
 import { SELECTED_OBJECT_OUTLINE, SELECTED_OBJECT_OUTLINE_SHADOW } from '../../../storage/constants'
-import { SizeType, SlideObjectType } from '../../../storage/types'
-import React, { useRef, useState, useCallback } from 'react'
-import { useAppActions } from '../../../hooks/useRedux'
-import useDragAndDrop from '../hooks/useDragAndDrop'
-import { ResizableBox } from './ResizableBox'
+import { useAppActions, useAppSelector } from '../../../hooks/useRedux'
 import { SlideObject } from '../SlideObject'
+import useDragAndResize from './useResize'
+import { useRef } from 'react'
 import styles from "./ResizableSlideObject.module.css"
+import { PositionType } from '../../../storage/types'
 
 type WithResizableProps = {
-    object: SlideObjectType
+    id: string,
     slideId: string
     scale: number
     isSelected: boolean
@@ -16,62 +15,108 @@ type WithResizableProps = {
 }
 
 const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>) => {
-    return ({ object, slideId, scale, isSelected, parentRef }: WithResizableProps) => {
+    return ({ id, slideId, scale, isSelected, parentRef }: WithResizableProps) => {
         const ref = useRef<HTMLDivElement>(null)
-        const [resizeData, setResizeData] = useState<SizeType>({
-            width: object.size.width,
-            height: object.size.height
-        })
+
+        const slide = useAppSelector(
+            state => state.editor.presentation.slides.find(
+                s => s.id == slideId
+            ))
+
+        const object = slide?.objects.find(obj => obj.id == id)
+
+        if (!object) return (<></>)
+
         const { moveObject, resizeObject } = useAppActions()
 
-        const onResize = useCallback(
-            (size: SizeType) => {
-                setResizeData(size)
-                resizeObject(slideId, object.id, size)
-            },
-            [resizeObject, slideId, object.id]
-        )
+        const { offset, sizeOffset, handleMouseDown } = useDragAndResize(
+            (offset: PositionType, sizeOffset: PositionType | undefined) => {
+                moveObject(slideId, id, {
+                    x: object.pos.x + offset.x,
+                    y: object.pos.y + offset.y
+                })
+                if (sizeOffset) {
+                    resizeObject(slideId, id, {
+                        width: object.size.width + sizeOffset.x,
+                        height: object.size.height + sizeOffset.y
+                    })
+                }
+            })
 
-        const currentPosition = useDragAndDrop(
-            ref,
-            parentRef,
-            object.pos,
-            (pos) => moveObject(slideId, object.id, pos)
-        )
+        const cornerStyle = (direction: string): React.CSSProperties => ({
+            position: 'absolute',
+            width: '12px',
+            height: '12px',
+            backgroundColor: '#0B57D0',
+            cursor: `${direction}-resize`,
+            zIndex: 10,
+        })
 
-        // Стиль для позиционирования и изменения размера
         const slideObjectStyle = {
-            left: `${currentPosition.x - resizeData.width / 2}%`,
-            top: `${currentPosition.y - resizeData.height / 2}%`,
-            width: `${resizeData.width}%`,
-            height: `${resizeData.height}%`,
+            left: `${(object.pos.x + offset.x) * scale}px`,
+            top: `${(object.pos.y + offset.y) * scale}px`,
+            width: `${(object.size.width + sizeOffset.x) * scale}px`,
+            height: `${(object.size.height + sizeOffset.y) * scale}px`,
             transform: `rotate(${object.turnAngle}deg)`,
             outline: isSelected ? SELECTED_OBJECT_OUTLINE : '',
             boxShadow: isSelected ? SELECTED_OBJECT_OUTLINE_SHADOW : '',
         }
 
         return (
-            <div ref={ref} style={slideObjectStyle} className={styles.slideObject}>
+            <div
+                ref={ref}
+                style={slideObjectStyle}
+                className={styles.slideObject}
+                onMouseDown={(e) => handleMouseDown(e, "drag")}
+            >
                 <WrappedComponent
-                    object={{ ...object, size: resizeData }}
+                    id={id}
                     slideId={slideId}
                     scale={scale}
                     isSelected={isSelected}
                     parentRef={parentRef}
                 />
                 {isSelected && (
-                    <ResizableBox
-                        onResize={onResize}
-                        width={resizeData.width}
-                        height={resizeData.height}
-                    />
+                    <>
+                        <div
+                            style={{ ...cornerStyle("nw"), left: "-6px", top: "-6px" }}
+                            onMouseMove={(e) => handleMouseDown(e, 'top-left')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('ne'), top: '-6px', right: '-6px' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'top-right')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('sw'), bottom: '-6px', left: '-6px' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'bottom-left')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('se'), bottom: '-6px', right: '-6px' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'bottom-right')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('n'), top: '-6px', left: '50%' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'top')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('e'), right: '-6px', top: '50%' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'right')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('s'), bottom: '-6px', left: '50%' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'bottom')}
+                        />
+                        <div
+                            style={{ ...cornerStyle('w'), left: '-6px', top: '50%' }}
+                            onMouseMove={(e) => handleMouseDown(e, 'left')}
+                        />
+                    </>
                 )}
             </div>
         )
     }
 }
 
-// Оборачиваем SlideObject в HOC, добавляем функциональность ресайза
 const ResizableSlideObject = withResizable(SlideObject)
 
 export { ResizableSlideObject }

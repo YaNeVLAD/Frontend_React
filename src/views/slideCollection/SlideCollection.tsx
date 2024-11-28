@@ -47,8 +47,6 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
                             <Slide
                                 id={slide.id}
                                 key={slide.id}
-                                objects={slide.objects}
-                                background={slide.background}
                                 isSelected={slide.id == selectedSlide?.id}
                                 className={style.slideCollectionSlide}
                                 scale={scale}

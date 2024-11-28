@@ -1,24 +1,27 @@
-import { SELECTED_OBJECT_OUTLINE, SELECTED_OBJECT_OUTLINE_SHADOW } from "../../storage/constants"
-import { SlideObjectType } from "../../storage/types"
-import { useAppActions } from "../../hooks/useRedux"
+import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { TextArea } from "./TextArea/TextArea"
 import { Image } from "./Image/Image"
 import { useRef } from "react"
 import style from "./SlideObject.module.css"
 
 type SlideObjectProps = {
-    object: SlideObjectType
+    id: string
     slideId: string
     scale: number
     isSelected: boolean
     parentRef: React.RefObject<HTMLElement>
 }
 
-
-const SlideObject = ({ object, scale, isSelected }: SlideObjectProps) => {
+const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
     const ref = useRef<HTMLDivElement>(null)
 
     const { selectObject } = useAppActions()
+
+    const slide = useAppSelector(
+        state => state.editor.presentation.slides.find(s => s.id == slideId)
+    )
+
+    const object = slide?.objects.find(obj => obj.id == id)
 
     if (!object) return null
 
@@ -26,11 +29,7 @@ const SlideObject = ({ object, scale, isSelected }: SlideObjectProps) => {
         width: `100%`,
         height: `100%`,
         transform: `rotate(${object.turnAngle}deg)`,
-        outline: isSelected ? SELECTED_OBJECT_OUTLINE : "",
-        boxShadow: isSelected ? SELECTED_OBJECT_OUTLINE_SHADOW : "",
     }
-
-    // Мемоизируем handleResize, чтобы избежать циклических вызовов
 
     const renderObject = () => {
         switch (object.type) {
@@ -51,13 +50,8 @@ const SlideObject = ({ object, scale, isSelected }: SlideObjectProps) => {
             onMouseDown={(e) => {
                 e.preventDefault()
                 selectObject(object.id)
-            }}
-        >
+            }}>
             {renderObject()}
-            {isSelected && (
-                <></>
-                // <ResizableBox />
-            )}
         </div>
     )
 }

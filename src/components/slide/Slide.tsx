@@ -1,15 +1,13 @@
 import { ResizableSlideObject } from "../SlideObject/ResizableHandlers/ResizableSlideObject"
 import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
-import { BackgroundType, SlideObjectType } from "../../storage/types"
 import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
 import { CSSProperties, useRef } from "react"
 import style from './Slide.module.css'
+import { useAppSelector } from "../../hooks/useRedux"
 
 type SlideProps = {
     id: string,
     selectedObjectId?: string,
-    objects: Array<SlideObjectType>
-    background: BackgroundType,
     isSelected: boolean,
     className: string,
     scale: number,
@@ -17,13 +15,20 @@ type SlideProps = {
 }
 
 const Slide = (props: SlideProps) => {
+    const slide = useAppSelector(state => state.editor.presentation.slides.find(
+        s => s.id == props.id
+    ))
+
     const ref = useRef<HTMLDivElement>(null)
 
-    const slideStyle: CSSProperties = {}
-    if (props.isSelected) slideStyle.outline = SELECTED_SLIDE_OUTLINE
-    slideStyle.transform = `scale(${props.scale})`
+    const slideStyle: CSSProperties = {
+        transform: `scale(${props.scale})`,
+        outline: props.isSelected ? SELECTED_SLIDE_OUTLINE : ''
+    }
 
-    selectSlideBackgroundType(slideStyle, props.background)
+    if (!slide) return (<></>)
+
+    selectSlideBackgroundType(slideStyle, slide.background)
 
     return (
         <div
@@ -31,11 +36,11 @@ const Slide = (props: SlideProps) => {
             style={slideStyle}
             className={`${style.slide} ${props.className}`}>
             {
-                props.objects.map(
+                slide.objects.map(
                     object => <ResizableSlideObject
                         key={object.id}
-                        slideId={props.id}
-                        object={object}
+                        id={object.id}
+                        slideId={slide.id}
                         isSelected={object.id == props.selectedObjectId}
                         parentRef={ref}
                         scale={props.objectScale} />

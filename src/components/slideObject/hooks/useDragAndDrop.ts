@@ -1,65 +1,63 @@
-import { PositionType } from "../../../storage/types"
-import { useEffect } from "react"
+import { useState, useEffect, useCallback } from 'react'
+import { PositionType } from '../../../storage/types'
 
-function useDragAndDrop(
-    ref: React.RefObject<HTMLElement>,
-    parentRef: React.RefObject<HTMLElement>,
-    initialPosition: PositionType,
-    onPositionChange: (pos: PositionType) => void
-) {
-    let dragging = false
-    let offset = { x: 0, y: 0 }
-    let position = initialPosition
+const useDragAndDrop = (onDrop: () => void) => {
+    const [dragging, setDragging] = useState<boolean>(false)
+    const [offset, setOffset] = useState<PositionType>({ x: 0, y: 0 })
+    const [startPosition, setStartPosition] = useState<{ startX: number, startY: number }>({
+        startX: 0,
+        startY: 0,
+    })
+
+    const handleMouseMove = useCallback(
+        (event: MouseEvent) => {
+            if (dragging) {
+                const x = event.clientX - startPosition.startX
+                const y = event.clientY - startPosition.startY
+                setOffset({ x, y })
+            }
+        },
+        [dragging, startPosition]
+    )
+
+    const handleMouseUp = useCallback(() => {
+        if (dragging) {
+            setDragging(false)
+            onDrop()
+            setOffset({ x: 0, y: 0 })
+        }
+    }, [dragging, onDrop])
+
+    const handleMouseDown = useCallback(
+        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            setDragging(true)
+            setStartPosition({
+                startX: event.clientX,
+                startY: event.clientY,
+            })
+        },
+        []
+    )
 
     useEffect(() => {
-        const handleMouseDown = (e: MouseEvent) => {
-            const rect = ref.current?.getBoundingClientRect()
-            if (rect) {
-                dragging = true
-                offset = {
-                    x: e.clientX - (rect.left + rect.width / 2),
-                    y: e.clientY - (rect.top + rect.height / 2)
-                }
-            }
+        if (dragging) {
+            window.addEventListener('mousemove', handleMouseMove)
+            window.addEventListener('mouseup', handleMouseUp)
+        } else {
+            window.removeEventListener('mousemove', handleMouseMove)
+            window.removeEventListener('mouseup', handleMouseUp)
         }
-
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!dragging || !parentRef.current) return
-
-            const parentRect = parentRef.current.getBoundingClientRect()
-            const newX = e.clientX - parentRect.left - offset.x
-            const newY = e.clientY - parentRect.top - offset.y
-
-            position = {
-                x: (newX / parentRect.width) * 100,
-                y: (newY / parentRect.height) * 100
-            }
-            onPositionChange(position)
-        }
-
-        const handleMouseUp = () => {
-            dragging = false
-        }
-
-        const handleMouseLeave = () => {
-            dragging = false
-        }
-
-        const element = ref.current
-        element?.addEventListener("mousedown", handleMouseDown)
-        window.addEventListener("mousemove", handleMouseMove)
-        window.addEventListener("mouseup", handleMouseUp)
-        window.addEventListener("mouseleave", handleMouseLeave)
 
         return () => {
-            element?.removeEventListener("mousedown", handleMouseDown)
-            window.removeEventListener("mousemove", handleMouseMove)
-            window.removeEventListener("mouseup", handleMouseUp)
-            window.removeEventListener("mouseleave", handleMouseLeave)
+            window.removeEventListener('mousemove', handleMouseMove)
+            window.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [ref, parentRef])
+    }, [dragging, handleMouseMove, handleMouseUp])
 
-    return position
+    return {
+        offset,
+        handleMouseDown,
+    }
 }
 
 export default useDragAndDrop
