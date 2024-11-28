@@ -15,8 +15,6 @@ const combinedEditorReducers = combineReducers({
 
 const editorReducer = (state = initialState, action: Action): EditorType => {
     switch (action.type) {
-        case 'SET_STATE':
-            return action.payload
         case 'ADD_SLIDE':
             return addSlide(state, action.payload)
         case 'DELETE_SLIDE':

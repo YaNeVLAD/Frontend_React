@@ -1,5 +1,7 @@
-import { Button } from "../../../components/Button/Button"
+import Redo20Icon from "../../../components/common/Icons/Redo20Icon"
+import Undo20Icon from "../../../components/common/Icons/Undo20Icon"
 import { CommandHistoryContext } from "../../../hooks/historyContext"
+import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import ScaleInput from "./scaleInput/ScaleInput"
 import React from "react"
@@ -22,18 +24,19 @@ const WorkspaceActions = () => {
     return (
         <>
             <Button
-                type="text"
+                type="icon"
                 displayType="tools-area"
-                onClick={onRedo}>
-                {'Redo'}
+                onClick={onUndo}>
+                {Undo20Icon}
             </Button>
 
             <Button
-                type="text"
+                type="icon"
                 displayType="tools-area"
-                onClick={onUndo}>
-                {'Undo'}
+                onClick={onRedo}>
+                {Redo20Icon}
             </Button>
+
             <ScaleInput />
         </>
     )

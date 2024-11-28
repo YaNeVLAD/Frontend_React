@@ -4,7 +4,6 @@ type EditorType = {
 }
 
 type ViewModel = {
-    scale: number,
     slideTheme: SlideTheme
 }
 

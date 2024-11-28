@@ -1,4 +1,5 @@
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, EditorType } from "../../types"
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme } from "../../types"
+import { RootState } from "../reducers/rootReducer"
 import { Action } from "./actions"
 
 const addSlide = (type: SlidePreset, prev: boolean = false, theme: SlideTheme): Action => ({
@@ -89,7 +90,7 @@ const changeAllSlidesBackground = (background: BackgroundType): Action => ({
     payload: background
 })
 
-const setState = (state: EditorType): Action => ({
+const setState = (state: RootState): Action => ({
     type: 'SET_STATE',
     payload: state
 })

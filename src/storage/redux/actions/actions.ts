@@ -1,4 +1,5 @@
-import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, EditorType } from "../../types"
+import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme } from "../../types"
+import { RootState } from "../reducers/rootReducer"
 
 type AddSlideAction = {
     type: 'ADD_SLIDE',
@@ -129,7 +130,7 @@ type ChangeSlideThemeBackgroundAction = {
 
 type SetStateAction = {
     type: 'SET_STATE'
-    payload: EditorType
+    payload: RootState
 }
 
 type Action =

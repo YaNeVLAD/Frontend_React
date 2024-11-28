@@ -1,37 +1,41 @@
-import { RootState } from "./redux/types"
-import { EditorType } from "./types"
+import { RootState } from "./redux/reducers/rootReducer"
 import { Store } from "redux"
 
 type CommandHistory = {
-    undo: () => EditorType | undefined,
-    redo: () => EditorType | undefined
+    undo: () => RootState | undefined,
+    redo: () => RootState | undefined
 }
 
-function getLastState(stack: Array<EditorType>): EditorType {
+function getLastState(stack: Array<RootState>): RootState {
     return stack[stack.length - 1]
 }
 
-function initHistory(store: Store<RootState>): CommandHistory {
-    const undoStack: Array<EditorType> = []
-    let redoStack: Array<EditorType> = []
+function hasStateChanged(prev: RootState, curr: RootState): boolean {
+    return prev.editor.presentation != curr.editor.presentation
+        || prev.viewModel != curr.viewModel
+}
 
-    let previousEditor = store.getState().editor
+function initHistory(store: Store<RootState>): CommandHistory {
+    const undoStack: Array<RootState> = []
+    let redoStack: Array<RootState> = []
+
+    let prevState = store.getState()
 
     store.subscribe(() => {
-        const editor = store.getState().editor
-        if (!undoStack.length || previousEditor.presentation != editor.presentation) {
-            if (editor == getLastState(undoStack)) {
+        const state = store.getState()
+        if (!undoStack.length || hasStateChanged(prevState, state)) {
+            if (state == getLastState(undoStack)) {
                 undoStack.pop()
-                redoStack.push(previousEditor)
-            } else if (editor == getLastState(redoStack)) {
+                redoStack.push(prevState)
+            } else if (state == getLastState(redoStack)) {
                 redoStack.pop()
-                undoStack.push(previousEditor)
+                undoStack.push(prevState)
             } else {
-                undoStack.push(previousEditor)
+                undoStack.push(prevState)
                 redoStack = []
             }
         }
-        previousEditor = editor
+        prevState = state
     })
 
     function undo() {
