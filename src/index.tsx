@@ -1,5 +1,6 @@
-import ReactDOM from "react-dom/client"
 import configureStore from "./storage/redux/store.ts"
+import { initHistory } from "./storage/history.ts"
+import ReactDOM from "react-dom/client"
 import { Provider } from "react-redux"
 import App from "./App.tsx"
 
@@ -14,7 +15,7 @@ import App from "./App.tsx"
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <Provider store={store}>
-      <App />
+      <App history={initHistory(store)} />
     </Provider>
   )
 })()

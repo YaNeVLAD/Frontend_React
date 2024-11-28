@@ -1,5 +1,5 @@
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, EditorType } from "../../types"
 import { Action } from "./actions"
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme } from "../../types"
 
 const addSlide = (type: SlidePreset, prev: boolean = false, theme: SlideTheme): Action => ({
     type: 'ADD_SLIDE',
@@ -89,12 +89,13 @@ const changeAllSlidesBackground = (background: BackgroundType): Action => ({
     payload: background
 })
 
-const changeWorkspaceScale = (scale: number): Action => ({
-    type: 'CHANGE_SCALE',
-    payload: scale
+const setState = (state: EditorType): Action => ({
+    type: 'SET_STATE',
+    payload: state
 })
 
 export {
+    setState,
     addSlide,
     moveSlide,
     addObject,
@@ -109,7 +110,6 @@ export {
     deselectObjects,
     changeObjectSize,
     importPresentation,
-    changeWorkspaceScale,
     changeSlideBackground,
     changePresentationTitle,
     changeAllSlidesBackground,

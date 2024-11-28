@@ -1,4 +1,4 @@
-import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme } from "../../types"
+import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, EditorType } from "../../types"
 
 type AddSlideAction = {
     type: 'ADD_SLIDE',
@@ -117,22 +117,23 @@ type MoveSlideAction = {
     payload: Array<SlideType>
 }
 
-type ChangeAllSlidesBackground = {
+type ChangeAllSlidesBackgroundAction = {
     type: 'CHANGE_ALL_SLIDES_BACKGROUND'
     payload: BackgroundType
 }
 
-type ChangeSlideThemeBackground = {
+type ChangeSlideThemeBackgroundAction = {
     type: 'CHANGE_THEME_BACKGROUND'
     payload: BackgroundType
 }
 
-type ChangeWorkspaceScale = {
-    type: 'CHANGE_SCALE'
-    payload: number
+type SetStateAction = {
+    type: 'SET_STATE'
+    payload: EditorType
 }
 
 type Action =
+    | SetStateAction
     | AddSlideAction
     | AddObjectAction
     | MoveSlideAction
@@ -143,14 +144,13 @@ type Action =
     | ResizeObjectAction
     | SelectObjectAction
     | DeselectSlideAction
-    | ChangeWorkspaceScale
     | ChangeSrcValueAction
     | ChangeTextValueAction
     | ChangeObjectSizeAction
     | UpdatePresentationAction
     | DeselectAllObjectsAction
-    | ChangeAllSlidesBackground
-    | ChangeSlideThemeBackground
+    | ChangeAllSlidesBackgroundAction
+    | ChangeSlideThemeBackgroundAction
     | ChangeSlideBackgroundAction
     | ChangePresentationTitleAction
 

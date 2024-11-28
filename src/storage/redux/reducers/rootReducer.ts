@@ -1,4 +1,5 @@
 import { viewModelReducer } from "./viewModelReducer"
+import { EditorType, ViewModel } from "../../types"
 import { editorReducer } from "./editorReducer"
 import { combineReducers } from "redux"
 
@@ -7,5 +8,8 @@ const rootReducer = combineReducers({
     viewModel: viewModelReducer
 })
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = {
+    editor: EditorType,
+    viewModel: ViewModel
+}
 export { rootReducer }
