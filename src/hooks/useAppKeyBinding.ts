@@ -2,19 +2,19 @@ import { CommandHistory } from "../storage/history"
 import { useAppActions } from "./useRedux"
 import { useEffect } from "react"
 
-const useKeyBinding = (history: CommandHistory) => {
+const useAppKeyBinding = (history: CommandHistory) => {
     const { setState } = useAppActions()
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            switch (e.key) {
-                case "z":
+            switch (e.code) {
+                case "KeyZ":
                     if (e.ctrlKey) {
                         const newState = history.undo()
                         if (newState) setState(newState)
                     }
                     break
-                case "y":
+                case "KeyY":
                     if (e.ctrlKey) {
                         const newState = history.redo()
                         if (newState) setState(newState)
@@ -33,4 +33,4 @@ const useKeyBinding = (history: CommandHistory) => {
     })
 }
 
-export default useKeyBinding
+export default useAppKeyBinding

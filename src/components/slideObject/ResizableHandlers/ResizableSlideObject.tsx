@@ -46,7 +46,7 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
 
                 changeObjectBounds(slideId, id, newPos, newSize)
             })
-
+        //Статические стили вынести в css
         const cornerStyle = (direction: string): React.CSSProperties => ({
             position: 'absolute',
             width: '12px',

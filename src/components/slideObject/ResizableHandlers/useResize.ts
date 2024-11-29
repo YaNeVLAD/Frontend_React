@@ -35,7 +35,7 @@ const useDragAndResize = (
 
     const handleMouseMove = useCallback(
         (e: MouseEvent) => {
-            if (!dragging || !resizeDirection || e.buttons != 1) return
+            if (!dragging || !resizeDirection) return
 
             const dx = e.clientX - initialMousePos.x
             const dy = e.clientY - initialMousePos.y

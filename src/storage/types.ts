@@ -80,12 +80,6 @@ type TextAreaType = BaseSlideObjectType & {
 
 type SlideObjectType = ImageType | TextAreaType
 
-type DropListOptionType = {
-    id: number,
-    value: string,
-    onClick: () => void,
-}
-
 export type {
     EditorType,
     PresentationType,
@@ -101,7 +95,6 @@ export type {
     SizeType,
     PositionType,
     SlideObjectType,
-    DropListOptionType,
     SlidePreset,
     ViewModel,
     SlideTheme

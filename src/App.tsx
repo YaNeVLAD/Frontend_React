@@ -5,7 +5,7 @@ import { CommandHistoryContext } from './hooks/historyContext'
 import { COLLECTION_SLIDE_SCALE } from './storage/constants'
 import { ToolsArea } from './views/ToolsArea/ToolsArea'
 import { CommandHistory } from './storage/history'
-import useKeyBinding from './hooks/useKeyBinding'
+import useAppKeyBinding from './hooks/useAppKeyBinding'
 import style from './App.module.css'
 
 type AppProps = {
@@ -13,7 +13,7 @@ type AppProps = {
 }
 
 function App({ history }: AppProps) {
-    useKeyBinding(history)
+    useAppKeyBinding(history)
     return (
         <CommandHistoryContext.Provider value={history}>
             <ZoomProvider>
