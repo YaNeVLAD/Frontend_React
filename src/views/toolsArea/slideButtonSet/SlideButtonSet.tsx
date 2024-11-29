@@ -1,5 +1,5 @@
 import { BackgroundPicker } from "./SlideBackgroundPicker/BackgroundPicker"
-import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
+import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import { BackgroundType } from "../../../storage/types"
@@ -8,7 +8,7 @@ import { useState } from "react"
 import styles from "./SlideButtonSet.module.css"
 
 const SlideButtonSet = () => {
-    const selectedSlide = useGetSelectedSlide()
+    const selectedSlide = useSelectedSlide()
 
     const { deleteSlide } = useAppActions()
 

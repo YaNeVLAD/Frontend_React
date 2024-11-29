@@ -21,25 +21,19 @@ const addObject = (selectedSlideId: string, type: 'imageObj' | 'textObj', value:
     payload: { selectedSlideId, type, value }
 })
 
-const changeObjectSize = (selectedObjectId: string, width: number, height: number): Action => ({
-    type: 'CHANGE_OBJECT_SIZE',
-    payload: { selectedObjectId, width, height }
-})
-
 const deleteObject = (selectedSlideId: string, selectedObjectId: string): Action => ({
     type: 'DELETE_OBJECT',
     payload: { selectedSlideId, selectedObjectId }
 })
 
-const moveObject = (selectedSlideId: string, selectedObjectId: string, position: PositionType): Action => ({
-    type: 'MOVE_OBJECT',
-    payload: { selectedSlideId, selectedObjectId, position }
-})
-
-const resizeObject = (selectedSlideId: string, selectedObjectId: string, size: SizeType): Action => ({
-    type: 'RESIZE_OBJECT',
-    payload: { selectedSlideId, selectedObjectId, size }
-})
+const changeObjectBounds = (
+    selectedSlideId: string,
+    selectedObjectId: string,
+    position: PositionType,
+    size: SizeType | undefined): Action => ({
+        type: 'CHANGE_OBJECT_BOUNDS',
+        payload: { selectedSlideId, selectedObjectId, position, size }
+    })
 
 const selectObject = (selectedObjectId: string): Action => ({
     type: 'SELECT_OBJECT',
@@ -100,16 +94,14 @@ export {
     addSlide,
     moveSlide,
     addObject,
-    moveObject,
     selectSlide,
     deleteSlide,
     deleteObject,
-    resizeObject,
     selectObject,
     changeSrcValue,
     changeTextValue,
     deselectObjects,
-    changeObjectSize,
+    changeObjectBounds,
     importPresentation,
     changeSlideBackground,
     changePresentationTitle,

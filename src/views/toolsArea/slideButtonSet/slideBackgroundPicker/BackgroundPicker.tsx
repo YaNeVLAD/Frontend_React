@@ -1,5 +1,5 @@
 import ArrowDown20Icon from "../../../../components/common/Icons/ArrowDown20Icon"
-import { useGetSelectedSlide } from "../../../../hooks/useGetSelectedSlide"
+import { useSelectedSlide } from "../../../../hooks/useSelectedSlide"
 import { useAppActions, useAppSelector } from "../../../../hooks/useRedux"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
 import ImageInput from "../../../../components/ImageInput/ImageInput"
@@ -9,7 +9,7 @@ import { CSSProperties, useState } from "react"
 import styles from "./BackgroundPicker.module.css"
 
 const BackgroundPicker = () => {
-    const selectedSlide = useGetSelectedSlide()
+    const selectedSlide = useSelectedSlide()
 
     const themeBackground = useAppSelector(state => state.viewModel.slideTheme.background)
 

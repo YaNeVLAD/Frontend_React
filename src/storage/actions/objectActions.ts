@@ -91,49 +91,29 @@ function deselectAllObjects(
     }
 }
 
-function moveObject(
+function changeObjectBounds(
     slide: SlideType,
     {
         selectedObjectId,
-        position
+        position,
+        size
     }: {
         selectedSlideId: string,
         selectedObjectId: string,
         position: PositionType
+        size?: SizeType
     }
 ): SlideType {
     const slideCopy = deepCopy(slide)
 
-    const object = slideCopy.objects
-        .find(obj => obj.id == selectedObjectId)
+    const object = slideCopy.objects.find(
+        obj => obj.id == selectedObjectId
+    )
 
     if (object == undefined) return slide
 
     object.pos = position
-
-    return slideCopy
-}
-
-function resizeObject(
-    slide: SlideType,
-    {
-        selectedObjectId,
-        size,
-    }: {
-        selectedSlideId: string,
-        selectedObjectId: string,
-        size: SizeType
-    }
-): SlideType {
-
-    const slideCopy = deepCopy(slide)
-
-    const object = slideCopy.objects
-        .find(obj => obj.id == selectedObjectId)
-
-    if (object == undefined) return slide
-
-    object.size = size
+    if (size) object.size = size
 
     return slideCopy
 }
@@ -154,7 +134,6 @@ export {
     changeObjectSize,
     deleteObject,
     deselectAllObjects,
-    moveObject,
-    resizeObject,
-    selectObject
+    selectObject,
+    changeObjectBounds
 }

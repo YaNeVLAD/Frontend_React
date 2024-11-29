@@ -4,7 +4,7 @@ import { SlideObject } from '../SlideObject'
 import useDragAndResize from './useResize'
 import { useRef } from 'react'
 import styles from "./ResizableSlideObject.module.css"
-import { PositionType } from '../../../storage/types'
+import { PositionType, SizeType } from '../../../storage/types'
 
 type WithResizableProps = {
     id: string,
@@ -27,20 +27,24 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
 
         if (!object) return (<></>)
 
-        const { moveObject, resizeObject, selectObject } = useAppActions()
+        const { changeObjectBounds, selectObject } = useAppActions()
 
         const { offset, sizeOffset, handleMouseDown } = useDragAndResize(
             (offset: PositionType, sizeOffset: PositionType | undefined) => {
-                moveObject(slideId, id, {
+                const newPos: PositionType = {
                     x: object.pos.x + offset.x,
                     y: object.pos.y + offset.y
-                })
+                }
+
+                let newSize: SizeType | undefined = undefined
                 if (sizeOffset) {
-                    resizeObject(slideId, id, {
+                    newSize = {
                         width: object.size.width + sizeOffset.x,
                         height: object.size.height + sizeOffset.y
-                    })
+                    }
                 }
+
+                changeObjectBounds(slideId, id, newPos, newSize)
             })
 
         const cornerStyle = (direction: string): React.CSSProperties => ({

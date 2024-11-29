@@ -1,5 +1,5 @@
 import { COLLECTION_SLIDE_OBJECT_SCALE } from "../../storage/constants"
-import { useGetSelectedSlide } from "../../hooks/useGetSelectedSlide"
+import { useSelectedSlide } from "../../hooks/useSelectedSlide"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
 import { Slide } from "../../components/Slide/Slide"
@@ -11,7 +11,7 @@ type SlideCollectionProps = {
 }
 
 const SlideCollection = ({ scale }: SlideCollectionProps) => {
-    const selectedSlide = useGetSelectedSlide()
+    const selectedSlide = useSelectedSlide()
     const slides = useAppSelector(state => state.editor.presentation.slides)
 
     const { selectSlide, moveSlide } = useAppActions()

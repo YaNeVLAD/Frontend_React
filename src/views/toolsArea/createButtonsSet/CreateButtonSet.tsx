@@ -1,5 +1,5 @@
 import Cursor20Icon from "../../../components/common/Icons/Cursor20Icon"
-import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
+import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import Upload24Icon from "../../../components/common/Icons/Upload24Icon"
 import Image20Icon from "../../../components/common/Icons/Image20Icon"
 import Text20Icon from "../../../components/common/Icons/Text20Icon"
@@ -10,7 +10,7 @@ import { useAppActions } from "../../../hooks/useRedux"
 import { useState } from "react"
 
 const CreateButtonSet = () => {
-    const selectedSlide = useGetSelectedSlide()
+    const selectedSlide = useSelectedSlide()
     const { deselectObjects, addObject } = useAppActions()
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)

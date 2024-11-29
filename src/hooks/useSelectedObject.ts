@@ -1,12 +1,12 @@
 import { SlideObjectType } from "../storage/types"
-import { useGetSelectedSlide } from "./useGetSelectedSlide"
+import { useSelectedSlide } from "./useSelectedSlide"
 import { useAppSelector } from "./useRedux"
 
-const useGetSelectedObject = (): SlideObjectType | undefined => {
-    const selectedSlide = useGetSelectedSlide()
+const useSelectedObject = (): SlideObjectType | undefined => {
+    const selectedSlide = useSelectedSlide()
     const selectedObjectId = useAppSelector(state => state.editor.selection.selectedObjectId)
     if (selectedSlide == undefined) return undefined
     return selectedSlide.objects.find(obj => obj.id == selectedObjectId)
 }
 
-export { useGetSelectedObject }
+export { useSelectedObject }

@@ -1,5 +1,5 @@
 import EmptySlide from "../../../components/common/SlidePreview/EmptySlide"
-import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
+import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import Plus20Icon from "../../../components/common/Icons/Plus20Icon"
 import { Button } from "../../../components/Button/Button"
 import Popover from "../../../components/Popover/Popover"
@@ -9,7 +9,7 @@ import { useState } from "react"
 import styles from "./PresentationButtonSet.module.css"
 
 const PresentationButtonSet = () => {
-    const selectedSlide = useGetSelectedSlide()
+    const selectedSlide = useSelectedSlide()
     const theme = useAppSelector(state => state.viewModel.slideTheme)
 
     const { addSlide } = useAppActions()

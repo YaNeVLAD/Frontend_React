@@ -1,6 +1,6 @@
 import RecycleBin20Icon from "../../../components/common/Icons/RecycleBin20Icon"
-import { useGetSelectedObject } from "../../../hooks/useGetSelectedObject"
-import { useGetSelectedSlide } from "../../../hooks/useGetSelectedSlide"
+import { useSelectedObject } from "../../../hooks/useSelectedObject"
+import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import { changeSrcValue } from "../../../storage/actions/imageActions"
 import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
@@ -8,8 +8,8 @@ import { useAppActions } from "../../../hooks/useRedux"
 import { dispatch } from "../../../storage/editor"
 
 const ObjectButtonSet = () => {
-    const slide = useGetSelectedSlide()
-    const object = useGetSelectedObject()
+    const slide = useSelectedSlide()
+    const object = useSelectedObject()
 
     const { deleteObject } = useAppActions()
 

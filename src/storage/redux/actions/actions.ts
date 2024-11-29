@@ -58,21 +58,13 @@ type DeselectAllObjectsAction = {
     payload: undefined
 }
 
-type MoveObjectAction = {
-    type: 'MOVE_OBJECT',
+type ChangeObjectBoundsAction = {
+    type: 'CHANGE_OBJECT_BOUNDS',
     payload: {
         selectedSlideId: string,
         selectedObjectId: string,
         position: PositionType
-    }
-}
-
-type ResizeObjectAction = {
-    type: 'RESIZE_OBJECT',
-    payload: {
-        selectedSlideId: string,
-        selectedObjectId: string,
-        size: SizeType
+        size?: SizeType
     }
 }
 
@@ -138,16 +130,15 @@ type Action =
     | AddSlideAction
     | AddObjectAction
     | MoveSlideAction
-    | MoveObjectAction
     | SelectSlideAction
     | DeleteSlideAction
     | DeleteObjectAction
-    | ResizeObjectAction
     | SelectObjectAction
     | DeselectSlideAction
     | ChangeSrcValueAction
     | ChangeTextValueAction
     | ChangeObjectSizeAction
+    | ChangeObjectBoundsAction
     | UpdatePresentationAction
     | DeselectAllObjectsAction
     | ChangeAllSlidesBackgroundAction
