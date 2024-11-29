@@ -3,7 +3,7 @@ import { useGetSelectedSlide } from "../../hooks/useGetSelectedSlide"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { useDraggableSlides } from "./hooks/useDraggableSlides"
 import { Slide } from "../../components/Slide/Slide"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import style from './SlideCollection.module.css'
 
 type SlideCollectionProps = {
@@ -17,6 +17,8 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
     const { selectSlide, moveSlide } = useAppActions()
 
     const containerRef = useRef<HTMLDivElement>(null)
+    const slideRefs = useRef<Record<string, HTMLDivElement | null>>({})
+
     const { handleDragStart, handleDragOver, handleDrop, draggingSlideId } = useDraggableSlides({
         slides,
         onReorder: (updatedSlides) => {
@@ -25,12 +27,30 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
         containerRef,
     })
 
+    useEffect(() => {
+        if (selectedSlide) {
+            const selectedElement = slideRefs.current[selectedSlide.id]
+            if (selectedElement && containerRef.current) {
+                const container = containerRef.current
+                const elementRect = selectedElement.getBoundingClientRect()
+                const containerRect = container.getBoundingClientRect()
+
+                if (elementRect.top < containerRect.top) {
+                    container.scrollTop += elementRect.top - containerRect.top
+                } else if (elementRect.bottom > containerRect.bottom) {
+                    container.scrollTop += elementRect.bottom - containerRect.bottom
+                }
+            }
+        }
+    }, [selectedSlide])
+
     return (
         <div className={style.slideCollection} ref={containerRef}>
             {
                 slides.map(slide => (
                     <div
                         key={slide.id}
+                        ref={(el) => slideRefs.current[slide.id] = el}
                         draggable
                         style={{ position: 'relative' }}
                         onMouseDown={() => selectSlide(slide.id)}

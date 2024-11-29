@@ -27,7 +27,7 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
 
         if (!object) return (<></>)
 
-        const { moveObject, resizeObject } = useAppActions()
+        const { moveObject, resizeObject, selectObject } = useAppActions()
 
         const { offset, sizeOffset, handleMouseDown } = useDragAndResize(
             (offset: PositionType, sizeOffset: PositionType | undefined) => {
@@ -67,7 +67,10 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
                 ref={ref}
                 style={slideObjectStyle}
                 className={styles.slideObject}
-                onMouseDown={(e) => handleMouseDown(e, "drag")}
+                onMouseDown={(e) => {
+                    selectObject(id)
+                    handleMouseDown(e, "drag")
+                }}
             >
                 <WrappedComponent
                     id={id}
@@ -80,35 +83,59 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
                     <>
                         <div
                             style={{ ...cornerStyle("nw"), left: "-6px", top: "-6px" }}
-                            onMouseMove={(e) => handleMouseDown(e, 'top-left')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'top-left')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('ne'), top: '-6px', right: '-6px' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'top-right')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'top-right')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('sw'), bottom: '-6px', left: '-6px' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'bottom-left')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'bottom-left')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('se'), bottom: '-6px', right: '-6px' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'bottom-right')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'bottom-right')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('n'), top: '-6px', left: '50%' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'top')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'top')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('e'), right: '-6px', top: '50%' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'right')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'right')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('s'), bottom: '-6px', left: '50%' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'bottom')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'bottom')
+                            }}
                         />
                         <div
                             style={{ ...cornerStyle('w'), left: '-6px', top: '50%' }}
-                            onMouseMove={(e) => handleMouseDown(e, 'left')}
+                            onMouseDown={(e) => {
+                                e.stopPropagation()
+                                handleMouseDown(e, 'left')
+                            }}
                         />
                     </>
                 )}

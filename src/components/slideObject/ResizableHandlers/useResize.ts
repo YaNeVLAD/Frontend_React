@@ -78,7 +78,7 @@ const useDragAndResize = (
                         widthOffset = -dx
                         break
                     case "bottom":
-                        heightOffset = -dy
+                        heightOffset = dy
                         break
                     default:
                         break
@@ -90,14 +90,22 @@ const useDragAndResize = (
         [dragging, resizeDirection, initialMousePos, offset]
     )
 
+
+
     const handleMouseUp = useCallback(() => {
+        function hasPositionChanged(): boolean {
+            return offset.x !== 0 || offset.y !== 0 || sizeOffset.x !== 0 || sizeOffset.y !== 0
+        }
+
         if (dragging) {
             setDragging(false)
-            onRelease(offset, resizeDirection !== "drag" ? sizeOffset : undefined)
+            if (hasPositionChanged()) {
+                onRelease(offset, resizeDirection !== "drag" ? sizeOffset : undefined)
+            }
             setOffset({ x: 0, y: 0 })
             setSizeOffset({ x: 0, y: 0 })
         }
-    }, [dragging, offset, sizeOffset, resizeDirection, onRelease])
+    }, [dragging, offset, onRelease, resizeDirection, sizeOffset])
 
     useEffect(() => {
         if (dragging) {

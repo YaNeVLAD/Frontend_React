@@ -1,4 +1,4 @@
-import { useAppActions, useAppSelector } from "../../hooks/useRedux"
+import { useAppSelector } from "../../hooks/useRedux"
 import { TextArea } from "./TextArea/TextArea"
 import { Image } from "./Image/Image"
 import { useRef } from "react"
@@ -14,8 +14,6 @@ type SlideObjectProps = {
 
 const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
     const ref = useRef<HTMLDivElement>(null)
-
-    const { selectObject } = useAppActions()
 
     const slide = useAppSelector(
         state => state.editor.presentation.slides.find(s => s.id == slideId)
@@ -47,10 +45,7 @@ const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
             ref={ref}
             className={style.slideObject}
             style={slideObjectStyle}
-            onMouseDown={(e) => {
-                e.preventDefault()
-                selectObject(object.id)
-            }}>
+        >
             {renderObject()}
         </div>
     )
