@@ -1,28 +1,29 @@
+import { SlideType } from "../types"
 import { deepCopy } from "../utils/deepCopy"
-import { EditorType } from "../types"
 
-function changeSrcValue(editor: EditorType, { value }: { value: string }): EditorType {
-    const editorCopy = deepCopy(editor)
-
-    const selectedSlide = editorCopy.presentation.slides.find(
-        slide => slide.id == editorCopy.selection.selectedSlideId
-    )
-    if (selectedSlide == undefined) return editor
-
-    const selectedObject = selectedSlide.objects.find(
-        obj => obj.id == editorCopy.selection.selectedObjectId
-    )
-    if (selectedObject == undefined || selectedObject.type != 'imageObj') return editor
-
-    selectedObject.src.value = value
-
-    return {
-        ...editorCopy,
-        selection: {
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: selectedObject.id
-        }
+function changeSrcValue(
+    slide: SlideType,
+    {
+        selectedObjectId,
+        value,
+    }: {
+        selectedObjectId: string,
+        value: string,
     }
+): SlideType {
+    const slideCopy = deepCopy(slide)
+
+    const selectedObject = slideCopy.objects.find(
+        obj => obj.id == selectedObjectId
+    )
+
+    if (selectedObject == undefined) return slide
+
+    if (selectedObject.type == "imageObj") {
+        selectedObject.src.value = value
+    }
+
+    return slideCopy
 }
 
 export { changeSrcValue }

@@ -1,21 +1,20 @@
 import RecycleBin20Icon from "../../../components/common/Icons/RecycleBin20Icon"
 import { useSelectedObject } from "../../../hooks/useSelectedObject"
 import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
-import { changeSrcValue } from "../../../storage/actions/imageActions"
 import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
-import { dispatch } from "../../../storage/editor"
 
 const ObjectButtonSet = () => {
     const slide = useSelectedSlide()
     const object = useSelectedObject()
 
-    const { deleteObject } = useAppActions()
+    const { deleteObject, changeSrcValue } = useAppActions()
 
     if (slide == undefined || object == undefined) return
 
     const onDeleteObject = () => deleteObject(slide?.id, object?.id)
+    const changeImageSrc = (src: string) => changeSrcValue(object.id, slide.id, src)
 
     if (object == undefined) return
 
@@ -38,7 +37,7 @@ const ObjectButtonSet = () => {
             {object.type == 'imageObj' && (
                 <>
                     <ImageObjectButtonSet
-                    // object={object}
+                        changeSrc={changeImageSrc}
                     />
                 </>
             )}
@@ -47,17 +46,13 @@ const ObjectButtonSet = () => {
 }
 
 const ImageObjectButtonSet = (
-    // { object }: { object: ImageType }
+    { changeSrc }: { changeSrc: (src: string) => void }
 ) => {
-    const updateImage = (image: string) => {
-        dispatch(changeSrcValue, { value: image })
-    }
-
     return (
         <>
             <ImageInput
                 type="custom"
-                onImageUpload={updateImage}>
+                onImageUpload={(s) => changeSrc(s)}>
                 <Button
                     type="text"
                     displayType="tools-area"

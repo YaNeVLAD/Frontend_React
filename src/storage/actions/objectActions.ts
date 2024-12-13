@@ -20,7 +20,10 @@ function addObject(
     let newObject
     if (type === 'imageObj') {
         newObject = BASE_IMAGE()
+        const image = new Image()
+        image.src = value
         newObject.src.value = value
+        newObject.size = {width: image.width, height: image.height}
     } else {
         newObject = BASE_TEXT_AREA()
         newObject.value = value

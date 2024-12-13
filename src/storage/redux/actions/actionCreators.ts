@@ -40,9 +40,9 @@ const selectObject = (selectedObjectId: string): Action => ({
     payload: selectedObjectId
 })
 
-const changeSrcValue = (selectedObjectId: string, value: string): Action => ({
+const changeSrcValue = (selectedObjectId: string, selectedSlideId: string, value: string): Action => ({
     type: 'CHANGE_SRC_VALUE',
-    payload: { selectedObjectId, value }
+    payload: { selectedObjectId, selectedSlideId, value }
 })
 
 const changeTextValue = (selectedObjectId: string, value: string): Action => ({

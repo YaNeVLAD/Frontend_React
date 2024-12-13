@@ -10,6 +10,7 @@ const slidesReducer = (state = initialState, action: Action): Array<SlideType> =
     switch (action.type) {
         case 'ADD_OBJECT':
         case 'DELETE_OBJECT':
+        case 'CHANGE_SRC_VALUE':
         case 'CHANGE_OBJECT_BOUNDS':
         case 'CHANGE_SLIDE_BACKGROUND':
             return state.map(slide =>

@@ -32,7 +32,7 @@ const configureStore = async () => {
 
     const store = createStore(
         rootReducer,
-        initialState as unknown as Partial<{ editor: never; }>,
+        {...initialState},
         applyMiddleware(saveToIndexedDBMiddleware)
     )
 

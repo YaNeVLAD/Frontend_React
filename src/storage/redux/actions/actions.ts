@@ -77,6 +77,7 @@ type ChangeSrcValueAction = {
     type: 'CHANGE_SRC_VALUE',
     payload: {
         selectedObjectId: string,
+        selectedSlideId: string,
         value: string
     }
 }
@@ -141,9 +142,9 @@ type Action =
     | ChangeObjectBoundsAction
     | UpdatePresentationAction
     | DeselectAllObjectsAction
-    | ChangeAllSlidesBackgroundAction
-    | ChangeSlideThemeBackgroundAction
     | ChangeSlideBackgroundAction
     | ChangePresentationTitleAction
+    | ChangeAllSlidesBackgroundAction
+    | ChangeSlideThemeBackgroundAction
 
 export type { Action }
