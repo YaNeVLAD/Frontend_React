@@ -1,3 +1,4 @@
+import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
 import { ObjectPreview } from "./ObjectPreview/ObjectPreview"
 import { useAppSelector } from "../../hooks/useRedux"
 import { CSSProperties } from "react"
@@ -19,6 +20,8 @@ const SlidePreview = (props: SlidePreviewProps) => {
     const slideStyle: CSSProperties = {
         transform: `scale(${props.scale})`,
     }
+
+    selectSlideBackgroundType(slideStyle, slide.background)
 
     return (
         <div

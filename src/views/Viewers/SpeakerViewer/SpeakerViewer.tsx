@@ -1,8 +1,6 @@
 import { SlidePreview } from "../../../components/SlidePreview/SlidePreview"
-import SpeakerNotesWindow from "./SpeakerNotesWindow/SpeakerNotesWindow"
-import { useAppSelector } from "../../../hooks/useRedux"
 import { useState, useCallback, useEffect, useRef } from "react"
-import ReactDOM from "react-dom/client"
+import { useAppSelector } from "../../../hooks/useRedux"
 
 const SpeakerViewer = () => {
     const presentation = useAppSelector(state => state.editor.presentation)
@@ -14,26 +12,11 @@ const SpeakerViewer = () => {
     const openSpeakerWindow = useCallback(() => {
         if (windowOpened.current) return
 
-        const newWindow = window.open('/viewer/speaker/notes', '_blank', 'width=700,height=500')
+        const newWindow = window.open('/view/s/123/n', '_blank', 'width=700,height=500')
         if (!newWindow) return
         setNewWindow(newWindow)
         windowOpened.current = true
-
-        newWindow.onload = () => {
-            const container = newWindow.document.createElement('div')
-            newWindow.document.body.appendChild(container)
-
-            ReactDOM.createRoot(container).render(
-                <SpeakerNotesWindow />
-            )
-            newWindow.postMessage({
-                type: 'SYNC_SLIDE_P',
-                slideIndex: currentSlideIndex,
-                maxSlides: presentation.slides.length,
-                notes: presentation.slides.map(s => s.id)
-            }, window.location.origin)
-        }
-    }, [presentation, currentSlideIndex])
+    }, [])
 
     const saveSlideData = useCallback((offset: number = 0) => {
         const newIndex = currentSlideIndex + offset
@@ -45,8 +28,6 @@ const SpeakerViewer = () => {
                 newWindow.postMessage({
                     type: 'SYNC_SLIDE_P',
                     slideIndex: newIndex,
-                    maxSlides: presentation.slides.length,
-                    notes: presentation.slides.map(s => s.id)
                 }, window.location.origin)
             }
         }
