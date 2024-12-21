@@ -14,7 +14,7 @@ const useFakePresentationFetch = (id: string | undefined, onLoad: (presentation:
                 setTimeout(() => {
                     resolve()
                     onLoad(deepCopy(presentation))
-                }, 3000)
+                }, 1000)
             })
         }
 

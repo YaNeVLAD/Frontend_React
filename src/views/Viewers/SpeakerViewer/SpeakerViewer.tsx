@@ -1,22 +1,40 @@
+import { createPath, EditorRoute, SpeakerNotesRoute } from "../../../storage/utils/createPath"
 import { SlidePreview } from "../../../components/SlidePreview/SlidePreview"
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useAppSelector } from "../../../hooks/useRedux"
+import useNavigateWithParams from "../../../hooks/useNavigateToRoute"
 
 const SpeakerViewer = () => {
+    const navigateWithParams = useNavigateWithParams()
     const presentation = useAppSelector(state => state.editor.presentation)
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
     const [slide, setSlide] = useState(presentation.slides[0])
     const [newWindow, setNewWindow] = useState<Window | null>(null)
-    const windowOpened = useRef(false)  // Отслеживаем, открыто ли окно
+    const windowOpened = useRef(false)
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+            if (newWindow) {
+                newWindow.close()
+            }
+        }
+        // Слушаем события изменения URL
+        window.addEventListener('popstate', handleRouteChange)
+
+        return () => {
+            window.removeEventListener('popstate', handleRouteChange)
+        }
+    }, [newWindow])
 
     const openSpeakerWindow = useCallback(() => {
-        if (windowOpened.current) return
-
-        const newWindow = window.open('/view/s/123/n', '_blank', 'width=700,height=500')
-        if (!newWindow) return
-        setNewWindow(newWindow)
-        windowOpened.current = true
-    }, [])
+        if (!windowOpened.current) {
+            const newWindow = window.open(createPath(SpeakerNotesRoute, { id: presentation.id }), '_blank', 'width=700,height=500')
+            if (newWindow) {
+                setNewWindow(newWindow)
+                windowOpened.current = true
+            }
+        }
+    }, [presentation.id])
 
     const saveSlideData = useCallback((offset: number = 0) => {
         const newIndex = currentSlideIndex + offset
@@ -72,6 +90,12 @@ const SpeakerViewer = () => {
                 case 'ArrowUp':
                 case 'ArrowLeft':
                     saveSlideData(-1)
+                    break
+
+                case 'Escape':
+                    if (newWindow)
+                        newWindow.close()
+                    navigateWithParams(EditorRoute, {})
                     break
 
                 default:

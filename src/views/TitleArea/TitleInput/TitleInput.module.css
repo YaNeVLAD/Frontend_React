@@ -1,0 +1,37 @@
+.inputContainer {
+    position: relative;
+}
+
+.hiddenSpan {
+    visibility: hidden;
+    position: absolute;
+    white-space: pre;
+    font-size: 18px;
+    /* Совпадает со стилем input */
+    font-family: inherit;
+    padding: 0 4px;
+    max-width: 600px;
+}
+
+.presentationTitle {
+    background: none;
+    max-width: 600px;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 0 4px;
+    border: 0;
+    outline: 1px solid transparent;
+    overflow: hidden;
+    color: #444746;
+    margin: 15px 0 10px 40px;
+}
+
+.presentationTitle:hover {
+    outline-color: #747775;
+}
+
+.presentationTitle:focus {
+    outline: 2px solid #0B57D0;
+    box-shadow: none;
+    color: #1F1F1F;
+}

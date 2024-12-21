@@ -135,3 +135,50 @@
 .dropdownButton:active {
     background-color: #dcdcdc;
 }
+
+.slideShowButton {
+    box-shadow: none;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: .25px;
+    line-height: 16px;
+    border: 1px solid #747775 !important;
+    border-right: 1px solid transparent !important;
+    border-radius: 100px 0 0 100px;
+    color: #444746;
+    height: 40px;
+    margin-right: -1px;
+    padding: 10px 16px;
+    background: #f9fbfd;
+}
+
+.slideShowButtonDropdown {
+    box-shadow: none;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: .25px;
+    line-height: 16px;
+    border: 1px solid #747775 !important;
+    border-radius: 0 20px 20px 0;
+    height: 40px;
+    padding: 0;
+    width: 36px;
+    background: #f9fbfd;
+    cursor: pointer;
+}
+
+.slideShowButton:hover,
+.slideShowButtonDropdown:hover {
+    border-color: #747775;
+    color: #444746;
+    background: #e8ebee;
+}
+
+.slideShowButton:active,
+.slideShowButtonDropdown:active {
+    border-color: #747775;
+    color: #444746;
+    background: #e1e3e6;
+}

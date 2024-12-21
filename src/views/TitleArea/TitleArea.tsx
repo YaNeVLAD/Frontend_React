@@ -1,66 +1,76 @@
+import ArrowDown20Icon from "../../components/common/Icons/ArrowDown20Icon"
+import { SpeakerViewerRoute } from "../../storage/utils/createPath"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
-import { BASE_PRESENTATION } from "../../common/BasePresentation"
-import { useRef, useState, useEffect } from "react"
+import useNavigateWithParams from "../../hooks/useNavigateToRoute"
+import { Button } from "../../components/Button/Button"
+import Popover from "../../components/Popover/Popover"
+import TitleInput from "./TitleInput/TitleInput"
+import { useState } from "react"
 import style from "./TitleArea.module.css"
+import { PresentationType } from "../../storage/types"
 
 const TitleArea = () => {
-    const [inputWidth, setInputWidth] = useState("auto")
-    const spanRef = useRef<HTMLSpanElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
-
     const { changePresentationTitle } = useAppActions()
-    const title = useAppSelector(state => state.editor.presentation.title)
+    const presentation = useAppSelector(state => state.editor.presentation)
+    const title = presentation.title
 
-    const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        changePresentationTitle(event.target.value)
+    const onTitleChange = (newTitle: string) => {
+        changePresentationTitle(newTitle)
     }
-
-    const onTitleInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value.length == 0) event.target.value = BASE_PRESENTATION().title
-        changePresentationTitle(event.target.value)
-    }
-
-    const updateWidth = (value: string) => {
-        if (spanRef.current) {
-            spanRef.current.textContent = value || " "
-            const newWidth = Math.min(spanRef.current.offsetWidth + 10, 600)
-            setInputWidth(newWidth + "px")
-        }
-    }
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        updateWidth(e.target.value)
-        onTitleChange(e)
-    }
-
-    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (spanRef.current) {
-            const value = e.target.value
-            if (value.length > 20 && spanRef.current.offsetWidth > 600) {
-                e.target.value = value.slice(0, 20) + "..."
-            }
-            onTitleInputBlur(e)
-        }
-    }
-
-    useEffect(() => {
-        updateWidth(title)
-    }, [title])
 
     return (
         <div className={style.inputContainer}>
-            <input
-                type="text"
-                ref={inputRef}
-                defaultValue={title}
-                onChange={handleInputChange}
-                onBlur={handleBlur}
-                className={style.presentationTitle}
-                style={{ width: inputWidth }}
-            />
-            <span ref={spanRef} className={style.hiddenSpan} />
+            <TitleInput title={title} onTitleChange={onTitleChange} />
+
+            <div style={{ display: 'flex' }}>
+                <Button
+                    type="text"
+                    displayType="slide-show"
+                    onClick={() => { }}>
+                    {'Слайд-шоу'}
+                </Button>
+                <ViewersPopover presentation={presentation} />
+            </div>
         </div>
     )
 }
+
+type ViewersPopoverProps = {
+    presentation: PresentationType
+}
+
+const ViewersPopover = ({ presentation }: ViewersPopoverProps) => {
+    const id = presentation.id
+
+    const navigateWithParams = useNavigateWithParams()
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+    const navigateToSpeakerViewer = () => navigateWithParams(SpeakerViewerRoute, { id: id })
+
+    return (
+        <>
+            <Popover
+                isOpen={isPopoverOpen}
+                closePopover={() => setIsPopoverOpen(false)}
+                content={
+                    <>
+                        <Button
+                            type="text"
+                            displayType="dropdown"
+                            onClick={navigateToSpeakerViewer}>
+                            {'Режим докладчика'}
+                        </Button>
+                    </>
+                }>
+                <Button
+                    type="icon"
+                    displayType="slide-show-popover"
+                    onClick={() => setIsPopoverOpen(true)}>
+                    {ArrowDown20Icon}
+                </Button>
+            </Popover>
+        </>
+    )
+}
+
 
 export default TitleArea
