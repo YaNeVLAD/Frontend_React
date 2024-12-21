@@ -1,12 +1,12 @@
 import { convertPresentationToPdf } from "../../storage/file/convert"
-import { useEffect, useState } from "react"
 import { PresentationType } from "../../storage/types"
+import { useEffect, useState } from "react"
 
 type PresentationViewerProps = {
     presentation: PresentationType
 }
 
-const PresentationViewer = ({ presentation }: PresentationViewerProps) => {
+const PresentationPDFViewer = ({ presentation }: PresentationViewerProps) => {
     const [pdfUrl, setPdfUrl] = useState<string | undefined>(undefined)
 
     useEffect(() => {
@@ -32,4 +32,4 @@ const PresentationViewer = ({ presentation }: PresentationViewerProps) => {
     )
 }
 
-export default PresentationViewer
+export default PresentationPDFViewer
