@@ -25,6 +25,10 @@ async function exportPDF(presentation: PresentationType) {
 
 async function PresentationToPDF(doc: PDFDocument, presentation: PresentationType) {
     doc.setTitle(presentation.title)
+    doc.setAuthor(presentation.author)
+    doc.setCreationDate(new Date)
+    doc.setModificationDate(new Date)
+
     for (const slide of presentation.slides) {
         await SlideToPDF(slide, doc)
     }

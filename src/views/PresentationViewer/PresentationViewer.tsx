@@ -1,12 +1,13 @@
 import { convertPresentationToPdf } from "../../storage/file/convert"
-import { Button } from "../../components/Button/Button"
-import { useAppSelector } from "../../hooks/useRedux"
 import { useEffect, useState } from "react"
+import { PresentationType } from "../../storage/types"
 
-const PresentationViewer = () => {
+type PresentationViewerProps = {
+    presentation: PresentationType
+}
+
+const PresentationViewer = ({ presentation }: PresentationViewerProps) => {
     const [pdfUrl, setPdfUrl] = useState<string | undefined>(undefined)
-    const [isOpen, setIsOpen] = useState(false)
-    const presentation = useAppSelector(state => state.editor.presentation)
 
     useEffect(() => {
         const loadPdf = async () => {
@@ -20,24 +21,14 @@ const PresentationViewer = () => {
     }, [presentation])
 
     return (
-        <>
-            <Button
-                type="text"
-                displayType="image-input"
-                onClick={() => setIsOpen(!isOpen)}>
-                {'Слайд-шоу'}
-            </Button>
-            {isOpen && (
-                <iframe
-                    src={pdfUrl}
-                    width={window.outerWidth}
-                    height={window.innerHeight}
-                    title={presentation.title}
-                    allowFullScreen={true}
-                    style={{ border: 'none', position: 'absolute', zIndex: 10 }}
-                />
-            )}
-        </>
+        <iframe
+            src={pdfUrl}
+            width={window.outerWidth}
+            height={window.innerHeight}
+            title={presentation.title}
+            allowFullScreen={true}
+            style={{ border: 'none', position: 'absolute', zIndex: 10 }}
+        />
     )
 }
 

@@ -12,6 +12,8 @@ type SlideTheme = {
 }
 
 type PresentationType = {
+    id: string,
+    author: string,
     title: string,
     slides: Array<SlideType>
 }

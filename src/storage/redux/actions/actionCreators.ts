@@ -89,6 +89,16 @@ const setState = (state: RootState): Action => ({
     payload: state
 })
 
+const ChangePresentationId = (id: string): Action => ({
+    type: 'CHANGE_PRESENTATION_ID',
+    payload: id
+})
+
+const ChangePresentationAuthor = (author: string): Action => ({
+    type: 'CHANGE_PRESENTATION_AUTHOR',
+    payload: author
+})
+
 export {
     setState,
     addSlide,
@@ -103,8 +113,10 @@ export {
     deselectObjects,
     changeObjectBounds,
     importPresentation,
+    ChangePresentationId,
     changeSlideBackground,
     changePresentationTitle,
+    ChangePresentationAuthor,
     changeAllSlidesBackground,
     changeSlideThemeBackground,
 }

@@ -107,23 +107,33 @@ type DeselectSlideAction = {
 }
 
 type MoveSlideAction = {
-    type: 'MOVE_SLIDE'
+    type: 'MOVE_SLIDE',
     payload: Array<SlideType>
 }
 
 type ChangeAllSlidesBackgroundAction = {
-    type: 'CHANGE_ALL_SLIDES_BACKGROUND'
+    type: 'CHANGE_ALL_SLIDES_BACKGROUND',
     payload: BackgroundType
 }
 
 type ChangeSlideThemeBackgroundAction = {
-    type: 'CHANGE_THEME_BACKGROUND'
+    type: 'CHANGE_THEME_BACKGROUND',
     payload: BackgroundType
 }
 
 type SetStateAction = {
-    type: 'SET_STATE'
+    type: 'SET_STATE',
     payload: RootState
+}
+
+type ChangePresentationId = {
+    type: 'CHANGE_PRESENTATION_ID',
+    payload: string
+}
+
+type ChangePresentationAuthor = {
+    type: 'CHANGE_PRESENTATION_AUTHOR',
+    payload: string
 }
 
 type Action =
@@ -137,8 +147,10 @@ type Action =
     | SelectObjectAction
     | DeselectSlideAction
     | ChangeSrcValueAction
+    | ChangePresentationId
     | ChangeTextValueAction
     | ChangeObjectSizeAction
+    | ChangePresentationAuthor
     | ChangeObjectBoundsAction
     | UpdatePresentationAction
     | DeselectAllObjectsAction

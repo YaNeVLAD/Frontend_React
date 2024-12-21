@@ -12,7 +12,7 @@ function App({ history }: AppProps) {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<EditorPage history={history} />} />
-                <Route path='/viewer' element={<ViewerPage />} />
+                <Route path='/viewer/:id' element={<ViewerPage />} />
             </Routes>
         </BrowserRouter>
     )

@@ -1,6 +1,5 @@
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { BASE_PRESENTATION } from "../../common/BasePresentation"
-import { PROJECT_NAME } from "../../storage/constants"
 import { useRef, useState, useEffect } from "react"
 import style from "./TitleArea.module.css"
 
@@ -41,7 +40,6 @@ const TitleArea = () => {
                 e.target.value = value.slice(0, 20) + "..."
             }
             onTitleInputBlur(e)
-            document.title = title + ' - ' + PROJECT_NAME
         }
     }
 
