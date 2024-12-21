@@ -1,5 +1,5 @@
 import { TextAreaType } from '../../../storage/types'
-import { useRef } from 'react'
+import { CSSProperties, useRef } from 'react'
 import style from './TextArea.module.css'
 
 type TextAreaProps = {
@@ -8,24 +8,24 @@ type TextAreaProps = {
 }
 
 const TextArea = ({ context, scale }: TextAreaProps) => {
-    const textAreaRef = useRef<HTMLTextAreaElement>(null)
+    const textAreaRef = useRef(null)
 
-    const textAreaStyle = {
+    const textAreaStyle: CSSProperties = {
         fontFamily: context.font,
         fontSize: context.textSize * scale,
         color: context.color,
+        userSelect: 'none'
     }
 
     return (
         <div className={style.textAreaWrapper}>
-            <textarea
+            <p
                 ref={textAreaRef}
                 draggable={false}
-                defaultValue={context.value}
                 style={textAreaStyle}
-                className={style.textAreaInput}
-                autoFocus
-                rows={1} />
+                className={style.textAreaInput}>
+                {context.value}
+            </p>
         </div>
     )
 }

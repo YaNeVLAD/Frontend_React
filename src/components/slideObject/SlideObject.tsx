@@ -5,11 +5,11 @@ import { useRef } from "react"
 import style from "./SlideObject.module.css"
 
 type SlideObjectProps = {
-    id: string
-    slideId: string
-    scale: number
-    isSelected: boolean
-    parentRef: React.RefObject<HTMLElement>
+    id: string,
+    slideId: string,
+    scale: number,
+    isSelected: boolean,
+    parentRef?: React.RefObject<HTMLElement>
 }
 
 const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
@@ -22,12 +22,6 @@ const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
     const object = slide?.objects.find(obj => obj.id == id)
 
     if (!object) return null
-
-    const slideObjectStyle = {
-        width: `100%`,
-        height: `100%`,
-        transform: `rotate(${object.turnAngle}deg)`,
-    }
 
     const renderObject = () => {
         switch (object.type) {
@@ -44,7 +38,6 @@ const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
         <div
             ref={ref}
             className={style.slideObject}
-            style={slideObjectStyle}
         >
             {renderObject()}
         </div>

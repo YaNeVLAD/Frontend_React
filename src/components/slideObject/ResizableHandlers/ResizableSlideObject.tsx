@@ -1,10 +1,9 @@
 import { SELECTED_OBJECT_OUTLINE, SELECTED_OBJECT_OUTLINE_SHADOW } from '../../../storage/constants'
 import { useAppActions, useAppSelector } from '../../../hooks/useRedux'
+import { PositionType, SizeType } from '../../../storage/types'
 import { SlideObject } from '../SlideObject'
 import useDragAndResize from './useResize'
 import { useRef } from 'react'
-import styles from "./ResizableSlideObject.module.css"
-import { PositionType, SizeType } from '../../../storage/types'
 
 type WithResizableProps = {
     id: string,
@@ -69,8 +68,7 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
         return (
             <div
                 ref={ref}
-                style={slideObjectStyle}
-                className={styles.slideObject}
+                style={{ ...slideObjectStyle, position: 'absolute' }}
                 onMouseDown={(e) => {
                     selectObject(id)
                     handleMouseDown(e, "drag")

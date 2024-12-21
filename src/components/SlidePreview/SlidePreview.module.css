@@ -1,0 +1,11 @@
+.slide {
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    outline: 1px solid #C4C7C5;
+}
+
+.preview {
+    max-width: 100%;
+    aspect-ratio: 16/9;
+}
