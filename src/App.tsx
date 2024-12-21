@@ -1,6 +1,7 @@
+import PDFViewerPage from './pages/PDFViewerPage/PDFViewerPage'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import ViewerPage from './pages/SpeakerViewerPage/SpeakerViewerPage'
 import EditorPage from './pages/EditorPage/EditorPage'
-import ViewerPage from './pages/PDFViewerPage/PDFViewerPage'
 import { CommandHistory } from './storage/history'
 
 type AppProps = {
@@ -12,8 +13,8 @@ function App({ history }: AppProps) {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<EditorPage history={history} />} />
-                <Route path='/viewer2/:id' element={<ViewerPage />} />
-                <Route path='/viewer' element={<></>} />
+                <Route path='/viewer/pdf/:id' element={<PDFViewerPage />} />
+                <Route path='/viewer/speaker/:id' element={<ViewerPage />} />
             </Routes>
         </BrowserRouter>
     )

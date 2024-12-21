@@ -1,15 +1,16 @@
-import PresentationPDFViewer from "../../views/PresentationPDFViewer/PresentationPDFViewer"
+import PDFViewer from "../../views/Viewers/PDFViewer/PDFViewer"
 import { PresentationType } from "../../storage/types"
 import { useAppSelector } from "../../hooks/useRedux"
 import { useParams } from "react-router"
 import { useEffect, useState } from "react"
+import style from "./PDFViewerPage.module.css"
 
-type ViewerPageParams = {
+type PDFViewerPageParams = {
     id: string | undefined,
 }
 
 const PDFViewerPage = () => {
-    const { id } = useParams<ViewerPageParams>()
+    const { id } = useParams<PDFViewerPageParams>()
     const [presentation, setPresentation] = useState<PresentationType | null>(null)
 
     const onPresentationLoad = (presentation: PresentationType) => {
@@ -22,11 +23,11 @@ const PDFViewerPage = () => {
         document.title = presentation ? `${presentation.title} - ${document.title}` : document.title
     })
 
-    return (
-        presentation
-            ? <PresentationPDFViewer presentation={presentation} />
+    return (id != undefined)
+        ? presentation
+            ? <div className={style.viewer}><PDFViewer presentation={presentation} /></div>
             : <p>Загрузка...</p>
-    )
+        : <>err</>
 }
 
 const useFakePresentationFetch = (id: string | undefined, onLoad: (presentation: PresentationType) => void) => {

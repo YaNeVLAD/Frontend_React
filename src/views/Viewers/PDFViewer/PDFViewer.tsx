@@ -1,12 +1,12 @@
-import { convertPresentationToPdf } from "../../storage/file/convert"
-import { PresentationType } from "../../storage/types"
+import { convertPresentationToPdf } from "../../../storage/file/convert"
+import { PresentationType } from "../../../storage/types"
 import { useEffect, useState } from "react"
 
 type PresentationViewerProps = {
     presentation: PresentationType
 }
 
-const PresentationPDFViewer = ({ presentation }: PresentationViewerProps) => {
+const PDFViewer = ({ presentation }: PresentationViewerProps) => {
     const [pdfUrl, setPdfUrl] = useState<string | undefined>(undefined)
 
     useEffect(() => {
@@ -23,13 +23,11 @@ const PresentationPDFViewer = ({ presentation }: PresentationViewerProps) => {
     return (
         <iframe
             src={pdfUrl}
-            width={window.outerWidth}
-            height={window.innerHeight}
             title={presentation.title}
             allowFullScreen={true}
-            style={{ border: 'none', position: 'absolute', zIndex: 10 }}
+            style={{ border: 'none', width: `100%`, height: `100%` }}
         />
     )
 }
 
-export default PresentationPDFViewer
+export default PDFViewer

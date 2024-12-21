@@ -1,0 +1,11 @@
+:root {
+    --toolsBarHeight: 40px;
+    --titleMarginSide: 20px;
+}
+
+div#root {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F9FBFD;
+    overflow: hidden;
+}

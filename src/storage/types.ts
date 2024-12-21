@@ -80,6 +80,8 @@ type TextAreaType = BaseSlideObjectType & {
     textSize: number,
 }
 
+type ViewerMode = 'speaker' | 'slide-show'
+
 type SlideObjectType = ImageType | TextAreaType
 
 export type {
@@ -99,5 +101,6 @@ export type {
     SlideObjectType,
     SlidePreset,
     ViewModel,
-    SlideTheme
+    SlideTheme,
+    ViewerMode
 }
