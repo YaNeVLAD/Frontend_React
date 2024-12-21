@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    height: calc(100vh - var(--toolsBarHeight) - 150px);
+    height: calc(100vh - var(--toolsBarHeight) - 120px);
 }
 
 .workspaceSlideWrapper {

@@ -1,17 +1,23 @@
 import SideDropdownMenu from "../../components/SideDropdownMenu/SideDropdownMenu"
+import { useImportPresentation } from "../../hooks/useImportPresentation"
 import Download24Icon from "../../components/common/Icons/Download24Icon"
 import { useExportPresentation } from "../../hooks/useExportPresentation"
+import convertPresentationToPdf from "../../storage/file/convert"
 import { Button } from "../../components/Button/Button"
 import Popover from "../../components/Popover/Popover"
+import { useAppSelector } from "../../hooks/useRedux"
 import { useState } from "react"
-import { useImportPresentation } from "../../hooks/useImportPresentation"
 
 const MenuBar = () => {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-    const { ExportPresentation } = useExportPresentation()
+    const { exportPresentation } = useExportPresentation()
 
     const { inputRef } = useImportPresentation()
+
+    const presentation = useAppSelector(state => state.editor.presentation)
+
+    const presentationToPdf = () => convertPresentationToPdf(presentation)
 
     return (
         <div>
@@ -25,9 +31,15 @@ const MenuBar = () => {
                                 <>
                                     <Button
                                         type="text"
-                                        onClick={ExportPresentation}
+                                        onClick={exportPresentation}
                                         displayType="dropdown">
-                                        {'Документ JSON (.json)'}
+                                        {'Файл JSON (.json)'}
+                                    </Button>
+                                    <Button
+                                        type="text"
+                                        displayType="dropdown"
+                                        onClick={presentationToPdf}>
+                                        {'Документ PDF (.pdf)'}
                                     </Button>
                                 </>}>
                             <Button

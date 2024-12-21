@@ -3,7 +3,7 @@ import { useAppSelector } from "./useRedux"
 const useExportPresentation = () => {
     const presentation = useAppSelector((state) => state.editor.presentation)
 
-    const ExportPresentation = () => {
+    const exportPresentation = () => {
         try {
             const presentationJson = JSON.stringify(presentation)
             const blob = new Blob([presentationJson], { type: "application/json" })
@@ -20,7 +20,7 @@ const useExportPresentation = () => {
         }
     }
 
-    return { ExportPresentation }
+    return { exportPresentation }
 }
 
 export { useExportPresentation }
