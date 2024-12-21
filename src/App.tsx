@@ -1,29 +1,20 @@
-import { ZoomProvider } from './views/WorkspaceArea/ScrollAreaWrapper/ZoomContext'
-import { SlideCollection } from './views/SlideCollection/SlideCollection'
-import WorkspaceArea from './views/WorkspaceArea/WorkspaceArea'
-import { CommandHistoryContext } from './hooks/historyContext'
-import { COLLECTION_SLIDE_SCALE } from './storage/constants'
-import { ToolsArea } from './views/ToolsArea/ToolsArea'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import EditorPage from './pages/EditorPage/EditorPage'
+import ViewerPage from './pages/ViewerPage/ViewerPage'
 import { CommandHistory } from './storage/history'
-import useAppKeyBinding from './hooks/useAppKeyBinding'
-import style from './App.module.css'
 
 type AppProps = {
     history: CommandHistory
 }
 
 function App({ history }: AppProps) {
-    useAppKeyBinding(history)
     return (
-        <CommandHistoryContext.Provider value={history}>
-            <ZoomProvider>
-                <ToolsArea />
-                <div className={style.container}>
-                    <SlideCollection scale={COLLECTION_SLIDE_SCALE} />
-                    <WorkspaceArea />
-                </div>
-            </ZoomProvider>
-        </CommandHistoryContext.Provider>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<EditorPage history={history} />} />
+                <Route path='/viewer' element={<ViewerPage />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 

@@ -1,16 +1,21 @@
-import { Color, PDFDocument, PDFPage, rgb } from 'pdf-lib'
 import { BackgroundType, PresentationType, SlideObjectType, SlideType } from '../types'
-import fontkit from '@pdf-lib/fontkit'
+import { Color, PDFDocument, PDFPage, rgb } from 'pdf-lib'
 import imageToPng from '../utils/imageToPng'
+import fontkit from '@pdf-lib/fontkit'
 
-async function convertPresentationToPdf(presentation: PresentationType) {
+async function convertPresentationToPdf(
+    presentation: PresentationType
+): Promise<Uint8Array> {
     const pdfDoc = await PDFDocument.create()
     pdfDoc.registerFontkit(fontkit)
 
     await PresentationToPDF(pdfDoc, presentation)
 
-    const pdfBytes = await pdfDoc.save()
+    return await pdfDoc.save()
+}
 
+async function exportPDF(presentation: PresentationType) {
+    const pdfBytes = await convertPresentationToPdf(presentation)
     const blob = new Blob([pdfBytes], { type: 'application/pdf' })
     const link = document.createElement('a')
     link.href = URL.createObjectURL(blob)
@@ -19,6 +24,7 @@ async function convertPresentationToPdf(presentation: PresentationType) {
 }
 
 async function PresentationToPDF(doc: PDFDocument, presentation: PresentationType) {
+    doc.setTitle(presentation.title)
     for (const slide of presentation.slides) {
         await SlideToPDF(slide, doc)
     }
@@ -96,4 +102,7 @@ function hexToRgb(hex: string): Color {
     return rgb(0, 0, 0)
 }
 
-export default convertPresentationToPdf
+export {
+    convertPresentationToPdf,
+    exportPDF
+}

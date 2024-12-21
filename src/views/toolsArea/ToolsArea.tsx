@@ -1,8 +1,8 @@
 import { PresentationButtonSet } from './PresentationButtonSet/PresentationButtonSet'
-import { useSelectedObject } from '../../hooks/useSelectedObject'
 import { CreateButtonSet } from './CreateButtonsSet/CreateButtonSet'
 import { ObjectButtonSet } from './ObjectButtonSet/ObjectButtonSet'
 import WorkspaceActions from './WorkspaceActions/WorkspaceActions'
+import { useSelectedObject } from '../../hooks/useSelectedObject'
 import { SlideButtonSet } from './SlideButtonSet/SlideButtonSet'
 import TitleArea from '../TitleArea/TitleArea'
 import MenuBar from '../MenuBar/MenuBar'
@@ -10,7 +10,6 @@ import style from './ToolsArea.module.css'
 
 const ToolsArea = () => {
     const selectedObjectId = useSelectedObject()?.id
-
     return (
         <>
             <TitleArea />

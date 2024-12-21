@@ -2,7 +2,7 @@ import { RootState } from "../redux/reducers/rootReducer"
 import { PresentationType, SelectionType, ViewModel } from "../types"
 
 const DATABASE_NAME = "EditorDatabase"
-const DATABASE_VERSION = 1
+const DATABASE_VERSION = 2
 const PRESENTATION_STORE = "presentation"
 const SELECTION_STORE = "selection"
 const VIEWMODEL_STORE = "viewModel"

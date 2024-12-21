@@ -1,0 +1,18 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+:root {
+    height: calc(100vh - var(--toolsBarHeight));
+    width: 100vw;
+    background-color: #F9FBFD;
+    --toolsBarHeight: 40px;
+    --titleMarginSide: 20px;
+}
+
+.container {
+    display: flex;
+}

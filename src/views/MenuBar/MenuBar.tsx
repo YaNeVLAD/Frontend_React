@@ -2,8 +2,8 @@ import SideDropdownMenu from "../../components/SideDropdownMenu/SideDropdownMenu
 import { useImportPresentation } from "../../hooks/useImportPresentation"
 import Download24Icon from "../../components/common/Icons/Download24Icon"
 import { useExportPresentation } from "../../hooks/useExportPresentation"
-import convertPresentationToPdf from "../../storage/file/convert"
 import { Button } from "../../components/Button/Button"
+import { exportPDF } from "../../storage/file/convert"
 import Popover from "../../components/Popover/Popover"
 import { useAppSelector } from "../../hooks/useRedux"
 import { useState } from "react"
@@ -17,7 +17,7 @@ const MenuBar = () => {
 
     const presentation = useAppSelector(state => state.editor.presentation)
 
-    const presentationToPdf = () => convertPresentationToPdf(presentation)
+    const presentationToPdf = () => exportPDF(presentation)
 
     return (
         <div>
