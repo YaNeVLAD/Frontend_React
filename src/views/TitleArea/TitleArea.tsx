@@ -8,6 +8,7 @@ import TitleInput from "./TitleInput/TitleInput"
 import { useState } from "react"
 import style from "./TitleArea.module.css"
 import { PresentationType } from "../../storage/types"
+import MenuBar from "../MenuBar/MenuBar"
 
 const TitleArea = () => {
     const { changePresentationTitle } = useAppActions()
@@ -19,19 +20,22 @@ const TitleArea = () => {
     }
 
     return (
-        <div className={style.inputContainer}>
-            <TitleInput title={title} onTitleChange={onTitleChange} />
+        <>
+            <div className={style.titleContainer}>
+                <TitleInput title={title} onTitleChange={onTitleChange} />
 
-            <div style={{ display: 'flex' }}>
-                <Button
-                    type="text"
-                    displayType="slide-show"
-                    onClick={() => { }}>
-                    {'Слайд-шоу'}
-                </Button>
-                <ViewersPopover presentation={presentation} />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Button
+                        type="text"
+                        displayType="slide-show"
+                        onClick={() => { }}>
+                        {'Слайд-шоу'}
+                    </Button>
+                    <ViewersPopover presentation={presentation} />
+                </div>
             </div>
-        </div>
+            <MenuBar />
+        </>
     )
 }
 

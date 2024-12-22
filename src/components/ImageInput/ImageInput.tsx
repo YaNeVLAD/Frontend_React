@@ -5,7 +5,7 @@ import style from "./ImageInput.module.css"
 type CustomImageInput = {
     type: 'custom'
     children: JSX.Element,
-    onImageUpload: (data: string) => void
+    onImageUpload: (base64: string) => void
 }
 
 type ImageInputProps = CustomImageInput | {
@@ -16,7 +16,7 @@ type ImageInputProps = CustomImageInput | {
     onImageUpload: (data: string) => void
 }
 
-const ImageInput = (props: ImageInputProps) => {
+const ImageInput = ({ ...props }: ImageInputProps) => {
     const { fileInputRef, handleFileChange } = useImportImage(props.onImageUpload)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

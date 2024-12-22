@@ -1,9 +1,9 @@
 import EmptySlide from "../../../components/common/SlidePreview/EmptySlide"
-import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
+import { useAppActions, useAppSelector } from "../../../hooks/useRedux"
 import Plus20Icon from "../../../components/common/Icons/Plus20Icon"
+import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import { Button } from "../../../components/Button/Button"
 import Popover from "../../../components/Popover/Popover"
-import { useAppActions, useAppSelector } from "../../../hooks/useRedux"
 import { SlidePreset } from "../../../storage/types"
 import { useState } from "react"
 import styles from "./PresentationButtonSet.module.css"
@@ -28,7 +28,6 @@ const PresentationButtonSet = () => {
         <>
             <div onClick={() => addSlideWithPreset('title')}>Слайд с заголовком</div>
             <div onClick={() => addSlideWithPreset('image')}>Слайд с картинкой</div>
-            <div onClick={() => addSlideWithPreset('title&image')}>Слайд с заголовком и картинкой</div>
             <div onClick={() => addSlideWithPreset('none')}><EmptySlide /></div>
             <div onClick={() => addSlideWithPreset('title&text')}>Слайд с текстом</div>
         </>

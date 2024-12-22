@@ -11,7 +11,8 @@ function TITLE_AND_TEXT_SLIDE(): SlideType {
         background: {
             value: "#ffffff",
             type: "solid"
-        }
+        },
+        note: ''
     }
 }
 

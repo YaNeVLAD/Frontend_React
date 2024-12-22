@@ -9,7 +9,8 @@ function EMPTY_SLIDE(): SlideType {
         background: {
             value: "#ffffff",
             type: "solid"
-        }
+        },
+        note: ''
     }
 }
 

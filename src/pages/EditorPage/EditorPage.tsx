@@ -9,6 +9,7 @@ import { CommandHistory } from "../../storage/history"
 import styles from "./EditorPage.module.css"
 import { useEffect } from "react"
 import { useAppSelector } from "../../hooks/useRedux"
+import TitleArea from "../../views/TitleArea/TitleArea"
 
 type EditorPageProps = {
     history: CommandHistory
@@ -25,6 +26,7 @@ const EditorPage = ({ history }: EditorPageProps) => {
     return (
         <CommandHistoryContext.Provider value={history}>
             <ZoomProvider>
+                <TitleArea />
                 <ToolsArea />
                 <div className={styles.container}>
                     <SlideCollection scale={COLLECTION_SLIDE_SCALE} />

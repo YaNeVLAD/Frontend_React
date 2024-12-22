@@ -1,5 +1,4 @@
 import { BackgroundType, EditorType, SelectionType, SlidePreset, SlideTheme, SlideType } from "../types"
-import { TITLE_AND_IMAGE_SLIDE } from "../../common/Slides/TitleAndImageSlide"
 import { TITLE_AND_TEXT_SLIDE } from "../../common/Slides/TitleAndTextSlide"
 import { EMPTY_SLIDE } from "../../common/Slides/EmptySlide"
 import { IMAGE_SLIDE } from "../../common/Slides/ImageSlide"
@@ -124,8 +123,6 @@ function selectSlidePreset(type: SlidePreset): SlideType {
             return IMAGE_SLIDE()
         case 'title':
             return TITLE_SLIDE()
-        case 'title&image':
-            return TITLE_AND_IMAGE_SLIDE()
         case 'title&text':
             return TITLE_AND_TEXT_SLIDE()
         default:

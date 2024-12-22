@@ -1,7 +1,7 @@
 import { BackgroundPicker } from "./SlideBackgroundPicker/BackgroundPicker"
 import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import { Button } from "../../../components/Button/Button"
-import { useAppActions } from "../../../hooks/useRedux"
+import { useAppActions, useAppSelector } from "../../../hooks/useRedux"
 import { BackgroundType } from "../../../storage/types"
 import Popup from "../../../components/Popup/Popup"
 import { useState } from "react"
@@ -9,14 +9,14 @@ import styles from "./SlideButtonSet.module.css"
 
 const SlideButtonSet = () => {
     const selectedSlide = useSelectedSlide()
-
-    const { deleteSlide } = useAppActions()
+    const presentation = useAppSelector(s => s.editor.presentation)
+    const { deleteSlide, changeSlideNote } = useAppActions()
 
     const [isPopupOpen, setIsPopupOpen] = useState(false)
 
     const openPopup = () => setIsPopupOpen(true)
     const closePopup = () => setIsPopupOpen(false)
-
+    
     if (selectedSlide == undefined) return (<></>)
 
     return (
@@ -24,18 +24,26 @@ const SlideButtonSet = () => {
             <Button
                 type="text"
                 displayType="tools-area"
+                onClick={() => changeSlideNote(presentation.title, selectedSlide.id)}>
+                {'Добавить заметку'}
+            </Button>
+
+            <Button
+                type="text"
+                displayType="tools-area"
                 onClick={openPopup}>
                 {'Фон'}
             </Button>
 
-            {isPopupOpen && (<Popup
-                title="Фон"
-                closeAction={closePopup}
-                content={<BackgroundPicker />}
-                footer={<BackgroundPopupFoorter
-                    background={selectedSlide.background}
-                    closePopup={closePopup} />}>
-            </Popup>)
+            {isPopupOpen &&
+                (<Popup
+                    title="Фон"
+                    closeAction={closePopup}
+                    content={<BackgroundPicker />}
+                    footer={<BackgroundPopupFooter
+                        background={selectedSlide.background}
+                        closePopup={closePopup} />}>
+                </Popup>)
             }
 
             <Button
@@ -53,10 +61,10 @@ type BackgroundPopupFoorterProps = {
     closePopup: () => void
 }
 
-const BackgroundPopupFoorter = ({ background, closePopup }: BackgroundPopupFoorterProps) => {
+const BackgroundPopupFooter = ({ background, closePopup }: BackgroundPopupFoorterProps) => {
     const { changeAllSlidesBackground, changeSlideThemeBackground } = useAppActions()
 
-    const changeBackground = () => {
+    const changeThemeBackground = () => {
         changeSlideThemeBackground(background)
         changeAllSlidesBackground(background)
         closePopup()
@@ -65,7 +73,7 @@ const BackgroundPopupFoorter = ({ background, closePopup }: BackgroundPopupFoort
     return (
         <div className={styles.popupFooterWrapper}>
             <button
-                onClick={changeBackground}
+                onClick={changeThemeBackground}
                 className={styles.imageInputButton}>
                 {'Применить ко всем'}
             </button>

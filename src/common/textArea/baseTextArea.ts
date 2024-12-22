@@ -6,7 +6,7 @@ function BASE_TEXT_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: { x: 50, y: 50 },
-        size: { width: 20, height: 10 },
+        size: { width: 200, height: 50 },
         turnAngle: 0,
         value: 'Hello World',
         font: 'Arial, sans-serif',

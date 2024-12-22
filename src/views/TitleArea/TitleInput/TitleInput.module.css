@@ -1,5 +1,6 @@
 .inputContainer {
     position: relative;
+    display: inline-block;
 }
 
 .hiddenSpan {
@@ -7,8 +8,6 @@
     position: absolute;
     white-space: pre;
     font-size: 18px;
-    /* Совпадает со стилем input */
-    font-family: inherit;
     padding: 0 4px;
     max-width: 600px;
 }
@@ -23,7 +22,8 @@
     outline: 1px solid transparent;
     overflow: hidden;
     color: #444746;
-    margin: 15px 0 10px 40px;
+    margin-top: 10px;
+    margin-left: 40px;
 }
 
 .presentationTitle:hover {

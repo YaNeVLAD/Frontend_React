@@ -27,10 +27,11 @@ type SlideType = {
     id: string,
     preset: SlidePreset,
     objects: Array<SlideObjectType>,
-    background: BackgroundType
+    background: BackgroundType,
+    note: string
 }
 
-type SlidePreset = 'title' | 'image' | 'title&image' | 'none' | 'title&text'
+type SlidePreset = 'title' | 'image' | 'none' | 'title&text'
 
 type BackgroundType = SolidColor | ImageSrc | GradientColor
 

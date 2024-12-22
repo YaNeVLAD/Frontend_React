@@ -2,11 +2,13 @@ import SideDropdownMenu from "../../components/SideDropdownMenu/SideDropdownMenu
 import { useImportPresentation } from "../../hooks/useImportPresentation"
 import Download24Icon from "../../components/common/Icons/Download24Icon"
 import { useExportPresentation } from "../../hooks/useExportPresentation"
+import Upload24Icon from "../../components/common/Icons/Upload24Icon"
 import { Button } from "../../components/Button/Button"
 import { exportPDF } from "../../storage/file/convert"
 import Popover from "../../components/Popover/Popover"
 import { useAppSelector } from "../../hooks/useRedux"
 import { useState } from "react"
+import style from "./MenuBar.module.css"
 
 const MenuBar = () => {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
@@ -20,7 +22,7 @@ const MenuBar = () => {
     const presentationToPdf = () => exportPDF(presentation)
 
     return (
-        <div>
+        <div className={style.menuBar}>
             <Popover
                 isOpen={isPopoverOpen}
                 closePopover={() => setIsPopoverOpen(false)}
@@ -53,7 +55,7 @@ const MenuBar = () => {
                             type="icon&text"
                             onClick={() => inputRef.current?.click()}
                             displayType="dropdown">
-                            {Download24Icon}
+                            {Upload24Icon}
                             {'Импорт слайдов'}
                         </Button>
                         <input ref={inputRef} type="file" style={{ display: "none" }} accept=".json" />

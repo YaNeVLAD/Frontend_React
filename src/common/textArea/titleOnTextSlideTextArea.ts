@@ -6,12 +6,12 @@ function TITLE_ON_TEXT_SLIDE_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: {
-            x: 50,
-            y: 15,
+            x: 15,
+            y: 80,
         },
         size: {
-            width: 90,
-            height: 7,
+            width: 900,
+            height: 80,
         },
         value: 'Введите заголовок',
         font: 'Arial, sans-serif',

@@ -5,7 +5,7 @@ import { useAppSelector } from "../../../../hooks/useRedux"
 const SpeakerNotesWindow = () => {
     const [index, setIndex] = useState<number>(0)
     const slides = useAppSelector(s => s.editor.presentation.slides)
-    const notes = slides.map(s => s.id)
+    const notes = slides.map(s => s.note)
     const maxSlides = slides.length
 
     useEffect(() => {

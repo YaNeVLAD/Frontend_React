@@ -3,16 +3,20 @@ import { changeSlideBackground } from "../../actions/slideActions"
 import { Action } from "../actions/actions"
 import { SlideType } from "../../types"
 import { changeSrcValue } from "../../actions/imageActions"
+import { deepCopy } from "../../utils/deepCopy"
 
 const initialState: SlideType = {
     id: '',
     preset: 'none',
     objects: [],
-    background: { type: 'solid', value: '' }
+    background: { type: 'solid', value: '' },
+    note: ''
 }
 
 const slideReducer = (state = initialState, action: Action): SlideType => {
     switch (action.type) {
+        case 'CHANGE_SLIDE_NOTE':
+            return { ...deepCopy(state), note: action.payload.note }
         case 'CHANGE_SLIDE_BACKGROUND':
             return changeSlideBackground(state, action.payload)
         case 'CHANGE_OBJECT_BOUNDS':

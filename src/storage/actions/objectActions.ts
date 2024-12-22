@@ -23,7 +23,10 @@ function addObject(
         const image = new Image()
         image.src = value
         newObject.src.value = value
-        newObject.size = {width: image.width, height: image.height}
+        newObject.size = {
+            width: (image.width == 0) ? 150 : image.width,
+            height: (image.height == 0) ? 150 : image.height
+        }
     } else {
         newObject = BASE_TEXT_AREA()
         newObject.value = value

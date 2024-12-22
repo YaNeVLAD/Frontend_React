@@ -10,7 +10,8 @@ function IMAGE_SLIDE(): SlideType {
         background: {
             value: "#ffffff",
             type: "solid"
-        }
+        },
+        note: ''
     }
 }
 

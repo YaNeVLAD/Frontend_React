@@ -90,8 +90,6 @@ const useDragAndResize = (
         [dragging, resizeDirection, initialMousePos, offset]
     )
 
-
-
     const handleMouseUp = useCallback(() => {
         function hasPositionChanged(): boolean {
             return offset.x !== 0 || offset.y !== 0 || sizeOffset.x !== 0 || sizeOffset.y !== 0

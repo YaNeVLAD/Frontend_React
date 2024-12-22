@@ -6,12 +6,12 @@ function SUBTITLE_TEXT_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: {
-            x: 50,
-            y: 67,
+            x: 15,
+            y: 255,
         },
         size: {
-            width: 95,
-            height: 16.5,
+            width: 900,
+            height: 50,
         },
         value: 'Введите подзаголовок',
         font: 'Arial, sans-serif',

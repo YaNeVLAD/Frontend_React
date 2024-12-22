@@ -6,12 +6,12 @@ function TEXT_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: {
-            x: 50,
-            y: 51,
+            x: 15,
+            y: 180,
         },
         size: {
-            width: 90,
-            height: 60,
+            width: 900,
+            height: 300,
         },
         value: 'Введите текст',
         font: 'Arial, sans-serif',

@@ -6,12 +6,12 @@ function TITLE_TEXT_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: {
-            x: 50,
-            y: 40,
+            x: 15,
+            y: 50,
         },
         size: {
-            width: 95,
-            height: 35,
+            width: 900,
+            height: 200,
         },
         value: 'Введите заголовок',
         font: 'Arial, sans-serif',

@@ -136,10 +136,19 @@ type ChangePresentationAuthor = {
     payload: string
 }
 
+type ChangeSlideNote = {
+    type: 'CHANGE_SLIDE_NOTE',
+    payload: {
+        selectedSlideId?: string,
+        note: string
+    }
+}
+
 type Action =
     | SetStateAction
     | AddSlideAction
     | AddObjectAction
+    | ChangeSlideNote
     | MoveSlideAction
     | SelectSlideAction
     | DeleteSlideAction

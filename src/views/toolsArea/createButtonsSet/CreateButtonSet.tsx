@@ -20,10 +20,10 @@ const CreateButtonSet = () => {
     const closePopover = () => setIsPopoverOpen(false)
     const togglePopover = () => setIsPopoverOpen(!isPopoverOpen)
 
-    const onAddTextArea = () => addObject(selectedSlide?.id, 'textObj', '')
+    const onAddTextArea = () => addObject(selectedSlide?.id, 'textObj', 'Введите текст')
 
     const onImageUpload = (image: string) => {
-        addObject(selectedSlide?.id, 'imageObj', image)
+        addObject(selectedSlide.id, 'imageObj', image)
         closePopover()
     }
 
@@ -34,8 +34,7 @@ const CreateButtonSet = () => {
                 onImageUpload={onImageUpload}>
                 <Button
                     type="icon&text"
-                    displayType="dropdown"
-                    onClick={() => { }}>
+                    displayType="dropdown">
                     {Upload24Icon}
                     {'Загрузить с компьютера'}
                 </Button>

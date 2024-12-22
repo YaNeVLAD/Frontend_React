@@ -112,28 +112,28 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
                             }}
                         />
                         <div
-                            style={{ ...cornerStyle('n'), top: '-6px', left: '50%' }}
+                            style={{ ...cornerStyle('n'), top: '-6px', left: 'calc(50% - 6px)' }}
                             onMouseDown={(e) => {
                                 e.stopPropagation()
                                 handleMouseDown(e, 'top')
                             }}
                         />
                         <div
-                            style={{ ...cornerStyle('e'), right: '-6px', top: '50%' }}
+                            style={{ ...cornerStyle('e'), right: '-6px', top: 'calc(50% - 6px)' }}
                             onMouseDown={(e) => {
                                 e.stopPropagation()
                                 handleMouseDown(e, 'right')
                             }}
                         />
                         <div
-                            style={{ ...cornerStyle('s'), bottom: '-6px', left: '50%' }}
+                            style={{ ...cornerStyle('s'), bottom: '-6px', left: 'calc(50% - 6px)' }}
                             onMouseDown={(e) => {
                                 e.stopPropagation()
                                 handleMouseDown(e, 'bottom')
                             }}
                         />
                         <div
-                            style={{ ...cornerStyle('w'), left: '-6px', top: '50%' }}
+                            style={{ ...cornerStyle('w'), left: '-6px', top: 'calc(50% - 6px)' }}
                             onMouseDown={(e) => {
                                 e.stopPropagation()
                                 handleMouseDown(e, 'left')

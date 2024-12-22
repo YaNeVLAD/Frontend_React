@@ -100,8 +100,9 @@ const slideTypeSchema: JSONSchemaType<SlideType> = {
         preset: { type: stringAjv, enum: ['image', 'title', 'title&image', 'none', 'title&text'] as SlidePreset[] },
         objects: { type: arrayAjv, items: slideObjectTypeSchema },
         background: backgroundTypeSchema,
+        note: { type: stringAjv }
     },
-    required: ['id', 'preset', 'objects', 'background'],
+    required: ['id', 'preset', 'objects', 'background', 'note'],
     additionalProperties: false,
 }
 
@@ -110,8 +111,10 @@ const presentationTypeSchema: JSONSchemaType<PresentationType> = {
     properties: {
         title: { type: stringAjv },
         slides: { type: arrayAjv, items: slideTypeSchema },
+        id: { type: stringAjv },
+        author: { type: stringAjv },
     },
-    required: ['title', 'slides'],
+    required: ['title', 'slides', 'id', 'author'],
     additionalProperties: false,
 }
 
