@@ -26,7 +26,7 @@ const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
     const renderObject = () => {
         switch (object.type) {
             case "textObj":
-                return <TextArea context={object} scale={scale} />
+                return <TextArea context={object} scale={scale} slideId={slideId} />
             case "imageObj":
                 return <Image context={object} scale={scale} />
             default:

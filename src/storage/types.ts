@@ -73,12 +73,32 @@ type ImageType = BaseSlideObjectType & {
     src: ImageSrc,
 }
 
+type FontFamily = 'Roboto-Bold' | 'Roboto-Regular' | 'Arial'
+
+type Alignment = 'center' | 'start' | 'end'
+
+type Weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000
+
+type Font = {
+    family: FontFamily,
+    size: number,
+    color: string,
+    weight: Weight
+}
+
+type Text = {
+    font: Font,
+    alignment: {
+        horizontal: Alignment,
+        vertical: Alignment
+    },
+    value: string
+}
+
 type TextAreaType = BaseSlideObjectType & {
     type: 'textObj',
-    value: string,
-    font: string,
-    color: string
-    textSize: number,
+    placeholder: string,
+    text: Text,
 }
 
 type ViewerMode = 'speaker' | 'slide-show'
@@ -103,5 +123,10 @@ export type {
     SlidePreset,
     ViewModel,
     SlideTheme,
-    ViewerMode
+    ViewerMode,
+    Text,
+    Font,
+    Alignment,
+    FontFamily,
+    Weight,
 }

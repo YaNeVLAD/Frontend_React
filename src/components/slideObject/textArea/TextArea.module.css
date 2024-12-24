@@ -18,3 +18,7 @@
     overflow: hidden;
     background: transparent;
 }
+
+.textAreaInput::placeholder {
+    color: inherit;
+}

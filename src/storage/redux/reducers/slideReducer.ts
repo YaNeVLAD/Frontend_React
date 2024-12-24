@@ -4,6 +4,7 @@ import { Action } from "../actions/actions"
 import { SlideType } from "../../types"
 import { changeSrcValue } from "../../actions/imageActions"
 import { deepCopy } from "../../utils/deepCopy"
+import { changeTextValue } from "../../actions/textAreaActions"
 
 const initialState: SlideType = {
     id: '',
@@ -15,6 +16,8 @@ const initialState: SlideType = {
 
 const slideReducer = (state = initialState, action: Action): SlideType => {
     switch (action.type) {
+        case 'CHANGE_TEXT_VALUE':
+            return changeTextValue(state, action.payload)
         case 'CHANGE_SLIDE_NOTE':
             return { ...deepCopy(state), note: action.payload.note }
         case 'CHANGE_SLIDE_BACKGROUND':

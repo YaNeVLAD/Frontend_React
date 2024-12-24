@@ -1,28 +1,20 @@
 import { deepCopy } from "../utils/deepCopy"
-import { EditorType } from "../types"
+import { SlideType } from "../types"
 
-function changeTextValue(editor: EditorType, { value }: { value: string }): EditorType {
-    const editorCopy = deepCopy(editor)
+function changeTextValue(
+    slide: SlideType,
+    { selectedObjectId, value }: { selectedObjectId?: string, value: string }
+): SlideType {
+    const slideCopy = deepCopy(slide)
 
-    const selectedSlide = editorCopy.presentation.slides.find(
-        slide => slide.id == editorCopy.selection.selectedSlideId
+    const selectedObject = slideCopy.objects.find(
+        obj => obj.id == selectedObjectId
     )
-    if (selectedSlide == undefined) return editor
+    if (selectedObject == undefined || selectedObject.type != 'textObj') return slide
 
-    const selectedObject = selectedSlide.objects.find(
-        obj => obj.id == editorCopy.selection.selectedObjectId
-    )
-    if (selectedObject == undefined || selectedObject.type != 'textObj') return editor
+    selectedObject.text.value = value
 
-    selectedObject.value = value
-
-    return {
-        ...editorCopy,
-        selection: {
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: selectedObject.id
-        }
-    }
+    return slideCopy
 }
 
 export { changeTextValue }

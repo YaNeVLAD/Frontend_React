@@ -1,5 +1,6 @@
 import { uuid } from "../../storage/utils/functions"
 import { TextAreaType } from "../../storage/types"
+import { TEXT_AREA_PLACEHOLDER } from "../../storage/constants"
 
 function TEXT_AREA(): TextAreaType {
     return {
@@ -13,11 +14,18 @@ function TEXT_AREA(): TextAreaType {
             width: 900,
             height: 300,
         },
-        value: 'Введите текст',
-        font: 'Arial, sans-serif',
-        color: '#595959',
-        textSize: 18,
         turnAngle: 0,
+        placeholder: TEXT_AREA_PLACEHOLDER,
+        text: {
+            value: '',
+            alignment: { horizontal: 'start', vertical: 'start' },
+            font: {
+                size: 18,
+                color: '#202020',
+                family: 'Roboto-Regular',
+                weight: 400,
+            }
+        }
     }
 }
 

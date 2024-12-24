@@ -61,6 +61,7 @@ const backgroundTypeSchema: JSONSchemaType<BackgroundType> = {
 const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
     type: objectAjv,
     oneOf: [
+        // Для типа "imageObj"
         {
             type: objectAjv,
             properties: {
@@ -74,6 +75,7 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
             required: ['id', 'type', 'pos', 'size', 'turnAngle', 'src'],
             additionalProperties: false,
         },
+        // Для типа "textObj" (с учетом новых изменений)
         {
             type: objectAjv,
             properties: {
@@ -82,12 +84,36 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
                 pos: positionTypeSchema,
                 size: sizeTypeSchema,
                 turnAngle: { type: numberAjv },
-                value: { type: stringAjv },
-                font: { type: stringAjv },
-                color: { type: stringAjv },
-                textSize: { type: numberAjv },
+                placeholder: { type: stringAjv },   // Новый параметр для placeholder
+                text: {
+                    type: objectAjv,
+                    properties: {
+                        font: {
+                            type: objectAjv,
+                            properties: {
+                                family: { type: stringAjv, enum: ['Roboto-Bold', 'Roboto-Regular', 'Arial'] },
+                                size: { type: numberAjv },
+                                color: { type: stringAjv },
+                            },
+                            required: ['family', 'size', 'color'],
+                            additionalProperties: false,
+                        },
+                        alignment: {
+                            type: objectAjv,
+                            properties: {
+                                horizontal: { type: stringAjv, enum: ['center', 'start', 'end'] },
+                                vertical: { type: stringAjv, enum: ['center', 'start', 'end'] },
+                            },
+                            required: ['horizontal', 'vertical'],
+                            additionalProperties: false,
+                        },
+                        value: { type: stringAjv },
+                    },
+                    required: ['font', 'alignment', 'value'],
+                    additionalProperties: false,
+                },
             },
-            required: ['id', 'type', 'pos', 'size', 'turnAngle', 'value', 'font', 'color', 'textSize'],
+            required: ['id', 'type', 'pos', 'size', 'turnAngle', 'placeholder', 'text'],
             additionalProperties: false,
         },
     ],

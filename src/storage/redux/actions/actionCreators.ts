@@ -45,9 +45,9 @@ const changeSrcValue = (selectedObjectId: string, selectedSlideId: string, value
     payload: { selectedObjectId, selectedSlideId, value }
 })
 
-const changeTextValue = (selectedObjectId: string, value: string): Action => ({
+const changeTextValue = (selectedObjectId: string, selectedSlideId: string, value: string): Action => ({
     type: 'CHANGE_TEXT_VALUE',
-    payload: { selectedObjectId, value }
+    payload: { selectedObjectId, selectedSlideId, value }
 })
 
 const changePresentationTitle = (title: string): Action => ({

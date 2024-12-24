@@ -1,5 +1,6 @@
 import { uuid } from "../../storage/utils/functions"
 import { TextAreaType } from "../../storage/types"
+import { TITLE_AREA_PLACEHOLDER } from "../../storage/constants"
 
 function TITLE_ON_TEXT_SLIDE_AREA(): TextAreaType {
     return {
@@ -13,11 +14,18 @@ function TITLE_ON_TEXT_SLIDE_AREA(): TextAreaType {
             width: 900,
             height: 80,
         },
-        value: 'Введите заголовок',
-        font: 'Arial, sans-serif',
-        color: 'black',
-        textSize: 25,
         turnAngle: 0,
+        placeholder: TITLE_AREA_PLACEHOLDER,
+        text: {
+            value: '',
+            alignment: { horizontal: 'start', vertical: 'center' },
+            font: {
+                size: 25,
+                color: '#000000',
+                family: 'Roboto-Bold',
+                weight: 400,
+            }
+        }
     }
 }
 

@@ -86,6 +86,7 @@ type ChangeTextValueAction = {
     type: 'CHANGE_TEXT_VALUE',
     payload: {
         selectedObjectId: string,
+        selectedSlideId: string,
         value: string
     }
 }

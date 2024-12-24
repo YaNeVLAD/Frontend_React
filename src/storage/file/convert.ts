@@ -69,17 +69,71 @@ async function ObjectToPDF(object: SlideObjectType, doc: PDFDocument, page: PDFP
     const pageHeight = page.getHeight()
 
     if (object.type === 'textObj') {
-        const fontBytes = await fetch('/fonts/Roboto-Regular.ttf').then(res => res.arrayBuffer())
+        const fontBytes = await fetch(`/fonts/${object.text.font.family}.ttf`).then(res => res.arrayBuffer())
         const font = await doc.embedFont(fontBytes)
 
-        const pageY = pageHeight - object.pos.y - object.textSize
-        page.drawText(object.value, {
-            x: object.pos.x,
-            y: pageY,
-            size: object.textSize,
-            color: hexToRgb(object.color),
-            font,
-        })
+        const areaWidth = object.size.width
+        const areaHeight = object.size.height
+
+        const textHeight = object.text.font.size
+
+        const lines: string[] = []
+        let currentLine = ''
+        const maxWidth = areaWidth - 2 * 10
+        const words = object.text.value.split(' ')
+
+        for (let i = 0; i < words.length; i++) {
+            const currentWord = words[i] || ''
+
+            const testLine = currentLine ? `${currentLine} ${currentWord}` : currentWord
+            console.log(testLine)
+
+            const lineWidth = font.widthOfTextAtSize(testLine, object.text.font.size)
+
+            if (lineWidth < maxWidth) {
+                currentLine = testLine
+            } else {
+                if (currentLine) {
+                    lines.push(currentLine)
+                }
+                currentLine = currentWord
+            }
+        }
+        if (currentLine) lines.push(currentLine)
+
+        const pageY = pageHeight - object.pos.y - areaHeight
+
+        const totalTextHeight = lines.length * textHeight
+        let y = pageY
+
+        if (object.text.alignment.vertical === 'center') {
+            y = pageY + (areaHeight - totalTextHeight) / 2
+        } else if (object.text.alignment.vertical === 'start') {
+            y = pageY + (areaHeight - totalTextHeight)
+        }
+
+        if (lines.length == 0) return
+
+        let x = object.pos.x
+        const lineWidth = font.widthOfTextAtSize(lines[0], object.text.font.size)
+
+        if (object.text.alignment.horizontal === 'center') {
+            x = object.pos.x + (areaWidth - lineWidth) / 2
+        } else if (object.text.alignment.horizontal === 'end') {
+            x = object.pos.x + (areaWidth - lineWidth)
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+            const textLine = lines[i] || ''
+
+            page.drawText(textLine, {
+                x,
+                y: y + i * textHeight,
+                size: object.text.font.size,
+                color: hexToRgb(object.text.font.color),
+                font,
+            })
+        }
     } else if (object.type === 'imageObj') {
         const imgBase64 = await imageToPng(object.src.value)
         const image = await doc.embedPng(imgBase64)
