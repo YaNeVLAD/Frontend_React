@@ -40,12 +40,6 @@ const presentationReducer = (
     switch (action.type) {
         case 'UPDATE_PRESENTATION':
             return deepCopy(action.payload)
-        case 'CHANGE_PRESENTATION_ID':
-            state.id = action.payload
-            return deepCopy(state)
-        case 'CHANGE_PRESENTATION_AUTHOR':
-            state.author = action.payload
-            return deepCopy(state)
         default:
             return combinedPresentationReducers(state, action)
     }
