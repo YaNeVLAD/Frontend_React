@@ -1,4 +1,11 @@
 .titleContainer {
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
+}
+
+.slideShowButton {
+    display: flex;
+    align-items: center;
+    margin-right: 15%;
 }

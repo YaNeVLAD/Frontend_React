@@ -1,4 +1,4 @@
-import { uuid } from "../../storage/utils/functions"
+import { uuid } from "../../storage/utils/uuid"
 import { TextAreaType } from "../../storage/types"
 import { TITLE_AREA_PLACEHOLDER } from "../../storage/constants"
 
@@ -23,7 +23,7 @@ function TITLE_ON_TEXT_SLIDE_AREA(): TextAreaType {
                 size: 25,
                 color: '#000000',
                 family: 'Roboto-Bold',
-                weight: 400,
+                weight: 600,
             }
         }
     }

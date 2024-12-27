@@ -1,7 +1,7 @@
 import { SUBTITLE_TEXT_AREA } from "../TextArea/SubtitleTextArea"
 import { TITLE_TEXT_AREA } from "../TextArea/TitleTextArea"
 import { SlideType } from "../../storage/types"
-import { uuid } from "../../storage/utils/functions"
+import { uuid } from "../../storage/utils/uuid"
 
 function TITLE_SLIDE(): SlideType {
     return {

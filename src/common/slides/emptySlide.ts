@@ -1,4 +1,4 @@
-import { uuid } from "../../storage/utils/functions"
+import { uuid } from "../../storage/utils/uuid"
 import { SlideType } from "../../storage/types"
 
 function EMPTY_SLIDE(): SlideType {

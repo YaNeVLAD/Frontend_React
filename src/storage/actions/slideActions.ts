@@ -4,7 +4,7 @@ import { EMPTY_SLIDE } from "../../common/Slides/EmptySlide"
 import { IMAGE_SLIDE } from "../../common/Slides/ImageSlide"
 import { TITLE_SLIDE } from "../../common/Slides/TitleSlide"
 import { deepCopy } from "../utils/deepCopy"
-import { uuid } from "../utils/functions"
+import { uuid } from "../utils/uuid"
 import { CSSProperties } from "react"
 
 function addSlide(

@@ -24,7 +24,7 @@ const TitleArea = () => {
             <div className={style.titleContainer}>
                 <TitleInput title={title} onTitleChange={onTitleChange} />
 
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div className={style.slideShowButton}>
                     <Button
                         type="text"
                         displayType="slide-show"

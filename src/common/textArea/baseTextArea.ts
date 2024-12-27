@@ -1,4 +1,4 @@
-import { uuid } from "../../storage/utils/functions"
+import { uuid } from "../../storage/utils/uuid"
 import { TextAreaType } from "../../storage/types"
 import { BASE_TEXT_AREA_PLACEHOLDER } from "../../storage/constants"
 

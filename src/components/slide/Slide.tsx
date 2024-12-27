@@ -35,7 +35,6 @@ const Slide = (props: SlideProps) => {
             ref={ref}
             style={slideStyle}
             className={`${style.slide} ${props.className}`}>
-            <p>{slide.note}</p>
             {
                 slide.objects.map(
                     object => <ResizableSlideObject

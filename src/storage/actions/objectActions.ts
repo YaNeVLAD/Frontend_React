@@ -2,7 +2,7 @@ import { EditorType, PositionType, SelectionType, SizeType, SlideType } from "..
 import { BASE_TEXT_AREA } from "../../common/TextArea/BaseTextArea"
 import { BASE_IMAGE } from "../../common/BaseImage.ts"
 import { deepCopy } from "../utils/deepCopy"
-import { uuid } from "../utils/functions"
+import { uuid } from "../utils/uuid.ts"
 
 function addObject(
     slide: SlideType,

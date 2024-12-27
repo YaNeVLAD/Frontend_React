@@ -3,6 +3,7 @@ import { TextAreaType } from '../../../storage/types'
 import style from './TextArea.module.css'
 import useHandleClickOutside from '../../../hooks/useHandleClickOutside'
 import { useAppActions } from '../../../hooks/useRedux'
+import mapFont from '../../../storage/utils/mapFont'
 
 type TextAreaProps = {
     context: TextAreaType,
@@ -20,18 +21,16 @@ const TextArea = ({ context, scale, slideId, canBeEditable }: TextAreaProps) => 
     useHandleClickOutside(textAreaRef, () => setIsEditable(false))
 
     const textAreaStyle: CSSProperties = {
+        ...mapFont(context.text.font, scale),
         textAlign: context.text.alignment.horizontal,
-        fontWeight: context.text.font.weight,
         alignContent: context.text.alignment.vertical,
-        fontFamily: context.text.font.family,
-        fontSize: context.text.font.size * scale,
         color: context.text.font.color,
         userSelect: (isEditable && !canBeEditable) ? 'text' : 'none',
         cursor: (isEditable && !canBeEditable) ? 'text' : 'default',
     }
 
     const handleDoubleClick = (e: React.MouseEvent) => {
-        if (!canBeEditable) return        
+        if (!canBeEditable) return
         setIsEditable(true)
         e.stopPropagation()
         if (textAreaRef.current) {

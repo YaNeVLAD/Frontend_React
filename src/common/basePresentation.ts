@@ -1,5 +1,5 @@
 import { PresentationType } from "../storage/types"
-import { uuid } from "../storage/utils/functions"
+import { uuid } from "../storage/utils/uuid"
 import { TITLE_SLIDE } from "./Slides/TitleSlide"
 
 function BASE_PRESENTATION(): PresentationType {

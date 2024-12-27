@@ -1,32 +1,27 @@
 import { BackgroundPicker } from "./SlideBackgroundPicker/BackgroundPicker"
 import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import { Button } from "../../../components/Button/Button"
-import { useAppActions, useAppSelector } from "../../../hooks/useRedux"
+import { useAppActions } from "../../../hooks/useRedux"
 import { BackgroundType } from "../../../storage/types"
 import Popup from "../../../components/Popup/Popup"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./SlideButtonSet.module.css"
 
 const SlideButtonSet = () => {
     const selectedSlide = useSelectedSlide()
-    const presentation = useAppSelector(s => s.editor.presentation)
-    const { deleteSlide, changeSlideNote } = useAppActions()
+
+    const { deleteSlide } = useAppActions()
 
     const [isPopupOpen, setIsPopupOpen] = useState(false)
 
     const openPopup = () => setIsPopupOpen(true)
     const closePopup = () => setIsPopupOpen(false)
-    
+
     if (selectedSlide == undefined) return (<></>)
 
     return (
         <>
-            <Button
-                type="text"
-                displayType="tools-area"
-                onClick={() => changeSlideNote(presentation.title, selectedSlide.id)}>
-                {'Добавить заметку'}
-            </Button>
+            <NotePopup />
 
             <Button
                 type="text"
@@ -61,6 +56,63 @@ type BackgroundPopupFoorterProps = {
     closePopup: () => void
 }
 
+const NotePopup = () => {
+    const [isPopupOpened, setIsPopupOpened] = useState(false)
+    const [note, setNote] = useState('')
+    const { changeSlideNote } = useAppActions()
+    const selectedSlide = useSelectedSlide()
+
+    useEffect(() => {
+        if (selectedSlide) {
+            setNote(selectedSlide.note || '')
+        }
+    }, [selectedSlide])
+
+    if (!selectedSlide) return
+
+    const changeNote = () => changeSlideNote(note, selectedSlide.id)
+
+    return (
+        <>
+            <Button
+                type="text"
+                displayType="tools-area"
+                onClick={() => setIsPopupOpened(true)}>
+                {'Добавить заметку'}
+            </Button>
+
+            {isPopupOpened &&
+                <Popup
+                    title="Добавить заметку"
+                    content={
+                        <div className={styles.popupContent}>
+                            <textarea
+                                value={note}
+                                onChange={(e) => setNote(e.target.value)}
+                                className={styles.textarea}
+                                placeholder="Введите заметку..."
+                            />
+                        </div>
+                    }
+                    closeAction={() => setIsPopupOpened(false)}
+                    footer={
+                        <Button
+                            type="text"
+                            displayType="popup-submit"
+                            onClick={() => {
+                                changeNote()
+                                setIsPopupOpened(false)
+                            }}
+                        >
+                            {'Подтвердить'}
+                        </Button>
+                    }
+                />
+            }
+        </>
+    )
+}
+
 const BackgroundPopupFooter = ({ background, closePopup }: BackgroundPopupFoorterProps) => {
     const { changeAllSlidesBackground, changeSlideThemeBackground } = useAppActions()
 
@@ -72,16 +124,19 @@ const BackgroundPopupFooter = ({ background, closePopup }: BackgroundPopupFoorte
 
     return (
         <div className={styles.popupFooterWrapper}>
-            <button
+            <Button
+                type="text"
+                displayType="image-input"
                 onClick={changeThemeBackground}
-                className={styles.imageInputButton}>
+            >
                 {'Применить ко всем'}
-            </button>
-            <button
-                onClick={closePopup}
-                className={styles.closeButton}>
+            </Button>
+            <Button
+                type="text"
+                displayType="popup-submit"
+                onClick={closePopup}>
                 {'Готово'}
-            </button>
+            </Button>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { uuid } from "../../storage/utils/functions"
+import { uuid } from "../../storage/utils/uuid.ts"
 import { SlideType } from "../../storage/types"
 import { BASE_IMAGE } from "../BaseImage.ts"
 

@@ -1,5 +1,5 @@
 import { TITLE_ON_TEXT_SLIDE_AREA } from "../TextArea/TitleOnTextSlideTextArea"
-import { uuid } from "../../storage/utils/functions"
+import { uuid } from "../../storage/utils/uuid"
 import { TEXT_AREA } from "../TextArea/TextArea"
 import { SlideType } from "../../storage/types"
 

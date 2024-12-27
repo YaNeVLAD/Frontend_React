@@ -27,7 +27,15 @@ type EmptyButton = {
 
 type VariableButtons = ButtonWithText | ButtonWithIcon | ButtonWithIconAndText | EmptyButton
 
-type ButtonDisplayTypes = 'tools-area' | 'color-picker' | 'tools-area-popover' | 'image-input' | 'dropdown' | 'slide-show' | 'slide-show-popover'
+type ButtonDisplayTypes =
+    'tools-area'
+    | 'color-picker'
+    | 'tools-area-popover'
+    | 'image-input'
+    | 'dropdown'
+    | 'slide-show'
+    | 'slide-show-popover'
+    | 'popup-submit'
 
 type BaseButtonProps = {
     type: ButtonType,
@@ -46,7 +54,8 @@ const displayClassMap: Record<ButtonDisplayTypes, string> = {
     'image-input': style.imageInputButton,
     'dropdown': style.dropdownButton,
     'slide-show': style.slideShowButton,
-    'slide-show-popover': style.slideShowButtonDropdown
+    'slide-show-popover': style.slideShowButtonDropdown,
+    'popup-submit': style.closeButton,
 }
 
 const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: ButtonProps) => {
