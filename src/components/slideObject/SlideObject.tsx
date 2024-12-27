@@ -9,10 +9,11 @@ type SlideObjectProps = {
     slideId: string,
     scale: number,
     isSelected: boolean,
-    parentRef?: React.RefObject<HTMLElement>
+    parentRef?: React.RefObject<HTMLElement>,
+    isEditable?: boolean,
 }
 
-const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
+const SlideObject = ({ id, slideId, scale, isEditable }: SlideObjectProps) => {
     const ref = useRef<HTMLDivElement>(null)
 
     const slide = useAppSelector(
@@ -26,7 +27,7 @@ const SlideObject = ({ id, slideId, scale }: SlideObjectProps) => {
     const renderObject = () => {
         switch (object.type) {
             case "textObj":
-                return <TextArea context={object} scale={scale} slideId={slideId} />
+                return <TextArea context={object} scale={scale} slideId={slideId} canBeEditable={!!isEditable} />
             case "imageObj":
                 return <Image context={object} scale={scale} />
             default:

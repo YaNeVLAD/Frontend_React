@@ -34,6 +34,7 @@ const ObjectPreview = (props: ObjectPreviewProps) => {
                 slideId={props.slideId}
                 scale={props.scale}
                 isSelected={false}
+                isEditable={false}
             />
         </div>
     )

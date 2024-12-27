@@ -7,10 +7,11 @@ import { useAppActions } from '../../../hooks/useRedux'
 type TextAreaProps = {
     context: TextAreaType,
     scale: number,
-    slideId: string
+    slideId: string,
+    canBeEditable: boolean,
 }
 
-const TextArea = ({ context, scale, slideId }: TextAreaProps) => {
+const TextArea = ({ context, scale, slideId, canBeEditable }: TextAreaProps) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const [isEditable, setIsEditable] = useState(false)
 
@@ -25,11 +26,12 @@ const TextArea = ({ context, scale, slideId }: TextAreaProps) => {
         fontFamily: context.text.font.family,
         fontSize: context.text.font.size * scale,
         color: context.text.font.color,
-        userSelect: isEditable ? 'text' : 'none',
-        cursor: isEditable ? 'text' : 'default',
+        userSelect: (isEditable && !canBeEditable) ? 'text' : 'none',
+        cursor: (isEditable && !canBeEditable) ? 'text' : 'default',
     }
 
     const handleDoubleClick = (e: React.MouseEvent) => {
+        if (!canBeEditable) return        
         setIsEditable(true)
         e.stopPropagation()
         if (textAreaRef.current) {
@@ -38,7 +40,7 @@ const TextArea = ({ context, scale, slideId }: TextAreaProps) => {
     }
 
     const handleMouseDown = (e: React.MouseEvent) => {
-        if (isEditable) {
+        if (isEditable && canBeEditable) {
             e.stopPropagation()
         }
     }
@@ -52,8 +54,10 @@ const TextArea = ({ context, scale, slideId }: TextAreaProps) => {
             <textarea
                 ref={textAreaRef}
                 style={textAreaStyle}
+                draggable={false}
                 placeholder={isEditable ? '' : context.placeholder}
                 className={style.textAreaInput}
+                readOnly={!canBeEditable}
                 onDoubleClick={handleDoubleClick}
                 onChange={onChange}
                 value={context.text.value}

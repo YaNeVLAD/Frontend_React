@@ -10,7 +10,8 @@ type WithResizableProps = {
     slideId: string
     scale: number
     isSelected: boolean
-    parentRef: React.RefObject<HTMLElement>
+    parentRef: React.RefObject<HTMLElement>,
+    isEditable?: boolean,
 }
 
 const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>) => {
@@ -80,6 +81,7 @@ const withResizable = (WrappedComponent: React.ComponentType<WithResizableProps>
                     scale={scale}
                     isSelected={isSelected}
                     parentRef={parentRef}
+                    isEditable={true}
                 />
                 {isSelected && (
                     <>
