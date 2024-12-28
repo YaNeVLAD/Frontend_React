@@ -4,7 +4,7 @@ import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import { BackgroundType } from "../../../storage/types"
 import Popup from "../../../components/Popup/Popup"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import styles from "./SlideButtonSet.module.css"
 
 const SlideButtonSet = () => {
@@ -21,8 +21,6 @@ const SlideButtonSet = () => {
 
     return (
         <>
-            <NotePopup />
-
             <Button
                 type="text"
                 displayType="tools-area"
@@ -54,63 +52,6 @@ const SlideButtonSet = () => {
 type BackgroundPopupFoorterProps = {
     background: BackgroundType,
     closePopup: () => void
-}
-
-const NotePopup = () => {
-    const [isPopupOpened, setIsPopupOpened] = useState(false)
-    const [note, setNote] = useState('')
-    const { changeSlideNote } = useAppActions()
-    const selectedSlide = useSelectedSlide()
-
-    useEffect(() => {
-        if (selectedSlide) {
-            setNote(selectedSlide.note || '')
-        }
-    }, [selectedSlide])
-
-    if (!selectedSlide) return
-
-    const changeNote = () => changeSlideNote(note, selectedSlide.id)
-
-    return (
-        <>
-            <Button
-                type="text"
-                displayType="tools-area"
-                onClick={() => setIsPopupOpened(true)}>
-                {'Добавить заметку'}
-            </Button>
-
-            {isPopupOpened &&
-                <Popup
-                    title="Добавить заметку"
-                    content={
-                        <div className={styles.popupContent}>
-                            <textarea
-                                value={note}
-                                onChange={(e) => setNote(e.target.value)}
-                                className={styles.textarea}
-                                placeholder="Введите заметку..."
-                            />
-                        </div>
-                    }
-                    closeAction={() => setIsPopupOpened(false)}
-                    footer={
-                        <Button
-                            type="text"
-                            displayType="popup-submit"
-                            onClick={() => {
-                                changeNote()
-                                setIsPopupOpened(false)
-                            }}
-                        >
-                            {'Подтвердить'}
-                        </Button>
-                    }
-                />
-            }
-        </>
-    )
 }
 
 const BackgroundPopupFooter = ({ background, closePopup }: BackgroundPopupFoorterProps) => {

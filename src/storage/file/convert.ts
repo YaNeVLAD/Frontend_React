@@ -35,7 +35,7 @@ async function PresentationToPDF(doc: PDFDocument, presentation: PresentationTyp
 }
 
 async function SlideToPDF(slide: SlideType, doc: PDFDocument) {
-    const page = doc.addPage([960, 540])
+    const page = doc.addPage([913, 513])
 
     await SlideBgToPDF(slide.background, doc, page)
 

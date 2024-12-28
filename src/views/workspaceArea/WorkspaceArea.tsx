@@ -12,21 +12,23 @@ const WorkspaceArea = () => {
     if (selectedSlide == undefined) return (<></>)
 
     return (
-        <ScrollAreaWrapper>
-            <div
-                className={style.workspaceArea}>
+        <>
+            <ScrollAreaWrapper>
                 <div
-                    className={style.workspaceSlideWrapper}>
-                    <Slide
-                        id={selectedSlide.id}
-                        selectedObjectId={selectedObject?.id}
-                        isSelected={false}
-                        className={style.workspaceSlide}
-                        scale={SELECTED_SLIDE_SCALE}
-                        objectScale={WORKSPACE_SLIDE_OBJECT_SCALE} />
-                </div>
-            </div >
-        </ScrollAreaWrapper>
+                    className={style.workspaceArea}>
+                    <div
+                        className={style.workspaceSlideWrapper}>
+                        <Slide
+                            id={selectedSlide.id}
+                            selectedObjectId={selectedObject?.id}
+                            isSelected={false}
+                            className={style.workspaceSlide}
+                            scale={SELECTED_SLIDE_SCALE}
+                            objectScale={WORKSPACE_SLIDE_OBJECT_SCALE} />
+                    </div>
+                </div >
+            </ScrollAreaWrapper>
+        </>
     )
 }
 

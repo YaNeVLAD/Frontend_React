@@ -1,8 +1,9 @@
 .workspaceArea {
     display: flex;
-    justify-content: center;
-    padding: 20px;
-    height: calc(100vh - var(--toolsBarHeight) - 120px);
+    aspect-ratio: 16 / 9;
+    padding: 20px 0 0 20px;
+    margin-left: 100px;
+    height: calc(100vh - var(--toolsBarHeight) - 150px);
 }
 
 .workspaceSlideWrapper {

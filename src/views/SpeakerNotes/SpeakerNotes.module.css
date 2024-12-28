@@ -1,0 +1,65 @@
+.speakerNotesContainer {
+    display: flex;
+    flex-direction: column;
+    box-flex: 1;
+    flex-grow: 1;
+}
+
+.speakerNotesDragger {
+    background: #f9fbfd;
+    border-color: transparent;
+    border-style: solid none;
+    border-width: 1px;
+    cursor: default;
+    height: 8px;
+    padding-bottom: 16px;
+    width: 100%;
+    z-index: unset;
+}
+
+.speakerNotesDraggerThumb {
+    background: #747775;
+    border-radius: 12px;
+    cursor: grab;
+    height: 2px;
+    margin: 3px auto 0;
+    position: relative;
+    width: 48px;
+}
+
+.speakerNotesDraggerThumb:hover {
+    background-color: #303030;
+}
+
+.speakerNotes {
+    background-color: #edf2fa;
+    border-radius: 8px;
+    cursor: text;
+    height: 48px;
+    margin: 0 16px;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.speakerNotesWorkspace {
+    background-color: #edf2fa;
+    cursor: text;
+    height: 100%;
+}
+
+.speakerNotesWorkspace:hover {
+    background-color: #e7edf8;
+}
+
+.textarea,
+.textarea:focus {
+    background: none;
+    border: none;
+    resize: none;
+    outline: none;
+    width: 100%;
+}
+
+.textarea::placeholder {
+    color: #000;
+}
