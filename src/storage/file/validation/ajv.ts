@@ -84,37 +84,58 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
                 pos: positionTypeSchema,
                 size: sizeTypeSchema,
                 turnAngle: { type: numberAjv },
-                placeholder: { type: stringAjv },   // Новый параметр для placeholder
+                placeholder: { type: stringAjv },
                 text: {
                     type: objectAjv,
                     properties: {
                         font: {
                             type: objectAjv,
                             properties: {
-                                family: { type: stringAjv, enum: ['Roboto-Bold', 'Roboto-Regular', 'Arial'] },
+                                family: {
+                                    type: stringAjv,
+                                    enum: [
+                                        'Roboto-Bold',
+                                        'Roboto-Regular',
+                                        'Arial-Regular',
+                                        'Montserrat-Bold',
+                                        'Montserrat-Regular',
+                                        'Montserrat-Bold-Italic',
+                                        'Montserrat-Regular-Italic'
+                                    ]
+                                },
                                 size: { type: numberAjv },
                                 color: { type: stringAjv },
+                                weight: {
+                                    type: numberAjv,
+                                    enum: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+                                }
                             },
-                            required: ['family', 'size', 'color'],
-                            additionalProperties: false,
+                            required: ['family', 'size', 'color', 'weight'],
+                            additionalProperties: false
                         },
                         alignment: {
                             type: objectAjv,
                             properties: {
-                                horizontal: { type: stringAjv, enum: ['center', 'start', 'end'] },
-                                vertical: { type: stringAjv, enum: ['center', 'start', 'end'] },
+                                horizontal: {
+                                    type: stringAjv,
+                                    enum: ['center', 'start', 'end']
+                                },
+                                vertical: {
+                                    type: stringAjv,
+                                    enum: ['center', 'start', 'end']
+                                }
                             },
                             required: ['horizontal', 'vertical'],
-                            additionalProperties: false,
+                            additionalProperties: false
                         },
-                        value: { type: stringAjv },
+                        value: { type: stringAjv }
                     },
                     required: ['font', 'alignment', 'value'],
-                    additionalProperties: false,
-                },
+                    additionalProperties: false
+                }
             },
             required: ['id', 'type', 'pos', 'size', 'turnAngle', 'placeholder', 'text'],
-            additionalProperties: false,
+            additionalProperties: false
         },
     ],
 }

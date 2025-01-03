@@ -73,7 +73,14 @@ type ImageType = BaseSlideObjectType & {
     src: ImageSrc,
 }
 
-type FontFamily = 'Roboto-Bold' | 'Roboto-Regular' | 'Arial'
+type FontFamily = 
+'Roboto-Bold' | 
+'Roboto-Regular' | 
+'Arial-Regular' | 
+'Montserrat-Bold' |
+'Montserrat-Regular' |
+'Montserrat-Bold-Italic' |
+'Montserrat-Regular-Italic'
 
 type Alignment = 'center' | 'start' | 'end'
 

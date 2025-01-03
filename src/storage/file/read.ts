@@ -1,6 +1,5 @@
 import { parsePresentationFromJson } from "./parse"
 import { PresentationType } from "../types"
-import { validatePresentation } from "./validation/ajv"
 
 function loadPresentation(file: File | undefined): Promise<PresentationType | null> {
     return new Promise((resolve, reject) => {
@@ -10,11 +9,7 @@ function loadPresentation(file: File | undefined): Promise<PresentationType | nu
                 try {
                     const json = e.target?.result as string
                     const presentation = parsePresentationFromJson(json)
-                    if (presentation == null || !validatePresentation(presentation)) {
-                        resolve(null)
-                    } else {
-                        resolve(presentation)
-                    }
+                    resolve(presentation == null ? null : presentation)
                 } catch (error) {
                     reject(error)
                 }

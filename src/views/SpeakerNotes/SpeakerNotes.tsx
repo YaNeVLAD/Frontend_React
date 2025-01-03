@@ -22,7 +22,7 @@ const SpeakerNotes = ({ notesHeight, setNotesHeight }: SpeakerNotesProps) => {
 
     const handleMouseMove = useCallback((e: MouseEvent) => {
         if (dragging) {
-            setNotesHeight(prevHeight => Math.max(180, prevHeight - e.movementY))
+            setNotesHeight(prevHeight => Math.min(400, Math.max(140, prevHeight - e.movementY)))
         }
     }, [dragging, setNotesHeight])
 
@@ -53,7 +53,11 @@ const SpeakerNotes = ({ notesHeight, setNotesHeight }: SpeakerNotesProps) => {
     }
 
     return (
-        <div className={styles.speakerNotesContainer} style={{ height: notesHeight }}>
+        <div
+            className={styles.speakerNotesContainer}
+            draggable={false}
+            style={{ height: notesHeight}}
+        >
             <div
                 className={styles.speakerNotesDragger}
                 style={{ cursor: dragging ? 'grabbing' : 'grab' }}
@@ -65,8 +69,8 @@ const SpeakerNotes = ({ notesHeight, setNotesHeight }: SpeakerNotesProps) => {
                 <textarea
                     value={note}
                     onChange={handleNoteChange}
+                    style={{ height: notesHeight }}
                     className={styles.textarea}
-                    style={{height: notesHeight}}
                     placeholder="Нажмите, чтобы добавить заметки докладчика"
                 />
             </div>

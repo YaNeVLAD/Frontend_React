@@ -15,8 +15,6 @@ function createPath<Template extends string, Params extends Record<string, strin
     route: Route<Template, Params>,
     params: Params
 ): string {
-    console.log(params)
-
     let path = route.url as string
     Object.keys(params).forEach((param) => {
         const paramPattern = `:${param}`

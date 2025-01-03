@@ -3,7 +3,7 @@
     user-select: none;
     flex-direction: column;
     flex-wrap: nowrap;
-    width: calc(225px + 50px);
+    width: calc(225px + 65px);
     height: calc(100vh - var(--toolsBarHeight) - 200px);
     overflow-y: auto;
     overflow-x: hidden;

@@ -86,7 +86,6 @@ async function ObjectToPDF(object: SlideObjectType, doc: PDFDocument, page: PDFP
             const currentWord = words[i] || ''
 
             const testLine = currentLine ? `${currentLine} ${currentWord}` : currentWord
-            console.log(testLine)
 
             const lineWidth = font.widthOfTextAtSize(testLine, object.text.font.size)
 
