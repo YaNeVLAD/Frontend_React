@@ -1,6 +1,7 @@
-const imageToPng = async (base64: string): Promise<string> => {
+const imageToPng = async (src: string): Promise<string> => {
     const img = new Image()
-    img.src = base64
+    img.crossOrigin = "anonymous"
+    img.src = src.startsWith('data:image/') ? src : src
 
     return new Promise<string>((resolve, reject) => {
         img.onload = () => {
