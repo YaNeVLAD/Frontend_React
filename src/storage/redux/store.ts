@@ -3,6 +3,7 @@ import { getRootStateFromDB, saveRootStateToDB } from "../utils/indexedDB"
 import { rootReducer, RootState } from "./reducers/rootReducer"
 import { BASE_VIEWMODEL } from '../../common/BaseViewModel'
 import { BASE_EDITOR } from '../../common/BaseEditor'
+import { thunk } from 'redux-thunk'
 
 const loadStateFromIndexedDB = async (): Promise<RootState> => {
     try {
@@ -25,15 +26,14 @@ const saveToIndexedDBMiddleware: Middleware = store => next => action => {
     return result
 }
 
-
 const configureStore = async () => {
     const initialState = await loadStateFromIndexedDB()
     console.log(initialState)
 
     const store = createStore(
         rootReducer,
-        {...initialState},
-        applyMiddleware(saveToIndexedDBMiddleware)
+        { ...initialState },
+        applyMiddleware(thunk, saveToIndexedDBMiddleware)
     )
 
     return store

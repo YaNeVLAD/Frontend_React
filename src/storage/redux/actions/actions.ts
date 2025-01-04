@@ -1,4 +1,4 @@
-import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme } from "../../types"
+import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, ImageType } from "../../types"
 import { RootState } from "../reducers/rootReducer"
 
 type AddSlideAction = {
@@ -145,7 +145,16 @@ type ChangeSlideNote = {
     }
 }
 
+type AddImage = {
+    type: 'ADD_IMAGE',
+    payload: {
+        selectedSlideId?: string,
+        object: ImageType
+    }
+}
+
 type Action =
+    | AddImage
     | SetStateAction
     | AddSlideAction
     | AddObjectAction

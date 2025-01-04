@@ -1,4 +1,5 @@
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme } from "../../types"
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, ImageType } from "../../types"
+import { loadImage } from "../middleware/loadImage"
 import { RootState } from "../reducers/rootReducer"
 import { Action } from "./actions"
 
@@ -107,11 +108,21 @@ const changeSlideNote = (note: string, slideId?: string): Action => ({
     }
 })
 
+const addImage = (selectedSlideId: string | undefined, object: ImageType): Action => ({
+    type: 'ADD_IMAGE',
+    payload: {
+        selectedSlideId: selectedSlideId,
+        object: object
+    }
+})
+
 export {
+    addImage,
     setState,
     addSlide,
     moveSlide,
     addObject,
+    loadImage,
     selectSlide,
     deleteSlide,
     deleteObject,

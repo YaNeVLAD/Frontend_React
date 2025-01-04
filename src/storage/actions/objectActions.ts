@@ -24,12 +24,12 @@ function addObject(
         image.src = value
         newObject.src.value = value
         newObject.size = {
-            width: (image.width == 0) ? 150 : image.width,
-            height: (image.height == 0) ? 150 : image.height
+            width: (image.width == 0) ? 150 : Math.min(image.width, 913),
+            height: (image.height == 0) ? 150 : Math.min(image.height, 513)
         }
     } else {
         newObject = BASE_TEXT_AREA()
-        newObject.value = value
+        newObject.text.value = value
     }
     newObject.id = uuid()
 

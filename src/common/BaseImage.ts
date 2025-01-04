@@ -5,7 +5,7 @@ function BASE_IMAGE(): ImageType {
     return {
         id: uuid(),
         type: 'imageObj',
-        pos: { x: 50, y: 50 },
+        pos: { x: 0, y: 0 },
         size: { width: 300, height: 300 },
         turnAngle: 0,
         src: {

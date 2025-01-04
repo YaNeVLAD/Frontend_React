@@ -8,6 +8,7 @@ const initialState: Array<SlideType> = []
 
 const slidesReducer = (state = initialState, action: Action): Array<SlideType> => {
     switch (action.type) {
+        case 'ADD_IMAGE':
         case 'ADD_OBJECT':
         case 'DELETE_OBJECT':
         case 'CHANGE_SRC_VALUE':

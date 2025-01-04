@@ -13,7 +13,7 @@ import { useState } from "react"
 
 const CreateButtonSet = () => {
     const selectedSlide = useSelectedSlide()
-    const { deselectObjects, addObject } = useAppActions()
+    const { deselectObjects, loadImage, addObject } = useAppActions()
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
     const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -25,8 +25,8 @@ const CreateButtonSet = () => {
 
     const onAddTextArea = () => addObject(selectedSlide?.id, 'textObj', 'Введите текст')
 
-    const onImageUpload = (image: string) => {
-        addObject(selectedSlide.id, 'imageObj', image)
+    const onImageUpload = (src: string) => {
+        loadImage(selectedSlide.id, src)
         closePopover()
     }
 

@@ -4,10 +4,13 @@ import { ACCESS_KEY } from "../../env.ts"
 type UnsplashImage = {
     id: string
     urls: {
-        small: string
-        full: string
+        small: string,
+        full: string,
+        regular: string,
     }
-    alt_description: string | null
+    alt_description: string | null,
+    height: number,
+    width: number,
 }
 
 const useImageSearchApi = () => {

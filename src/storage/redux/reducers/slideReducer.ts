@@ -16,6 +16,8 @@ const initialState: SlideType = {
 
 const slideReducer = (state = initialState, action: Action): SlideType => {
     switch (action.type) {
+        case 'ADD_IMAGE':
+            return { ...state, objects: [...state.objects, action.payload.object] }
         case 'CHANGE_TEXT_VALUE':
             return changeTextValue(state, action.payload)
         case 'CHANGE_SLIDE_NOTE':
