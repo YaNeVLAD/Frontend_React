@@ -54,7 +54,7 @@ const SeachImagePopup = ({ selectedSlideId, isOpen, setIsOpen }: SeachImagePopup
         isOpen && (
             <Popup
                 closeAction={() => setIsOpen(false)}
-                title="Вставка фонового изображения"
+                title="Вставка изображения"
                 content={
                     <div className={styles.popupContainer}>
                         <header className={styles.popupHeader}>
