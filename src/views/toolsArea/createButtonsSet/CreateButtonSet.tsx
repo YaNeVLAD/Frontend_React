@@ -1,8 +1,10 @@
 import Cursor20Icon from "../../../components/common/Icons/Cursor20Icon"
-import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
+import Search24Icon from "../../../components/common/Icons/Search24Icon"
 import Upload24Icon from "../../../components/common/Icons/Upload24Icon"
 import Image20Icon from "../../../components/common/Icons/Image20Icon"
+import SeachImagePopup from "../../SearchImagePopup/SearchImagePopup"
 import Text20Icon from "../../../components/common/Icons/Text20Icon"
+import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import ImageInput from "../../../components/ImageInput/ImageInput"
 import { Button } from "../../../components/Button/Button"
 import Popover from "../../../components/Popover/Popover"
@@ -14,6 +16,7 @@ const CreateButtonSet = () => {
     const { deselectObjects, addObject } = useAppActions()
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
 
     if (selectedSlide == undefined) return
 
@@ -39,6 +42,14 @@ const CreateButtonSet = () => {
                     {'Загрузить с компьютера'}
                 </Button>
             </ImageInput>
+            <Button
+                type="icon&text"
+                displayType="dropdown"
+                onClick={() => setIsPopupOpen(true)}
+            >
+                {Search24Icon}
+                {'Найти в интернете'}
+            </Button>
         </>
     )
 
@@ -69,9 +80,14 @@ const CreateButtonSet = () => {
                     {Image20Icon}
                 </Button>
             </Popover>
+
+            <SeachImagePopup
+                selectedSlideId={selectedSlide.id}
+                isOpen={isPopupOpen}
+                setIsOpen={setIsPopupOpen}
+            />
         </>
     )
 }
-
 
 export { CreateButtonSet }
