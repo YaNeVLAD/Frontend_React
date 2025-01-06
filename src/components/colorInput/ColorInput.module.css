@@ -8,3 +8,16 @@
     background-color: #3C40430F;
     box-shadow: none;
 }
+
+.color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #bebebe;
+}
+
+.colorPalette {
+    display: flex;
+    gap: 1px;
+    margin-top: 1px;
+}

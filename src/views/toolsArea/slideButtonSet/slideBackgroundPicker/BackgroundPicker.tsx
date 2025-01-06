@@ -1,11 +1,11 @@
-import ArrowDown20Icon from "../../../../components/common/Icons/ArrowDown20Icon"
 import { useSelectedSlide } from "../../../../hooks/useSelectedSlide"
 import { useAppActions, useAppSelector } from "../../../../hooks/useRedux"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
 import ImageInput from "../../../../components/ImageInput/ImageInput"
 import { Button } from "../../../../components/Button/Button"
 import { BackgroundType } from "../../../../storage/types"
-import { CSSProperties, useState } from "react"
+import ColorButton from "../../../ColorButton/ColorButton"
+import { useState } from "react"
 import styles from "./BackgroundPicker.module.css"
 
 const BackgroundPicker = () => {
@@ -36,12 +36,6 @@ const BackgroundPicker = () => {
         changeSlideBackground(selectedSlide.id, background)
     }
 
-    const backgroundStyle: CSSProperties = {
-        backgroundColor: selectedSlide.background.type == 'solid'
-            ? selectedSlide.background.value
-            : ''
-    }
-
     return (
         <div className={styles.colorPickerContent}>
             <div className={styles.colorPickerWrapper}>
@@ -55,18 +49,7 @@ const BackgroundPicker = () => {
                             : "#ffffff"
                     }
                     onColorChange={onBackgroundChange}>
-                    <Button
-                        type="empty"
-                        displayType="color-picker"
-                        onClick={() => { }}>
-                        <>
-                            <div
-                                style={backgroundStyle}
-                                className={styles.colorInputButton}>
-                            </div>
-                            {ArrowDown20Icon}
-                        </>
-                    </Button>
+                    <ColorButton />
                 </ColorInput>
             </div>
             <div className={styles.colorPickerWrapper}>

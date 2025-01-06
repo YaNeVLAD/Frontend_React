@@ -14,10 +14,6 @@
     z-index: 1;
 }
 
-.popoverContent div {
-    width: 100%;
-}
-
 .popoverIcon {
     cursor: pointer;
     padding: 4px 0;
