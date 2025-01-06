@@ -54,7 +54,7 @@ const TextArea = ({ context, scale, slideId, canBeEditable }: TextAreaProps) => 
                 ref={textAreaRef}
                 style={textAreaStyle}
                 draggable={false}
-                placeholder={isEditable ? '' : context.placeholder}
+                placeholder={canBeEditable ? isEditable ? '' : context.placeholder : ""}
                 className={style.textAreaInput}
                 readOnly={!canBeEditable}
                 onDoubleClick={handleDoubleClick}
