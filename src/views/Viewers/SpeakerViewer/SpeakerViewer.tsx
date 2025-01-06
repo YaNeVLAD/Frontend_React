@@ -1,8 +1,9 @@
 import { createPath, EditorRoute, SpeakerNotesRoute } from "../../../storage/utils/createPath"
 import { SlidePreview } from "../../../components/SlidePreview/SlidePreview"
+import useNavigateWithParams from "../../../hooks/useNavigateToRoute"
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useAppSelector } from "../../../hooks/useRedux"
-import useNavigateWithParams from "../../../hooks/useNavigateToRoute"
+import style from "./SpeakerViewer.module.css"
 
 const SpeakerViewer = () => {
     const navigateWithParams = useNavigateWithParams()
@@ -18,7 +19,6 @@ const SpeakerViewer = () => {
                 newWindow.close()
             }
         }
-        // Слушаем события изменения URL
         window.addEventListener('popstate', handleRouteChange)
 
         return () => {
@@ -28,9 +28,9 @@ const SpeakerViewer = () => {
 
     const openSpeakerWindow = useCallback(() => {
         if (!windowOpened.current) {
-            const newWindow = window.open(createPath(SpeakerNotesRoute, { id: presentation.id }), '_blank', 'width=700,height=500')
-            if (newWindow) {
-                setNewWindow(newWindow)
+            const newWin = window.open(createPath(SpeakerNotesRoute, { id: presentation.id }), '_blank', 'width=700,height=500')
+            if (newWin) {
+                setNewWindow(newWin)
                 windowOpened.current = true
             }
         }
@@ -108,24 +108,25 @@ const SpeakerViewer = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [currentSlideIndex, saveSlideData])
+    }, [currentSlideIndex, navigateWithParams, newWindow, saveSlideData])
+
+    const screenWidth = window.innerWidth
+    const screenHeight = window.innerHeight
+
+    const scaleX = screenWidth / 913
+    const scaleY = screenHeight / 513
+    const finalScale = Math.min(scaleX, scaleY)
 
     return (
-        <>
+        <div className={style.container}>
             {slide && (
-                <>
-                    <SlidePreview
-                        id={slide.id}
-                        scale={1}
-                        objectScale={1}
-                    />
-                    <div>
-                        <button onClick={() => saveSlideData(-1)}>Предыдущий слайд</button>
-                        <button onClick={() => saveSlideData(1)}>Следующий слайд</button>
-                    </div>
-                </>
+                <SlidePreview
+                    id={slide.id}
+                    scale={finalScale}
+                    objectScale={1}
+                />
             )}
-        </>
+        </div>
     )
 }
 

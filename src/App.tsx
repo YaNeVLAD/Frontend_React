@@ -1,3 +1,4 @@
+import { EditorRoute, PDFViewerRoute, SpeakerNotesRoute, SpeakerViewerRoute } from './storage/utils/createPath'
 import SpeakerNotesWindow from './views/Viewers/SpeakerViewer/SpeakerNotesWindow/SpeakerNotesWindow'
 import SpeakerViewerPage from './pages/SpeakerViewerPage/SpeakerViewerPage'
 import PDFViewerPage from './pages/PDFViewerPage/PDFViewerPage'
@@ -13,10 +14,10 @@ function App({ history }: AppProps) {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<EditorPage history={history} />} />
-                <Route path='/view/pdf/:id' element={<PDFViewerPage />} />
-                <Route path='/view/s/:id' element={<SpeakerViewerPage />} />
-                <Route path='/view/s/:id/n' element={<SpeakerNotesWindow />} />
+                <Route path={EditorRoute.url} element={<EditorPage history={history} />} />
+                <Route path={PDFViewerRoute.url} element={<PDFViewerPage />} />
+                <Route path={SpeakerViewerRoute.url} element={<SpeakerViewerPage />} />
+                <Route path={SpeakerNotesRoute.url} element={<SpeakerNotesWindow />} />
             </Routes>
         </BrowserRouter>
     )

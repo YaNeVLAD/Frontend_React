@@ -18,7 +18,8 @@ const SlidePreview = (props: SlidePreviewProps) => {
     if (!slide) return (<></>)
 
     const slideStyle: CSSProperties = {
-        transform: `scale(${props.scale})`,
+        width: `${913 * props.scale}px`,
+        height: `${913 * props.scale}px`
     }
 
     selectSlideBackgroundType(slideStyle, slide.background)
@@ -34,7 +35,7 @@ const SlidePreview = (props: SlidePreviewProps) => {
                         key={object.id}
                         id={object.id}
                         slideId={slide.id}
-                        scale={props.objectScale}
+                        scale={props.scale}
                     />
                 ))
             }

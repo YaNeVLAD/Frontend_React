@@ -1,24 +1,24 @@
 import SpeakerViewer from '../../views/Viewers/SpeakerViewer/SpeakerViewer'
-import useFakePresentationFetch from '../useFakePresentationFetch'
-import { PresentationType } from '../../storage/types'
-import { useParams } from 'react-router'
-import { useState } from 'react'
-
-type ViewerPageParams = {
-    id: string
-}
 
 const SpeakerViewerPage = () => {
-    const { id } = useParams<ViewerPageParams>()
-    const [presentation, setPresentation] = useState<PresentationType | null>(null)
+    // const location = useLocation()
+    // const params = new URLSearchParams(location.search)
+    // const fullscreen = params.get('fullscreen') == String(true)
 
-    useFakePresentationFetch(id, setPresentation)
-
-    if (!presentation) return <div>Загрузка...</div>
-
-    return (
-        <SpeakerViewer />
-    )
+    // useEffect(() => {
+    //     if (fullscreen) {
+    //         const enableFullscreen = async () => {
+    //             const elem = document.documentElement
+    //             try {
+    //                 if (elem.requestFullscreen) await elem.requestFullscreen()
+    //             } catch (error) {
+    //                 console.error("Failed to enable fullscreen:", error)
+    //             }
+    //         }
+    //         enableFullscreen()
+    //     }
+    // }, [fullscreen])
+    return <SpeakerViewer />
 }
 
 export default SpeakerViewerPage

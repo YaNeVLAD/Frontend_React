@@ -1,10 +1,10 @@
-import { createPath, Route } from "../storage/utils/createPath"
+import { createPath, Route, RouteParams } from "../storage/utils/createPath"
 import { useNavigate } from "react-router"
 
 const useNavigateWithParams = () => {
     const navigate = useNavigate()
 
-    return <Template extends string, Params extends Record<string, string | number>>(
+    return <Template extends string, Params extends RouteParams>(
         route: Route<Template, Params>,
         params: Params
     ) => {

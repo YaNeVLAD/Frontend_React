@@ -41,8 +41,6 @@ function addObject(
 function changeObjectSize(editor: EditorType, { width, height }: { width: number, height: number }): EditorType {
     const editorCopy = deepCopy(editor)
 
-    // if (editorCopy.selection.selectedObject?.type != 'textObj') return editor
-
     const selectedSlide = editorCopy.presentation.slides.find(
         slide => slide.id == editorCopy.selection.selectedSlideId
     )

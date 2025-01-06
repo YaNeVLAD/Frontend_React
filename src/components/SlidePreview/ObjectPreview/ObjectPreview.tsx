@@ -8,31 +8,30 @@ type ObjectPreviewProps = {
     scale: number
 }
 
-const ObjectPreview = (props: ObjectPreviewProps) => {
+const ObjectPreview = ({ id, scale, slideId }: ObjectPreviewProps) => {
     const slide = useAppSelector(state => state.editor.presentation.slides.find(
-        s => s.id == props.slideId
+        s => s.id === slideId
     ))
 
-    const object = slide?.objects.find(obj => obj.id == props.id)
+    const object = slide?.objects.find(obj => obj.id === id)
 
-    if (!object) return (<></>)
+    if (!object) return null
 
     const objectStyle: CSSProperties = {
-        left: `${object.pos.x * props.scale}px`,
-        top: `${object.pos.y * props.scale}px`,
-        width: `${object.size.width * props.scale}px`,
-        height: `${object.size.height * props.scale}px`,
+        left: `${object.pos.x * scale}px`,
+        top: `${object.pos.y * scale}px`,
+        width: `${object.size.width * scale}px`,
+        height: `${object.size.height * scale}px`,
         transform: `rotate(${object.turnAngle}deg)`,
+        position: 'absolute'
     }
 
     return (
-        <div
-            style={{ ...objectStyle, position: 'absolute' }}
-        >
+        <div style={objectStyle}>
             <SlideObject
-                id={props.id}
-                slideId={props.slideId}
-                scale={props.scale}
+                id={id}
+                slideId={slideId}
+                scale={scale}
                 isSelected={false}
                 isEditable={false}
             />

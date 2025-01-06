@@ -48,7 +48,8 @@ const ViewersPopover = ({ presentation }: ViewersPopoverProps) => {
 
     const navigateWithParams = useNavigateWithParams()
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-    const navigateToSpeakerViewer = () => navigateWithParams(SpeakerViewerRoute, { id: id })
+
+    const navigateToSpeakerViewer = () => navigateWithParams(SpeakerViewerRoute, { id, fullscreen: true })
 
     return (
         <>
@@ -75,6 +76,5 @@ const ViewersPopover = ({ presentation }: ViewersPopoverProps) => {
         </>
     )
 }
-
 
 export default TitleArea
