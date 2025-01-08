@@ -37,14 +37,14 @@ const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
                         setCurrentTab={setCurrentTab}
                     />
                     {currentTab == SolidColorTab &&
-                        <SolidColorTabContent
+                        <SolidColorPalette
                             color={color}
                             onChange={onChange}
                             onColorSelect={(color) => onColorChange(color)}
                         />
                     }
                     {currentTab == GradientTab &&
-                        <GradientTabContent />}
+                        <GradientPalette />}
                 </>
             }>
             <div
@@ -62,7 +62,7 @@ type SolidColorTabContentProps = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const SolidColorTabContent = ({ color, onChange, onColorSelect }: SolidColorTabContentProps) => {
+const SolidColorPalette = ({ color, onChange, onColorSelect }: SolidColorTabContentProps) => {
     const generatePalette = () => {
         const rows = []
         const steps = 10
@@ -114,8 +114,7 @@ const SolidColorTabContent = ({ color, onChange, onColorSelect }: SolidColorTabC
     )
 }
 
-
-const GradientTabContent = () => {
+const GradientPalette = () => {
     return (<></>)
 }
 
