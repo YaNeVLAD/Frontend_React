@@ -1,21 +1,13 @@
 type RouteParams = Record<string, unknown>
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type Route<Template extends string, Params extends RouteParams = {}> = {
-    url: Template
+type Route<UrlTemplate extends string, Params extends RouteParams = {}> = {
+    url: UrlTemplate
     params?: Params
 }
 
-type EditorTemplate = '/'
-type SpeakerViewerTemplate = '/view/s/:id/:fullscreen'
-type SpeakerNotesTemplate = '/view/s/:id/n'
-type PDFViewerTemplate = '/view/pdf/:id'
-
-type SpeakerViewerParams = { id: string | number, fullscreen: boolean }
-type PresentationParams = { id: string | number }
-
-function createPath<Template extends string, Params extends RouteParams>(
-    route: Route<Template, Params>,
+function createPath<UrlTemplate extends string, Params extends RouteParams>(
+    route: Route<UrlTemplate, Params>,
     params: Params
 ): string {
     let path = route.url as string
@@ -30,20 +22,24 @@ function createPath<Template extends string, Params extends RouteParams>(
     return path
 }
 
-const EditorRoute: Route<EditorTemplate> = {
+const EditorRoute: Route<"/"> = {
     url: "/"
 }
 
-const SpeakerViewerRoute: Route<SpeakerViewerTemplate, SpeakerViewerParams> = {
-    url: "/view/s/:id/:fullscreen"
+const SpeakerViewerRoute: Route<"/view/speaker/:id", { id: string }> = {
+    url: "/view/speaker/:id",
 }
 
-const SpeakerNotesRoute: Route<SpeakerNotesTemplate, PresentationParams> = {
-    url: "/view/s/:id/n"
+const SpeakerNotesRoute: Route<"/view/speaker/:id/notes", { id: string }> = {
+    url: "/view/speaker/:id/notes"
 }
 
-const PDFViewerRoute: Route<PDFViewerTemplate, PresentationParams> = {
+const PDFViewerRoute: Route<"/view/pdf/:id", { id: string }> = {
     url: "/view/pdf/:id"
+}
+
+const SlideShowRoute: Route<"/view/slide-show/:from", { from: number }> = {
+    url: "/view/slide-show/:from"
 }
 
 export type {
@@ -54,6 +50,7 @@ export {
     type RouteParams,
     createPath,
     EditorRoute,
+    SlideShowRoute,
     PDFViewerRoute,
     SpeakerNotesRoute,
     SpeakerViewerRoute,

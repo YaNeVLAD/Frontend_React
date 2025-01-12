@@ -1,19 +1,26 @@
 import ArrowDown20Icon from "../../components/common/Icons/ArrowDown20Icon"
-import { SpeakerViewerRoute } from "../../storage/utils/createPath"
+import { SlideShowRoute, SpeakerViewerRoute } from "../../storage/utils/createPath"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import useNavigateWithParams from "../../hooks/useNavigateToRoute"
+import { useSelectedSlide } from "../../hooks/useSelectedSlide"
 import { Button } from "../../components/Button/Button"
+import { PresentationType } from "../../storage/types"
 import Popover from "../../components/Popover/Popover"
 import TitleInput from "./TitleInput/TitleInput"
+import MenuBar from "../MenuBar/MenuBar"
 import { useState } from "react"
 import style from "./TitleArea.module.css"
-import { PresentationType } from "../../storage/types"
-import MenuBar from "../MenuBar/MenuBar"
 
 const TitleArea = () => {
+    const navigateWithParams = useNavigateWithParams()
     const { changePresentationTitle } = useAppActions()
     const presentation = useAppSelector(state => state.editor.presentation)
+    const selectedSlide = useSelectedSlide() || presentation.slides[0]
+    const selectedSlideIndex = presentation.slides.indexOf(selectedSlide)
     const title = presentation.title
+
+    const startSlideShowFromSelectedSlide = () =>
+        navigateWithParams(SlideShowRoute, { from: selectedSlideIndex }, { replace: true })
 
     const onTitleChange = (newTitle: string) => {
         changePresentationTitle(newTitle)
@@ -28,12 +35,12 @@ const TitleArea = () => {
                     <Button
                         type="text"
                         displayType="slide-show"
-                        onClick={() => { }}>
+                        onClick={startSlideShowFromSelectedSlide}>
                         {'Слайд-шоу'}
                     </Button>
                     <ViewersPopover presentation={presentation} />
                 </div>
-            </div>
+            </div >
             <MenuBar />
         </>
     )
@@ -49,7 +56,8 @@ const ViewersPopover = ({ presentation }: ViewersPopoverProps) => {
     const navigateWithParams = useNavigateWithParams()
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-    const navigateToSpeakerViewer = () => navigateWithParams(SpeakerViewerRoute, { id, fullscreen: true })
+    const startSpeakerSlideShow = () => navigateWithParams(SpeakerViewerRoute, { id: id })
+    const startSlideShowFromFirstSlide = () => navigateWithParams(SlideShowRoute, { from: 0 }, { replace: true })
 
     return (
         <>
@@ -61,8 +69,14 @@ const ViewersPopover = ({ presentation }: ViewersPopoverProps) => {
                         <Button
                             type="text"
                             displayType="dropdown"
-                            onClick={navigateToSpeakerViewer}>
+                            onClick={startSpeakerSlideShow}>
                             {'Режим докладчика'}
+                        </Button>
+                        <Button
+                            type="text"
+                            displayType="dropdown"
+                            onClick={startSlideShowFromFirstSlide}>
+                            {'Начать сначала'}
                         </Button>
                     </>
                 }>
