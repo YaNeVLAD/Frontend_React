@@ -77,8 +77,8 @@ const SeachImagePopup = ({ selectedSlideId, isOpen, setIsOpen }: SeachImagePopup
                                     style={calculateImageStyle(img)}
                                 />
                             ))}
-                            {loading && <div className={styles.loadingText}>Загрузка...</div>}
                         </div>
+                        {loading && <div className={styles.loadingText}>Загрузка...</div>}
                     </div>
                 }
             />
