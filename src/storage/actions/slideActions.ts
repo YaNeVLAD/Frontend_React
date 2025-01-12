@@ -141,7 +141,7 @@ function selectSlideBackgroundType(style: CSSProperties, background: BackgroundT
             break
         }
         case 'gradient': {
-            style.backgroundImage = `linear-gradient(to left, '${background.value[0]}', '${background.value[1]}')`
+            style.backgroundImage = background.value
             break
         }
     }

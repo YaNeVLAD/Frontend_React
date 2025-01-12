@@ -24,8 +24,7 @@ const BackgroundPicker = () => {
         changeSlideBackground(selectedSlide.id, themeBackground)
     }
 
-    const onBackgroundChange = (color: string) => {
-        const background: BackgroundType = { value: color, type: 'solid' }
+    const onBackgroundChange = (background: BackgroundType) => {
         setBackground(background)
         changeSlideBackground(selectedSlide.id, background)
     }
@@ -43,11 +42,7 @@ const BackgroundPicker = () => {
                     {'Цвет'}
                 </label>
                 <ColorInput
-                    color={
-                        selectedSlide.background.type == 'solid'
-                            ? selectedSlide.background.value
-                            : "#ffffff"
-                    }
+                    color={selectedSlide.background.value}
                     onColorChange={onBackgroundChange}>
                     <ColorButton />
                 </ColorInput>

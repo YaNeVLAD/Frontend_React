@@ -13,7 +13,7 @@ type PopoverProps = {
 
 const Popover = ({ isOpen, togglePopover, closePopover, content, children }: PopoverProps) => {
     const ref = useRef<HTMLDivElement>(null)
-
+    
     useHandleClickOutside(ref, closePopover)
 
     return (

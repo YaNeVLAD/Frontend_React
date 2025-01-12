@@ -1,0 +1,57 @@
+.selectList {
+    margin: 0;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.selectOption {
+    text-align: left;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.selectOption:hover {
+    background-color: #f1f3f4;
+}
+
+.selectOption.selected {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+}
+
+.selectedValue {
+    padding: 10px 16px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.selectedValue:hover {
+    border-color: #c5c5c5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selectedValue:after {
+    content: '▼';
+    font-size: 12px;
+    color: #757575;
+    margin-left: 8px;
+}
+
+.pressed .selectedValue {
+    border-color: #1a73e8;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}

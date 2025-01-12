@@ -5,17 +5,16 @@ import styles from "./ColorButton.module.css"
 import ArrowDown20Icon from "../../components/common/Icons/ArrowDown20Icon"
 
 type ColorButtonProps = {
+    color?: string,
     onClick?: () => void,
 }
 
-const ColorButton = ({ onClick }: ColorButtonProps) => {
+const ColorButton = ({ color, onClick }: ColorButtonProps) => {
     const selectedSlide = useSelectedSlide()
     if (selectedSlide == undefined) return (<></>)
 
     const backgroundStyle: CSSProperties = {
-        backgroundColor: selectedSlide.background.type == 'solid'
-            ? selectedSlide.background.value
-            : ''
+        background: !color ? selectedSlide.background.value : color
     }
 
     return (

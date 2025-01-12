@@ -41,7 +41,7 @@ type SolidColor = {
 }
 
 type GradientColor = {
-    value: Array<string>,
+    value: string,
     type: 'gradient',
 }
 

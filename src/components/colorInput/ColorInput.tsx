@@ -1,8 +1,10 @@
-import rgbaToHex from "../../storage/utils/rgbaToHex"
+import GradientColorPalette from "../ColorPalette/GradientColorPatette/GradientColorPalette"
+import SolidColorPalette from "../ColorPalette/SolidColorPalette/SolidColorPalette"
 import Popover from "../Popover/Popover"
 import { useState } from "react"
 import Tabs from "../Tabs/Tabs"
 import styles from "./ColorInput.module.css"
+import { BackgroundType } from "../../storage/types"
 
 const SolidColorTab = "Один цвет"
 const GradientTab = "Градиент"
@@ -10,17 +12,18 @@ const GradientTab = "Градиент"
 type ColorInputProps = {
     color: string,
     children?: JSX.Element,
-    onColorChange: (color: string) => void,
+    onColorChange: (background: BackgroundType) => void,
 }
 
 const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
     const [currentTab, setCurrentTab] = useState<string>(SolidColorTab)
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const color = e.target.value
-        onColorChange(color)
-    }
+    const onSolidColorChange = (color: string) =>
+        onColorChange({ value: color, type: 'solid' })
+
+    const onGradientColorChange = (color: string) =>
+        onColorChange({ value: color, type: 'gradient' })
 
     const openPopover = () => setIsPopoverOpen(true)
     const closePopover = () => setIsPopoverOpen(false)
@@ -39,12 +42,16 @@ const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
                     {currentTab == SolidColorTab &&
                         <SolidColorPalette
                             color={color}
-                            onChange={onChange}
-                            onColorSelect={(color) => onColorChange(color)}
+                            onChange={(e) => onSolidColorChange(e.target.value)}
+                            onColorSelect={(color) => onSolidColorChange(color)}
                         />
                     }
                     {currentTab == GradientTab &&
-                        <GradientPalette />}
+                        <GradientColorPalette
+                            color={color}
+                            onColorChange={(color) => onGradientColorChange(color)}
+                        />
+                    }
                 </>
             }>
             <div
@@ -54,68 +61,6 @@ const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
             </div>
         </Popover>
     )
-}
-
-type SolidColorTabContentProps = {
-    color: string,
-    onColorSelect: (color: string) => void,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-}
-
-const SolidColorPalette = ({ color, onChange, onColorSelect }: SolidColorTabContentProps) => {
-    const generatePalette = () => {
-        const rows = []
-        const steps = 10
-
-        rows.push(
-            Array.from({ length: steps }, (_, i) => {
-                const value = Math.round((255 / (steps - 1)) * i)
-                return `rgba(${value}, ${value}, ${value}, ${(steps - 1 - i) / (steps - 1)})`
-            })
-        )
-
-        const rainbowColors = ["#FF0000", "#FFA500", "#FFFF00", "#008000", "#0000FF", "#4B0082", "#EE82EE"]
-        for (const baseColor of rainbowColors) {
-            const [r, g, b] = baseColor.match(/\w\w/g)!.map((c) => parseInt(c, 16))
-            rows.push(
-                Array.from({ length: steps }, (_, i) =>
-                    `rgba(${r}, ${g}, ${b}, ${(steps - i) / (steps)})`
-                )
-            )
-        }
-
-        return rows
-    }
-
-    const palette = generatePalette()
-
-    return (
-        <div>
-            {palette.map((row, rowIndex) => (
-                <div className={styles.colorPalette} key={rowIndex}>
-                    {row.map((color, colIndex) => (
-                        <div
-                            key={colIndex}
-                            className={styles.color}
-                            onClick={() => {
-                                const rgbaMatch = color.match(/[\d.]+/g)
-                                if (rgbaMatch && rgbaMatch.length >= 4) {
-                                    const [r, g, b, a] = rgbaMatch.map(Number)
-                                    onColorSelect(rgbaToHex(r, g, b, a))
-                                }
-                            }}
-                            style={{ backgroundColor: color }}
-                        />
-                    ))}
-                </div>
-            ))}
-            <input type="color" value={color} onChange={onChange} />
-        </div>
-    )
-}
-
-const GradientPalette = () => {
-    return (<></>)
 }
 
 export default ColorInput
