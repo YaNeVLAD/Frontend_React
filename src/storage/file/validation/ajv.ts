@@ -38,7 +38,7 @@ const gradientColorSchema: JSONSchemaType<GradientColor> = {
     type: objectAjv,
     properties: {
         type: { type: stringAjv, const: 'gradient' },
-        value: { type: arrayAjv, items: { type: stringAjv } },
+        value: { type: stringAjv },
     },
     required: ['type', 'value'],
     additionalProperties: false,
