@@ -1,10 +1,9 @@
-import useFakePresentationFetch from "../useFakePresentationFetch"
 import PDFViewer from "../../views/Viewers/PDFViewer/PDFViewer"
-import { PresentationType } from "../../storage/types"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router"
-import style from "./PDFViewerPage.module.css"
 import { PROJECT_NAME } from "../../storage/constants"
+import { useAppSelector } from "../../hooks/useRedux"
+import { useParams } from "react-router"
+import { useEffect } from "react"
+import style from "./PDFViewerPage.module.css"
 
 type PDFViewerPageParams = {
     id: string | undefined,
@@ -12,9 +11,7 @@ type PDFViewerPageParams = {
 
 const PDFViewerPage = () => {
     const { id } = useParams<PDFViewerPageParams>()
-    const [presentation, setPresentation] = useState<PresentationType | null>(null)
-
-    useFakePresentationFetch(id, setPresentation)
+    const presentation = useAppSelector(s => s.editor.presentation)
 
     useEffect(() => {
         document.title = presentation ? `${presentation.title} - ${PROJECT_NAME}` : PROJECT_NAME
