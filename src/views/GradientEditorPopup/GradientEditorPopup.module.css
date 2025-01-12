@@ -1,0 +1,80 @@
+.popupGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 16px;
+    padding: 16px;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 1;
+}
+
+.preview {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.controls {
+    grid-column: 1 / span 2;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.slider {
+    grid-column: 1 / span 3;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.gradientPreview {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.label {
+    color: #3c4043;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .25px;
+    line-height: 20px;
+}
+
+.gradientTrack {
+    border: 1px solid #9d9d9d;
+    border-radius: 2px;
+    height: 12px;
+    position: relative;
+}
+
+.gradientStop {
+    position: absolute;
+    top: -1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    outline: 2px solid #5d5d5d;
+    cursor: pointer;
+}
+
+.fixed {
+    border-radius: 0;
+}
+
+.selected {
+    box-shadow: 0 0 4px 4px #4285f4;
+}

@@ -1,3 +1,1 @@
-type IconComponent = JSX.Element
-
-export type { IconComponent }
+export type IconComponent = JSX.Element
