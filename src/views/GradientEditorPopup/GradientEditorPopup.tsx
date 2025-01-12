@@ -1,10 +1,12 @@
 import SolidColorPalette from "../../components/ColorPalette/SolidColorPalette/SolidColorPalette"
+import useDragAndDrop from "../../components/SlideObject/hooks/useDragAndDrop"
 import SelectList from "../../components/SelectList/SelectList"
 import { Button } from "../../components/Button/Button"
 import Popover from "../../components/Popover/Popover"
 import ColorButton from "../ColorButton/ColorButton"
 import Popup from "../../components/Popup/Popup"
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState } from "react"
+import { uuid } from "../../storage/utils/uuid"
 import styles from "./GradientEditorPopup.module.css"
 
 type GradientEditorPopupProps = {
@@ -29,12 +31,15 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
     const [gradientType, setGradientType] = useState<string>('Линейный')
     const [angle, setAngle] = useState<number>(90)
     const [radialPoint, setRadialPoint] = useState<string>('Центр')
-    const [colorStops, setColorStops] = useState<{ color: string; position: number }[]>([
-        { color: '#bfbfbf', position: 0 },
-        { color: '#737373', position: 100 },
+    const [colorStops, setColorStops] = useState<{ id: string, color: string; position: number }[]>([
+        { id: uuid(), color: '#bfbfbf', position: 0 },
+        { id: uuid(), color: '#737373', position: 100 },
     ])
-    const [selectedStopIndex, setSelectedStopIndex] = useState<number>(0)
+    const [selectedStopId, setSelectedStopId] = useState<string>(colorStops[0].id)
     const [isPaletteOpen, setIsPaletteOpen] = useState(false)
+    const trackRef = useRef<HTMLDivElement>(null)
+
+    const { offset, handleMouseDown } = useDragAndDrop(() => moveColorStop(selectedStopId, offset.x))
 
     function interpolateColor(color1: string, color2: string): string {
         const hexToRgb = (hex: string) =>
@@ -59,9 +64,6 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
         stops: { color: string; position: number }[],
         selectedIndex: number
     ): number {
-        if (selectedIndex == 0)
-            return 50
-
         const selectedStop = stops[selectedIndex]
 
         if (selectedIndex < stops.length - 1) {
@@ -78,46 +80,70 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
     }
 
     const addColorStop = () => {
-        const newPosition = calculateNewPosition(colorStops, selectedStopIndex)
+        const selectedIndex = colorStops.findIndex((stop) => stop.id === selectedStopId)
+        const newPosition = calculateNewPosition(colorStops, selectedIndex)
         const newColor =
-            selectedStopIndex < colorStops.length - 1
+            selectedIndex < colorStops.length - 1
                 ? interpolateColor(
-                    colorStops[selectedStopIndex].color,
-                    colorStops[selectedStopIndex + 1].color
+                    colorStops[selectedIndex].color,
+                    colorStops[selectedIndex + 1].color
                 )
-                : '#000000'
+                : '#000'
 
-        const newStops = [
-            ...colorStops,
-            { color: newColor, position: newPosition },
-        ].sort((a, b) => a.position - b.position)
+        const newStop = { id: uuid(), color: newColor, position: newPosition }
 
-        const newIndex = newStops.findIndex(
-            (stop) => stop.position == newPosition
-        )
-
-        setColorStops(newStops)
-        setSelectedStopIndex(newIndex)
+        setColorStops((prevStops) => {
+            const newStops = [...prevStops, newStop].sort((a, b) => a.position - b.position)
+            setSelectedStopId(newStop.id)
+            return newStops
+        })
     }
 
     const deleteColorStop = () => {
-        if (selectedStopIndex !== 0 && selectedStopIndex !== colorStops.length - 1) {
-            const newStops = colorStops.filter((_, i) => i !== selectedStopIndex)
-            const newIndex =
-                selectedStopIndex > 0
-                    ? selectedStopIndex - 1
-                    : newStops.length > 0
-                        ? 0
-                        : 0
+        const selectedStopIndex = colorStops.findIndex(s => s.id == selectedStopId)
+        if (selectedStopIndex == -1) return
+        if (selectedStopIndex == 0 || selectedStopId == colorStops[colorStops.length - 1].id) return
 
-            setColorStops(newStops)
-            setSelectedStopIndex(newIndex)
-        }
+        setColorStops((prevStops) => {
+            const currentIndex = prevStops.findIndex((stop) => stop.id === selectedStopId)
+            const updatedStops = prevStops.filter((stop) => stop.id !== selectedStopId)
+
+            const newSelectedStopId =
+                currentIndex > 0
+                    ? updatedStops[currentIndex - 1].id
+                    : updatedStops[0]?.id
+
+            setSelectedStopId(newSelectedStopId || "")
+            return updatedStops
+        })
+    }
+
+    const moveColorStop = (id: string, offsetX: number) => {
+        const trackWidth = trackRef.current?.clientWidth || 1
+        const delta = (offsetX / trackWidth) * 100
+
+        setColorStops((prevStops) => {
+            const updatedStops = prevStops
+                .map((stop) =>
+                    stop.id === id
+                        ? { ...stop, position: Math.min(Math.max(stop.position + delta, 0), 100) }
+                        : stop
+                )
+                .sort((a, b) => a.position - b.position)
+
+            return updatedStops
+        })
+    }
+
+    const selectColorStop = (id: string) => {
+        setSelectedStopId(id)
     }
 
     const changeColor = (color: string) => {
-        setColorStops(
-            colorStops.map((stop, i) => (i == selectedStopIndex ? { ...stop, color } : stop))
+        setColorStops((prevStops) =>
+            prevStops.map((stop) =>
+                stop.id === selectedStopId ? { ...stop, color } : stop
+            )
         )
     }
 
@@ -188,37 +214,54 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
                                 closePopover={() => setIsPaletteOpen(false)}
                                 content={
                                     <SolidColorPalette
-                                        color={colorStops[selectedStopIndex].color || '#000'}
-                                        onChange={() => { }}
+                                        color={colorStops.find(s => s.id == selectedStopId)?.color || '#000'}
+                                        onChange={(e) => changeColor(e.target.value)}
                                         onColorSelect={changeColor}
                                     />
                                 }>
                                 <ColorButton
-                                    color={colorStops[selectedStopIndex].color || '#000'}
+                                    color={colorStops.find(s => s.id == selectedStopId)?.color || '#000'}
                                     onClick={() => setIsPaletteOpen(!isPaletteOpen)}
                                 />
                             </Popover>
                         </div>
                         <div className={styles.slider}>
-                            <div className={styles.gradientTrack} style={{
-                                background:
-                                    `linear-gradient(90deg, ${colorStops
+                            <div
+                                ref={trackRef}
+                                className={styles.gradientTrack}
+                                style={{
+                                    background: `linear-gradient(90deg, ${colorStops
                                         .map((stop) => `${stop.color} ${stop.position}%`)
                                         .join(', ')})`
-                            }}>
-                                {colorStops.map((stop, index) => (
+                                }}
+                            >
+                                {colorStops.map((stop) => (
                                     <div
-                                        key={index}
-                                        className={`${styles.gradientStop} 
-                                        ${index == 0 || index == colorStops.length - 1
-                                                ? styles.fixed
-                                                : ''
-                                            } ${selectedStopIndex == index
+                                        key={stop.id}
+                                        draggable={false}
+                                        className={
+                                            `${styles.gradientStop} 
+                                            ${selectedStopId === stop.id
                                                 ? styles.selected
-                                                : ''}`
-                                        }
-                                        style={{ left: `${stop.position}%`, backgroundColor: stop.color }}
-                                        onClick={() => setSelectedStopIndex(index)}
+                                                : ''
+                                            } ${stop.id == colorStops[0].id || stop.id == colorStops[colorStops.length - 1].id
+                                                ? styles.fixed
+                                                : ''}`}
+                                        style={{
+                                            left: `${stop.position + (selectedStopId == stop.id && trackRef.current
+                                                ? (offset.x / trackRef.current.clientWidth) * 100
+                                                : 0)}%`,
+                                            backgroundColor: stop.color,
+                                            cursor: offset.x == 0 ? 'grab' : 'grabbing',
+                                            userSelect: 'none'
+                                        }}
+                                        onMouseDown={(e) => {
+                                            selectColorStop(stop.id)
+                                            if (selectedStopId !== colorStops[0].id && selectedStopId !== colorStops[colorStops.length - 1].id) {
+                                                handleMouseDown(e)
+                                                moveColorStop(selectedStopId, offset.x)
+                                            }
+                                        }}
                                     />
                                 ))}
                             </div>
