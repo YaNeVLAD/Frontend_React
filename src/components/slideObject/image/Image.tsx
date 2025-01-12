@@ -14,14 +14,7 @@ const Image = ({ context }: ImageProps) => {
                 backgroundImage: `url(${context.src.value})`,
             }}
             className={style.image}>
-
         </div >
-
-        // <img
-        //     draggable={false}
-        //     className={style.image}
-        //     src={context.src.value}
-        //     onClick={onClick} />
     )
 }
 

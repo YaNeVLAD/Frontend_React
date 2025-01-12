@@ -30,7 +30,6 @@ const ObjectButtonSet = () => {
             {object.type == 'textObj' && (
                 <>
                     <TextObjectButtonSet
-                    // object={object}
                     />
                 </>
             )}
@@ -65,7 +64,6 @@ const ImageObjectButtonSet = (
 }
 
 const TextObjectButtonSet = (
-    // { object }: { object: TextAreaType }
 ) => {
     return (
         <>

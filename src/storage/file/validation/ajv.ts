@@ -61,7 +61,6 @@ const backgroundTypeSchema: JSONSchemaType<BackgroundType> = {
 const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
     type: objectAjv,
     oneOf: [
-        // Для типа "imageObj"
         {
             type: objectAjv,
             properties: {
@@ -75,7 +74,6 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
             required: ['id', 'type', 'pos', 'size', 'turnAngle', 'src'],
             additionalProperties: false,
         },
-        // Для типа "textObj" (с учетом новых изменений)
         {
             type: objectAjv,
             properties: {
