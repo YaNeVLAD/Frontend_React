@@ -24,9 +24,10 @@ const BackgroundPicker = () => {
         changeSlideBackground(selectedSlide.id, themeBackground)
     }
 
-    const onBackgroundChange = (background: BackgroundType) => {
-        setBackground(background)
-        changeSlideBackground(selectedSlide.id, background)
+    const onBackgroundChange = (newBackground: BackgroundType) => {
+        if (background?.value == newBackground.value) return
+        setBackground(newBackground)
+        changeSlideBackground(selectedSlide.id, newBackground)
     }
 
     const onImageUpload = (image: string) => {

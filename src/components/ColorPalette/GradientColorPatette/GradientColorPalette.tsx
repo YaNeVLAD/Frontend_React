@@ -1,4 +1,4 @@
-import GradientEditorPopup from "../../../views/GradientEditorPopup/GradientEditorPopup"
+import GradientEditorPopup from "../../../views/CustomGradientPopup/CustomGradientPopup"
 import Plus20Icon from "../../common/Icons/Plus20Icon"
 import { Button } from "../../Button/Button"
 import { useState } from "react"
