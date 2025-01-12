@@ -17,8 +17,6 @@ function createPath<UrlTemplate extends string, Params extends RouteParams>(
             path = path.replace(paramPattern, String(params[param]))
         }
     })
-    console.log(path)
-
     return path
 }
 

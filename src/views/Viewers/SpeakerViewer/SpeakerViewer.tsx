@@ -11,6 +11,7 @@ const SpeakerViewer = () => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
     const [slide, setSlide] = useState(presentation.slides[0])
     const [newWindow, setNewWindow] = useState<Window | null>(null)
+    const [scale, setScale] = useState(1)
     const windowOpened = useRef(false)
 
     useEffect(() => {
@@ -81,6 +82,8 @@ const SpeakerViewer = () => {
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
+            console.log(e.code)
+
             switch (e.code) {
                 case 'ArrowDown':
                 case 'ArrowRight':
@@ -95,9 +98,13 @@ const SpeakerViewer = () => {
                 case 'Escape':
                     if (newWindow)
                         newWindow.close()
+                    document.exitFullscreen()
                     navigateWithParams(EditorRoute, {})
                     break
-
+                case 'F11':
+                    e.preventDefault()
+                    document.documentElement.requestFullscreen()
+                    break
                 default:
                     break
             }
@@ -110,19 +117,28 @@ const SpeakerViewer = () => {
         }
     }, [currentSlideIndex, navigateWithParams, newWindow, saveSlideData])
 
-    const screenWidth = window.innerWidth
-    const screenHeight = window.innerHeight
+    useEffect(() => {
+        const updateScale = () => {
+            const screenWidth = window.innerWidth
+            const screenHeight = window.innerHeight
 
-    const scaleX = screenWidth / 913
-    const scaleY = screenHeight / 513
-    const finalScale = Math.min(scaleX, scaleY)
+            const scaleX = screenWidth / 913
+            const scaleY = screenHeight / 513
+            setScale(Math.min(scaleX, scaleY))
+        }
+        updateScale()
+        window.addEventListener('resize', updateScale)
+        return () => {
+            window.removeEventListener('resize', updateScale)
+        }
+    }, [])
 
     return (
         <div className={style.container}>
             {slide && (
                 <SlidePreview
                     id={slide.id}
-                    scale={finalScale}
+                    scale={scale}
                     objectScale={1}
                 />
             )}
