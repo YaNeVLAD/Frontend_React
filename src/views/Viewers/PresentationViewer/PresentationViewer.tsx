@@ -1,10 +1,11 @@
 import { SlidePreview } from "../../../components/SlidePreview/SlidePreview"
+import { SLIDE_WIDTH, SLIDE_HEIGHT } from "../../../storage/constants"
 import useNavigateWithParams from "../../../hooks/useNavigateToRoute"
 import { EditorRoute } from "../../../storage/utils/createPath"
 import { useAppSelector } from "../../../hooks/useRedux"
 import { useEffect, useState } from "react"
-import styles from "./PresentationViewer.module.css"
 import { useParams } from "react-router"
+import styles from "./PresentationViewer.module.css"
 
 const PresentationViewer = () => {
     const presentation = useAppSelector(s => s.editor.presentation)
@@ -67,8 +68,8 @@ const PresentationViewer = () => {
     const screenWidth = window.innerWidth
     const screenHeight = window.innerHeight
 
-    const scaleX = screenWidth / 913
-    const scaleY = screenHeight / 513
+    const scaleX = screenWidth / SLIDE_WIDTH
+    const scaleY = screenHeight / SLIDE_HEIGHT
     const finalScale = Math.max(scaleX, scaleY)
 
     return (

@@ -19,3 +19,6 @@ export const TITLE_AREA_PLACEHOLDER = 'Введите заголовок'
 export const SUBTITLE_AREA_PLACEHOLDER = 'Введите подзаголовок'
 export const TEXT_AREA_PLACEHOLDER = 'Введите текст'
 export const BASE_TEXT_AREA_PLACEHOLDER = 'Введите текст'
+
+export const SLIDE_WIDTH = 913
+export const SLIDE_HEIGHT = 513

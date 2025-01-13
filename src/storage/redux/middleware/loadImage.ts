@@ -1,7 +1,8 @@
+import { SLIDE_HEIGHT, SLIDE_WIDTH } from "../../constants"
 import { addImage } from "../actions/actionCreators"
 import { uuid } from "../../utils/uuid"
-import { Dispatch } from "redux"
 import { ImageType } from "../../types"
+import { Dispatch } from "redux"
 
 export const loadImage = (slideId: string, imageUrl: string) => {
     return async (dispatch: Dispatch) => {
@@ -14,8 +15,8 @@ export const loadImage = (slideId: string, imageUrl: string) => {
         })
 
         const aspectRatio = image.width / image.height
-        const slideMaxWidth = 913
-        const slideMaxHeight = 513
+        const slideMaxWidth = SLIDE_WIDTH
+        const slideMaxHeight = SLIDE_HEIGHT
 
         const width =
             image.width > slideMaxWidth || image.height > slideMaxHeight

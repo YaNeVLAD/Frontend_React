@@ -1,5 +1,6 @@
 import { EditorType, PositionType, SelectionType, SizeType, SlideType } from "../types"
 import { BASE_TEXT_AREA } from "../../common/TextArea/BaseTextArea"
+import { SLIDE_WIDTH, SLIDE_HEIGHT } from "../constants.ts"
 import { BASE_IMAGE } from "../../common/BaseImage.ts"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/uuid.ts"
@@ -24,8 +25,8 @@ function addObject(
         image.src = value
         newObject.src.value = value
         newObject.size = {
-            width: (image.width == 0) ? 150 : Math.min(image.width, 913),
-            height: (image.height == 0) ? 150 : Math.min(image.height, 513)
+            width: (image.width == 0) ? 150 : Math.min(image.width, SLIDE_WIDTH),
+            height: (image.height == 0) ? 150 : Math.min(image.height, SLIDE_HEIGHT)
         }
     } else {
         newObject = BASE_TEXT_AREA()

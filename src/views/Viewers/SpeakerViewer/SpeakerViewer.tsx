@@ -1,5 +1,6 @@
 import { createPath, EditorRoute, SpeakerNotesRoute } from "../../../storage/utils/createPath"
 import { SlidePreview } from "../../../components/SlidePreview/SlidePreview"
+import { SLIDE_WIDTH, SLIDE_HEIGHT } from "../../../storage/constants"
 import useNavigateWithParams from "../../../hooks/useNavigateToRoute"
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useAppSelector } from "../../../hooks/useRedux"
@@ -122,8 +123,8 @@ const SpeakerViewer = () => {
             const screenWidth = window.innerWidth
             const screenHeight = window.innerHeight
 
-            const scaleX = screenWidth / 913
-            const scaleY = screenHeight / 513
+            const scaleX = screenWidth / SLIDE_WIDTH
+            const scaleY = screenHeight / SLIDE_HEIGHT
             setScale(Math.min(scaleX, scaleY))
         }
         updateScale()

@@ -1,5 +1,6 @@
 import { BackgroundType, Font, PresentationType, SlideObjectType, SlideType } from '../types'
 import { Color, PDFDocument, PDFPage, rgb } from 'pdf-lib'
+import { SLIDE_WIDTH, SLIDE_HEIGHT } from '../constants'
 import imageToPng from '../utils/imageToPng'
 import fontkit from '@pdf-lib/fontkit'
 
@@ -35,7 +36,7 @@ async function PresentationToPDF(doc: PDFDocument, presentation: PresentationTyp
 }
 
 async function SlideToPDF(slide: SlideType, doc: PDFDocument) {
-    const page = doc.addPage([913, 513])
+    const page = doc.addPage([SLIDE_WIDTH, SLIDE_HEIGHT])
 
     await SlideBgToPDF(slide.background, doc, page)
 
