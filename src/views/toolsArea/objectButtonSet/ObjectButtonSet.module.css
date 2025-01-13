@@ -1,0 +1,26 @@
+.selectListSelected {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    height: 100%;
+}
+
+.selectListSelected:hover {
+    background-color: rgba(68, 71, 70, .08);
+    box-shadow: none;
+}
+
+.separator {
+    border-color: #c7c7c7;
+    margin: 5px 3px;
+    border-left: 1px solid #dadce0;
+    vertical-align: top;
+    line-height: normal;
+    height: 20px;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    display: inline-block;
+  }

@@ -1,4 +1,4 @@
-import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, ImageType } from "../../types"
+import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, ImageType, FontFamily, Alignment, FontWeight, FontStyle, TextDecoration } from "../../types"
 import { RootState } from "../reducers/rootReducer"
 
 type AddSlideAction = {
@@ -127,17 +127,17 @@ type SetStateAction = {
     payload: RootState
 }
 
-type ChangePresentationId = {
+type ChangePresentationIdAction = {
     type: 'CHANGE_PRESENTATION_ID',
     payload: string
 }
 
-type ChangePresentationAuthor = {
+type ChangePresentationAuthorAction = {
     type: 'CHANGE_PRESENTATION_AUTHOR',
     payload: string
 }
 
-type ChangeSlideNote = {
+type ChangeSlideNoteAction = {
     type: 'CHANGE_SLIDE_NOTE',
     payload: {
         selectedSlideId?: string,
@@ -145,7 +145,7 @@ type ChangeSlideNote = {
     }
 }
 
-type AddImage = {
+type AddImageAction = {
     type: 'ADD_IMAGE',
     payload: {
         selectedSlideId?: string,
@@ -153,28 +153,81 @@ type AddImage = {
     }
 }
 
+type ChangeFontSizeAction = {
+    type: 'CHANGE_FONT_SIZE',
+    payload: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        newSize: number
+    }
+}
+
+type ChangeFontFamilyAction = {
+    type: 'CHANGE_FONT_FAMILY',
+    payload: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        newFamily: FontFamily
+    }
+}
+
+type ChangeTextAlignmentAction = {
+    type: 'CHANGE_TEXT_ALIGNMENT',
+    payload: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        vertical?: Alignment,
+        horizontal?: Alignment,
+    }
+}
+
+type ChangeTextColorAction = {
+    type: 'CHANGE_TEXT_COLOR',
+    payload: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        newColor: string
+    }
+}
+
+type ChangeTextStyleAction = {
+    type: 'CHANGE_TEXT_STYLE',
+    payload: {
+        selectedSlideId: string,
+        selectedObjectId: string,
+        weight?: FontWeight,
+        style?: FontStyle,
+        decoration?: TextDecoration,
+    }
+}
+
 type Action =
-    | AddImage
+    | AddImageAction
     | SetStateAction
     | AddSlideAction
     | AddObjectAction
-    | ChangeSlideNote
     | MoveSlideAction
     | SelectSlideAction
     | DeleteSlideAction
     | DeleteObjectAction
     | SelectObjectAction
     | DeselectSlideAction
+    | ChangeFontSizeAction
     | ChangeSrcValueAction
-    | ChangePresentationId
+    | ChangeSlideNoteAction
+    | ChangeTextColorAction
     | ChangeTextValueAction
+    | ChangeTextStyleAction
+    | ChangeFontFamilyAction
     | ChangeObjectSizeAction
-    | ChangePresentationAuthor
     | ChangeObjectBoundsAction
     | UpdatePresentationAction
     | DeselectAllObjectsAction
+    | ChangeTextAlignmentAction
+    | ChangePresentationIdAction
     | ChangeSlideBackgroundAction
     | ChangePresentationTitleAction
+    | ChangePresentationAuthorAction
     | ChangeAllSlidesBackgroundAction
     | ChangeSlideThemeBackgroundAction
 

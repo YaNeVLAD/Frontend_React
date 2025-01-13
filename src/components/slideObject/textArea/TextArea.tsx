@@ -23,8 +23,8 @@ const TextArea = ({ context, scale, slideId, canBeEditable }: TextAreaProps) => 
     const textAreaStyle: CSSProperties = {
         ...mapFont(context.text.font, scale),
         textAlign: context.text.alignment.horizontal,
+        textDecoration: context.text.decoration,
         alignContent: context.text.alignment.vertical,
-        color: context.text.font.color,
         userSelect: (isEditable && !canBeEditable) ? 'text' : 'none',
         cursor: (isEditable && !canBeEditable) ? 'text' : 'default',
     }

@@ -7,7 +7,8 @@ const ArrowRight16ActiveIcon: IconComponent = (
         viewBox="0 -960 960 960"
         width="20px"
         fill="#000000">
-        <path d="M384-288v-384l192 192-192 192Z" />
+        <path
+            d="M384-288v-384l192 192-192 192Z" />
     </svg>
 )
 

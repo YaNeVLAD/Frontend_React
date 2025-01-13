@@ -91,49 +91,49 @@ const slideObjectTypeSchema: JSONSchemaType<SlideObjectType> = {
                             properties: {
                                 family: {
                                     type: stringAjv,
-                                    enum: [
-                                        'Roboto-Bold',
-                                        'Roboto-Regular',
-                                        'Arial-Regular',
-                                        'Montserrat-Bold',
-                                        'Montserrat-Regular',
-                                        'Montserrat-Bold-Italic',
-                                        'Montserrat-Regular-Italic'
-                                    ]
+                                    enum: ['Roboto', 'Montserrat'],
+                                },
+                                weight: {
+                                    type: stringAjv,
+                                    enum: ['Normal', 'Bold'],
+                                },
+                                style: {
+                                    type: stringAjv,
+                                    enum: ['Normal', 'Italic'],
                                 },
                                 size: { type: numberAjv },
                                 color: { type: stringAjv },
-                                weight: {
-                                    type: numberAjv,
-                                    enum: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-                                }
                             },
-                            required: ['family', 'size', 'color', 'weight'],
-                            additionalProperties: false
+                            required: ['family', 'weight', 'style', 'size', 'color'],
+                            additionalProperties: false,
                         },
                         alignment: {
                             type: objectAjv,
                             properties: {
                                 horizontal: {
                                     type: stringAjv,
-                                    enum: ['center', 'start', 'end']
+                                    enum: ['center', 'start', 'end'],
                                 },
                                 vertical: {
                                     type: stringAjv,
-                                    enum: ['center', 'start', 'end']
-                                }
+                                    enum: ['center', 'start', 'end'],
+                                },
                             },
                             required: ['horizontal', 'vertical'],
-                            additionalProperties: false
+                            additionalProperties: false,
                         },
-                        value: { type: stringAjv }
+                        decoration: {
+                            type: stringAjv,
+                            enum: ['none', 'underline'],
+                        },
+                        value: { type: stringAjv },
                     },
-                    required: ['font', 'alignment', 'value'],
-                    additionalProperties: false
-                }
+                    required: ['font', 'alignment', 'decoration', 'value'],
+                    additionalProperties: false,
+                },
             },
             required: ['id', 'type', 'pos', 'size', 'turnAngle', 'placeholder', 'text'],
-            additionalProperties: false
+            additionalProperties: false,
         },
     ],
 }

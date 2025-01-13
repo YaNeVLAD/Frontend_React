@@ -7,7 +7,7 @@ import ColorButton from "../ColorButton/ColorButton"
 import Popup from "../../components/Popup/Popup"
 import { useMemo, useRef, useState } from "react"
 import { uuid } from "../../storage/utils/uuid"
-import styles from "./GradientEditorPopup.module.css"
+import styles from "./CustomGradientPopup.module.css"
 
 type GradientEditorPopupProps = {
     setColor: (color: string) => void,

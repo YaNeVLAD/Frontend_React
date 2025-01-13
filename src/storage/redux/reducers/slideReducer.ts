@@ -1,10 +1,10 @@
+import { changeFontFamily, changeFontSize, changeTextAlignment, changeTextColor, changeTextStyles, changeTextValue } from "../../actions/textAreaActions"
 import { addObject, changeObjectBounds, deleteObject } from "../../actions/objectActions"
 import { changeSlideBackground } from "../../actions/slideActions"
-import { Action } from "../actions/actions"
-import { SlideType } from "../../types"
 import { changeSrcValue } from "../../actions/imageActions"
 import { deepCopy } from "../../utils/deepCopy"
-import { changeTextValue } from "../../actions/textAreaActions"
+import { Action } from "../actions/actions"
+import { SlideType } from "../../types"
 
 const initialState: SlideType = {
     id: '',
@@ -16,6 +16,16 @@ const initialState: SlideType = {
 
 const slideReducer = (state = initialState, action: Action): SlideType => {
     switch (action.type) {
+        case 'CHANGE_TEXT_STYLE':
+            return changeTextStyles(state, action.payload)
+        case 'CHANGE_FONT_SIZE':
+            return changeFontSize(state, action.payload)
+        case 'CHANGE_TEXT_COLOR':
+            return changeTextColor(state, action.payload)
+        case 'CHANGE_FONT_FAMILY':
+            return changeFontFamily(state, action.payload)
+        case 'CHANGE_TEXT_ALIGNMENT':
+            return changeTextAlignment(state, action.payload)
         case 'ADD_IMAGE':
             return { ...state, objects: [...state.objects, action.payload.object] }
         case 'CHANGE_TEXT_VALUE':
@@ -38,3 +48,4 @@ const slideReducer = (state = initialState, action: Action): SlideType => {
 }
 
 export { slideReducer }
+

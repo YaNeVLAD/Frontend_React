@@ -7,7 +7,8 @@ const ArrowDown20Icon: IconComponent = (
         viewBox="0 -960 960 960"
         width="20px"
         fill="#444746">
-        <path d="M480-360 280-560h400L480-360Z" />
+        <path
+            d="M480-360 280-560h400L480-360Z" />
     </svg>
 )
 

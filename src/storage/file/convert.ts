@@ -1,4 +1,4 @@
-import { BackgroundType, PresentationType, SlideObjectType, SlideType } from '../types'
+import { BackgroundType, Font, PresentationType, SlideObjectType, SlideType } from '../types'
 import { Color, PDFDocument, PDFPage, rgb } from 'pdf-lib'
 import imageToPng from '../utils/imageToPng'
 import fontkit from '@pdf-lib/fontkit'
@@ -69,7 +69,7 @@ async function ObjectToPDF(object: SlideObjectType, doc: PDFDocument, page: PDFP
     const pageHeight = page.getHeight()
 
     if (object.type === 'textObj') {
-        const fontBytes = await fetch(`/fonts/${object.text.font.family}.ttf`).then(res => res.arrayBuffer())
+        const fontBytes = await fetch(`/fonts/${generateFontFileName(object.text.font)}`).then(res => res.arrayBuffer())
         const font = await doc.embedFont(fontBytes)
 
         const areaWidth = object.size.width
@@ -157,6 +157,12 @@ function hexToRgb(hex: string): Color {
         )
     }
     return rgb(0, 0, 0)
+}
+
+const generateFontFileName = (font: Font): string => {
+    const weight = font.weight == 'Bold' ? 'Bold' : 'Regular'
+    const style = font.style == 'Italic' ? '-Italic' : ''
+    return `${font.family}-${weight}${style}.ttf`
 }
 
 export {

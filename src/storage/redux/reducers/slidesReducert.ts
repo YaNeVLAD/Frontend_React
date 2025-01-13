@@ -11,10 +11,15 @@ const slidesReducer = (state = initialState, action: Action): Array<SlideType> =
         case 'ADD_IMAGE':
         case 'ADD_OBJECT':
         case 'DELETE_OBJECT':
+        case 'CHANGE_FONT_SIZE':
         case 'CHANGE_SRC_VALUE':
+        case 'CHANGE_TEXT_COLOR':
+        case 'CHANGE_TEXT_STYLE':
         case 'CHANGE_SLIDE_NOTE':
         case 'CHANGE_TEXT_VALUE':
+        case 'CHANGE_FONT_FAMILY':
         case 'CHANGE_OBJECT_BOUNDS':
+        case 'CHANGE_TEXT_ALIGNMENT':
         case 'CHANGE_SLIDE_BACKGROUND':
             return state.map(slide =>
                 slide.id == action.payload.selectedSlideId

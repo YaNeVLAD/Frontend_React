@@ -73,33 +73,31 @@ type ImageType = BaseSlideObjectType & {
     src: ImageSrc,
 }
 
-type FontFamily = 
-'Roboto-Bold' | 
-'Roboto-Regular' | 
-'Arial-Regular' | 
-'Montserrat-Bold' |
-'Montserrat-Regular' |
-'Montserrat-Bold-Italic' |
-'Montserrat-Regular-Italic'
-
 type Alignment = 'center' | 'start' | 'end'
 
-type Weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 1000
+type FontWeight = 'Normal' | 'Bold'
+type FontStyle = 'Normal' | 'Italic'
+type FontFamily = 'Roboto' | 'Montserrat'
+type TextDecoration = 'none' | 'underline'
 
 type Font = {
     family: FontFamily,
+    weight: FontWeight,
+    style: FontStyle,
     size: number,
     color: string,
-    weight: Weight
+}
+
+type TextAlignment = {
+    horizontal: Alignment,
+    vertical: Alignment,
 }
 
 type Text = {
     font: Font,
-    alignment: {
-        horizontal: Alignment,
-        vertical: Alignment
-    },
-    value: string
+    alignment: TextAlignment,
+    decoration: TextDecoration,
+    value: string,
 }
 
 type TextAreaType = BaseSlideObjectType & {
@@ -135,5 +133,8 @@ export type {
     Font,
     Alignment,
     FontFamily,
-    Weight,
+    FontStyle,
+    FontWeight,
+    TextAlignment,
+    TextDecoration,
 }

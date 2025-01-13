@@ -19,11 +19,13 @@ function TITLE_ON_TEXT_SLIDE_AREA(): TextAreaType {
         text: {
             value: '',
             alignment: { horizontal: 'start', vertical: 'center' },
+            decoration: 'none',
             font: {
                 size: 25,
                 color: '#000000',
-                family: 'Roboto-Bold',
-                weight: 600,
+                family: 'Roboto',
+                weight: 'Normal',
+                style: 'Normal',
             }
         }
     }

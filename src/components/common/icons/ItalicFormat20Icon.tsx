@@ -1,6 +1,6 @@
 import { IconComponent } from "../IconComponent"
 
-const Plus20Icon: IconComponent = (
+const ItalicFormat20Icon: IconComponent = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         height="20px"
@@ -8,8 +8,8 @@ const Plus20Icon: IconComponent = (
         width="20px"
         fill="#444746">
         <path
-            d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+            d="M216-192v-96h160l124-384H336v-96h408v96H596L472-288h152v96H216Z" />
     </svg>
 )
 
-export default Plus20Icon
+export default ItalicFormat20Icon

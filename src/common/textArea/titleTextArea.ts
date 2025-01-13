@@ -18,12 +18,14 @@ function TITLE_TEXT_AREA(): TextAreaType {
         placeholder: TITLE_AREA_PLACEHOLDER,
         text: {
             value: '',
-            alignment: { horizontal: 'center', vertical: 'center' },
+            alignment: { horizontal: 'center', vertical: 'end' },
+            decoration: 'none',
             font: {
                 size: 52,
                 color: '#000000',
-                family: 'Roboto-Bold',
-                weight: 600
+                family: 'Roboto',
+                weight: 'Normal',
+                style: 'Normal',
             }
         }
     }

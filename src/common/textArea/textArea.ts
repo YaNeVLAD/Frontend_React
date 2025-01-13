@@ -19,11 +19,13 @@ function TEXT_AREA(): TextAreaType {
         text: {
             value: '',
             alignment: { horizontal: 'start', vertical: 'start' },
+            decoration: 'none',
             font: {
                 size: 18,
                 color: '#202020',
-                family: 'Roboto-Regular',
-                weight: 400,
+                family: 'Roboto',
+                weight: 'Normal',
+                style: 'Normal',
             }
         }
     }

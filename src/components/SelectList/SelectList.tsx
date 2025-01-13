@@ -2,13 +2,15 @@ import Popover from '../Popover/Popover'
 import { useState } from 'react'
 import styles from './SelectList.module.css'
 
-type SelectListProps = {
-    options: string[],
-    selected: string,
-    onChange: (value: string) => void,
+type SelectListProps<T extends string> = {
+    options: T[],
+    selected: T,
+    onChange: (value: T) => void,
+    optionClassName?: string,
+    selectedClassName?: string
 }
 
-const SelectList = ({ options, selected, onChange }: SelectListProps) => {
+const SelectList = <T extends string>({ options, selected, onChange, optionClassName, selectedClassName }: SelectListProps<T>) => {
     const [isOpen, setIsOpen] = useState(false)
     const togglePopover = () => setIsOpen(!isOpen)
     const closePopover = () => setIsOpen(false)
@@ -23,7 +25,7 @@ const SelectList = ({ options, selected, onChange }: SelectListProps) => {
                     {options.map(option => (
                         <li
                             key={option}
-                            className={`${styles.selectOption} ${option === selected ? styles.selected : ''}`}
+                            className={`${styles.selectOption} ${option === selected ? styles.selected : ''} ${optionClassName}`}
                             onClick={(e) => {
                                 e.stopPropagation()
                                 onChange(option)
@@ -35,7 +37,7 @@ const SelectList = ({ options, selected, onChange }: SelectListProps) => {
                 </ul>
             }>
             <div
-                className={styles.selectedValue}
+                className={`${styles.selectedValue} ${selectedClassName}`}
                 onClick={togglePopover}
             >
                 {selected}

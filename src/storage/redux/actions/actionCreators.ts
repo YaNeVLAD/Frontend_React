@@ -1,4 +1,4 @@
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, ImageType } from "../../types"
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, ImageType, FontFamily, Alignment, FontWeight, FontStyle, TextDecoration } from "../../types"
 import { loadImage } from "../middleware/loadImage"
 import { RootState } from "../reducers/rootReducer"
 import { Action } from "./actions"
@@ -116,6 +116,69 @@ const addImage = (selectedSlideId: string | undefined, object: ImageType): Actio
     }
 })
 
+const changeFontSize = (selectedSlideId: string, selectedObjectId: string, newSize: number): Action => ({
+    type: 'CHANGE_FONT_SIZE',
+    payload: {
+        selectedSlideId: selectedSlideId,
+        selectedObjectId: selectedObjectId,
+        newSize: newSize
+    }
+})
+
+const changeFontFamily = (selectedSlideId: string, selectedObjectId: string, newFamily: FontFamily): Action => ({
+    type: 'CHANGE_FONT_FAMILY',
+    payload: {
+        selectedSlideId: selectedSlideId,
+        selectedObjectId: selectedObjectId,
+        newFamily: newFamily
+    }
+})
+
+const changeTextStyle = (
+    selectedSlideId: string,
+    selectedObjectId: string,
+    payload: {
+        weight?: FontWeight,
+        style?: FontStyle,
+        decoration?: TextDecoration,
+    }
+): Action => ({
+    type: 'CHANGE_TEXT_STYLE',
+    payload: {
+        selectedSlideId: selectedSlideId,
+        selectedObjectId: selectedObjectId,
+        weight: payload.weight,
+        style: payload.style,
+        decoration: payload.decoration
+    }
+})
+
+const changeTextAlignment = (
+    selectedSlideId: string,
+    selectedObjectId: string,
+    vertical?: Alignment,
+    horizontal?: Alignment): Action => ({
+        type: 'CHANGE_TEXT_ALIGNMENT',
+        payload: {
+            selectedSlideId: selectedSlideId,
+            selectedObjectId: selectedObjectId,
+            vertical: vertical,
+            horizontal: horizontal,
+        }
+    })
+
+const changeTextColor = (
+    selectedSlideId: string,
+    selectedObjectId: string,
+    newColor: string): Action => ({
+        type: 'CHANGE_TEXT_COLOR',
+        payload: {
+            selectedSlideId: selectedSlideId,
+            selectedObjectId: selectedObjectId,
+            newColor: newColor
+        }
+    })
+
 export {
     addImage,
     setState,
@@ -128,11 +191,16 @@ export {
     deleteObject,
     selectObject,
     changeSrcValue,
+    changeFontSize,
+    changeTextStyle,
     changeSlideNote,
     changeTextValue,
     deselectObjects,
-    changeObjectBounds,
+    changeTextColor,
+    changeFontFamily,
     importPresentation,
+    changeObjectBounds,
+    changeTextAlignment,
     changePresentationId,
     changeSlideBackground,
     changePresentationTitle,

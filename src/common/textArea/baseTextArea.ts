@@ -13,11 +13,13 @@ function BASE_TEXT_AREA(): TextAreaType {
         text: {
             value: '',
             alignment: { horizontal: 'end', vertical: 'end' },
+            decoration: 'none',
             font: {
                 size: 30,
                 color: '#000000',
-                family: 'Roboto-Regular',
-                weight: 400,
+                family: 'Roboto',
+                weight: 'Normal',
+                style: 'Normal',
             }
         }
     }

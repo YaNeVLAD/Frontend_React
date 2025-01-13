@@ -19,11 +19,13 @@ function SUBTITLE_TEXT_AREA(): TextAreaType {
         text: {
             value: '',
             alignment: { horizontal: 'center', vertical: 'center' },
+            decoration: 'none',
             font: {
                 size: 28,
                 color: '#404040',
-                family: 'Roboto-Regular',
-                weight: 400,
+                family: 'Roboto',
+                weight: 'Normal',
+                style: 'Normal',
             }
         }
     }
