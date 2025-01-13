@@ -57,7 +57,7 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
         const handleMouseMove = (e: MouseEvent) => {
             if (containerRef.current) {
                 console.log(containerRef.current.scrollTop)
-                setMousePos(e.clientY - 75)
+                setMousePos(e.clientY - containerRef.current.getBoundingClientRect().top + 10)
             }
         }
 
@@ -76,25 +76,28 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
             {presentationSlides.map((slide, index) => {
                 const isDraggingSlide = dragging && selectedSlide?.id == slide.id
                 const draggedIndex = presentationSlides.findIndex(s => s.id == selectedSlide?.id)
+                const isPrevNeighbor = dragging && index == draggedIndex - 1
+                const isNextNeighbor = dragging && index == draggedIndex + 1
+                const isFirstSlide = index === 0
+                const isLastSlide = index === presentationSlides.length - 1
 
                 let marginBottom = ''
                 let marginTop = ''
 
-                if (draggedIndex == 0 && index == 1 && dragging) {
+                if (isFirstSlide && isNextNeighbor) {
                     marginTop = '118px'
                 }
 
-                if (draggedIndex === presentationSlides.length - 1 && index === presentationSlides.length - 2 && dragging) {
+                if (isLastSlide && isPrevNeighbor) {
                     marginBottom = '118px'
                 }
 
-                if (draggedIndex !== 0 && draggedIndex !== presentationSlides.length - 1 && dragging) {
-                    if (index == draggedIndex - 1) {
-                        marginBottom = '58.5px'
-                    }
-                    if (index == draggedIndex + 1) {
-                        marginTop = '58.5px'
-                    }
+                if (isPrevNeighbor && !isFirstSlide) {
+                    marginBottom = '58.5px'
+                }
+                
+                if (isNextNeighbor && !isLastSlide) {
+                    marginTop = '58.5px'
                 }
 
                 return (

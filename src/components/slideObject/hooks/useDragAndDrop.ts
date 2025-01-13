@@ -55,6 +55,7 @@ const useDragAndDrop = (onDrop: () => void) => {
     }, [dragging, handleMouseMove, handleMouseUp])
 
     return {
+        dragging,
         offset,
         handleMouseDown,
     }

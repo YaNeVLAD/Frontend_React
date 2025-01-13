@@ -1,6 +1,6 @@
 import { ZoomProvider } from "../../views/WorkspaceArea/ScrollAreaWrapper/ZoomContext"
 import { COLLECTION_SLIDE_SCALE, PROJECT_NAME } from "../../storage/constants"
-import { SlideCollection } from "../../views/SlideCollection/SlideCollection"
+import SlideCollection from "../../views/SlideCollection/SlideCollection"
 import WorkspaceArea from "../../views/WorkspaceArea/WorkspaceArea"
 import { CommandHistoryContext } from "../../hooks/historyContext"
 import SpeakerNotes from "../../views/SpeakerNotes/SpeakerNotes"

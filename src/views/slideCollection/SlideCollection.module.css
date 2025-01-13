@@ -66,3 +66,7 @@
 .slideCollection::-webkit-scrollbar-thumb:active {
     background-color: #404040;
 }
+
+.slideWrapper {
+    position: relative;
+}
