@@ -1,4 +1,4 @@
-import { EditorType, PositionType, SelectionType, SizeType, SlideType } from "../types"
+import { PositionType, SelectionType, SizeType, SlideType } from "../types"
 import { BASE_TEXT_AREA } from "../../common/TextArea/BaseTextArea"
 import { SLIDE_WIDTH, SLIDE_HEIGHT } from "../constants.ts"
 import { BASE_IMAGE } from "../../common/BaseImage.ts"
@@ -37,31 +37,6 @@ function addObject(
     slideCopy.objects.push(newObject)
 
     return slideCopy
-}
-
-function changeObjectSize(editor: EditorType, { width, height }: { width: number, height: number }): EditorType {
-    const editorCopy = deepCopy(editor)
-
-    const selectedSlide = editorCopy.presentation.slides.find(
-        slide => slide.id == editorCopy.selection.selectedSlideId
-    )
-    if (selectedSlide == undefined) return editor
-
-    const selectedObject = selectedSlide.objects.find(
-        obj => obj.id == editorCopy.selection.selectedObjectId
-    )
-    if (selectedObject == undefined) return editor
-
-    selectedObject.size.height = height
-    selectedObject.size.width = width
-
-    return {
-        ...editorCopy,
-        selection: {
-            selectedSlideId: selectedSlide.id,
-            selectedObjectId: selectedObject.id
-        }
-    }
 }
 
 function deleteObject(
@@ -127,16 +102,16 @@ function selectObject(
     selection: SelectionType,
     selectedObjectId: string
 ): SelectionType {
+    if (!selection.selectedSlideIds || selection.selectedSlideIds.length == 0) return selection
     return {
         ...selection,
-        selectedSlideId: selection.selectedSlideId,
+        selectedSlideIds: [selection.selectedSlideIds[selection.selectedSlideIds.length - 1]],
         selectedObjectId: selectedObjectId
     }
 }
 
 export {
     addObject,
-    changeObjectSize,
     deleteObject,
     deselectAllObjects,
     selectObject,

@@ -9,14 +9,14 @@ import style from './SlideCollection.module.css'
 const SlideCollection = () => {
     const selectedSlide = useSelectedSlide()
     const presentationSlides = useAppSelector(state => state.editor.presentation.slides)
-    const selection = useAppSelector(s => s.editor.selection)
+    const selectedSlideIds = useAppSelector(s => s.editor.selection).selectedSlideIds
     const { moveSlide, selectSlides } = useAppActions()
 
     const containerRef = useRef<HTMLDivElement>(null)
     const [mousePos, setMousePos] = useState(0)
 
     const { dragging, handleMouseDown } = useDragAndDrop(() => {
-        if (dragging && selectedSlide) {
+        if (dragging && selectedSlideIds?.length) {
             const container = containerRef.current
             if (!container) return
 
@@ -26,25 +26,35 @@ const SlideCollection = () => {
                 return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
             })
 
-            const draggedIndex = presentationSlides.findIndex(slide => slide.id == selectedSlide.id)
-            const draggedCenter = slideCenters[draggedIndex]
+            const draggedIndexes = presentationSlides
+                .map((slide, index) => ({ slide, index }))
+                .filter(({ slide }) => selectedSlideIds.includes(slide.id))
+                .map(({ index }) => index)
 
-            let newIndex = draggedIndex
+            const draggedCenters = draggedIndexes.map(index => slideCenters[index])
+            const targetCenter = draggedCenters[0]
+
+            let newIndex = selectedSlide ? presentationSlides.indexOf(selectedSlide) : 0
             slideCenters.forEach((center, index) => {
                 const rect = slideElements[index].getBoundingClientRect()
                 if (
-                    index !== draggedIndex &&
-                    Math.abs(center.x - draggedCenter.x) < rect.width / 2 &&
-                    Math.abs(center.y - draggedCenter.y) < rect.height / 2
+                    !draggedIndexes.includes(index) &&
+                    Math.abs(center.x - targetCenter.x) < rect.width / 2 &&
+                    Math.abs(center.y - targetCenter.y) < rect.height / 2
                 ) {
                     newIndex = index
                 }
             })
 
-            if (newIndex !== draggedIndex) {
+            if (newIndex == presentationSlides.length) {
+                const reorderedSlides = presentationSlides.filter(slide => !selectedSlideIds.includes(slide.id))
+                const draggedSlides = presentationSlides.filter(slide => selectedSlideIds.includes(slide.id))
+                moveSlide([...reorderedSlides, ...draggedSlides])
+            } else {
                 const reorderedSlides = [...presentationSlides]
-                const [draggedSlide] = reorderedSlides.splice(draggedIndex, 1)
-                reorderedSlides.splice(newIndex, 0, draggedSlide)
+                const draggedSlides = draggedIndexes.map(index => reorderedSlides[index])
+                draggedIndexes.sort((a, b) => b - a).forEach(index => reorderedSlides.splice(index, 1))
+                reorderedSlides.splice(newIndex, 0, ...draggedSlides)
                 moveSlide(reorderedSlides)
             }
         }
@@ -53,7 +63,6 @@ const SlideCollection = () => {
     const handleSlideClick = (slideId: string, index: number, event: React.MouseEvent<HTMLDivElement>) => {
         const isCtrlPressed = event.ctrlKey || event.metaKey
         const isShiftPressed = event.shiftKey
-        const { selectedSlideIds } = selection
         if (!selectedSlideIds) return
         if (isCtrlPressed && isShiftPressed) {
             const lastSelectedIndex = presentationSlides.findIndex(s => s.id === selectedSlideIds[selectedSlideIds.length - 1])
@@ -97,7 +106,7 @@ const SlideCollection = () => {
             ref={containerRef}
         >
             {presentationSlides.map((slide, index) => {
-                const isDraggingSlide = dragging && selectedSlide?.id == slide.id
+                const isDraggingSlide = dragging && selectedSlideIds?.indexOf(slide.id) != -1
                 const draggedIndex = presentationSlides.findIndex(s => s.id == selectedSlide?.id)
 
                 let marginBottom = ''
@@ -132,10 +141,8 @@ const SlideCollection = () => {
                             zIndex: isDraggingSlide ? 1 : 0,
                             cursor: dragging ? 'grabbing' : 'default',
                         }}
-                        onMouseDown={(e) => {
-                            handleSlideClick(slide.id, index, e)
-                            handleMouseDown(e)
-                        }}
+                        onClick={(e) => handleSlideClick(slide.id, index, e)}
+                        onMouseDown={handleMouseDown}
                     >
                         {dragging && selectedSlide?.id == slide.id ||
                             <h3 className={style.slideCollectionItemTitle}>{index + 1}</h3>
@@ -143,7 +150,7 @@ const SlideCollection = () => {
                         <div className={style.slideCollectionItemDiv}>
                             <Slide
                                 id={slide.id}
-                                isSelected={!!(selection.selectedSlideIds && selection.selectedSlideIds.indexOf(slide.id) != -1)}
+                                isSelected={!!(selectedSlideIds && selectedSlideIds.indexOf(slide.id) != -1)}
                                 className={style.slideCollectionSlide}
                                 scale={COLLECTION_SLIDE_SCALE}
                                 objectScale={COLLECTION_SLIDE_OBJECT_SCALE}

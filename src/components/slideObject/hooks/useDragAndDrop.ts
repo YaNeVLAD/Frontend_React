@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { PositionType } from '../../../storage/types'
 
-const useDragAndDrop = (onDrop: () => void) => {
+const useDragAndDrop = (onDrop: (offset: PositionType) => void) => {
     const [dragging, setDragging] = useState<boolean>(false)
     const [offset, setOffset] = useState<PositionType>({ x: 0, y: 0 })
     const [startPosition, setStartPosition] = useState<PositionType>({
@@ -27,11 +27,11 @@ const useDragAndDrop = (onDrop: () => void) => {
     const handleMouseUp = useCallback(() => {
         if (dragging) {
             setDragging(false)
-            onDrop()
+            onDrop(offset)
             setOffset({ x: 0, y: 0 })
         }
         setIsMouseDown(false)
-    }, [dragging, onDrop])
+    }, [dragging, offset, onDrop])
 
     const handleMouseDown = useCallback(
         (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

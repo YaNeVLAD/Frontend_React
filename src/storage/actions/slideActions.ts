@@ -66,18 +66,15 @@ function changeSlideBackground(
     return slideCopy
 }
 
-function deleteSlide(
-    editor: EditorType
-): EditorType {
-    if (editor.presentation.slides.length === 1) return editor
-
+function deleteSlide(editor: EditorType): EditorType {
+    if (editor.presentation.slides.length == 1) return editor
     const presentationCopy = deepCopy(editor.presentation)
     const slideIds = editor.selection.selectedSlideIds || []
     if (slideIds.length == 0) return editor
     const index = presentationCopy.slides.findIndex(slide => slide.id == slideIds[slideIds.length - 1])
     if (index === -1) return editor
 
-    const updatedSlides = presentationCopy.slides.filter((_, i) => i !== index)
+    const updatedSlides = presentationCopy.slides.filter(s => slideIds.indexOf(s.id) == -1)
 
     let newSelectedSlide = updatedSlides[updatedSlides.length - 1]
     if (index < updatedSlides.length) {
