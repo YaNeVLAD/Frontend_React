@@ -61,6 +61,7 @@ const BackgroundPicker = () => {
 
                 {isPopupOpen &&
                     <SelectImagePopup
+                        title={'Вставка фонового изображения'}
                         setIsOpen={setIsPopupOpen}
                         onImageLoad={onImageUpload}
                     />

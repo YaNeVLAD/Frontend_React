@@ -11,6 +11,9 @@ import styles from "./ObjectButtonSet.module.css"
 import BoldFormat20Icon from "../../../components/common/Icons/BoldFormat20Icon"
 import ItalicFormat20Icon from "../../../components/common/Icons/ItalicFormat20Icon"
 import UnderlineFormat20Icon from "../../../components/common/Icons/UnderlineFormat20Icon"
+import TextColorFormat20Icon from "../../../components/common/Icons/TextColorFormat20Icon"
+import SolidColorPalette from "../../../components/ColorPalette/SolidColorPalette/SolidColorPalette"
+import Popover from "../../../components/Popover/Popover"
 
 const ObjectButtonSet = () => {
     const slide = useSelectedSlide()
@@ -70,11 +73,14 @@ const ImageObjectButtonSet = (
 }
 
 const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
-    const { changeFontFamily, changeFontSize, changeTextStyle } = useAppActions()
+    const { changeFontFamily, changeFontSize, changeTextStyle, changeTextColor } = useAppActions()
     const [isBold, setIsBold] = useState(object.text.font.weight == 'Bold')
     const [isItalic, setIsItalic] = useState(object.text.font.style == 'Italic')
     const [isUnderlined, setIsUnderlined] = useState(object.text.decoration == 'underline')
     const [fontSize, setFontSize] = useState(object.text.font.size)
+
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
     useEffect(() => {
         setIsBold(object.text.font.weight == 'Bold')
         setIsItalic(object.text.font.style == 'Italic')
@@ -124,6 +130,13 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
                 selectedClassName={styles.selectListSelected}
             />
             <div className={styles.separator} />
+            <input
+                type='number'
+                value={fontSize}
+                onChange={handleFontSizeChange}
+                className={styles.fontSizeInput}
+            />
+            <div className={styles.separator} />
             <Button
                 type="icon"
                 displayType="tools-area"
@@ -145,13 +158,25 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
             >
                 {UnderlineFormat20Icon}
             </Button>
-            <input
-                type='number'
-                value={fontSize}
-                onChange={handleFontSizeChange}
-                className={styles.fontSizeInput}
-            />
-            <div className={styles.separator} />
+
+            <Popover
+                isOpen={isPopoverOpen}
+                closePopover={() => setIsPopoverOpen(false)}
+                content={<SolidColorPalette color={object.text.font.color}
+                    onColorSelect={
+                        (color) => changeTextColor(selectedSlide.id, object.id, color)
+                    }
+                    onChange={(e) => changeTextColor(selectedSlide.id, object.id, e.target.value)}
+                />
+                }>
+                <Button
+                    type="icon"
+                    displayType="tools-area"
+                    onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+                >
+                    {TextColorFormat20Icon}
+                </Button>
+            </Popover>
         </>
     )
 }

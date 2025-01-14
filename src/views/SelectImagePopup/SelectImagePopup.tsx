@@ -6,6 +6,7 @@ import Tabs from "../../components/Tabs/Tabs"
 import styles from "./SelectImagePopup.module.css"
 
 type SelectImagePopupProps = {
+    title?: string,
     setIsOpen: (open: boolean) => void,
     onImageLoad: (src: string) => void,
 }
@@ -14,7 +15,7 @@ const UnsplashTab = "Unsplash Картинки"
 const LoadImagesTab = "Загрузка"
 const LinkImageTab = "Ссылка"
 
-const SelectImagePopup = ({ setIsOpen, onImageLoad }: SelectImagePopupProps) => {
+const SelectImagePopup = ({ title, setIsOpen, onImageLoad }: SelectImagePopupProps) => {
     const [tab, setTab] = useState(LoadImagesTab)
 
     const TabContent = () => {
@@ -33,7 +34,7 @@ const SelectImagePopup = ({ setIsOpen, onImageLoad }: SelectImagePopupProps) => 
     return (
         <Popup
             closeAction={() => setIsOpen(false)}
-            title="Вставка изображения"
+            title={title || "Вставка изображения"}
             content={
                 <div className={styles.popupContainer}>
                     <Tabs
