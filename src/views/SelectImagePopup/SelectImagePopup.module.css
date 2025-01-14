@@ -158,3 +158,70 @@
 .hiddenInput {
     display: none;
 }
+
+
+.linkImageContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.linkInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.submitButton {
+    padding: 8px 16px;
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+    background-color: #1765cc;
+}
+
+.errorMessage {
+    color: #d93025;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.previewContainer {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.previewImage {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.selectButton {
+    padding: 8px 16px;
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.selectButton:hover {
+    background-color: #1765cc;
+}

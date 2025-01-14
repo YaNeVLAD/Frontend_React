@@ -1,4 +1,4 @@
-import ImageInput from "../../components/ImageInput/ImageInput"
+import useImportImage from "../../components/ImageInput/hooks/useImportImage"
 import useImageSearchApi from "../../hooks/useImageSearchApi"
 import React, { useRef, useEffect, useState } from "react"
 import Popup from "../../components/Popup/Popup"
@@ -24,7 +24,7 @@ const SelectImagePopup = ({ setIsOpen, onImageLoad }: SelectImagePopupProps) => 
             case LoadImagesTab:
                 return <LoadImagesTabContent onImageSelect={onImageLoad} setIsOpen={setIsOpen} />
             case LinkImageTab:
-                return <>124</>
+                return <LinkImageTabContent onImageSelect={onImageLoad} setIsOpen={setIsOpen} />
             default:
                 return <></>
         }
@@ -48,6 +48,73 @@ const SelectImagePopup = ({ setIsOpen, onImageLoad }: SelectImagePopupProps) => 
     )
 }
 
+type LinkImageTabContentProps = {
+    setIsOpen: (open: boolean) => void,
+    onImageSelect: (src: string) => void
+}
+
+const LinkImageTabContent = ({ setIsOpen, onImageSelect }: LinkImageTabContentProps) => {
+    const [link, setLink] = useState("")
+    const [error, setError] = useState("")
+    const [previewSrc, setPreviewSrc] = useState("")
+
+    const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLink(e.target.value)
+        setError("")
+        setPreviewSrc("")
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (link) {
+            const img = new Image()
+            img.onload = () => {
+                setPreviewSrc(link)
+                setError("")
+            }
+            img.onerror = () => {
+                setError("Ошибка загрузки изображения. Проверьте ссылку.")
+                setPreviewSrc("")
+            }
+            img.src = link
+        }
+    }
+
+    return (
+        <>
+            <header className={styles.popupHeader}>
+                <form onSubmit={handleSubmit} className={styles.searchForm}>
+                    <input
+                        type="text"
+                        name="query"
+                        onChange={handleLinkChange}
+                        placeholder="Вставьте ссылку на изображение"
+                        className={styles.searchInput}
+                    />
+                    <button type="submit" className={styles.searchButton}>
+                        {'Найти'}
+                    </button>
+                </form>
+            </header>
+            {error && <p className={styles.errorMessage}>{error}</p>}
+            {previewSrc && (
+                <div className={styles.previewContainer}>
+                    <img src={previewSrc} alt="Preview" className={styles.previewImage} />
+                    <button
+                        onClick={() => {
+                            onImageSelect(previewSrc)
+                            setIsOpen(false)
+                        }}
+                        className={styles.selectButton}
+                    >
+                        Выбрать изображение
+                    </button>
+                </div>
+            )}
+        </>
+    )
+}
+
 type LoadImagesTabContentProps = {
     setIsOpen: (open: boolean) => void,
     onImageSelect: (src: string) => void
@@ -61,7 +128,10 @@ const LoadImagesTabContent = ({ setIsOpen, onImageSelect }: LoadImagesTabContent
         setIsOpen(false)
     }
 
-    const handleDragOver = () => {
+    const { fileInputRef, handleFileChange } = useImportImage(loadImage)
+
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
         setDragging(true)
     }
 
@@ -69,27 +139,44 @@ const LoadImagesTabContent = ({ setIsOpen, onImageSelect }: LoadImagesTabContent
         setDragging(false)
     }
 
-    const handleDrop = () => {
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
         setDragging(false)
+
+        const file = e.dataTransfer.files[0]
+        if (file && /\.(png|jpe?g|gif)$/i.test(file.name)) {
+            const dataTransfer = new DataTransfer()
+            dataTransfer.items.add(file)
+
+            if (fileInputRef.current) {
+                fileInputRef.current.files = dataTransfer.files
+                handleFileChange()
+            }
+        } else {
+            alert('Поддерживаются только файлы форматов .png, .jpeg, .jpg, .gif')
+        }
     }
 
     return (
         <div
-            onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
             className={`${styles.uploadContainer} ${dragging ? styles.dragging : ''}`}
         >
-            <ImageInput
-                type="custom"
-                onImageUpload={loadImage}
-            >
-                <p className={styles.uploadButton}>
-                    {'Обзор'}
-                </p>
-            </ImageInput>
+            <input
+                ref={fileInputRef}
+                type='file'
+                accept='.png,.jpeg,.jpg,.gif'
+                onChange={handleFileChange}
+                className={styles.hiddenInput}
+                id='fileInput'
+            />
+            <label htmlFor='fileInput' className={styles.uploadButton}>
+                {'Обзор'}
+            </label>
             <p className={styles.uploadText}>или перетащите файл сюда.</p>
-        </div >
+        </div>
     )
 }
 
@@ -138,11 +225,11 @@ const UnsplashImagesTabContent = ({ setIsOpen, onImageSelect }: UnsplashImagesTa
                     <input
                         type="text"
                         name="query"
-                        placeholder="Поиск изображений..."
+                        placeholder="Поиск в Unsplash Картинках"
                         className={styles.searchInput}
                     />
                     <button type="submit" className={styles.searchButton}>
-                        Найти
+                        {'Найти'}
                     </button>
                 </form>
             </header>
