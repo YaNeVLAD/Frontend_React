@@ -1,7 +1,7 @@
-import { useSelectedSlide } from "../../../../hooks/useSelectedSlide"
+import SelectImagePopup from "../../../SelectImagePopup/SelectImagePopup"
 import { useAppActions, useAppSelector } from "../../../../hooks/useRedux"
+import { useSelectedSlide } from "../../../../hooks/useSelectedSlide"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
-import ImageInput from "../../../../components/ImageInput/ImageInput"
 import { Button } from "../../../../components/Button/Button"
 import { BackgroundType } from "../../../../storage/types"
 import ColorButton from "../../../ColorButton/ColorButton"
@@ -14,7 +14,7 @@ const BackgroundPicker = () => {
     const themeBackground = useAppSelector(state => state.viewModel.slideTheme.background)
 
     const { changeSlideBackground } = useAppActions()
-
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [background, setBackground] = useState<BackgroundType | undefined>(selectedSlide?.background)
 
     if (selectedSlide == undefined) return (<></>)
@@ -30,8 +30,8 @@ const BackgroundPicker = () => {
         changeSlideBackground(selectedSlide.id, newBackground)
     }
 
-    const onImageUpload = (image: string) => {
-        const background: BackgroundType = { value: image, type: 'image' }
+    const onImageUpload = (base64: string) => {
+        const background: BackgroundType = { value: base64, type: 'image' }
         setBackground(background)
         changeSlideBackground(selectedSlide.id, background)
     }
@@ -52,16 +52,19 @@ const BackgroundPicker = () => {
                 <label className={styles.colorPickerLabel}>
                     {'Изображение'}
                 </label>
-                <ImageInput
-                    type="custom"
-                    onImageUpload={onImageUpload}>
-                    <Button
-                        type="text"
-                        displayType="image-input"
-                        onClick={() => { }}>
-                        {'Выбрать изображение'}
-                    </Button>
-                </ImageInput>
+                <Button
+                    type="text"
+                    displayType="image-input"
+                    onClick={() => setIsPopupOpen(true)}>
+                    {'Выбрать изображение'}
+                </Button>
+
+                {isPopupOpen &&
+                    <SelectImagePopup
+                        setIsOpen={setIsPopupOpen}
+                        onImageLoad={onImageUpload}
+                    />
+                }
             </div>
             <div className={styles.colorPickerWrapper}>
                 <label className={styles.colorPickerLabel}>

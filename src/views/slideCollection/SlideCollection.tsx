@@ -141,8 +141,8 @@ const SlideCollection = () => {
                             zIndex: isDraggingSlide ? 1 : 0,
                             cursor: dragging ? 'grabbing' : 'default',
                         }}
-                        onClick={(e) => handleSlideClick(slide.id, index, e)}
                         onMouseDown={handleMouseDown}
+                        onClick={(e) => handleSlideClick(slide.id, index, e)}
                     >
                         {dragging && selectedSlide?.id == slide.id ||
                             <h3 className={style.slideCollectionItemTitle}>{index + 1}</h3>

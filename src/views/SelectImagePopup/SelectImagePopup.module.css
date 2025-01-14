@@ -1,6 +1,6 @@
 .popupContainer {
-    width: 900px;
-    height: 550px;
+    width: 800px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -11,14 +11,8 @@
 }
 
 .popupHeader {
-    margin-bottom: 16px;
-}
-
-.title {
-    margin: 0;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .searchForm {
@@ -54,9 +48,11 @@
     gap: 8px;
     grid-auto-rows: 10px;
     overflow-y: auto;
+    height: 100%;
 }
 
 .imageGrid img {
+    margin-top: 8px;
     width: 100%;
     object-fit: cover;
 }
@@ -117,4 +113,48 @@
     margin-top: 16px;
     font-size: 14px;
     color: #555;
+}
+
+.uploadContainer {
+    margin-top: 8px;
+    display: flex;
+    height: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadContainer.dragging {
+    background-color: #f0f8ff;
+}
+
+.uploadButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.uploadButton:hover {
+    background-color: #0056b3;
+}
+
+.uploadText,
+.fileName {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.hiddenInput {
+    display: none;
 }

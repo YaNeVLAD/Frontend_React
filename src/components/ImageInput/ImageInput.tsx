@@ -24,8 +24,6 @@ const ImageInput = ({ ...props }: ImageInputProps) => {
         e.target.value = ''
     }
 
-    const openInput = () => fileInputRef?.current?.click()
-
     switch (props.type) {
         case 'default':
             return (
@@ -43,7 +41,7 @@ const ImageInput = ({ ...props }: ImageInputProps) => {
 
         case 'custom':
             return (
-                <label className={style.customLabel} onClick={openInput}>
+                <label className={style.customLabel}>
                     {props.children}
                     <input
                         className={style.hidden}
