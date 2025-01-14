@@ -201,6 +201,11 @@ type ChangeTextStyleAction = {
     }
 }
 
+type SelectSlidesAction = {
+    type: 'SELECT_SLIDES',
+    payload: Array<string>
+}
+
 type Action =
     | AddImageAction
     | SetStateAction
@@ -209,6 +214,7 @@ type Action =
     | MoveSlideAction
     | SelectSlideAction
     | DeleteSlideAction
+    | SelectSlidesAction
     | DeleteObjectAction
     | SelectObjectAction
     | DeselectSlideAction

@@ -46,7 +46,7 @@ const SpeakerNotes = ({ notesHeight, setNotesHeight }: SpeakerNotesProps) => {
     }, [dragging, handleMouseMove, handleMouseUp])
 
     const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setNote(e.target.value)
+        setNote(e.target.innerHTML)
         if (selectedSlide) {
             changeSlideNote(e.target.value, selectedSlide.id)
         }
@@ -56,7 +56,7 @@ const SpeakerNotes = ({ notesHeight, setNotesHeight }: SpeakerNotesProps) => {
         <div
             className={styles.speakerNotesContainer}
             draggable={false}
-            style={{ height: notesHeight}}
+            style={{ height: notesHeight }}
         >
             <div
                 className={styles.speakerNotesDragger}

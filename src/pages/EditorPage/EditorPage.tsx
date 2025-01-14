@@ -1,5 +1,4 @@
 import { ZoomProvider } from "../../views/WorkspaceArea/ScrollAreaWrapper/ZoomContext"
-import { COLLECTION_SLIDE_SCALE, PROJECT_NAME } from "../../storage/constants"
 import SlideCollection from "../../views/SlideCollection/SlideCollection"
 import WorkspaceArea from "../../views/WorkspaceArea/WorkspaceArea"
 import { CommandHistoryContext } from "../../hooks/historyContext"
@@ -8,6 +7,7 @@ import useAppKeyBinding from "../../hooks/useAppKeyBinding"
 import { ToolsArea } from "../../views/ToolsArea/ToolsArea"
 import TitleArea from "../../views/TitleArea/TitleArea"
 import { CommandHistory } from "../../storage/history"
+import { PROJECT_NAME } from "../../storage/constants"
 import { useAppSelector } from "../../hooks/useRedux"
 import { useEffect, useState } from "react"
 import styles from "./EditorPage.module.css"
@@ -32,7 +32,7 @@ const EditorPage = ({ history }: EditorPageProps) => {
                 <TitleArea />
                 <ToolsArea />
                 <div className={styles.container} style={{ height: `calc(100% - ${notesHeight}px)` }}>
-                    <SlideCollection scale={COLLECTION_SLIDE_SCALE} />
+                    <SlideCollection />
                     <WorkspaceArea />
                 </div>
             </ZoomProvider>

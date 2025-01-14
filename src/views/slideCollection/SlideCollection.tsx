@@ -1,19 +1,16 @@
+import { COLLECTION_SLIDE_OBJECT_SCALE, COLLECTION_SLIDE_SCALE } from "../../storage/constants"
 import useDragAndDrop from "../../components/SlideObject/hooks/useDragAndDrop"
-import { COLLECTION_SLIDE_OBJECT_SCALE } from "../../storage/constants"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
 import { useSelectedSlide } from "../../hooks/useSelectedSlide"
 import { Slide } from "../../components/Slide/Slide"
 import { useEffect, useRef, useState } from "react"
 import style from './SlideCollection.module.css'
 
-type SlideCollectionProps = {
-    scale: number;
-}
-
-const SlideCollection = ({ scale }: SlideCollectionProps) => {
+const SlideCollection = () => {
     const selectedSlide = useSelectedSlide()
     const presentationSlides = useAppSelector(state => state.editor.presentation.slides)
-    const { selectSlide, moveSlide } = useAppActions()
+    const selection = useAppSelector(s => s.editor.selection)
+    const { moveSlide, selectSlides } = useAppActions()
 
     const containerRef = useRef<HTMLDivElement>(null)
     const [mousePos, setMousePos] = useState(0)
@@ -53,10 +50,37 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
         }
     })
 
+    const handleSlideClick = (slideId: string, index: number, event: React.MouseEvent<HTMLDivElement>) => {
+        const isCtrlPressed = event.ctrlKey || event.metaKey
+        const isShiftPressed = event.shiftKey
+        const { selectedSlideIds } = selection
+        if (!selectedSlideIds) return
+        if (isCtrlPressed && isShiftPressed) {
+            const lastSelectedIndex = presentationSlides.findIndex(s => s.id === selectedSlideIds[selectedSlideIds.length - 1])
+            const rangeStart = Math.min(lastSelectedIndex, index)
+            const rangeEnd = Math.max(lastSelectedIndex, index)
+            const rangeIds = presentationSlides.slice(rangeStart, rangeEnd + 1).map(s => s.id)
+            const newSelection = Array.from(new Set([...selectedSlideIds, ...rangeIds]))
+            selectSlides(newSelection)
+        } else if (isShiftPressed) {
+            const lastSelectedIndex = presentationSlides.findIndex(s => s.id === selectedSlideIds[selectedSlideIds.length - 1])
+            const rangeStart = Math.min(lastSelectedIndex, index)
+            const rangeEnd = Math.max(lastSelectedIndex, index)
+            const rangeIds = presentationSlides.slice(rangeStart, rangeEnd + 1).map(s => s.id)
+            selectSlides(rangeIds)
+        } else if (isCtrlPressed) {
+            const newSelection = selectedSlideIds.includes(slideId)
+                ? selectedSlideIds.filter(id => id !== slideId)
+                : [...selectedSlideIds, slideId]
+            selectSlides(newSelection)
+        } else {
+            selectSlides([slideId])
+        }
+    }
+
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (containerRef.current) {
-                console.log(containerRef.current.scrollTop)
                 setMousePos(e.clientY - 75)
             }
         }
@@ -71,7 +95,6 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
         <div
             className={style.slideCollection}
             ref={containerRef}
-            style={{ cursor: dragging ? 'grabbing' : 'default' }}
         >
             {presentationSlides.map((slide, index) => {
                 const isDraggingSlide = dragging && selectedSlide?.id == slide.id
@@ -107,19 +130,22 @@ const SlideCollection = ({ scale }: SlideCollectionProps) => {
                             marginBottom: marginBottom,
                             marginTop: marginTop,
                             zIndex: isDraggingSlide ? 1 : 0,
+                            cursor: dragging ? 'grabbing' : 'default',
                         }}
                         onMouseDown={(e) => {
-                            selectSlide(slide.id)
+                            handleSlideClick(slide.id, index, e)
                             handleMouseDown(e)
                         }}
                     >
-                        <h3 className={style.slideCollectionItemTitle}>{index + 1}</h3>
+                        {dragging && selectedSlide?.id == slide.id ||
+                            <h3 className={style.slideCollectionItemTitle}>{index + 1}</h3>
+                        }
                         <div className={style.slideCollectionItemDiv}>
                             <Slide
                                 id={slide.id}
-                                isSelected={slide.id == selectedSlide?.id}
+                                isSelected={!!(selection.selectedSlideIds && selection.selectedSlideIds.indexOf(slide.id) != -1)}
                                 className={style.slideCollectionSlide}
-                                scale={scale}
+                                scale={COLLECTION_SLIDE_SCALE}
                                 objectScale={COLLECTION_SLIDE_OBJECT_SCALE}
                             />
                         </div>

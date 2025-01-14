@@ -19,7 +19,7 @@ type PresentationType = {
 }
 
 type SelectionType = {
-    selectedSlideId?: string,
+    selectedSlideIds?: Array<string>,
     selectedObjectId?: string,
 }
 

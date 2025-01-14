@@ -28,9 +28,10 @@ function addSlide(
     newSlide.id = uuid()
 
     newSlide.background = theme.background
-
+    const slideIds = editor.selection.selectedSlideIds || []
+    if (slideIds.length == 0) return editor
     const selectedSlideIndex = editor.presentation.slides.findIndex(
-        slide => slide.id == editor.selection.selectedSlideId
+        slide => slide.id == slideIds[slideIds.length - 1]
     )
     if (selectedSlideIndex == -1) return editor
 
@@ -46,7 +47,7 @@ function addSlide(
             slides: updatedSlides,
         },
         selection: {
-            selectedSlideId: newSlide.id,
+            selectedSlideIds: [newSlide.id],
             selectedObjectId: undefined,
         },
     }
@@ -71,8 +72,9 @@ function deleteSlide(
     if (editor.presentation.slides.length === 1) return editor
 
     const presentationCopy = deepCopy(editor.presentation)
-
-    const index = presentationCopy.slides.findIndex(slide => slide.id == editor.selection.selectedSlideId)
+    const slideIds = editor.selection.selectedSlideIds || []
+    if (slideIds.length == 0) return editor
+    const index = presentationCopy.slides.findIndex(slide => slide.id == slideIds[slideIds.length - 1])
     if (index === -1) return editor
 
     const updatedSlides = presentationCopy.slides.filter((_, i) => i !== index)
@@ -89,7 +91,7 @@ function deleteSlide(
             slides: updatedSlides,
         },
         selection: {
-            selectedSlideId: newSelectedSlide.id,
+            selectedSlideIds: [newSelectedSlide.id],
             selectedObjectId: undefined,
         },
     }
@@ -101,7 +103,7 @@ function selectSlide(
 ): SelectionType {
     return {
         ...selection,
-        selectedSlideId: selectedSlideId,
+        selectedSlideIds: [selectedSlideId],
         selectedObjectId: undefined
     }
 }
@@ -149,11 +151,23 @@ function selectSlideBackgroundType(style: CSSProperties, background: BackgroundT
     return style
 }
 
+function selectSlides(
+    selection: SelectionType,
+    slideIds: Array<string>,
+): SelectionType {
+    return {
+        ...selection,
+        selectedObjectId: undefined,
+        selectedSlideIds: slideIds
+    }
+}
+
 export {
     addSlide,
-    changeSlideBackground,
     deleteSlide,
     selectSlide,
+    selectSlides,
+    changeSlideBackground,
     selectSlideBackgroundType,
-    changeAllSlidesBackground
+    changeAllSlidesBackground,
 }

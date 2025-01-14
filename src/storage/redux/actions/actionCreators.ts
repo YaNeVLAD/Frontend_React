@@ -179,6 +179,11 @@ const changeTextColor = (
         }
     })
 
+const selectSlides = (slideIds: Array<string>): Action => ({
+    type: 'SELECT_SLIDES',
+    payload: slideIds
+})
+
 export {
     addImage,
     setState,
@@ -188,6 +193,7 @@ export {
     loadImage,
     selectSlide,
     deleteSlide,
+    selectSlides,
     deleteObject,
     selectObject,
     changeSrcValue,
