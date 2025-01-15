@@ -3,6 +3,7 @@ import { validatePresentation, validateSelection } from "./validation/ajv"
 
 function parsePresentationFromJson(dataJson: string): PresentationType | null {
     const data = JSON.parse(dataJson)
+    return data
     if (validatePresentation(data)) return data
     return null
 }
