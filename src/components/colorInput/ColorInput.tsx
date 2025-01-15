@@ -4,7 +4,7 @@ import Popover from "../Popover/Popover"
 import { useState } from "react"
 import Tabs from "../Tabs/Tabs"
 import styles from "./ColorInput.module.css"
-import { BackgroundType } from "../../storage/types"
+import { BackgroundType, GradientColor } from "../../storage/types"
 
 const SolidColorTab = "Один цвет"
 const GradientTab = "Градиент"
@@ -22,8 +22,8 @@ const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
     const onSolidColorChange = (color: string) =>
         onColorChange({ value: color, type: 'solid' })
 
-    const onGradientColorChange = (color: string) =>
-        onColorChange({ value: color, type: 'gradient' })
+    const onGradientColorChange = (color: GradientColor) =>
+        onColorChange({ type: 'gradient', value: color.value, gradient: color.gradient })
 
     const openPopover = () => setIsPopoverOpen(true)
     const closePopover = () => setIsPopoverOpen(false)
@@ -43,13 +43,13 @@ const ColorInput = ({ color, children, onColorChange }: ColorInputProps) => {
                         <SolidColorPalette
                             color={color}
                             onChange={(e) => onSolidColorChange(e.target.value)}
-                            onColorSelect={(color) => onSolidColorChange(color)}
+                            onColorSelect={onSolidColorChange}
                         />
                     }
                     {currentTab == GradientTab &&
                         <GradientColorPalette
                             color={color}
-                            onColorChange={(color) => onGradientColorChange(color)}
+                            onColorChange={onGradientColorChange}
                         />
                     }
                 </>

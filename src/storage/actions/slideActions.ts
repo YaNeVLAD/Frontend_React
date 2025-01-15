@@ -6,6 +6,7 @@ import { TITLE_SLIDE } from "../../common/Slides/TitleSlide"
 import { deepCopy } from "../utils/deepCopy"
 import { uuid } from "../utils/uuid"
 import { CSSProperties } from "react"
+import createGradient from "../utils/createGradient"
 
 function addSlide(
     editor: EditorType,
@@ -140,7 +141,7 @@ function selectSlideBackgroundType(style: CSSProperties, background: BackgroundT
             break
         }
         case 'gradient': {
-            style.backgroundImage = background.value
+            style.background = createGradient(background)
             break
         }
     }

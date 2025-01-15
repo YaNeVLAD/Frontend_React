@@ -3,6 +3,7 @@ import { Button } from "../../components/Button/Button"
 import { CSSProperties } from "react"
 import styles from "./ColorButton.module.css"
 import ArrowDown20Icon from "../../components/common/Icons/ArrowDown20Icon"
+import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
 
 type ColorButtonProps = {
     color?: string,
@@ -14,8 +15,10 @@ const ColorButton = ({ color, onClick }: ColorButtonProps) => {
     if (selectedSlide == undefined) return (<></>)
 
     const backgroundStyle: CSSProperties = {
-        background: !color ? selectedSlide.background.value : color
+        background: color || ''
     }
+    if (!color)
+        selectSlideBackgroundType(backgroundStyle, selectedSlide.background)
 
     return (
         <Button

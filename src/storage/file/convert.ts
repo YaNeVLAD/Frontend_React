@@ -38,14 +38,14 @@ async function PresentationToPDF(doc: PDFDocument, presentation: PresentationTyp
 async function SlideToPDF(slide: SlideType, doc: PDFDocument) {
     const page = doc.addPage([SLIDE_WIDTH, SLIDE_HEIGHT])
 
-    await SlideBgToPDF(slide.background, doc, page)
+    await SlideBackgroundToPDF(slide.background, doc, page)
 
     for (const object of slide.objects) {
         await ObjectToPDF(object, doc, page)
     }
 }
 
-async function SlideBgToPDF(background: BackgroundType, doc: PDFDocument, page: PDFPage) {
+async function SlideBackgroundToPDF(background: BackgroundType, doc: PDFDocument, page: PDFPage) {
     if (background.type == 'solid') {
         page.drawRectangle({
             x: 0,
@@ -63,6 +63,65 @@ async function SlideBgToPDF(background: BackgroundType, doc: PDFDocument, page: 
             width: page.getWidth(),
             height: page.getHeight(),
         })
+    } else if (background.type == 'gradient') {
+        if (background.type == 'gradient') {
+            const canvas = document.createElement('canvas')
+            canvas.width = page.getWidth()
+            canvas.height = page.getHeight()
+            const ctx = canvas.getContext('2d')
+
+            if (ctx) {
+                let gradient: CanvasGradient
+                if (background.gradient.type === 'linear') {
+                    const angleRad = (background.gradient.start * Math.PI) / 180
+                    const x1 = 0.5 * (1 + Math.cos(angleRad)) * canvas.width
+                    const y1 = 0.5 * (1 + Math.sin(angleRad)) * canvas.height
+                    const x2 = canvas.width - x1
+                    const y2 = canvas.height - y1
+                    gradient = ctx.createLinearGradient(x1, y1, x2, y2)
+                } else if (background.gradient.type === 'radial') {
+                    let x = canvas.width / 2
+                    let y = canvas.height / 2
+
+                    switch (background.gradient.start) {
+                        case 'top left':
+                            x = 0
+                            y = 0
+                            break
+                        case 'top right':
+                            x = canvas.width
+                            y = 0
+                            break
+                        case 'bottom left':
+                            x = 0
+                            y = canvas.height
+                            break
+                        case 'bottom right':
+                            x = canvas.width
+                            y = canvas.height
+                            break
+                    }
+
+                    gradient = ctx.createRadialGradient(x, y, 0, x, y, Math.max(canvas.width, canvas.height))
+                }
+
+                background.value.forEach((colorStop) => {
+                    gradient.addColorStop(colorStop.position / 100, colorStop.color)
+                })
+
+                ctx.fillStyle = gradient
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+                const imgBase64 = canvas.toDataURL('image/png').split(',')[1]
+                const image = await doc.embedPng(imgBase64)
+                page.drawImage(image, {
+                    x: 0,
+                    y: 0,
+                    width: page.getWidth(),
+                    height: page.getHeight(),
+                })
+            }
+        }
     }
 }
 

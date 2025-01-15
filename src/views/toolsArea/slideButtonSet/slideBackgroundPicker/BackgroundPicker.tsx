@@ -2,6 +2,7 @@ import SelectImagePopup from "../../../SelectImagePopup/SelectImagePopup"
 import { useAppActions, useAppSelector } from "../../../../hooks/useRedux"
 import { useSelectedSlide } from "../../../../hooks/useSelectedSlide"
 import ColorInput from "../../../../components/ColorInput/ColorInput"
+import createGradient from "../../../../storage/utils/createGradient"
 import { Button } from "../../../../components/Button/Button"
 import { BackgroundType } from "../../../../storage/types"
 import ColorButton from "../../../ColorButton/ColorButton"
@@ -36,6 +37,22 @@ const BackgroundPicker = () => {
         changeSlideBackground(selectedSlide.id, background)
     }
 
+    const selectBackground = (): string => {
+        let bg: string = ''
+        switch (background?.type) {
+            case "solid":
+            case "image":
+                bg = background.value
+                break
+            case "gradient":
+                bg = createGradient(background)
+                break
+            default:
+                break
+        }
+        return bg
+    }
+
     return (
         <div className={styles.colorPickerContent}>
             <div className={styles.colorPickerWrapper}>
@@ -43,7 +60,7 @@ const BackgroundPicker = () => {
                     {'Цвет'}
                 </label>
                 <ColorInput
-                    color={selectedSlide.background.value}
+                    color={selectBackground()}
                     onColorChange={onBackgroundChange}>
                     <ColorButton />
                 </ColorInput>

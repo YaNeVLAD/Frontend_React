@@ -1,24 +1,28 @@
 import SolidColorPalette from "../../components/ColorPalette/SolidColorPalette/SolidColorPalette"
 import useDragAndDrop from "../../components/SlideObject/hooks/useDragAndDrop"
+import { GradientColor, RadialGradientStart } from "../../storage/types"
+import createGradient from "../../storage/utils/createGradient"
 import SelectList from "../../components/SelectList/SelectList"
 import { Button } from "../../components/Button/Button"
 import Popover from "../../components/Popover/Popover"
 import ColorButton from "../ColorButton/ColorButton"
-import Popup from "../../components/Popup/Popup"
 import { useMemo, useRef, useState } from "react"
+import Popup from "../../components/Popup/Popup"
 import { uuid } from "../../storage/utils/uuid"
 import styles from "./CustomGradientPopup.module.css"
 
 type GradientEditorPopupProps = {
-    setColor: (color: string) => void,
+    setColor: (gradient: GradientColor) => void,
     closeAction: () => void
 }
 
 const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps) => {
-    const gradientTypes = useMemo(() => new Map([['Линейный', 'linear'], ['Радиальный', 'radial']]), [])
+    const gradientTypes = useMemo(() => new Map<string, string>([
+        ['Линейный', 'linear'], ['Радиальный', 'radial']]
+    ), [])
     const radialPoints = useMemo(
         () =>
-            new Map([
+            new Map<string, RadialGradientStart>([
                 ['Центр', 'center'],
                 ['Сверху слева', 'top left'],
                 ['Сверху справа', 'top right'],
@@ -135,9 +139,8 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
         })
     }
 
-    const selectColorStop = (id: string) => {
+    const selectColorStop = (id: string) =>
         setSelectedStopId(id)
-    }
 
     const changeColor = (color: string) => {
         setColorStops((prevStops) =>
@@ -147,16 +150,13 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
         )
     }
 
-    const gradient = useMemo(() => {
-        if (gradientTypes.get(gradientType) == 'linear') {
-            return `linear-gradient(${angle + 90}deg, ${colorStops
-                .map((stop) => `${stop.color} ${stop.position}%`)
-                .join(', ')})`
-        }
-        return `radial-gradient(circle at ${radialPoints.get(radialPoint)}, ${colorStops
-            .map((stop) => `${stop.color} ${stop.position}%`)
-            .join(', ')})`
-    }, [gradientType, angle, radialPoint, colorStops, gradientTypes, radialPoints])
+    const createGradientBackground = (): GradientColor => ({
+        type: 'gradient',
+        gradient: gradientTypes.get(gradientType) === 'linear'
+            ? { type: 'linear', start: angle }
+            : { type: 'radial', start: radialPoints.get(radialPoint) || 'center' },
+        value: colorStops.map(({ color, position }) => ({ color, position }))
+    })
 
     return (
         <Popup
@@ -194,7 +194,10 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
                         )}
                         <div className={styles.preview}>
                             <label className={styles.label}>{'Предварительный просмотр'}</label>
-                            <div className={styles.gradientPreview} style={{ background: gradient }} />
+                            <div
+                                className={styles.gradientPreview}
+                                style={{ background: createGradient(createGradientBackground()) }}
+                            />
                         </div>
                         <div className={styles.controls}>
                             <Button
@@ -281,7 +284,7 @@ const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps
                         type="text"
                         displayType="popup-submit"
                         onClick={() => {
-                            setColor(gradient)
+                            setColor(createGradientBackground())
                             closeAction()
                         }}>
                         {'OK'}

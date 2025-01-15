@@ -1,10 +1,10 @@
-import { COLLECTION_SLIDE_OBJECT_SCALE, COLLECTION_SLIDE_SCALE } from "../../storage/constants"
 import useDragAndDrop from "../../components/SlideObject/hooks/useDragAndDrop"
 import { useAppActions, useAppSelector } from "../../hooks/useRedux"
+import { COLLECTION_SLIDE_OBJECT_SCALE, COLLECTION_SLIDE_SCALE } from "../../storage/constants"
 import { useSelectedSlide } from "../../hooks/useSelectedSlide"
-import { Slide } from "../../components/Slide/Slide"
 import { useEffect, useRef, useState } from "react"
 import style from './SlideCollection.module.css'
+import { SlidePreview } from "../../components/SlidePreview/SlidePreview"
 
 const SlideCollection = () => {
     const selectedSlide = useSelectedSlide()
@@ -148,7 +148,7 @@ const SlideCollection = () => {
                             <h3 className={style.slideCollectionItemTitle}>{index + 1}</h3>
                         }
                         <div className={style.slideCollectionItemDiv}>
-                            <Slide
+                            <SlidePreview
                                 id={slide.id}
                                 isSelected={!!(selectedSlideIds && selectedSlideIds.indexOf(slide.id) != -1)}
                                 className={style.slideCollectionSlide}

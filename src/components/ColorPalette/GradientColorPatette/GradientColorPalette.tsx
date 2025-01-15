@@ -1,4 +1,5 @@
 import GradientEditorPopup from "../../../views/CustomGradientPopup/CustomGradientPopup"
+import { GradientColor } from "../../../storage/types"
 import Plus20Icon from "../../common/Icons/Plus20Icon"
 import { Button } from "../../Button/Button"
 import { useState } from "react"
@@ -6,7 +7,7 @@ import styles from "./GradientColorPalette.module.css"
 
 type GradientColorPaletteProps = {
     color: string,
-    onColorChange: (color: string) => void,
+    onColorChange: (color: GradientColor) => void,
 }
 
 const GradientColorPalette = ({ onColorChange }: GradientColorPaletteProps) => {

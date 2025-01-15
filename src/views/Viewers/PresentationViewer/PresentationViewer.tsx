@@ -11,7 +11,7 @@ const PresentationViewer = () => {
     const presentation = useAppSelector(s => s.editor.presentation)
     const { from } = useParams<{ from: string }>()
     const navigateWithParams = useNavigateWithParams()
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(Number(from))
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(Number(from || 0))
 
     useEffect(() => {
         const enableFullscreen = async () => {

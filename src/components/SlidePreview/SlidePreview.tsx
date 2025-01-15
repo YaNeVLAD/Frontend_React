@@ -1,26 +1,20 @@
 import { selectSlideBackgroundType } from "../../storage/actions/slideActions"
+import { SELECTED_SLIDE_OUTLINE } from "../../storage/constants"
 import { ObjectPreview } from "./ObjectPreview/ObjectPreview"
-import { SLIDE_WIDTH } from "../../storage/constants"
 import { useAppSelector } from "../../hooks/useRedux"
+import { SlideProps } from "../Slide/Slide"
 import { CSSProperties } from "react"
 import style from './SlidePreview.module.css'
 
-type SlidePreviewProps = {
-    id: string,
-    scale: number,
-    objectScale: number
-}
-
-const SlidePreview = (props: SlidePreviewProps) => {
+const SlidePreview = ({ id, className, isSelected, objectScale }: SlideProps) => {
     const slide = useAppSelector(state => state.editor.presentation.slides.find(
-        s => s.id == props.id
+        s => s.id == id
     ))
 
     if (!slide) return (<></>)
 
     const slideStyle: CSSProperties = {
-        width: `${SLIDE_WIDTH * props.scale}px`,
-        height: `${SLIDE_WIDTH * props.scale}px`
+        outline: isSelected ? SELECTED_SLIDE_OUTLINE : ''
     }
 
     selectSlideBackgroundType(slideStyle, slide.background)
@@ -28,7 +22,7 @@ const SlidePreview = (props: SlidePreviewProps) => {
     return (
         <div
             style={slideStyle}
-            className={`${style.slide} ${style.preview}`}
+            className={`${style.slide} ${className || style.preview}`}
         >
             {
                 slide.objects.map(object => (
@@ -36,7 +30,7 @@ const SlidePreview = (props: SlidePreviewProps) => {
                         key={object.id}
                         id={object.id}
                         slideId={slide.id}
-                        scale={props.scale}
+                        scale={objectScale}
                     />
                 ))
             }

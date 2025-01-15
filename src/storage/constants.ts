@@ -4,7 +4,7 @@ export const SELECTED_OBJECT_OUTLINE_SHADOW = '0px 0px 0px 1px #B9D2FB inset, 0p
 
 export const MINIMUM_TEXT_SIZE = 1
 
-export const COLLECTION_SLIDE_SCALE = 1
+export const COLLECTION_SLIDE_SCALE = 0.19
 export const COLLECTION_SLIDE_OBJECT_SCALE = 0.19
 export const SELECTED_SLIDE_SCALE = 1
 

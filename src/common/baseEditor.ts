@@ -7,7 +7,7 @@ function BASE_EDITOR(): EditorType {
     return {
         presentation: presentation,
         selection: {
-            selectedSlideId: presentation.slides[0].id,
+            selectedSlideIds: [presentation.slides[0].id],
             selectedObjectId: undefined
         }
     }

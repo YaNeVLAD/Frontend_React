@@ -5,11 +5,11 @@ import { CSSProperties, useRef } from "react"
 import style from './Slide.module.css'
 import { useAppSelector } from "../../hooks/useRedux"
 
-type SlideProps = {
+export type SlideProps = {
     id: string,
     selectedObjectId?: string,
-    isSelected: boolean,
-    className: string,
+    isSelected?: boolean,
+    className?: string,
     scale: number,
     objectScale: number
 }

@@ -40,9 +40,24 @@ type SolidColor = {
     type: 'solid',
 }
 
+type LinearGradientType = {
+    type: 'linear',
+    start: number
+}
+
+type RadialGradientStart = 'center' | 'top left' | 'top right' | 'bottom left' | 'bottom right'
+
+type RadialGradientType = {
+    type: 'radial',
+    start: RadialGradientStart
+}
+
+type GradientType = LinearGradientType | RadialGradientType
+
 type GradientColor = {
-    value: string,
     type: 'gradient',
+    gradient: GradientType,
+    value: Array<{ color: string, position: number }>,
 }
 
 type ImageSrc = {
@@ -137,4 +152,8 @@ export type {
     FontWeight,
     TextAlignment,
     TextDecoration,
+    GradientType,
+    LinearGradientType,
+    RadialGradientType,
+    RadialGradientStart,
 }

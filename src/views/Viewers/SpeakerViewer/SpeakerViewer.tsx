@@ -1,18 +1,14 @@
 import { createPath, EditorRoute, SpeakerNotesRoute } from "../../../storage/utils/createPath"
-import { SlidePreview } from "../../../components/SlidePreview/SlidePreview"
-import { SLIDE_WIDTH, SLIDE_HEIGHT } from "../../../storage/constants"
+import PresentationViewer from "../PresentationViewer/PresentationViewer"
 import useNavigateWithParams from "../../../hooks/useNavigateToRoute"
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useAppSelector } from "../../../hooks/useRedux"
-import style from "./SpeakerViewer.module.css"
 
 const SpeakerViewer = () => {
     const navigateWithParams = useNavigateWithParams()
     const presentation = useAppSelector(state => state.editor.presentation)
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
-    const [slide, setSlide] = useState(presentation.slides[0])
     const [newWindow, setNewWindow] = useState<Window | null>(null)
-    const [scale, setScale] = useState(1)
     const windowOpened = useRef(false)
 
     useEffect(() => {
@@ -42,7 +38,6 @@ const SpeakerViewer = () => {
         const newIndex = currentSlideIndex + offset
         if (newIndex >= 0 && newIndex < presentation.slides.length) {
             setCurrentSlideIndex(newIndex)
-            setSlide(presentation.slides[newIndex])
 
             if (newWindow) {
                 newWindow.postMessage({
@@ -56,7 +51,6 @@ const SpeakerViewer = () => {
     useEffect(() => {
         const savedIndex = localStorage.getItem('currentSlideIndex')
         if (savedIndex != null) {
-            setSlide(presentation.slides[Number(savedIndex)])
             setCurrentSlideIndex(Number(savedIndex))
         }
 
@@ -69,7 +63,6 @@ const SpeakerViewer = () => {
                 const { slideIndex } = event.data
                 if (slideIndex !== undefined) {
                     setCurrentSlideIndex(slideIndex)
-                    setSlide(presentation.slides[slideIndex])
                 }
             }
         }
@@ -120,12 +113,6 @@ const SpeakerViewer = () => {
 
     useEffect(() => {
         const updateScale = () => {
-            const screenWidth = window.innerWidth
-            const screenHeight = window.innerHeight
-
-            const scaleX = screenWidth / SLIDE_WIDTH
-            const scaleY = screenHeight / SLIDE_HEIGHT
-            setScale(Math.min(scaleX, scaleY))
         }
         updateScale()
         window.addEventListener('resize', updateScale)
@@ -135,15 +122,7 @@ const SpeakerViewer = () => {
     }, [])
 
     return (
-        <div className={style.container}>
-            {slide && (
-                <SlidePreview
-                    id={slide.id}
-                    scale={scale}
-                    objectScale={1}
-                />
-            )}
-        </div>
+        newWindow && <PresentationViewer />
     )
 }
 
