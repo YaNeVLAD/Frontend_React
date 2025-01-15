@@ -1,5 +1,5 @@
 import { deepCopy } from "../utils/deepCopy"
-import { Alignment, FontFamily, FontStyle, FontWeight, SlideType, TextDecoration } from "../types"
+import { FontFamily, FontStyle, FontWeight, SlideType, TextAlignment, TextDecoration } from "../types"
 
 function changeTextValue(
     slide: SlideType,
@@ -65,18 +65,14 @@ function changeFontSize(
 function changeTextAlignment(
     state: SlideType,
     payload: {
-        selectedSlideId: string;
-        selectedObjectId: string;
-        vertical?: Alignment;
-        horizontal?: Alignment
+        selectedSlideId: string,
+        selectedObjectId: string,
+        alignment: TextAlignment,
     }): SlideType {
     const slideCopy = deepCopy(state)
     const object = slideCopy.objects.find(obj => obj.id == payload.selectedObjectId)
     if (!object || object.type != 'textObj') return state
-    object.text.alignment = {
-        horizontal: payload.horizontal || object.text.alignment.horizontal,
-        vertical: payload.vertical || object.text.alignment.vertical,
-    }
+    object.text.alignment = payload.alignment
     return slideCopy
 }
 

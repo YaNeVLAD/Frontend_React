@@ -1,4 +1,3 @@
-import SideDropdownMenu from "../../components/SideDropdownMenu/SideDropdownMenu"
 import { useImportPresentation } from "../../hooks/useImportPresentation"
 import Download24Icon from "../../components/common/Icons/Download24Icon"
 import { useExportPresentation } from "../../hooks/useExportPresentation"
@@ -28,46 +27,36 @@ const MenuBar = () => {
                 closePopover={() => setIsPopoverOpen(false)}
                 content={
                     <>
-                        <SideDropdownMenu
-                            content={
-                                <>
-                                    <Button
-                                        type="text"
-                                        onClick={exportPresentation}
-                                        displayType="dropdown">
-                                        {'Файл JSON (.json)'}
-                                    </Button>
-                                    <Button
-                                        type="text"
-                                        displayType="dropdown"
-                                        onClick={presentationToPdf}>
-                                        {'Документ PDF (.pdf)'}
-                                    </Button>
-                                </>}>
-                            <Button
-                                type="icon&text"
-                                displayType="dropdown">
-                                {Download24Icon}
-                                {'Скачать'}
-                            </Button>
-                        </SideDropdownMenu>
                         <Button
-                            type="icon&text"
-                            onClick={() => inputRef.current?.click()}
+                            type="text"
+                            onClick={exportPresentation}
                             displayType="dropdown">
-                            {Upload24Icon}
-                            {'Импорт слайдов'}
+                            {'Файл JSON (.json)'}
                         </Button>
-                        <input ref={inputRef} type="file" style={{ display: "none" }} accept=".json" />
+                        <Button
+                            type="text"
+                            displayType="dropdown"
+                            onClick={presentationToPdf}>
+                            {'Документ PDF (.pdf)'}
+                        </Button>
                     </>}>
                 <Button
-                    type="text"
-                    displayType="tools-area"
-                    onClick={() => setIsPopoverOpen(true)}>
-                    {'Файл'}
+                    type="icon&text"
+                    displayType="dropdown"
+                    onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+                >
+                    {Download24Icon}
+                    {'Скачать'}
                 </Button>
             </Popover>
-
+            <Button
+                type="icon&text"
+                onClick={() => inputRef.current?.click()}
+                displayType="dropdown">
+                {Upload24Icon}
+                {'Импорт слайдов'}
+            </Button>
+            <input ref={inputRef} type="file" style={{ display: "none" }} accept=".json" />
         </div>
     )
 }

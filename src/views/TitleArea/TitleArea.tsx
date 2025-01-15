@@ -83,7 +83,7 @@ const ViewersPopover = ({ presentation }: ViewersPopoverProps) => {
                 <Button
                     type="icon"
                     displayType="slide-show-popover"
-                    onClick={() => setIsPopoverOpen(true)}>
+                    onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
                     {ArrowDown20Icon}
                 </Button>
             </Popover>

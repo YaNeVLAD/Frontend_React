@@ -1,4 +1,4 @@
-import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, ImageType, FontFamily, Alignment, FontWeight, FontStyle, TextDecoration } from "../../types"
+import { SlidePreset, PositionType, SizeType, BackgroundType, SlideType, PresentationType, SlideTheme, ImageType, FontFamily, FontWeight, FontStyle, TextDecoration, TextAlignment } from "../../types"
 import { loadImage } from "../middleware/loadImage"
 import { RootState } from "../reducers/rootReducer"
 import { Action } from "./actions"
@@ -156,14 +156,12 @@ const changeTextStyle = (
 const changeTextAlignment = (
     selectedSlideId: string,
     selectedObjectId: string,
-    vertical?: Alignment,
-    horizontal?: Alignment): Action => ({
+    alignment: TextAlignment): Action => ({
         type: 'CHANGE_TEXT_ALIGNMENT',
         payload: {
             selectedSlideId: selectedSlideId,
             selectedObjectId: selectedObjectId,
-            vertical: vertical,
-            horizontal: horizontal,
+            alignment: alignment
         }
     })
 

@@ -1,3 +1,4 @@
 .menuBar {
     margin-left: 40px;
+    display: flex;
 }

@@ -1,4 +1,4 @@
-import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, ImageType, FontFamily, Alignment, FontWeight, FontStyle, TextDecoration } from "../../types"
+import { SizeType, BackgroundType, PositionType, SlidePreset, SlideType, PresentationType, SlideTheme, ImageType, FontFamily, FontWeight, FontStyle, TextDecoration, TextAlignment } from "../../types"
 import { RootState } from "../reducers/rootReducer"
 
 type AddSlideAction = {
@@ -176,8 +176,7 @@ type ChangeTextAlignmentAction = {
     payload: {
         selectedSlideId: string,
         selectedObjectId: string,
-        vertical?: Alignment,
-        horizontal?: Alignment,
+        alignment: TextAlignment
     }
 }
 
