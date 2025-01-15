@@ -9,7 +9,7 @@ function loadPresentation(file: File | undefined): Promise<PresentationType | nu
                 try {
                     const json = e.target?.result as string
                     const presentation = parsePresentationFromJson(json)
-                    resolve(presentation == null ? null : presentation)
+                    resolve(presentation)
                 } catch (error) {
                     reject(error)
                 }

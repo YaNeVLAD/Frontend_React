@@ -13,7 +13,6 @@ const useAppKeyBinding = (history: CommandHistory) => {
         deleteSlide,
         deleteObject,
         selectSlide,
-        changeObjectBounds,
         deselectObjects
     } = useAppActions()
 
@@ -24,18 +23,6 @@ const useAppKeyBinding = (history: CommandHistory) => {
         if (newIndex >= 0 && newIndex < presentation.slides.length) {
             selectSlide(presentation.slides[newIndex].id)
         }
-    }
-
-    const moveObject = (offsetX: number, offsetY: number) => {
-        if (selectedSlide && selectedObject)
-            changeObjectBounds(
-                selectedSlide.id,
-                selectedObject.id,
-                {
-                    x: selectedObject.pos.x + offsetX,
-                    y: selectedObject.pos.y + offsetY
-                }
-            )
     }
 
     useEffect(() => {
@@ -63,32 +50,12 @@ const useAppKeyBinding = (history: CommandHistory) => {
                     break
 
                 case 'ArrowDown':
-                    e.preventDefault()
-                    if (selectedObject)
-                        moveObject(0, 1)
-                    else
-                        changeSlide(currentSlideIndex + 1)
-                    break
                 case 'ArrowRight':
-                    e.preventDefault()
-                    if (!selectedObject)
-                        changeSlide(currentSlideIndex + 1)
-                    else
-                        moveObject(1, 0)
+                    changeSlide(currentSlideIndex + 1)
                     break
                 case 'ArrowUp':
-                    e.preventDefault()
-                    if (selectedObject)
-                        moveObject(0, -1)
-                    else
-                        changeSlide(currentSlideIndex - 1)
-                    break
                 case 'ArrowLeft':
-                    e.preventDefault()
-                    if (!selectedObject)
-                        changeSlide(currentSlideIndex - 1)
-                    else
-                        moveObject(-1, 0)
+                    changeSlide(currentSlideIndex - 1)
                     break
 
                 case 'Escape':
