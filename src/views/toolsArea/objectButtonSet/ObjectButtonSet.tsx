@@ -113,7 +113,7 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
 
     const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newSize = parseInt(e.target.value, 10)
-        if (!isNaN(newSize) && newSize > 0) {
+        if (!isNaN(newSize) && newSize >= 0) {
             setFontSize(newSize)
             changeFontSize(selectedSlide.id, object.id, newSize)
         }

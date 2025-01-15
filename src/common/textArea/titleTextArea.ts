@@ -7,7 +7,7 @@ function TITLE_TEXT_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: {
-            x: 15,
+            x: 6,
             y: 50,
         },
         size: {

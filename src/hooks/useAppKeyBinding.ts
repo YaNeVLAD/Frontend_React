@@ -55,25 +55,28 @@ const useAppKeyBinding = (history: CommandHistory) => {
                     break
 
                 case 'ArrowDown':
+                    e.preventDefault()
                     if (selectedObject)
                         moveObject(0, 1)
                     else
                         changeSlide(currentSlideIndex + 1)
                     break
                 case 'ArrowRight':
+                    e.preventDefault()
                     if (!selectedObject)
                         changeSlide(currentSlideIndex + 1)
                     else
                         moveObject(1, 0)
                     break
-
                 case 'ArrowUp':
+                    e.preventDefault()
                     if (selectedObject)
                         moveObject(0, -1)
                     else
                         changeSlide(currentSlideIndex - 1)
                     break
                 case 'ArrowLeft':
+                    e.preventDefault()
                     if (!selectedObject)
                         changeSlide(currentSlideIndex - 1)
                     else

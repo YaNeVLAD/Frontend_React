@@ -23,4 +23,32 @@
     text-decoration: none;
     list-style: none;
     display: inline-block;
-  }
+}
+
+.fontSizeInput {
+    width: 80px;
+    padding-inline: 4px;
+    padding-block: 6px;
+    font-size: 16px;
+    text-align: center;
+    border: 0;
+    color: #000000B3;
+    font-family: "Roboto", sans-serif;
+    background-color: transparent;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.fontSizeInput:hover {
+    background-color: #DFE5EB;
+}
+
+.fontSizeInput::selection {
+    background-color: #D3E3FD;
+    color: #1f1f1f;
+}
+
+.fontSizeInput:focus {
+    outline: 2px solid #0B57D0;
+    color: #1f1f1f;
+}

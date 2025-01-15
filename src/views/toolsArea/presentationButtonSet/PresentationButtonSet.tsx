@@ -1,4 +1,3 @@
-import EmptySlide from "../../../components/common/SlidePreview/EmptySlide"
 import { useAppActions, useAppSelector } from "../../../hooks/useRedux"
 import Plus20Icon from "../../../components/common/Icons/Plus20Icon"
 import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
@@ -26,10 +25,27 @@ const PresentationButtonSet = () => {
 
     const popoverContent = (
         <>
-            <div onClick={() => addSlideWithPreset('title')}>Слайд с заголовком</div>
-            <div onClick={() => addSlideWithPreset('image')}>Слайд с картинкой</div>
-            <div onClick={() => addSlideWithPreset('none')}><EmptySlide /></div>
-            <div onClick={() => addSlideWithPreset('title&text')}>Слайд с текстом</div>
+            <Button
+                type="text"
+                displayType="dropdown"
+                onClick={() => addSlideWithPreset('title')}
+            >
+                {'Слайд с заголовком'}
+            </Button>
+            <Button
+                type="text"
+                displayType="dropdown"
+                onClick={() => addSlideWithPreset('title&text')}
+            >
+                {'Слайд с текстом'}
+            </Button>
+            <Button
+                type="text"
+                displayType="dropdown"
+                onClick={() => addSlideWithPreset('none')}
+            >
+                {'Пустой'}
+            </Button>
         </>
     )
 

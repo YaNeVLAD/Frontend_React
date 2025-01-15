@@ -35,12 +35,50 @@ const solidColorSchema: JSONSchemaType<SolidColor> = {
 }
 
 const gradientColorSchema: JSONSchemaType<GradientColor> = {
-    type: objectAjv,
+    type: 'object',
     properties: {
-        type: { type: stringAjv, const: 'gradient' },
-        value: { type: stringAjv },
+        type: { type: 'string', const: 'gradient' },
+        gradient: {
+            type: 'object',
+            oneOf: [
+                {
+                    type: 'object',
+                    properties: {
+                        type: { type: 'string', const: 'linear' },
+                        start: { type: 'number' },
+                    },
+                    required: ['type', 'start'],
+                    additionalProperties: false,
+                },
+                {
+                    type: 'object',
+                    properties: {
+                        type: { type: 'string', const: 'radial' },
+                        start: {
+                            type: 'string',
+                            enum: ['center', 'top left', 'top right', 'bottom left', 'bottom right'],
+                        },
+                    },
+                    required: ['type', 'start'],
+                    additionalProperties: false,
+                },
+            ],
+        },
+        value: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    color: { type: 'string' },
+                    position: { type: 'number' },
+                },
+                required: ['color', 'position'],
+                additionalProperties: false,
+            },
+            minItems: 1,
+        },
     },
-    required: ['type', 'value'],
+    required: ['type', 'gradient', 'value'],
     additionalProperties: false,
 }
 

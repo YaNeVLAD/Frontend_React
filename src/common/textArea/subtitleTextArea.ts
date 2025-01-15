@@ -7,7 +7,7 @@ function SUBTITLE_TEXT_AREA(): TextAreaType {
         id: uuid(),
         type: 'textObj',
         pos: {
-            x: 15,
+            x: 6,
             y: 255,
         },
         size: {
@@ -18,7 +18,7 @@ function SUBTITLE_TEXT_AREA(): TextAreaType {
         placeholder: SUBTITLE_AREA_PLACEHOLDER,
         text: {
             value: '',
-            alignment: { horizontal: 'center', vertical: 'center' },
+            alignment: { horizontal: 'center', vertical: 'start' },
             decoration: 'none',
             font: {
                 size: 28,
