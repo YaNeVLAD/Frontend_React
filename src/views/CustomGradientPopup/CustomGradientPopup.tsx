@@ -1,6 +1,6 @@
 import SolidColorPalette from "../../components/ColorPalette/SolidColorPalette/SolidColorPalette"
+import { GradientColor, GradientType, RadialGradientStart } from "../../storage/types"
 import useDragAndDrop from "../../components/SlideObject/hooks/useDragAndDrop"
-import { GradientColor, RadialGradientStart } from "../../storage/types"
 import createGradient from "../../storage/utils/createGradient"
 import SelectList from "../../components/SelectList/SelectList"
 import { Button } from "../../components/Button/Button"
@@ -17,7 +17,7 @@ type GradientEditorPopupProps = {
 }
 
 const GradientEditorPopup = ({ setColor, closeAction }: GradientEditorPopupProps) => {
-    const gradientTypes = useMemo(() => new Map<string, string>([
+    const gradientTypes = useMemo(() => new Map<string, GradientType['type']>([
         ['Линейный', 'linear'], ['Радиальный', 'radial']]
     ), [])
     const radialPoints = useMemo(
