@@ -1,6 +1,7 @@
 export const SELECTED_SLIDE_OUTLINE = 'solid 3px #0B57D0'
 export const SELECTED_OBJECT_OUTLINE = 'solid 2px #0B57D0'
 export const SELECTED_OBJECT_OUTLINE_SHADOW = '0px 0px 0px 1px #B9D2FB inset, 0px -2px 0px 1px #B9D2FB'
+export const TEXT_AREA_OUTLINE = 'solid 2px #303030'
 
 export const MINIMUM_TEXT_SIZE = 1
 

@@ -1,13 +1,34 @@
-import { CommandHistory } from "../storage/history"
-import { useAppActions } from "./useRedux"
-import { useEffect } from "react"
-import { useSelectedSlide } from "./useSelectedSlide"
+import { useAppActions, useAppSelector } from "./useRedux"
 import { useSelectedObject } from "./useSelectedObject"
+import { useSelectedSlide } from "./useSelectedSlide"
+import { CommandHistory } from "../storage/history"
+import { useEffect } from "react"
 
 const useAppKeyBinding = (history: CommandHistory) => {
     const selectedSlide = useSelectedSlide()
     const selectedObject = useSelectedObject()
-    const { setState, deleteSlide, deleteObject } = useAppActions()
+    const presentation = useAppSelector(s => s.editor.presentation)
+    const { setState, deleteSlide, deleteObject, selectSlide, changeObjectBounds } = useAppActions()
+    const currentSlideIndex =
+        presentation.slides.findIndex(s => s.id == selectedSlide?.id)
+
+    const changeSlide = (newIndex: number) => {
+        if (newIndex >= 0 && newIndex < presentation.slides.length) {
+            selectSlide(presentation.slides[newIndex].id)
+        }
+    }
+
+    const moveObject = (offsetX: number, offsetY: number) => {
+        if (selectedSlide && selectedObject)
+            changeObjectBounds(
+                selectedSlide.id,
+                selectedObject.id,
+                {
+                    x: selectedObject.pos.x + offsetX,
+                    y: selectedObject.pos.y + offsetY
+                }
+            )
+    }
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -32,6 +53,33 @@ const useAppKeyBinding = (history: CommandHistory) => {
                         deleteObject(selectedSlide.id, selectedObject.id)
                     }
                     break
+
+                case 'ArrowDown':
+                    if (selectedObject)
+                        moveObject(0, 1)
+                    else
+                        changeSlide(currentSlideIndex + 1)
+                    break
+                case 'ArrowRight':
+                    if (!selectedObject)
+                        changeSlide(currentSlideIndex + 1)
+                    else
+                        moveObject(1, 0)
+                    break
+
+                case 'ArrowUp':
+                    if (selectedObject)
+                        moveObject(0, -1)
+                    else
+                        changeSlide(currentSlideIndex - 1)
+                    break
+                case 'ArrowLeft':
+                    if (!selectedObject)
+                        changeSlide(currentSlideIndex - 1)
+                    else
+                        moveObject(-1, 0)
+                    break
+
                 default:
                     break
             }

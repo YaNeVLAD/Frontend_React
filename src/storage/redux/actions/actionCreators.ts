@@ -31,7 +31,7 @@ const changeObjectBounds = (
     selectedSlideId: string,
     selectedObjectId: string,
     position: PositionType,
-    size: SizeType | undefined): Action => ({
+    size?: SizeType): Action => ({
         type: 'CHANGE_OBJECT_BOUNDS',
         payload: { selectedSlideId, selectedObjectId, position, size }
     })

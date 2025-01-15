@@ -4,6 +4,8 @@ import style from './TextArea.module.css'
 import useHandleClickOutside from '../../../hooks/useHandleClickOutside'
 import { useAppActions } from '../../../hooks/useRedux'
 import mapFont from '../../../storage/utils/mapFont'
+import { TEXT_AREA_OUTLINE } from '../../../storage/constants'
+import { useSelectedObject } from '../../../hooks/useSelectedObject'
 
 type TextAreaProps = {
     context: TextAreaType,
@@ -19,6 +21,8 @@ const TextArea = ({ context, scale, slideId, canBeEditable }: TextAreaProps) => 
     const { changeTextValue } = useAppActions()
 
     useHandleClickOutside(textAreaRef, () => setIsEditable(false))
+
+    const isSelected = useSelectedObject()?.id == context.id
 
     const textAreaStyle: CSSProperties = {
         ...mapFont(context.text.font, scale),
@@ -49,7 +53,16 @@ const TextArea = ({ context, scale, slideId, canBeEditable }: TextAreaProps) => 
     }
 
     return (
-        <div className={style.textAreaWrapper} onMouseDown={handleMouseDown}>
+        <div
+            style={{
+                outline: ((canBeEditable && !context.text.value && !isSelected)
+                    ? TEXT_AREA_OUTLINE
+                    : ''
+                )
+            }}
+            className={style.textAreaWrapper}
+            onMouseDown={handleMouseDown}
+        >
             <textarea
                 ref={textAreaRef}
                 style={textAreaStyle}
