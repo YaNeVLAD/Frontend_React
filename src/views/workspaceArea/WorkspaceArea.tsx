@@ -6,6 +6,7 @@ import { Slide } from "../../components/Slide/Slide"
 import style from "./WorkspaceArea.module.css"
 import useImportImage from "../../components/ImageInput/hooks/useImportImage"
 import { useAppActions } from "../../hooks/useRedux"
+import { useEffect } from "react"
 
 const WorkspaceArea = () => {
     const selectedSlide = useSelectedSlide()
@@ -14,6 +15,32 @@ const WorkspaceArea = () => {
 
     const onImageDrop = (src: string) => loadImage(selectedSlide?.id || '', src)
     const { fileInputRef, handleFileChange } = useImportImage(onImageDrop)
+
+    useEffect(() => {
+        const handlePaste = (e: ClipboardEvent) => {
+            if (!selectedSlide) return
+
+            const clipboardItems = e.clipboardData?.items
+            if (!clipboardItems) return
+
+            for (const item of clipboardItems) {
+                if (item.type.startsWith('image/')) {
+                    const file = item.getAsFile()
+                    if (file) {
+                        const reader = new FileReader()
+                        reader.onload = () => {
+                            const src = reader.result as string
+                            loadImage(selectedSlide.id, src)
+                        }
+                        reader.readAsDataURL(file)
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('paste', handlePaste)
+        return () => window.removeEventListener('paste', handlePaste)
+    }, [loadImage, selectedSlide])
 
     if (selectedSlide == undefined) return (<></>)
 

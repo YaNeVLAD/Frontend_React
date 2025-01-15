@@ -122,7 +122,7 @@ const SpeakerViewer = () => {
     }, [])
 
     return (
-        newWindow && <PresentationViewer />
+        newWindow && <PresentationViewer index={currentSlideIndex} />
     )
 }
 

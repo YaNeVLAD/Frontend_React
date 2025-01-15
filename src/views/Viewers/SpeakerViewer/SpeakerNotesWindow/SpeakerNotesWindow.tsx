@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from "react"
-import style from "./SpeakerNotesWindow.module.css"
 import { useAppSelector } from "../../../../hooks/useRedux"
+import { useState, useEffect, useCallback, useMemo } from "react"
+import style from "./SpeakerNotesWindow.module.css"
+import { SlidePreview } from "../../../../components/SlidePreview/SlidePreview"
 
 const SpeakerNotesWindow = () => {
-    const [index, setIndex] = useState<number>(0)
     const slides = useAppSelector(s => s.editor.presentation.slides)
     const notes = slides.map(s => s.note)
     const maxSlides = slides.length
+    const [index, setIndex] = useState<number>(0)
 
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -72,15 +73,34 @@ const SpeakerNotesWindow = () => {
         }
     }, [onNextSlide, onPrevSlide])
 
+    const slideRatio = useMemo(() => 150 / 913, [])
+
     return (
         <div className={style.speakerWindow}>
             <h1>Заметки докладчика</h1>
+            <div className={style.controls}>
+                <div onClick={onPrevSlide}>
+                    {index - 1 >= 0 &&
+                        <SlidePreview
+                            id={slides[index - 1].id}
+                            scale={slideRatio}
+                            objectScale={slideRatio}
+                            className={style.slide}
+                        />}
+                </div>
+                <div onClick={onNextSlide}>
+                    {index + 1 < slides.length &&
+                        <SlidePreview
+                            id={slides[index + 1].id}
+                            scale={slideRatio}
+                            objectScale={slideRatio}
+                            className={style.slide}
+                        />
+                    }
+                </div>
+            </div>
             <div className={style.notes}>
                 <p>{notes[index]}</p>
-            </div>
-            <div className={style.controls}>
-                <button onClick={onPrevSlide}>Предыдущий слайд</button>
-                <button onClick={onNextSlide}>Следующий слайд</button>
             </div>
         </div>
     )

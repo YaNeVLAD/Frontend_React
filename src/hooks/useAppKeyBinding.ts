@@ -16,7 +16,7 @@ const useAppKeyBinding = (history: CommandHistory) => {
         changeObjectBounds,
         deselectObjects
     } = useAppActions()
-    
+
     const currentSlideIndex =
         presentation.slides.findIndex(s => s.id == selectedSlide?.id)
 

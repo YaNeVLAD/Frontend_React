@@ -1,0 +1,18 @@
+* {
+    user-select: none;
+}
+
+.slide {
+    aspect-ratio: 16 / 9;
+    width: 150px;
+}
+
+.controls {
+    display: flex;
+    width: 310px;
+    justify-content: space-between;
+}
+
+.notes {
+    margin-top: 10px;
+}

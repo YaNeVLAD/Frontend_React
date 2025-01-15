@@ -97,7 +97,7 @@ async function SlideBackgroundToPDF(background: BackgroundType, doc: PDFDocument
 
                     gradient = ctx.createRadialGradient(x, y, 0, x, y, Math.max(canvas.width, canvas.height))
                 } else {
-                    const angleRad = (background.gradient.start * Math.PI) / 180
+                    const angleRad = ((background.gradient.start - 180) * Math.PI) / 180
                     const x1 = 0.5 * (1 + Math.cos(angleRad)) * canvas.width
                     const y1 = 0.5 * (1 + Math.sin(angleRad)) * canvas.height
                     const x2 = canvas.width - x1

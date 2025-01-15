@@ -6,7 +6,7 @@ import { useAppSelector } from "../../../hooks/useRedux"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 
-const PresentationViewer = () => {
+const PresentationViewer = ({ index }: { index?: number }) => {
     const presentation = useAppSelector(s => s.editor.presentation)
     const { from } = useParams<{ from: string }>()
     const navigateWithParams = useNavigateWithParams()
@@ -73,7 +73,7 @@ const PresentationViewer = () => {
 
     return (
         <SlidePreview
-            id={presentation.slides[currentSlideIndex].id}
+            id={presentation.slides[index || currentSlideIndex].id}
             scale={finalScale}
             objectScale={finalScale}
         />
