@@ -55,7 +55,12 @@ const SolidColorPalette = ({ color, onChange, onColorSelect }: SolidColorPalette
                     ))}
                 </div>
             ))}
-            <input type="color" value={color} onChange={onChange} />
+            <input
+                type="color"
+                value={color}
+                className={styles.colorInput}
+                onChange={onChange}
+            />
         </div>
     )
 }

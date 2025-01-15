@@ -12,7 +12,7 @@ function BASE_TEXT_AREA(): TextAreaType {
         placeholder: BASE_TEXT_AREA_PLACEHOLDER,
         text: {
             value: '',
-            alignment: { horizontal: 'end', vertical: 'end' },
+            alignment: { horizontal: 'start', vertical: 'start' },
             decoration: 'none',
             font: {
                 size: 30,

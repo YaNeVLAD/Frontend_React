@@ -52,3 +52,15 @@
     outline: 2px solid #0B57D0;
     color: #1f1f1f;
 }
+
+.selected {
+    background-color: #D3E3FD;
+}
+
+.selected:hover {
+    background-color: #D3E3FD;
+}
+
+.underlineButton {
+    padding-top: 5px;
+}

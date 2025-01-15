@@ -42,7 +42,8 @@ type BaseButtonProps = {
     onClick?: () => void,
     popoverContent?: JSX.Element,
     displayType: ButtonDisplayTypes,
-    isDisabled?: boolean
+    isDisabled?: boolean,
+    className?: string
 }
 
 type ButtonProps = BaseButtonProps & VariableButtons
@@ -58,7 +59,7 @@ const displayClassMap: Record<ButtonDisplayTypes, string> = {
     'popup-submit': style.closeButton,
 }
 
-const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: ButtonProps) => {
+const Button = ({ onClick, popoverContent, children, displayType, isDisabled, className }: ButtonProps) => {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
     const closePopover = () => setIsPopoverOpen(false)
@@ -76,7 +77,7 @@ const Button = ({ onClick, popoverContent, children, displayType, isDisabled }: 
             <button
                 disabled={isDisabled}
                 onClick={onButtonClick}
-                className={`${selectedClass} ${popoverContent ? style.popoverButton : ''}`}>
+                className={`${selectedClass} ${popoverContent ? style.popoverButton : ''} ${className}`}>
                 {children}
             </button>
             {popoverContent

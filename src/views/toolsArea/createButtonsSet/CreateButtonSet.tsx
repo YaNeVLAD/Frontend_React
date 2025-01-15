@@ -6,6 +6,7 @@ import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import { Button } from "../../../components/Button/Button"
 import { useAppActions } from "../../../hooks/useRedux"
 import { useState } from "react"
+import styles from "./CreateButtonSet.module.css"
 
 const CreateButtonSet = () => {
     const selectedSlide = useSelectedSlide()
@@ -17,16 +18,17 @@ const CreateButtonSet = () => {
 
     const onAddTextArea = () => addObject(selectedSlide?.id, 'textObj', 'Введите текст')
 
-    const onImageLoad = (src: string) => {
+    const onImageLoad = (src: string) =>
         loadImage(selectedSlide.id, src)
-    }
 
     return (
         <>
             <Button
                 type="icon"
                 displayType="tools-area"
-                onClick={() => deselectObjects()}>
+                onClick={() => deselectObjects()}
+                className={styles.selected}
+            >
                 {Cursor20Icon}
             </Button>
 

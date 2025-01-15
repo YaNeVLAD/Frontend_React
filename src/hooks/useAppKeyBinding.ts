@@ -8,7 +8,15 @@ const useAppKeyBinding = (history: CommandHistory) => {
     const selectedSlide = useSelectedSlide()
     const selectedObject = useSelectedObject()
     const presentation = useAppSelector(s => s.editor.presentation)
-    const { setState, deleteSlide, deleteObject, selectSlide, changeObjectBounds } = useAppActions()
+    const {
+        setState,
+        deleteSlide,
+        deleteObject,
+        selectSlide,
+        changeObjectBounds,
+        deselectObjects
+    } = useAppActions()
+    
     const currentSlideIndex =
         presentation.slides.findIndex(s => s.id == selectedSlide?.id)
 
@@ -81,6 +89,11 @@ const useAppKeyBinding = (history: CommandHistory) => {
                         changeSlide(currentSlideIndex - 1)
                     else
                         moveObject(-1, 0)
+                    break
+
+                case 'Escape':
+                    e.preventDefault()
+                    deselectObjects()
                     break
 
                 default:

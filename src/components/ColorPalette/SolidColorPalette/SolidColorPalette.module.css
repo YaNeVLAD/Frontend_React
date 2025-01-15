@@ -10,3 +10,21 @@
     gap: 1px;
     margin-top: 1px;
 }
+
+.colorInput {
+    margin-top: 1px;
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+.colorInput::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+}
+
+.colorInput::-webkit-color-swatch {
+    border: none;
+    border-radius: 100%;
+}

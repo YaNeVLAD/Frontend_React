@@ -1,19 +1,19 @@
+import SolidColorPalette from "../../../components/ColorPalette/SolidColorPalette/SolidColorPalette"
+import TextColorFormat20Icon from "../../../components/common/Icons/TextColorFormat20Icon"
+import UnderlineFormat20Icon from "../../../components/common/Icons/UnderlineFormat20Icon"
+import { FontFamily, FontStyle, FontWeight, TextAreaType } from "../../../storage/types"
+import ItalicFormat20Icon from "../../../components/common/Icons/ItalicFormat20Icon"
 import RecycleBin20Icon from "../../../components/common/Icons/RecycleBin20Icon"
+import BoldFormat20Icon from "../../../components/common/Icons/BoldFormat20Icon"
 import { useSelectedObject } from "../../../hooks/useSelectedObject"
 import SelectList from "../../../components/SelectList/SelectList"
 import { useSelectedSlide } from "../../../hooks/useSelectedSlide"
 import ImageInput from "../../../components/ImageInput/ImageInput"
-import { FontFamily, FontStyle, FontWeight, TextAreaType } from "../../../storage/types"
 import { Button } from "../../../components/Button/Button"
+import Popover from "../../../components/Popover/Popover"
 import { useAppActions } from "../../../hooks/useRedux"
 import { useEffect, useState } from "react"
 import styles from "./ObjectButtonSet.module.css"
-import BoldFormat20Icon from "../../../components/common/Icons/BoldFormat20Icon"
-import ItalicFormat20Icon from "../../../components/common/Icons/ItalicFormat20Icon"
-import UnderlineFormat20Icon from "../../../components/common/Icons/UnderlineFormat20Icon"
-import TextColorFormat20Icon from "../../../components/common/Icons/TextColorFormat20Icon"
-import SolidColorPalette from "../../../components/ColorPalette/SolidColorPalette/SolidColorPalette"
-import Popover from "../../../components/Popover/Popover"
 
 const ObjectButtonSet = () => {
     const slide = useSelectedSlide()
@@ -141,6 +141,7 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
                 type="icon"
                 displayType="tools-area"
                 onClick={toggleBold}
+                className={isBold ? styles.selected : ''}
             >
                 {BoldFormat20Icon}
             </Button>
@@ -148,6 +149,7 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
                 type="icon"
                 displayType="tools-area"
                 onClick={toggleItalic}
+                className={isItalic ? styles.selected : ''}
             >
                 {ItalicFormat20Icon}
             </Button>
@@ -155,6 +157,7 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
                 type="icon"
                 displayType="tools-area"
                 onClick={toggleUnderline}
+                className={`${styles.underlineButton} ${isUnderlined ? styles.selected : ''}`}
             >
                 {UnderlineFormat20Icon}
             </Button>
