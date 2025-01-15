@@ -1,9 +1,13 @@
 import { CommandHistory } from "../storage/history"
 import { useAppActions } from "./useRedux"
 import { useEffect } from "react"
+import { useSelectedSlide } from "./useSelectedSlide"
+import { useSelectedObject } from "./useSelectedObject"
 
 const useAppKeyBinding = (history: CommandHistory) => {
-    const { setState } = useAppActions()
+    const selectedSlide = useSelectedSlide()
+    const selectedObject = useSelectedObject()
+    const { setState, deleteSlide, deleteObject } = useAppActions()
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -18,6 +22,14 @@ const useAppKeyBinding = (history: CommandHistory) => {
                     if (e.ctrlKey) {
                         const newState = history.redo()
                         if (newState) setState(newState)
+                    }
+                    break
+                case "Delete":
+                    if (selectedSlide && !selectedObject) {
+                        deleteSlide()
+                    }
+                    if (selectedSlide && selectedObject) {
+                        deleteObject(selectedSlide.id, selectedObject.id)
                     }
                     break
                 default:

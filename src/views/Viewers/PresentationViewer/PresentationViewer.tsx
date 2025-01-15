@@ -5,7 +5,6 @@ import { EditorRoute } from "../../../storage/utils/createPath"
 import { useAppSelector } from "../../../hooks/useRedux"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import styles from "./PresentationViewer.module.css"
 
 const PresentationViewer = () => {
     const presentation = useAppSelector(s => s.editor.presentation)
@@ -73,13 +72,11 @@ const PresentationViewer = () => {
     const finalScale = Math.max(scaleX, scaleY)
 
     return (
-        <div className={styles.layout}>
-            <SlidePreview
-                id={presentation.slides[currentSlideIndex].id}
-                scale={finalScale}
-                objectScale={1}
-            />
-        </div>
+        <SlidePreview
+            id={presentation.slides[currentSlideIndex].id}
+            scale={finalScale}
+            objectScale={finalScale}
+        />
     )
 }
 

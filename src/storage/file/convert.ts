@@ -72,14 +72,7 @@ async function SlideBackgroundToPDF(background: BackgroundType, doc: PDFDocument
 
             if (ctx) {
                 let gradient: CanvasGradient
-                if (background.gradient.type === 'linear') {
-                    const angleRad = (background.gradient.start * Math.PI) / 180
-                    const x1 = 0.5 * (1 + Math.cos(angleRad)) * canvas.width
-                    const y1 = 0.5 * (1 + Math.sin(angleRad)) * canvas.height
-                    const x2 = canvas.width - x1
-                    const y2 = canvas.height - y1
-                    gradient = ctx.createLinearGradient(x1, y1, x2, y2)
-                } else if (background.gradient.type === 'radial') {
+                if (background.gradient.type === 'radial') {
                     let x = canvas.width / 2
                     let y = canvas.height / 2
 
@@ -103,6 +96,13 @@ async function SlideBackgroundToPDF(background: BackgroundType, doc: PDFDocument
                     }
 
                     gradient = ctx.createRadialGradient(x, y, 0, x, y, Math.max(canvas.width, canvas.height))
+                } else {
+                    const angleRad = (background.gradient.start * Math.PI) / 180
+                    const x1 = 0.5 * (1 + Math.cos(angleRad)) * canvas.width
+                    const y1 = 0.5 * (1 + Math.sin(angleRad)) * canvas.height
+                    const x2 = canvas.width - x1
+                    const y2 = canvas.height - y1
+                    gradient = ctx.createLinearGradient(x1, y1, x2, y2)
                 }
 
                 background.value.forEach((colorStop) => {
@@ -222,7 +222,7 @@ function hexToRgb(hex: string): Color {
 const generateFontFileName = (font: Font): string => {
     const weight = font.weight == 'Bold' ? 'Bold' : 'Regular'
     const style = font.style == 'Italic' ? '-Italic' : ''
-    return `${font.family}-${weight}${style}.ttf`
+    return `${font.family.replace(' ', '')}-${weight}${style}.ttf`
 }
 
 export {

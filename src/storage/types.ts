@@ -92,7 +92,7 @@ type Alignment = 'center' | 'start' | 'end'
 
 type FontWeight = 'Normal' | 'Bold'
 type FontStyle = 'Normal' | 'Italic'
-type FontFamily = 'Roboto' | 'Montserrat'
+type FontFamily = 'Roboto' | 'Montserrat' | 'Inter' | 'Open Sans'
 type TextDecoration = 'none' | 'underline'
 
 type Font = {

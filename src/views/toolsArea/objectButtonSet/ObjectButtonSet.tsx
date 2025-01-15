@@ -91,7 +91,7 @@ const TextObjectButtonSet = ({ object }: { object: TextAreaType }) => {
     const selectedSlide = useSelectedSlide()
     if (!selectedSlide) return null
 
-    const fontFamilies: Array<FontFamily> = ['Roboto', 'Montserrat']
+    const fontFamilies: Array<FontFamily> = ['Roboto', 'Montserrat', 'Inter', 'Open Sans']
 
     const toggleBold = () => {
         const newWeight: FontWeight = isBold ? 'Normal' : 'Bold'
